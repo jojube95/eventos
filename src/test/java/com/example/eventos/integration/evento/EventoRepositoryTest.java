@@ -1,0 +1,58 @@
+package com.example.eventos.integration.evento;
+
+import com.example.eventos.evento.Evento;
+import com.example.eventos.evento.EventoRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@DataMongoTest
+public class EventoRepositoryTest {
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private EventoRepository eventoRepository;
+
+    @BeforeEach
+    public void setUp(){
+        Evento evento1 = new Evento("Boda", "Cena", 150);
+        Evento evento2 = new Evento("Comunión", "Cena", 100);
+        mongoTemplate.insert(evento1);
+        mongoTemplate.insert(evento2);
+    }
+
+    @Test
+    public void findEventoByTipoTest(){
+        Evento eventoExpected = new Evento("Boda", "Cena", 150);
+        List<Evento> eventosExpected = new ArrayList<>();
+        eventosExpected.add(eventoExpected);
+
+        assertEquals(eventosExpected, eventoRepository.findEventoByTipo("Boda"));
+    }
+
+    @Test
+    public void findAllTest(){
+        Evento eventoExpected1 = new Evento("Boda", "Cena", 150);
+        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100);
+        List<Evento> eventosExpected = new ArrayList<>();
+        eventosExpected.add(eventoExpected1);
+        eventosExpected.add(eventoExpected2);
+
+        assertEquals(eventosExpected, eventoRepository.findAll());
+    }
+
+    @AfterEach
+    public void cleanUpDatabase(){
+        mongoTemplate.getDb().drop();
+    }
+}

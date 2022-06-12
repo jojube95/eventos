@@ -1,7 +1,6 @@
 package com.example.eventos.home;
 
 import com.example.eventos.evento.Evento;
-import com.example.eventos.evento.EventoRepository;
 import com.example.eventos.evento.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
