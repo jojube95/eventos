@@ -18,7 +18,7 @@ public class WebConnector {
     
     @Before
     public void initSelenium() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "src/it/resources/drivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/chromedriver.exe");
         driver = new ChromeDriver();
     }
 

@@ -1,4 +1,4 @@
-package com.example.eventos.integration.evento;
+package com.example.eventos;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoRepository;
@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class EventoRepositoryTest {
+public class EventoRepositoryIT {
 
     @Autowired
     private MongoTemplate mongoTemplate;

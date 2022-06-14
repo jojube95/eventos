@@ -1,6 +1,5 @@
-package com.example.eventos.unit.evento;
+package com.example.eventos.evento;
 
-import com.example.eventos.evento.Evento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

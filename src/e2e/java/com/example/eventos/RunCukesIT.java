@@ -5,6 +5,6 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"src/it/resources/com.example.eventos"})
+@CucumberOptions(features = {"src/e2e/resources/com.example.eventos"})
 public class RunCukesIT {
 }

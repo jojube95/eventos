@@ -1,8 +1,7 @@
-package com.example.eventos.unit.home;
+package com.example.eventos.home;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.home.HomeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

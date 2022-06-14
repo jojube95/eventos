@@ -1,7 +1,6 @@
 package com.example.eventos;
 
 import com.example.eventos.connectors.WebConnector;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -14,11 +13,6 @@ public class LoadPageStepDef {
 
   public LoadPageStepDef(WebConnector connector) {
     this.connector = connector;
-  }
-
-  @Before
-  public void beforeScenario() {
-    System.setProperty("webdriver.chrome.driver", "src/it/resources/drivers/chromedriver.exe");
   }
 
   @Given("^Open the Chrome and launch the application$")
@@ -38,5 +32,4 @@ public class LoadPageStepDef {
     String actualString = connector.getDriver().findElement(By.tagName("p")).getText();
     assertTrue(actualString.contains("Evento: Boda - Cena - 150"));
   }
-
 }
