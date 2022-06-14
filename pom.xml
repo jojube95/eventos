@@ -180,12 +180,15 @@
           <execution>
             <phase>pre-integration-test</phase>
             <goals>
-              <goal>read-project-properties</goal>
+              <goal>set-system-properties</goal>
             </goals>
             <configuration>
-              <files>
-                <file>${project.basedir}/src/main/resources/application_test.properties</file>
-              </files>
+              <properties>
+                <property>
+                  <name>spring.data.mongodb.database</name>
+                  <value>test</value>
+                </property>
+              </properties>
             </configuration>
           </execution>
         </executions>
@@ -216,6 +219,11 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <profiles>
+            <profile>integration</profile>
+          </profiles>
+        </configuration>
         <executions>
           <execution>
             <id>pre-integration-test</id>
