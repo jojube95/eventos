@@ -18,7 +18,7 @@ public class LoadPageStepDef {
   @Given("^Open the Chrome and launch the application$")
   public void open_the_chrome_and_launch_the_application() throws Throwable {
     connector.getDriver().manage().window().maximize();
-    connector.getDriver().get("http://localhost:8080/home");
+    connector.getDriver().get("http://localhost:8081/home");
   }
 
   @And("^Home page will be displayed$")
