@@ -30,6 +30,6 @@ public class LoadPageStepDef {
   @When("^User will see evento$")
   public void enter_the_Username_and_Password() throws Throwable {
     String actualString = connector.getDriver().findElement(By.tagName("p")).getText();
-    assertTrue(actualString.contains("Evento: Boda - Cena - 150"));
+    assertTrue(actualString.contains("Evento: Bodaasdasd - Cena - 150"));
   }
 }
