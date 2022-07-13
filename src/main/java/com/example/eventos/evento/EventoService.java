@@ -17,4 +17,8 @@ public class EventoService {
     public List<Evento> getEventos(){
         return eventoRepository.findAll();
     }
+
+    public Evento save(Evento evento){
+        return eventoRepository.insert(evento);
+    }
 }

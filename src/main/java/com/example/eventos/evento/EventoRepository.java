@@ -10,4 +10,6 @@ public interface EventoRepository extends MongoRepository<Evento, String> {
     List<Evento> findEventoByTipo(String tipo);
 
     List<Evento> findAll();
+
+    Evento insert(Evento evento);
 }

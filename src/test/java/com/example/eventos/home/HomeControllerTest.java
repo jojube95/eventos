@@ -29,7 +29,7 @@ public class HomeControllerTest {
 
     @Test
     public void homeShouldReturnEventoFromService() throws Exception {
-        Evento evento = new Evento("Boda", "Cena", 150, new Date());
+        Evento evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento);
 
