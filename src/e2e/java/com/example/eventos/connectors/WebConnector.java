@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.util.Date;
+
 
 public class WebConnector {
     WebDriver driver;
@@ -24,8 +26,8 @@ public class WebConnector {
 
     @BeforeEach
     public void setUp(){
-        Evento evento1 = new Evento("Boda", "Cena", 160);
-        Evento evento2 = new Evento("Comunión", "Cena", 100);
+        Evento evento1 = new Evento("Boda", "Cena", 160, new Date());
+        Evento evento2 = new Evento("Comunión", "Cena", 100, new Date());
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
     }

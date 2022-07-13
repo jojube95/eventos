@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,15 +26,15 @@ public class EventoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Evento evento1 = new Evento("Boda", "Cena", 150);
-        Evento evento2 = new Evento("Comunión", "Cena", 100);
+        Evento evento1 = new Evento("Boda", "Cena", 150, new Date());
+        Evento evento2 = new Evento("Comunión", "Cena", 100, new Date());
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
     }
 
     @Test
     public void findEventoByTipoTest(){
-        Evento eventoExpected = new Evento("Boda", "Cena", 150);
+        Evento eventoExpected = new Evento("Boda", "Cena", 150, new Date());
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected);
 
@@ -42,8 +43,8 @@ public class EventoRepositoryIT {
 
     @Test
     public void findAllTest(){
-        Evento eventoExpected1 = new Evento("Boda", "Cena", 150);
-        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100);
+        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, new Date());
+        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, new Date());
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected1);
         eventosExpected.add(eventoExpected2);

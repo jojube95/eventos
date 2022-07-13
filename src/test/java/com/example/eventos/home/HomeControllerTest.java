@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -28,7 +29,7 @@ public class HomeControllerTest {
 
     @Test
     public void homeShouldReturnEventoFromService() throws Exception {
-        Evento evento = new Evento("Boda", "Cena", 150);
+        Evento evento = new Evento("Boda", "Cena", 150, new Date());
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento);
 

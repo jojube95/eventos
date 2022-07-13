@@ -3,9 +3,20 @@
 <head>
     <title>Eventos</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <th:block th:include="fragments/head :: head"/>
+
+    <script th:src="@{/webjars/fullcalendar/main.js}" type="text/javascript"></script>
+    <script th:src="@{/js/calendar.js}" type="text/javascript"></script>
+    <link th:href="@{/webjars/fullcalendar/main.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/calendar.css}" rel="stylesheet" type="text/css" />
+
+    <script th:inline="javascript">
+        let eventos = JSON.parse([[${eventosJson}]]);
+    </script>
 </head>
 <body>
-    <h1>Eventos</h1>
-    <p th:text="'Evento: ' + ${evento}"></p>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div id='calendar'></div>
 </body>
 </html>

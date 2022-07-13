@@ -1,8 +1,11 @@
 package com.example.eventos.evento;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Document("evento")
@@ -14,16 +17,20 @@ public class Evento {
     private String horario;
     private int personas;
 
-    public Evento(String tipo, String horario, int personas) {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fecha;
+
+    public Evento(String tipo, String horario, int personas, Date fecha) {
         super();
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
+        this.fecha = fecha;
     }
 
     @Override
     public String toString() {
-        return tipo + " - " + horario + " - " + personas;
+        return fecha.toString() + " - " + tipo + " - " + horario + " - " + personas;
     }
 
     public String getId() {
@@ -52,6 +59,14 @@ public class Evento {
 
     public void setPersonas(int personas) {
         this.personas = personas;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     @Override

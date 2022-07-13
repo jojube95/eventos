@@ -3,6 +3,8 @@ package com.example.eventos.evento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventoTest {
@@ -10,7 +12,7 @@ public class EventoTest {
 
     @BeforeEach
     public void initEach(){
-        evento = new Evento("Boda", "Cena", 150);
+        evento = new Evento("Boda", "Cena", 150, new Date());
     }
 
     @Test
