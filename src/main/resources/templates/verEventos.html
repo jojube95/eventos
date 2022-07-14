@@ -49,17 +49,26 @@
                     <td th:text="${evento.precioMenuNinyos}"></td>
                     <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" th:checked="${evento.confirmado}">
-                            <label class="custom-control-label" for="customCheck1"></label>
+                            <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
+                            <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
                         </div>
                     </td>
                 </tr>
             </tbody>
-
+            <tfoot>
+                <tr>
+                    <th colspan="4" style="text-align:right">Total:</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
     </div>
-
 </body>
+
 <script type="text/javascript">
     let minDate = $('#fechaMin').datepicker({
         format: "yyyy-mm-dd",
@@ -101,15 +110,19 @@
         columnDefs: [
             { orderable: false, targets: [1, 2, 3, 8] }
         ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, 'All'],
+        ],
         initComplete: function () {
             this.api()
-                .columns([1, 2 , 3, 8])
+                .columns([1, 2 , 3])
                 .every(function () {
-                    var column = this;
-                    var select = $('<select><option value=""></option></select>')
+                    let column = this;
+                    let select = $('<select><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                            let val = $.fn.dataTable.util.escapeRegex($(this).val());
 
                             column.search(val ? '^' + val + '$' : '', true, false).draw();
                         });
@@ -122,6 +135,63 @@
                             select.append('<option value="' + d + '">' + d + '</option>');
                         });
                 });
+
+
+                let column = this.api().column([8])
+                let select = $('<select><option value=""></option></select>')
+                    .appendTo($(column.header()))
+                    .on('change', function () {
+                        let val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                        column.search(val, false, false).draw();
+                    });
+
+                select.append('<option value="si">Sí</option>');
+                select.append('<option value="no">No</option>');
+        },
+        footerCallback: function (row, data, start, end, display) {
+            let api = this.api();
+            let rows = api.rows({search:'applied'}).count();
+
+            // Total over all pages
+            let totalPersonas = api
+                .column(4, {search:'applied'})
+                .data()
+                .reduce(function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0);
+            let totalNinyos = api
+                .column(6, {search:'applied'})
+                .data()
+                .reduce(function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0);
+            // Promedio
+            let promedioPrecioPersonas = api
+                .column(5, {search:'applied'})
+                .data()
+                .reduce(function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0);
+            let promedioPrecioNinyos = api
+                .column(7, {search:'applied'})
+                .data()
+                .reduce(function (a, b) {
+                    return Number(a) + Number(b);
+                }, 0);
+            // Total
+            let total = api
+                .rows({search:'applied'})
+                .data()
+                .reduce(function (a, b) {
+                    return a + (Number(b[4]) * Number(b[5])) + (Number(b[6]) * Number(b[7]))
+                }, 0);
+            // Update footer
+            $(api.column(4).footer()).html(totalPersonas);
+            $(api.column(5).footer()).html(promedioPrecioPersonas / rows);
+            $(api.column(6).footer()).html(totalNinyos);
+            $(api.column(7).footer()).html(promedioPrecioNinyos / rows);
+            $(api.column(8).footer()).html(total + '€');
         }
     });
 

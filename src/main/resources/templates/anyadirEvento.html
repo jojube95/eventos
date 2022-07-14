@@ -10,44 +10,46 @@
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
-    <h1>Anyadir Evento</h1>
-    <form action="#" th:action="@{/anyadirEvento}" th:object="${evento}" method="post">
-        <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input type="text" th:field="*{fecha}" class="form-control" id="fecha" placeholder="Fecha">
-        </div>
+    <div class="container">
+        <h3>Anyadir Evento</h3>
+        <form action="#" th:action="@{/anyadirEvento}" th:object="${evento}" method="post">
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="text" th:field="*{fecha}" class="form-control" id="fecha" placeholder="Fecha">
+            </div>
 
-        <div class="form-group">
-            <label for="tipo">Tipo</label>
-            <select th:field="*{tipo}" class="form-control" id="tipo">
-                <option value="Boda">Boda</option>
-                <option value="Comunion">Comunión</option>
-                <option value="Evento comunal">Evento comunal</option>
-                <option value="Evento individual">Evento individual</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="horario">Horario</label>
-            <select th:field="*{horario}" class="form-control" id="horario">
-                <option value="Comida">Comida</option>
-                <option value="Cena">Cena</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="personas">Personas</label>
-            <input type="text" th:field="*{personas}" class="form-control" id="personas" placeholder="Personas">
-        </div>
-        <div class="form-group">
-            <label for="niynos">Niños</label>
-            <input type="text" th:field="*{ninyos}" class="form-control" id="niynos" placeholder="Niños">
-        </div>
-        <div class="form-group">
-            <label for="localidad">Localidad</label>
-            <input type="text" th:field="*{localidad}" class="form-control" id="localidad" placeholder="Localidad">
-        </div>
+            <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <select th:field="*{tipo}" class="form-control" id="tipo">
+                    <option value="Boda">Boda</option>
+                    <option value="Comunion">Comunión</option>
+                    <option value="Evento comunal">Evento comunal</option>
+                    <option value="Evento individual">Evento individual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="horario">Horario</label>
+                <select th:field="*{horario}" class="form-control" id="horario">
+                    <option value="Comida">Comida</option>
+                    <option value="Cena">Cena</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="personas">Personas</label>
+                <input type="text" th:field="*{personas}" class="form-control" id="personas" placeholder="Personas">
+            </div>
+            <div class="form-group">
+                <label for="niynos">Niños</label>
+                <input type="text" th:field="*{ninyos}" class="form-control" id="niynos" placeholder="Niños">
+            </div>
+            <div class="form-group">
+                <label for="localidad">Localidad</label>
+                <input type="text" th:field="*{localidad}" class="form-control" id="localidad" placeholder="Localidad">
+            </div>
 
-        <button class="btn btn-primary" type="submit">Submit form</button>
-    </form>
+            <button class="btn btn-primary" type="submit">Añadir</button>
+        </form>
+    </div>
 </body>
 <script type="text/javascript">
     $('#fecha').datepicker({
