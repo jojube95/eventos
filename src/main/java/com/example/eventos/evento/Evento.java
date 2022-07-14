@@ -16,6 +16,9 @@ public class Evento {
     private int personas;
     private int ninyos;
     private String localidad;
+    private float precioMenu;
+    private float precioMenuNinyos;
+    private boolean confirmado;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
@@ -34,7 +37,19 @@ public class Evento {
         this.fecha = fecha;
     }
 
-
+    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
+                  float precioMenuNinyos, boolean confirmado) {
+        super();
+        this.tipo = tipo;
+        this.horario = horario;
+        this.personas = personas;
+        this.ninyos = ninyos;
+        this.localidad = localidad;
+        this.fecha = fecha;
+        this.precioMenu = precioMenu;
+        this.precioMenuNinyos = precioMenuNinyos;
+        this.confirmado = confirmado;
+    }
 
     @Override
     public String toString() {
@@ -91,6 +106,30 @@ public class Evento {
 
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
+    }
+
+    public float getPrecioMenu() {
+        return precioMenu;
+    }
+
+    public void setPrecioMenu(float precioMenu) {
+        this.precioMenu = precioMenu;
+    }
+
+    public float getPrecioMenuNinyos() {
+        return precioMenuNinyos;
+    }
+
+    public void setPrecioMenuNinyos(float precioMenuNinyos) {
+        precioMenuNinyos = precioMenuNinyos;
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
     }
 
     @Override
