@@ -37,9 +37,10 @@ public class Evento {
         this.fecha = fecha;
     }
 
-    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
+    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
                   float precioMenuNinyos, boolean confirmado) {
         super();
+        this.id = id;
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
@@ -58,6 +59,10 @@ public class Evento {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTipo() {

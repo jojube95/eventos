@@ -23,6 +23,6 @@ public class EventoService {
     }
 
     public Evento save(Evento evento){
-        return eventoRepository.insert(evento);
+        return eventoRepository.save(evento);
     }
 }

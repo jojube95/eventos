@@ -13,5 +13,4 @@ public interface EventoRepository extends MongoRepository<Evento, String> {
 
     List<Evento> findAll();
 
-    Evento insert(Evento evento);
 }
