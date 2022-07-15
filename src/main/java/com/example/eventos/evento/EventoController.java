@@ -55,4 +55,13 @@ public class EventoController {
 
         return "redirect:/home";
     }
+
+    @GetMapping("/eliminarEvento")
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
+        Evento evento = eventoService.getById(eventoId);
+
+        eventoService.delete(evento);
+
+        return "redirect:/verEventos";
+    }
 }

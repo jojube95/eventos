@@ -57,7 +57,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" id="botonModalGuardar">Guardar</button>
+          <button type="button" class="btn btn-primary" id="botonModalGuardar" th:eventoId="${evento.id}" onclick="confirmarEliminar(this.getAttribute('eventoId'))">Eliminar</button>
         </div>
       </div>
     </div>
@@ -72,6 +72,10 @@
 
   function atrasClicked(){
     history.back();
+  }
+
+  function confirmarEliminar(eventoId){
+    location.href = "/eliminarEvento?eventoId=" + eventoId;
   }
 </script>
 </html>

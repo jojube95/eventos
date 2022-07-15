@@ -25,4 +25,8 @@ public class EventoService {
     public Evento save(Evento evento){
         return eventoRepository.save(evento);
     }
+
+    public void delete(Evento evento){
+        eventoRepository.delete(evento);
+    }
 }
