@@ -18,6 +18,10 @@ public class EventoService {
         return eventoRepository.findAll();
     }
 
+    public Evento getById(String id){
+        return eventoRepository.findEventoById(id);
+    }
+
     public Evento save(Evento evento){
         return eventoRepository.insert(evento);
     }

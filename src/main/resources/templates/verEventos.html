@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="evento: ${eventos}">
+                <tr th:each="evento: ${eventos}" style="cursor: pointer" th:eventoId="${evento.id}" onclick="rowClicked(this.getAttribute('eventoId'))">
                     <td th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}"></td>
                     <td th:text="${evento.tipo}"></td>
                     <td th:text="${evento.horario}"></td>
@@ -65,4 +65,9 @@
         </table>
     </div>
 </body>
+<script type="text/javascript">
+    function rowClicked(eventoId){
+        location.href = "/verEvento?eventoId=" + eventoId;
+    }
+</script>
 </html>

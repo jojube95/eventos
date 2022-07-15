@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/head :: head"/>
+
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+
+  <p class="font-weight-bold">Fecha</p>
+  <p th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Tipo</p>
+  <p th:text="${evento.tipo}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Horario</p>
+  <p th:text="${evento.horario}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Localidad</p>
+  <p th:text="${evento.localidad}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Personas</p>
+  <p th:text="${evento.personas}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Precio menú</p>
+  <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Niños</p>
+  <p th:text="${evento.ninyos}" class="font-weight-normal"></p>
+
+  <p class="font-weight-bold">Precio menú niños</p>
+  <p th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
+
+</div>
+</body>
+</html>

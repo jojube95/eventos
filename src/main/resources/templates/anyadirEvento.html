@@ -35,16 +35,31 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="localidad">Localidad</label>
+                <input type="text" th:field="*{localidad}" class="form-control" id="localidad" placeholder="Localidad">
+            </div>
+            <div class="form-group">
                 <label for="personas">Personas</label>
-                <input type="text" th:field="*{personas}" class="form-control" id="personas" placeholder="Personas">
+                <input type="number" th:field="*{personas}" class="form-control" id="personas" placeholder="Personas">
+            </div>
+            <div class="form-group">
+                <label for="precioMenu">Precio menú</label>
+                <input type="number" th:field="*{precioMenu}" class="form-control" id="precioMenu" placeholder="Personas">
             </div>
             <div class="form-group">
                 <label for="niynos">Niños</label>
-                <input type="text" th:field="*{ninyos}" class="form-control" id="niynos" placeholder="Niños">
+                <input type="number" th:field="*{ninyos}" class="form-control" id="niynos" placeholder="Niños">
             </div>
             <div class="form-group">
-                <label for="localidad">Localidad</label>
-                <input type="text" th:field="*{localidad}" class="form-control" id="localidad" placeholder="Localidad">
+                <label for="precioMenuNinyos">Precio menú niños</label>
+                <input type="number" th:field="*{precioMenuNinyos}" class="form-control" id="precioMenuNinyos" placeholder="Personas">
+            </div>
+            <div class="form-group">
+                <label for="confirmado">Confirmado</label>
+                <select th:field="*{confirmado}" class="form-control" id="confirmado">
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
             </div>
 
             <button class="btn btn-primary" type="submit">Añadir</button>
