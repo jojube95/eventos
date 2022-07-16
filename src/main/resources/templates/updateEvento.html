@@ -11,7 +11,6 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-    <h3>Anyadir Evento</h3>
     <form action="#" th:action="@{/updateEvento}" th:object="${evento}" method="post">
         <div class="form-group" hidden>
             <label for="id">Id</label>
@@ -19,55 +18,55 @@
         </div>
 
         <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input type="text" th:field="*{fecha}" class="form-control" id="fecha" placeholder="Fecha">
+            <label th:text="#{evento.fecha}" for="fecha"></label>
+            <input type="text" th:field="*{fecha}" class="form-control" id="fecha" th:placeholder="#{evento.fecha}">
         </div>
 
         <div class="form-group">
-            <label for="tipo">Tipo</label>
+            <label th:text="#{evento.tipo}" for="tipo"></label>
             <select th:field="*{tipo}" class="form-control" id="tipo">
-                <option value="Boda">Boda</option>
-                <option value="Comunion">Comunión</option>
-                <option value="Evento comunal">Evento comunal</option>
-                <option value="Evento individual">Evento individual</option>
+                <option th:text="#{boda}" value="Boda"></option>
+                <option th:text="#{comunion}" value="Comunion"></option>
+                <option th:text="#{eventoComunal}" value="Evento comunal"></option>
+                <option th:text="#{eventoIndividual}" value="Evento individual"></option>
             </select>
         </div>
         <div class="form-group">
-            <label for="horario">Horario</label>
+            <label th:text="#{evento.horario}" for="horario"></label>
             <select th:field="*{horario}" class="form-control" id="horario">
-                <option value="Comida">Comida</option>
-                <option value="Cena">Cena</option>
+                <option th:text="#{comida}" value="Comida"></option>
+                <option th:text="#{cena}" value="Cena"></option>
             </select>
         </div>
         <div class="form-group">
-            <label for="localidad">Localidad</label>
-            <input type="text" th:field="*{localidad}" class="form-control" id="localidad" placeholder="Localidad">
+            <label th:text="#{evento.localidad}" for="localidad"></label>
+            <input type="text" th:field="*{localidad}" class="form-control" id="localidad" th:placeholder="#{evento.localidad}">
         </div>
         <div class="form-group">
-            <label for="personas">Personas</label>
-            <input type="number" th:field="*{personas}" class="form-control" id="personas" placeholder="Personas">
+            <label th:text="#{evento.personas}" for="personas"></label>
+            <input type="number" th:field="*{personas}" class="form-control" id="personas">
         </div>
         <div class="form-group">
-            <label for="precioMenu">Precio menú</label>
-            <input type="number" th:field="*{precioMenu}" class="form-control" id="precioMenu" placeholder="Personas">
+            <label th:text="#{evento.precioMenu}" for="precioMenu"></label>
+            <input type="number" th:field="*{precioMenu}" class="form-control" id="precioMenu">
         </div>
         <div class="form-group">
-            <label for="niynos">Niños</label>
-            <input type="number" th:field="*{ninyos}" class="form-control" id="niynos" placeholder="Niños">
+            <label th:text="#{evento.ninyos}" for="niynos"></label>
+            <input type="number" th:field="*{ninyos}" class="form-control" id="niynos">
         </div>
         <div class="form-group">
-            <label for="precioMenuNinyos">Precio menú niños</label>
-            <input type="number" th:field="*{precioMenuNinyos}" class="form-control" id="precioMenuNinyos" placeholder="Personas">
+            <label th:text="#{evento.precioMenuNinyos}" for="precioMenuNinyos"></label>
+            <input type="number" th:field="*{precioMenuNinyos}" class="form-control" id="precioMenuNinyos">
         </div>
         <div class="form-group">
-            <label for="confirmado">Confirmado</label>
+            <label th:text="#{evento.confirmado}" for="confirmado"></label>
             <select th:field="*{confirmado}" class="form-control" id="confirmado">
-                <option value="true">Sí</option>
-                <option value="false">No</option>
+                <option th:text="#{si}" value="true"></option>
+                <option th:text="#{no}" value="false"></option>
             </select>
         </div>
 
-        <button class="btn btn-primary" type="submit">Modificar</button>
+        <button th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
     </form>
 </div>
 </body>

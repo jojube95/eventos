@@ -14,24 +14,23 @@
 
     <div class="container">
 
-        <h3>Eventos</h3>
-        <label>Fecha min</label>
-        <input type="text" placeholder="Fecha min" id="fechaMin">
-        <label>Fecha max</label>
-        <input type="text" placeholder="Fecha max" id="fechaMax">
+        <label th:text="#{fechaMin}"></label>
+        <input type="text" th:placeholder="#{fechaMin}" id="fechaMin">
+        <label th:text="#{fechaMax}"></label>
+        <input type="text" th:placeholder="#{fechaMax}" id="fechaMax">
         <table class="table table-bordered table-striped" id="eventos">
 
             <thead>
                 <tr>
-                    <th>Fecha</th>
-                    <th>Tipo</th>
-                    <th>Horario</th>
-                    <th>Localidad</th>
-                    <th>Personas</th>
-                    <th>Precio</th>
-                    <th>Niños</th>
-                    <th>Precio niños</th>
-                    <th>Confirmado</th>
+                    <th th:text="#{evento.fecha}"></th>
+                    <th th:text="#{evento.tipo}"></th>
+                    <th th:text="#{evento.horario}"></th>
+                    <th th:text="#{evento.localidad}"></th>
+                    <th th:text="#{evento.personas}"></th>
+                    <th th:text="#{evento.precioMenu}"></th>
+                    <th th:text="#{evento.ninyos}"></th>
+                    <th th:text="#{evento.precioMenuNinyos}"></th>
+                    <th th:text="#{evento.confirmado}"></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +53,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4" style="text-align:right">Total:</th>
+                    <th th:text="#{total}" colspan="4" style="text-align:right"></th>
                     <th></th>
                     <th></th>
                     <th></th>

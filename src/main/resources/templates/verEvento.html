@@ -9,55 +9,53 @@
 
 <div class="container">
 
-  <p class="font-weight-bold">Fecha</p>
+  <p th:text="#{evento.fecha}" class="font-weight-bold"></p>
   <p th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Tipo</p>
+  <p th:text="#{evento.tipo}" class="font-weight-bold"></p>
   <p th:text="${evento.tipo}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Horario</p>
+  <p th:text="#{evento.horario}" class="font-weight-bold"></p>
   <p th:text="${evento.horario}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Localidad</p>
+  <p th:text="#{evento.localidad}" class="font-weight-bold"></p>
   <p th:text="${evento.localidad}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Personas</p>
+  <p th:text="#{evento.personas}" class="font-weight-bold"></p>
   <p th:text="${evento.personas}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Precio menú</p>
+  <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
   <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Niños</p>
+  <p th:text="#{evento.ninyos}" class="font-weight-bold"></p>
   <p th:text="${evento.ninyos}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Precio menú niños</p>
+  <p th:text="#{evento.precioMenuNinyos}" class="font-weight-bold"></p>
   <p th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
 
-  <p class="font-weight-bold">Confirmado</p>
+  <p th:text="#{evento.confirmado}" class="font-weight-bold"></p>
   <div class="custom-control custom-checkbox">
     <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
     <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
   </div>
 
-  <button type="button" class="btn btn-primary" id="botonModificar" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))">Modificar</button>
-  <button type="button" class="btn btn-secondary" id="botonAtras" onclick="atrasClicked()">Atrás</button>
-  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+  <button th:text="#{modificar}" type="button" class="btn btn-primary" id="botonModificar" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
+  <button th:text="#{atras}" type="button" class="btn btn-secondary" id="botonAtras" onclick="atrasClicked()"></button>
+  <button th:text="#{eliminar}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"></button>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 th:text="#{confirmar}" class="modal-title" id="exampleModalLabel"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          Está seguro de guardar los cambios?
-        </div>
+        <div th:text="#{seguroGuardarCambios}" class="modal-body"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" id="botonModalGuardar" th:eventoId="${evento.id}" onclick="confirmarEliminar(this.getAttribute('eventoId'))">Eliminar</button>
+          <button th:text="#{cerrar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+          <button th:text="#{eliminar}" type="button" class="btn btn-primary" id="botonModalGuardar" th:eventoId="${evento.id}" onclick="confirmarEliminar(this.getAttribute('eventoId'))"></button>
         </div>
       </div>
     </div>
