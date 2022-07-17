@@ -23,9 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         ],
         eventClick: function(info) {
-            console.log(info)
-            alert('Event: ' + info.event.id + '-' + info.event.title);
-            info.el.style.borderColor = 'red';
+            let eventoId = info.event.id;
+
+            $.ajax({
+                url: "/evento/" + eventoId,
+                success: function (data) {
+                    $("#eventModalHolder").html(data);
+                    $("#eventModal").modal("show");
+                }
+            })
         },
         eventDrop: function(info) {
             console.log(info)
@@ -38,3 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 });
+
+function modificarClicked(eventoId){
+    location.href = "/updateEvento?eventoId=" + eventoId;
+}
