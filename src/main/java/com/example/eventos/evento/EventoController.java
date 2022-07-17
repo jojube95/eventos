@@ -1,12 +1,9 @@
 package com.example.eventos.evento;
 
-import com.example.google.calendar.GoogleCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -49,13 +46,13 @@ public class EventoController {
     }
 
     @PostMapping("/anyadirEvento")
-    public String save(@ModelAttribute Evento evento) throws IOException {
+    public String save(@ModelAttribute Evento evento) {
         eventoService.save(evento);
         return "redirect:/calendario";
     }
 
     @GetMapping("/eliminarEvento")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId) throws IOException {
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
         return "redirect:/verEventos";
