@@ -1,4 +1,4 @@
-package com.example.eventos.home;
+package com.example.eventos.calendario;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class CalendarioController {
 
     @Autowired
     private EventoService eventoService;
 
-    @GetMapping("/home")
-    public String home(Model model) throws JsonProcessingException {
+    @GetMapping("/calendario")
+    public String calendario(Model model) throws JsonProcessingException {
         List<Evento> eventos = eventoService.getEventos();
 
         ObjectMapper Obj = new ObjectMapper();
@@ -27,7 +27,7 @@ public class HomeController {
 
         model.addAttribute("eventosJson", eventosJson);
 
-        return "home";
+        return "calendario";
     }
 
 }

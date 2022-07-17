@@ -1,4 +1,4 @@
-package com.example.eventos.home;
+package com.example.eventos.calendario;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(HomeController.class)
-public class HomeControllerTest {
+@WebMvcTest(CalendarioController.class)
+public class CalendarioControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

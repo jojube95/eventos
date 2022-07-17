@@ -51,7 +51,7 @@ public class EventoController {
     public String save(@ModelAttribute Evento evento) {
         eventoService.save(evento);
 
-        return "redirect:/home";
+        return "redirect:/calendario";
     }
 
     @GetMapping("/eliminarEvento")
