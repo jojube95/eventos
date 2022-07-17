@@ -54,7 +54,7 @@ public class Evento {
 
     @Override
     public String toString() {
-        return fecha.toString() + " - " + tipo + " - " + horario + " - " + personas;
+        return tipo + " - " + horario + " - " + personas + " - " + localidad;
     }
 
     public String getId() {
@@ -126,7 +126,7 @@ public class Evento {
     }
 
     public void setPrecioMenuNinyos(float precioMenuNinyos) {
-        precioMenuNinyos = precioMenuNinyos;
+        this.precioMenuNinyos = precioMenuNinyos;
     }
 
     public boolean isConfirmado() {
