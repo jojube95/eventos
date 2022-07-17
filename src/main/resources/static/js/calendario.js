@@ -28,18 +28,21 @@ document.addEventListener('DOMContentLoaded', function() {
             $.ajax({
                 url: "/evento/" + eventoId,
                 success: function (data) {
-                    $("#eventModalHolder").html(data);
-                    $("#eventModal").modal("show");
+                    $("#eventDetailModalHolder").html(data);
+                    $("#eventDetailModal").modal("show");
                 }
             })
         },
         eventDrop: function(info) {
-            console.log(info)
-            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+            let eventoId = info.event.id;
+            let nuevaFecha = info.event.start.toDateString();
 
-            if (!confirm("Are you sure about this change?")) {
-                info.revert();
-            }
+            $.ajax({
+                url: "/evento/updateFecha?id=" + eventoId + "&fecha=" + nuevaFecha,
+                success: function (data) {
+                    $("#confirmModal").modal("show");
+                }
+            });
         }
     });
     calendar.render();

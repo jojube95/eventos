@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -68,5 +69,13 @@ public class EventoController {
         Evento evento = eventoService.getById(id);
         model.addAttribute(evento);
         return "fragments/eventoModal :: modalContents";
+    }
+
+    @GetMapping("/evento/updateFecha")
+    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha, Model model){
+        Evento evento = eventoService.getById(id);
+        evento.setFecha(fecha);
+        eventoService.save(evento);
+        return "redirect:/calendario";
     }
 }
