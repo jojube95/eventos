@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head :: head"/>
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <form action="#" th:action="@{/evento/protagonistas/anyadir/(eventoId=${evento.id})}" th:eventoId="${evento.id}" th:object="${protagonista}" method="post">
+            <div class="form-group">
+                <label th:text="#{protagonista.tipo}" for="tipo"></label>
+                <select th:field="*{tipo}" class="form-control" id="tipo">
+                    <option th:text="#{novioNovia}" value="novioNovia"></option>
+                    <option th:text="#{comunianteComunianta}" value="comunianteComunianta"></option>
+                    <option th:text="#{padreMadre}" value="padreMadre"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label th:text="#{protagonista.nombre}" for="nombre"></label>
+                <input type="text" th:field="*{nombre}" class="form-control" id="nombre" th:placeholder="#{protagonista.nombre}" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{protagonista.telefono}" for="telefono"></label>
+                <input type="text" th:field="*{telefono}" class="form-control" id="telefono" th:placeholder="#{protagonista.telefono}" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{protagonista.correo}" for="correo"></label>
+                <input type="text" th:field="*{correo}" class="form-control" id="correo" th:placeholder="#{protagonista.correo}" required>
+            </div>
+
+            <button th:text="#{anyadir}" class="btn btn-primary" type="submit"></button>
+        </form>
+    </div>
+</body>
+</html>

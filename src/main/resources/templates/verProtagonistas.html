@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:include="fragments/head :: head"/>
+    <script th:src="@{/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+    <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <table class="table table-bordered table-striped" id="protagonistas">
+
+            <thead>
+            <tr>
+                <th th:text="#{protagonista.tipo}"></th>
+                <th th:text="#{protagonista.nombre}"></th>
+                <th th:text="#{protagonista.telefono}"></th>
+                <th th:text="#{protagonista.correo}"></th>
+                <th th:text="#{eliminar}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="protagonista, iter: ${evento.protagonistas}" style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+                <td th:switch="${protagonista.tipo}">
+                    <span th:case="'novioNovia'" th:text="#{novioNovia}"></span>
+                    <span th:case="'comunianteComunianta'" th:text="#{comunianteComunianta}"></span>
+                    <span th:case="'padreMadre'" th:text="#{padreMadre}"></span>
+                </td>
+                <td th:text="${protagonista.nombre}"></td>
+                <td th:text="${protagonista.telefono}"></td>
+                <td th:text="${protagonista.correo}"></td>
+                <td>
+                    <button th:text="#{eliminar}" type="button" class="btn btn-danger" id="botonEliminar" th:protagonistaIndex="${iter.index}" th:eventoId="${evento.id}" onclick="eliminarClicked(this.getAttribute('eventoId'), this.getAttribute('protagonistaIndex'))"></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button th:text="#{anyadir}" type="button" class="btn btn-primary" id="botonAnyadir" th:eventoId="${evento.id}" onclick="anyadirClicked(this.getAttribute('eventoId'))"></button>
+    </div>
+</body>
+<script type="text/javascript">
+    $('#protagonistas').DataTable({searching: false, paging: false, info: false});
+
+    function eliminarClicked(eventoId, protagonistaIndex){
+        location.href = "/evento/protagonistas/eliminar?eventoId=" + eventoId + "&protagonistaIndex=" + protagonistaIndex;
+    }
+
+    function anyadirClicked(eventoId){
+        location.href = "/evento/protagonistas/anyadir?eventoId=" + eventoId;
+    }
+</script>
+</html>

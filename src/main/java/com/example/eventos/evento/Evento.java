@@ -1,9 +1,13 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.protagonista.Protagonista;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Document("evento")
@@ -23,6 +27,8 @@ public class Evento {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
 
+    private List<Protagonista> protagonistas;
+
     public Evento() {
 
     }
@@ -38,7 +44,7 @@ public class Evento {
     }
 
     public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
-                  float precioMenuNinyos, boolean confirmado) {
+                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -50,6 +56,7 @@ public class Evento {
         this.precioMenu = precioMenu;
         this.precioMenuNinyos = precioMenuNinyos;
         this.confirmado = confirmado;
+        this.protagonistas = protagonistas;
     }
 
     @Override
@@ -135,6 +142,20 @@ public class Evento {
 
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
+    }
+
+    public List<Protagonista> getProtagonistas() {
+        if (protagonistas == null){
+            return new ArrayList<Protagonista>();
+        }
+        else{
+            return protagonistas;
+        }
+
+    }
+
+    public void setProtagonistas(List<Protagonista> protagonistas) {
+        this.protagonistas = protagonistas;
     }
 
     @Override
