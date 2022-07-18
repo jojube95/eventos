@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         eventos.map(function(eventEl) {
                             return {
                                 id: eventEl['id'],
-                                title: eventEl['tipo'] + '-' + eventEl['horario'],
+                                title: eventEl['titulo'],
                                 start: new Date(eventEl['fecha']).toISOString().split('T')[0]
                             }
                         })

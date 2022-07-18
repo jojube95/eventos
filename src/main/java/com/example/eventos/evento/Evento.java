@@ -23,6 +23,7 @@ public class Evento {
     private float precioMenu;
     private float precioMenuNinyos;
     private boolean confirmado;
+    private String titulo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
@@ -33,7 +34,7 @@ public class Evento {
 
     }
 
-    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha) {
+    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo) {
         super();
         this.tipo = tipo;
         this.horario = horario;
@@ -41,10 +42,11 @@ public class Evento {
         this.ninyos = ninyos;
         this.localidad = localidad;
         this.fecha = fecha;
+        this.titulo = titulo;
     }
 
     public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
-                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas) {
+                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -57,11 +59,7 @@ public class Evento {
         this.precioMenuNinyos = precioMenuNinyos;
         this.confirmado = confirmado;
         this.protagonistas = protagonistas;
-    }
-
-    @Override
-    public String toString() {
-        return tipo + " - " + horario + " - " + personas + " - " + localidad;
+        this.titulo = titulo;
     }
 
     public String getId() {
@@ -158,11 +156,26 @@ public class Evento {
         this.protagonistas = protagonistas;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
         return personas == evento.personas && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario);
+    }
+
+    @Override
+    public String toString() {
+        return "Personas: " + personas + "\n" +
+                "Localidad: " + localidad + "\n" +
+                "Confirmada: " + (confirmado ? "Sí" : "No");
     }
 }

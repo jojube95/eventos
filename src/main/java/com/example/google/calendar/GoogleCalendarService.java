@@ -76,7 +76,7 @@ public class GoogleCalendarService {
     private Event create(Evento evento){
         Event event = new Event()
                 .setId(evento.getId())
-                .setSummary(evento.getTipo() + "-" + evento.getHorario())
+                .setSummary(evento.getTitulo())
                 .setDescription(evento.toString());
 
         Date startDate = evento.getFecha();
