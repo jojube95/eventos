@@ -1,10 +1,7 @@
 package com.example.eventos.mesa;
 
-import com.example.eventos.invitado.Invitado;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Document("mesa")
 public class Mesa {
@@ -17,15 +14,13 @@ public class Mesa {
     private int personas;
     private int numero;
     private boolean pagado;
-    private List<Invitado> invitados;
 
-    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado, List<Invitado> invitados) {
+    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado) {
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
         this.numero = numero;
         this.pagado = pagado;
-        this.invitados = invitados;
     }
 
     public String getId() {
@@ -66,14 +61,6 @@ public class Mesa {
 
     public void setPagado(boolean pagado) {
         this.pagado = pagado;
-    }
-
-    public List<Invitado> getInvitados() {
-        return invitados;
-    }
-
-    public void setInvitados(List<Invitado> invitados) {
-        this.invitados = invitados;
     }
 
     public int getNumero() {

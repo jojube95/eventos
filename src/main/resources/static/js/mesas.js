@@ -58,6 +58,11 @@ $(document).ready(function() {
                 extend: 'selected', // Bind to Selected row
                 text: 'Delete',
                 name: 'delete'      // do not change name
+            },
+            {
+                extend: 'selected',
+                text: 'Invitados',
+                name: 'invitados'
             }
         ],
         onAddRow: function(datatable, rowdata, success, error) {
@@ -85,7 +90,6 @@ $(document).ready(function() {
             });
         },
         onEditRow: function(datatable, rowdata, success, error) {
-            console.log(rowdata);
             $.ajax({
                 type: "POST",
                 contentType: "application/json",

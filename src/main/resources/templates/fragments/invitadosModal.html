@@ -1,0 +1,44 @@
+<div class="modal fade" id="invitadosDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="modalContents">
+    <div class="modal-dialog" style="max-width: 650px" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 th:text="#{invitados}" class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <input type="hidden" id="idMesa" name="idMesa" th:value="${idMesa}">
+                    <table class="table table-bordered table-striped" id="invitados">
+
+                        <thead>
+                        <tr>
+                            <th th:text="#{invitado.id}"></th>
+                            <th th:text="#{invitado.idMesa}"></th>
+                            <th th:text="#{invitado.nombre}"></th>
+                            <th th:text="#{invitado.descripcion}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="invitado: ${invitados}">
+                            <td th:text="${invitado.id}"></td>
+                            <td th:text="${invitado.idMesa}"></td>
+                            <td th:text="${invitado.nombre}"></td>
+                            <td th:text="${invitado.descripcion}"></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th th:text="#{total}" colspan="4" style="text-align:right"></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button th:text="#{cerrar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+</div>

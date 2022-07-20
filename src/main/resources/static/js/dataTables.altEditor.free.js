@@ -249,6 +249,113 @@
                     });
                 }
 
+                if (dt.button('invitados:name')) {
+                    dt.button('invitados:name').action(function (e, dt, node, config) {
+                        let mesaSeleccionada = dt.rows({ selected: true }).data()[0];
+
+                        $.ajax({
+                            url: "/evento/mesas/invitados?idMesa=" + mesaSeleccionada.id,
+                            success: function (data) {
+                                $("#invitadosModalHolder").html(data);
+                                let columnDefs = [
+                                    {
+                                        data: "id",
+                                        type: "hidden",
+                                        visible: false
+                                    },
+                                    {
+                                        data: "idMesa",
+                                        type: "hidden",
+                                        visible: false
+                                    },
+                                    {
+                                        data: "nombre"
+
+                                    },
+                                    {
+                                        data: "descripcion"
+
+                                    }
+                                ];
+
+                                $('#invitados').DataTable({
+                                    "sPaginationType": "full_numbers",
+                                    columns: columnDefs,
+                                    dom: 'Bfrtip',
+                                    select: 'single',
+                                    responsive: true,
+                                    paging: false,
+                                    info: false,
+                                    altEditor: true,
+                                    buttons: [
+                                        {
+                                            text: 'Add',
+                                            name: 'add'        // do not change name
+                                        },
+                                        {
+                                            extend: 'selected', // Bind to Selected row
+                                            text: 'Edit',
+                                            name: 'edit'        // do not change name
+                                        },
+                                        {
+                                            extend: 'selected', // Bind to Selected row
+                                            text: 'Delete',
+                                            name: 'delete'      // do not change name
+                                        }
+                                    ],
+                                    onAddRow: function(datatable, rowdata, success, error) {
+                                        delete rowdata.id;
+                                        rowdata.idMesa = $('#idMesa').val();
+                                        $.ajax({
+                                            type: "POST",
+                                            contentType: "application/json",
+                                            url: "/evento/mesas/invitados/add",
+                                            data: JSON.stringify(rowdata),
+                                            dataType: 'json',
+                                            success: success,
+                                            error: error
+                                        });
+                                    },
+                                    onDeleteRow: function(datatable, rowdata, success, error) {
+                                        $.ajax({
+                                            type: "POST",
+                                            contentType: "application/json",
+                                            url: "/evento/mesas/invitados/delete",
+                                            data: JSON.stringify(rowdata[0]),
+                                            dataType: 'json',
+                                            success: success,
+                                            error: error
+                                        });
+                                    },
+                                    onEditRow: function(datatable, rowdata, success, error) {
+                                        $.ajax({
+                                            type: "POST",
+                                            contentType: "application/json",
+                                            url: "/evento/mesas/invitados/update",
+                                            data: JSON.stringify(rowdata),
+                                            dataType: 'json',
+                                            success: success,
+                                            error: error
+                                        });
+                                    },
+                                    footerCallback: function (row, data, start, end, display) {
+                                        let api = this.api();
+                                        let rows = api.rows({search:'applied'}).count();
+
+                                        // Update footer
+                                        $(api.column().footer()).html("Personas: " + rows);
+                                    }
+                                });
+                                $("#invitadosDetailModal").modal("show");
+                            }
+                        })
+
+
+
+
+                    });
+                }
+
                 // Bind 'unique' error messages
                 $(this.modal_selector).on('input', '[data-unique]', function(elm) {
                     if ($(elm.target).attr('data-unique') == null || $(elm.target).attr('data-unique') === 'false') {
