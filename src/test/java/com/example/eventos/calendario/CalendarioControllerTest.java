@@ -29,7 +29,7 @@ public class CalendarioControllerTest {
 
     @Test
     public void homeShouldReturnEventoFromService() throws Exception {
-        Evento evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
+        Evento evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento);
 

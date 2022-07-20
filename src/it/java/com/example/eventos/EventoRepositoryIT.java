@@ -26,15 +26,15 @@ public class EventoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
-        Evento evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date());
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Evento evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
     }
 
     @Test
     public void findEventoByTipoTest(){
-        Evento eventoExpected = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
+        Evento eventoExpected = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected);
 
@@ -43,8 +43,8 @@ public class EventoRepositoryIT {
 
     @Test
     public void findAllTest(){
-        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
-        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date());
+        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected1);
         eventosExpected.add(eventoExpected2);

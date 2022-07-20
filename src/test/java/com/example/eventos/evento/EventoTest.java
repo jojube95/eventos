@@ -12,7 +12,7 @@ public class EventoTest {
 
     @BeforeEach
     public void initEach(){
-        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
+        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
     }
 
     @Test

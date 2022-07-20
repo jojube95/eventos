@@ -26,8 +26,8 @@ public class WebConnector {
 
     @BeforeEach
     public void setUp(){
-        Evento evento1 = new Evento("Boda", "Cena", 160, 10, "Aielo de Malferit", new Date());
-        Evento evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date());
+        Evento evento1 = new Evento("Boda", "Cena", 160, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Evento evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
     }

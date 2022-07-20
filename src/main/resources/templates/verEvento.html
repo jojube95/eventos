@@ -44,6 +44,7 @@
 
   <button th:text="#{modificar}" type="button" class="btn btn-primary" id="botonModificar" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
   <button th:text="#{protagonistas}" type="button" class="btn btn-primary" id="botonProtagonistas" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></button>
+  <button th:text="#{mesas}" type="button" class="btn btn-primary" id="botonMesas" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></button>
   <button th:text="#{atras}" type="button" class="btn btn-secondary" id="botonAtras" onclick="atrasClicked()"></button>
   <button th:text="#{eliminar}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"></button>
 
@@ -82,6 +83,10 @@
 
   function confirmarEliminar(eventoId){
     location.href = "/eliminarEvento?eventoId=" + eventoId;
+  }
+
+  function mesasClicked(eventoId){
+    location.href = "/evento/mesas?eventoId=" + eventoId;
   }
 </script>
 </html>

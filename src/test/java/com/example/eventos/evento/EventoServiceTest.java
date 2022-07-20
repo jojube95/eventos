@@ -28,8 +28,8 @@ public class EventoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
-        evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date());
+        evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
         eventosByTipo = new ArrayList<>();
         eventos = new ArrayList<>();
         eventosByTipo.add(evento1);
@@ -41,7 +41,7 @@ public class EventoServiceTest {
     public void findEventosByTipoTest(){
         when(eventoRepository.findEventoByTipo("Boda")).thenReturn(eventosByTipo);
 
-        Evento eventoExpected = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
+        Evento eventoExpected = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected);
 
@@ -52,8 +52,8 @@ public class EventoServiceTest {
     public void getEventosTest(){
         when(eventoRepository.findAll()).thenReturn(eventos);
 
-        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date());
-        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date());
+        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected1);
         eventosExpected.add(eventoExpected2);
