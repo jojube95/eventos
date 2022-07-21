@@ -1,4 +1,5 @@
 let pagadoOptions = { "true" : "Sí", "false" : "No" };
+let mesasDt;
 
 $(document).ready(function() {
     let columnDefs = [
@@ -17,15 +18,17 @@ $(document).ready(function() {
 
         },
         {
-            data: "representante"
-
+            data: "representante",
+            visible: isEventoIndividual,
+            type: isEventoIndividual ? "" : "hidden"
         },
         {
             data: "personas"
         },
         {
             data: "pagado",
-            type : "select",
+            type: isEventoIndividual ? "select" : "hidden",
+            visible: isEventoIndividual,
             options : pagadoOptions,
             select2 : { width: "100%"},
             render: function (data, type, row, meta) {
@@ -35,7 +38,7 @@ $(document).ready(function() {
         }
         ];
 
-    $('#mesas').DataTable({
+    mesasDt = $('#mesas').DataTable({
         "sPaginationType": "full_numbers",
         columns: columnDefs,
         dom: 'Bfrtip',
@@ -59,11 +62,11 @@ $(document).ready(function() {
                 text: 'Delete',
                 name: 'delete'      // do not change name
             },
-            {
+            ...(isEventoIndividual ? [] : [{
                 extend: 'selected',
                 text: 'Invitados',
                 name: 'invitados'
-            }
+            }])
         ],
         onAddRow: function(datatable, rowdata, success, error) {
             rowdata.idEvento = idEvento;
@@ -123,5 +126,26 @@ $(document).ready(function() {
             $(api.column(5).footer()).html((totalPagados / rows) * 100 + "%");
         }
     });
+
 });
+
+function cerrarInvitadosClicked(numeroInvitados){
+    let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
+    mesaSeleccionada.personas = numeroInvitados.toString();
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/evento/mesas/update",
+        data: JSON.stringify(mesaSeleccionada),
+        dataType: 'json',
+        error: function (e) {
+            alert(e);
+        },
+        success: function () {
+            mesasDt.row({ selected: true }).data(mesaSeleccionada);
+            mesasDt.draw();
+        },
+    });
+}
 

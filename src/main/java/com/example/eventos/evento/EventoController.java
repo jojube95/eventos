@@ -1,5 +1,9 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.mesa.Mesa;
+import com.example.eventos.mesa.MesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,12 @@ import java.util.List;
 public class EventoController {
     @Autowired
     private EventoService eventoService;
+
+    @Autowired
+    private MesaService mesaService;
+
+    @Autowired
+    private InvitadoService invitadoService;
 
     @GetMapping("/verEventos")
     public String verEventos(Model model) {
@@ -71,5 +81,18 @@ public class EventoController {
         evento.setFecha(fecha);
         eventoService.update(evento);
         return "redirect:/calendario";
+    }
+
+    @GetMapping("/evento/calcularPersonas")
+    public String calcularPersonas(@RequestParam("eventoId") String eventoId, Model model){
+        List<Mesa> mesas = mesaService.findByEvento(eventoId);
+        int personas = 0;
+        for (Mesa mesa : mesas) {
+            List<Invitado> invitados = invitadoService.findByMesa(mesa.getId());
+            personas += invitados.size();
+        }
+        model.addAttribute("eventoId", eventoId);
+        model.addAttribute("personas", personas);
+        return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

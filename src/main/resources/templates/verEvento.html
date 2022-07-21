@@ -7,6 +7,8 @@
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
+<div id="confirmPersonasModalHolder"></div>
+
 <div class="container">
 
   <p th:text="#{evento.fecha}" class="font-weight-bold"></p>
@@ -45,6 +47,7 @@
   <button th:text="#{modificar}" type="button" class="btn btn-primary" id="botonModificar" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
   <button th:text="#{protagonistas}" type="button" class="btn btn-primary" id="botonProtagonistas" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></button>
   <button th:text="#{mesas}" type="button" class="btn btn-primary" id="botonMesas" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></button>
+  <button th:text="#{calcularPersonas}" type="button" class="btn btn-primary" id="calcularPersonas" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></button>
   <button th:text="#{atras}" type="button" class="btn btn-secondary" id="botonAtras" onclick="atrasClicked()"></button>
   <button th:text="#{eliminar}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"></button>
 
@@ -87,6 +90,20 @@
 
   function mesasClicked(eventoId){
     location.href = "/evento/mesas?eventoId=" + eventoId;
+  }
+
+  function calcularPersonasClicked(eventoId){
+    $.ajax({
+      url: "/evento/calcularPersonas?eventoId=" + eventoId,
+      success: function (data) {
+        $("#confirmPersonasModalHolder").html(data);
+        $("#confirmPersonasModal").modal("show");
+      }
+    })
+  }
+
+  function confirmarClicked(eventoId, personas){
+    console.log(eventoId, personas);
   }
 </script>
 </html>

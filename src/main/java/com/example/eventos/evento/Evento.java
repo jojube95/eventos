@@ -164,6 +164,10 @@ public class Evento {
         this.titulo = titulo;
     }
 
+    public boolean isEventoIndividual(){
+        return "Evento individual".equals(this.tipo);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

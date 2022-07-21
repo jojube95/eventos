@@ -278,7 +278,7 @@
                                     }
                                 ];
 
-                                $('#invitados').DataTable({
+                                let invitados = $('#invitados').DataTable({
                                     "sPaginationType": "full_numbers",
                                     columns: columnDefs,
                                     dom: 'Bfrtip',
@@ -346,7 +346,13 @@
                                         $(api.column().footer()).html("Personas: " + rows);
                                     }
                                 });
+                                $("#cerrarInvitados").click(function() {
+                                    let numeroInvitados = invitados.rows().count();
+                                    cerrarInvitadosClicked(numeroInvitados);
+                                });
+
                                 $("#invitadosDetailModal").modal("show");
+
                             }
                         })
 
