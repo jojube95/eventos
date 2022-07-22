@@ -48,7 +48,7 @@ $( document ).ready(function() {
                 .columns([1, 2 , 3])
                 .every(function () {
                     let column = this;
-                    let select = $('<select><option value=""></option></select>')
+                    let select = $('<select class="filtro-select"><option value=""></option></select>')
                         .appendTo($(column.header()))
                         .on('change', function () {
                             let val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -67,7 +67,7 @@ $( document ).ready(function() {
 
 
             let column = this.api().column([8])
-            let select = $('<select><option value=""></option></select>')
+            let select = $('<select class="filtro-select"><option value=""></option></select>')
                 .appendTo($(column.header()))
                 .on('change', function () {
                     let val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -117,9 +117,9 @@ $( document ).ready(function() {
                 }, 0);
             // Update footer
             $(api.column(4).footer()).html(totalPersonas);
-            $(api.column(5).footer()).html(promedioPrecioPersonas / rows);
+            $(api.column(5).footer()).html((promedioPrecioPersonas / rows).toFixed(2));
             $(api.column(6).footer()).html(totalNinyos);
-            $(api.column(7).footer()).html(promedioPrecioNinyos / rows);
+            $(api.column(7).footer()).html((promedioPrecioNinyos / rows).toFixed(2));
             $(api.column(8).footer()).html(total + '€');
         }
     });

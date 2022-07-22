@@ -123,7 +123,7 @@ $(document).ready(function() {
                 }, 0);
             // Update footer
             $(api.column(4).footer()).html(totalPersonas);
-            $(api.column(5).footer()).html((totalPagados / rows) * 100 + "%");
+            $(api.column(5).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
         }
     });
 

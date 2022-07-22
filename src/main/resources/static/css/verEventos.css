@@ -1,0 +1,28 @@
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+    padding: 4px;
+}
+
+#fechaMin {
+    margin-left: 6px;
+}
+
+.container input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 3px;
+}
+
+.filtro-select {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
