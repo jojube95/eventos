@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 });
+function verClicked(eventoId){
+    location.href = "/verEvento?eventoId=" + eventoId;
+}
 
 function modificarClicked(eventoId){
     location.href = "/updateEvento?eventoId=" + eventoId;

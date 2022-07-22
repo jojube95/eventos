@@ -40,6 +40,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button th:text="#{ver}" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${evento.id}" onclick="verClicked(this.getAttribute('eventoId'))"></button>
                 <button th:text="#{modificar}" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
                 <button th:text="#{cerrar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
             </div>
