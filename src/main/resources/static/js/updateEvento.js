@@ -1,10 +1,3 @@
-$('#fecha').datepicker({
-    format: "yyyy-mm-dd",
-    language: "es",
-    orientation: "bottom auto",
-    autoclose: true
-});
-
 function generarTitulo(){
     let tituloInput = $('#titulo');
     let selectedTipo = $('#tipo').val();
@@ -28,5 +21,12 @@ function anyadirHorario(){
 }
 
 $( document ).ready(function() {
+    $('#fecha').datepicker({
+        format: "yyyy-mm-dd",
+        language: "es",
+        orientation: "bottom auto",
+        autoclose: true
+    });
+
     generarTitulo();
 });
