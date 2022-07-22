@@ -3,6 +3,7 @@
 <head>
   <th:block th:include="fragments/head :: head"/>
 
+  <link th:href="@{/css/verEvento.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -10,46 +11,107 @@
 <div id="confirmPersonasModalHolder"></div>
 
 <div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="dropdown">
+        <button th:text="#{accion}" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a th:text="#{modificar}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{mesas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{calcularPersonas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{protagonistas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
+          <div role="separator" class="dropdown-divider"></div>
+          <a th:text="#{eliminar}" class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#exampleModal"></a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
 
-  <p th:text="#{evento.fecha}" class="font-weight-bold"></p>
-  <p th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
 
-  <p th:text="#{evento.tipo}" class="font-weight-bold"></p>
-  <p th:text="${evento.tipo}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.horario}" class="font-weight-bold"></p>
-  <p th:text="${evento.horario}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.titulo}" class="font-weight-bold"></p>
-  <p th:text="${evento.titulo}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.localidad}" class="font-weight-bold"></p>
-  <p th:text="${evento.localidad}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.personas}" class="font-weight-bold"></p>
-  <p th:text="${evento.personas}" class="font-weight-normal" id="personas"></p>
-
-  <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
-  <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.ninyos}" class="font-weight-bold"></p>
-  <p th:text="${evento.ninyos}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.precioMenuNinyos}" class="font-weight-bold"></p>
-  <p th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
-
-  <p th:text="#{evento.confirmado}" class="font-weight-bold"></p>
-  <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
-    <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
+    </div>
   </div>
 
-  <button th:text="#{modificar}" type="button" class="btn btn-primary" id="botonModificar" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
-  <button th:text="#{protagonistas}" type="button" class="btn btn-primary" id="botonProtagonistas" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></button>
-  <button th:text="#{mesas}" type="button" class="btn btn-primary" id="botonMesas" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></button>
-  <button th:text="#{calcularPersonas}" type="button" class="btn btn-primary" id="calcularPersonas" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></button>
-  <button th:text="#{atras}" type="button" class="btn btn-secondary" id="botonAtras" onclick="atrasClicked()"></button>
-  <button th:text="#{eliminar}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"></button>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.fecha}" class="font-weight-bold"></p>
+      <p th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.localidad}" class="font-weight-bold"></p>
+      <p th:text="${evento.localidad}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.tipo}" class="font-weight-bold"></p>
+      <p th:text="${evento.tipo}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+      <p th:text="#{evento.horario}" class="font-weight-bold"></p>
+      <p th:text="${evento.horario}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+      <p th:text="#{evento.titulo}" class="font-weight-bold"></p>
+      <p th:text="${evento.titulo}" class="font-weight-normal"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.personas}" class="font-weight-bold"></p>
+      <p th:text="${evento.personas}" class="font-weight-normal" id="personas"></p>
+    </div>
+    <div class="col">
+      <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
+      <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.ninyos}" class="font-weight-bold"></p>
+      <p th:text="${evento.ninyos}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+      <p th:text="#{evento.precioMenuNinyos}" class="font-weight-bold"></p>
+      <p th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p th:text="#{evento.confirmado}" class="font-weight-bold"></p>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
+        <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
+      </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
