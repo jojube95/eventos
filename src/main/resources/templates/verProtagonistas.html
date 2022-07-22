@@ -8,7 +8,9 @@
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <table class="table table-bordered table-striped" id="protagonistas">
+        <button th:text="#{anyadir}" type="button" class="btn btn-primary" style="margin-bottom: 10px" id="botonAnyadir" th:eventoId="${evento.id}" onclick="anyadirClicked(this.getAttribute('eventoId'))"></button>
+
+        <table class="display compact" id="protagonistas">
 
             <thead>
             <tr>
@@ -35,7 +37,6 @@
             </tr>
             </tbody>
         </table>
-        <button th:text="#{anyadir}" type="button" class="btn btn-primary" id="botonAnyadir" th:eventoId="${evento.id}" onclick="anyadirClicked(this.getAttribute('eventoId'))"></button>
     </div>
 </body>
 <script type="text/javascript">
