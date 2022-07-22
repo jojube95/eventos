@@ -14,9 +14,10 @@ public class InvitadoController {
     private InvitadoService invitadoService;
 
     @GetMapping("/evento/mesas/invitados")
-    public String evento(@RequestParam("idMesa") String idMesa, Model model){
+    public String evento(@RequestParam("idEvento") String idEvento, @RequestParam("idMesa") String idMesa, Model model){
         List<Invitado> invitados = invitadoService.findByMesa(idMesa);
         model.addAttribute("invitados", invitados);
+        model.addAttribute("idEvento", idEvento);
         model.addAttribute("idMesa", idMesa);
         return "fragments/invitadosModal :: modalContents";
     }

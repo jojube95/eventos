@@ -10,11 +10,13 @@
             <div class="modal-body">
                 <div class="container">
                     <input type="hidden" id="idMesa" name="idMesa" th:value="${idMesa}">
+                    <input type="hidden" id="idEvento" name="idEvento" th:value="${idEvento}">
                     <table class="table table-bordered table-striped" id="invitados">
 
                         <thead>
                         <tr>
                             <th th:text="#{invitado.id}"></th>
+                            <th th:text="#{invitado.idEvento}"></th>
                             <th th:text="#{invitado.idMesa}"></th>
                             <th th:text="#{invitado.nombre}"></th>
                             <th th:text="#{invitado.descripcion}"></th>
@@ -23,6 +25,7 @@
                         <tbody>
                         <tr th:each="invitado: ${invitados}">
                             <td th:text="${invitado.id}"></td>
+                            <td th:text="${invitado.idEvento}"></td>
                             <td th:text="${invitado.idMesa}"></td>
                             <td th:text="${invitado.nombre}"></td>
                             <td th:text="${invitado.descripcion}"></td>
@@ -30,7 +33,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th th:text="#{total}" colspan="4" style="text-align:right"></th>
+                            <th th:text="#{total}" colspan="5" style="text-align:right"></th>
                         </tr>
                         </tfoot>
                     </table>

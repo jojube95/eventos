@@ -22,4 +22,8 @@ public class MesaService {
     public void delete(Mesa mesa){
         mesaRepository.delete(mesa);
     }
+
+    public void deleteMesas(String idEvento){
+        mesaRepository.deleteByIdEvento(idEvento);
+    }
 }

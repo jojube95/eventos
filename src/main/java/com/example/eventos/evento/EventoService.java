@@ -1,5 +1,7 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.invitado.InvitadoRepository;
+import com.example.eventos.mesa.MesaRepository;
 import com.example.google.calendar.GoogleCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,13 @@ import java.util.List;
 public class EventoService {
 
     @Autowired
-    private  EventoRepository eventoRepository;
+    private EventoRepository eventoRepository;
+
+    @Autowired
+    private MesaRepository mesaRepository;
+
+    @Autowired
+    private InvitadoRepository invitadoRepository;
 
     private final GoogleCalendarService googleCalendarService = new GoogleCalendarService();
 
@@ -37,6 +45,8 @@ public class EventoService {
 
     public void delete(Evento evento){
         eventoRepository.delete(evento);
+        mesaRepository.deleteByIdEvento(evento.getId());
+        invitadoRepository.deleteByIdEvento(evento.getId());
         googleCalendarService.delete(evento);
     }
 }

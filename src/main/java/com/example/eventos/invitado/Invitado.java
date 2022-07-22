@@ -8,12 +8,14 @@ public class Invitado {
     @Id
     private String id;
 
+    private String idEvento;
     private String idMesa;
 
     private String nombre;
     private String descripcion;
 
-    public Invitado(String idMesa, String nombre, String descripcion) {
+    public Invitado(String idEvento, String idMesa, String nombre, String descripcion) {
+        this.idEvento = idEvento;
         this.idMesa = idMesa;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -49,5 +51,13 @@ public class Invitado {
 
     public void setIdMesa(String idMesa) {
         this.idMesa = idMesa;
+    }
+
+    public String getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(String idEvento) {
+        this.idEvento = idEvento;
     }
 }

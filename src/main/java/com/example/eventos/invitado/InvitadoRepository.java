@@ -8,4 +8,6 @@ public interface InvitadoRepository  extends MongoRepository<Invitado, String> {
     List<Invitado> findByIdMesa(String idMesa);
 
     void deleteByIdMesa(String idMesa);
+
+    void deleteByIdEvento(String idEvento);
 }

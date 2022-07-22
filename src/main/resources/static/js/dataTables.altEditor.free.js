@@ -254,12 +254,17 @@
                         let mesaSeleccionada = dt.rows({ selected: true }).data()[0];
 
                         $.ajax({
-                            url: "/evento/mesas/invitados?idMesa=" + mesaSeleccionada.id,
+                            url: "/evento/mesas/invitados?idEvento=" + idEvento + "&idMesa=" + mesaSeleccionada.id,
                             success: function (data) {
                                 $("#invitadosModalHolder").html(data);
                                 let columnDefs = [
                                     {
                                         data: "id",
+                                        type: "hidden",
+                                        visible: false
+                                    },
+                                    {
+                                        data: "idEvento",
                                         type: "hidden",
                                         visible: false
                                     },
@@ -305,6 +310,7 @@
                                     ],
                                     onAddRow: function(datatable, rowdata, success, error) {
                                         delete rowdata.id;
+                                        rowdata.idEvento = $('#idEvento').val();
                                         rowdata.idMesa = $('#idMesa').val();
                                         $.ajax({
                                             type: "POST",
