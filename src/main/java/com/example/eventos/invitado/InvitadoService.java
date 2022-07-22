@@ -21,4 +21,8 @@ public class InvitadoService {
     public void delete(Invitado invitado){
         invitadoRepository.delete(invitado);
     }
+
+    public void deleteInvitados(String idMesa){
+        invitadoRepository.deleteByIdMesa(idMesa);
+    }
 }
