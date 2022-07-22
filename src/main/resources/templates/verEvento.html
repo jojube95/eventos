@@ -27,7 +27,7 @@
   <p th:text="${evento.localidad}" class="font-weight-normal"></p>
 
   <p th:text="#{evento.personas}" class="font-weight-bold"></p>
-  <p th:text="${evento.personas}" class="font-weight-normal"></p>
+  <p th:text="${evento.personas}" class="font-weight-normal" id="personas"></p>
 
   <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
   <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
@@ -103,7 +103,16 @@
   }
 
   function confirmarClicked(eventoId, personas){
-    console.log(eventoId, personas);
+    $.ajax({
+      type: "POST",
+      url: "/evento/updatePersonas?eventoId=" + eventoId + "&personas=" + personas,
+      success: function () {
+        $('#personas').text(personas);
+      },
+      error: function (er) {
+        alert(er);
+      }
+    })
   }
 </script>
 </html>
