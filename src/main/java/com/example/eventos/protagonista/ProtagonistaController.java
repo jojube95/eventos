@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class ProtagonistaController {
 
@@ -44,7 +46,9 @@ public class ProtagonistaController {
     @PostMapping("/evento/protagonistas/anyadir")
     public String save(@ModelAttribute Protagonista protagonista, @RequestParam("eventoId") String eventoId, RedirectAttributes redirectAttributes, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        evento.getProtagonistas().add(protagonista);
+        List<Protagonista> protagonistas = evento.getProtagonistas();
+        protagonistas.add(protagonista);
+        evento.setProtagonistas(protagonistas);
         eventoService.update(evento);
         redirectAttributes.addAttribute("eventoId", evento.getId());
         return "redirect:/evento/protagonistas";

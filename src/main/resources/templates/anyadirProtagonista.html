@@ -13,6 +13,7 @@
                     <option th:text="#{novioNovia}" value="novioNovia"></option>
                     <option th:text="#{comunianteComunianta}" value="comunianteComunianta"></option>
                     <option th:text="#{padreMadre}" value="padreMadre"></option>
+                    <option th:text="#{otro}" value="otro"></option>
                 </select>
             </div>
             <div class="form-group">
@@ -21,11 +22,11 @@
             </div>
             <div class="form-group">
                 <label th:text="#{protagonista.telefono}" for="telefono"></label>
-                <input type="text" th:field="*{telefono}" class="form-control" id="telefono" th:placeholder="#{protagonista.telefono}" required>
+                <input type="text" th:field="*{telefono}" class="form-control" id="telefono" th:placeholder="#{protagonista.telefono}">
             </div>
             <div class="form-group">
                 <label th:text="#{protagonista.correo}" for="correo"></label>
-                <input type="text" th:field="*{correo}" class="form-control" id="correo" th:placeholder="#{protagonista.correo}" required>
+                <input type="text" th:field="*{correo}" class="form-control" id="correo" th:placeholder="#{protagonista.correo}">
             </div>
 
             <button th:text="#{anyadir}" class="btn btn-primary" type="submit"></button>

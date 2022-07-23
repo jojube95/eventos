@@ -27,6 +27,4 @@ $( document ).ready(function() {
         orientation: "bottom auto",
         autoclose: true
     });
-
-    generarTitulo();
 });
