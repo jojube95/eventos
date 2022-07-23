@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         selectable: true,
         locale: 'es',
+        firstDay: 1,
         eventSources: [
             {
                 events: function(fetchInfo, successCallback, failureCallback) {
