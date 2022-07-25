@@ -19,7 +19,8 @@ public class EventoService {
     @Autowired
     private InvitadoRepository invitadoRepository;
 
-    private final GoogleCalendarService googleCalendarService = new GoogleCalendarService();
+    @SuppressWarnings("FieldMayBeFinal")
+    private GoogleCalendarService googleCalendarService = new GoogleCalendarService();
 
     public List<Evento> findEventosByTipo(String tipo){
         return eventoRepository.findEventoByTipo(tipo);

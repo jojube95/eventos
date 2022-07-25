@@ -1,0 +1,127 @@
+<div class="container">
+    <form action="/updateEvento" method="post">
+        <div class="form-row" hidden>
+            <div class="col">
+                <div class="form-group">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" id="id" placeholder="id" required name="id" value="id">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="fecha">Fecha</label>
+                    <input type="text" class="form-control" id="fecha" placeholder="Fecha" required name="fecha" value="2022-07-25">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="localidad">Localidad</label>
+                    <input type="text" class="form-control" id="localidad" placeholder="Localidad" required name="localidad" value="Olleria">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
+                        <option value="Boda">Boda</option>
+                        <option value="Comunion">Comunión</option>
+                        <option value="Evento comunal">Evento comunal</option>
+                        <option value="Evento individual">Evento individual</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="horario">Horario</label>
+                    <select class="form-control" id="horario" onchange="generarTitulo()" name="horario">
+                        <option value="Comida" selected="selected">Comida</option>
+                        <option value="Cena">Cena</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Título" onchange="anyadirHorario()" required name="titulo" value="Comuni&oacute;n-Comida">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="personas">Personas</label>
+                    <input type="number" class="form-control" id="personas" required name="personas" value="50">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenu">Precio Menú</label>
+                    <input type="number" class="form-control" id="precioMenu" required name="precioMenu" value="80.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="niynos">Niños</label>
+                    <input type="number" class="form-control" id="niynos" required name="ninyos" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenuNinyos">Precio Menú Niños</label>
+                    <input type="number" class="form-control" id="precioMenuNinyos" required name="precioMenuNinyos" value="15.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="confirmado">Confirmado</label>
+                    <select class="form-control" id="confirmado" name="confirmado">
+                        <option value="true" selected="selected">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Modificar</button>
+    </form>
+</div>

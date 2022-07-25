@@ -1,16 +1,16 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.invitado.InvitadoRepository;
+import com.example.eventos.mesa.MesaRepository;
+import com.example.google.calendar.GoogleCalendarService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EventoServiceTest {
@@ -18,47 +18,64 @@ public class EventoServiceTest {
     @Mock
     EventoRepository eventoRepository;
 
+    @Mock
+    MesaRepository mesaRepository;
+
+    @Mock
+    InvitadoRepository invitadoRepository;
+
+    @Mock
+    GoogleCalendarService googleCalendarService;
+
     @InjectMocks
     EventoService eventoService;
 
-    Evento evento1;
-    Evento evento2;
-    List<Evento> eventosByTipo;
-    List<Evento> eventos;
+    Evento evento;
 
     @BeforeEach
     public void initEach(){
-        evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
-        evento2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
-        eventosByTipo = new ArrayList<>();
-        eventos = new ArrayList<>();
-        eventosByTipo.add(evento1);
-        eventos.add(evento1);
-        eventos.add(evento2);
+        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
     }
 
     @Test
     public void findEventosByTipoTest(){
-        when(eventoRepository.findEventoByTipo("Boda")).thenReturn(eventosByTipo);
-
-        Evento eventoExpected = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
-        List<Evento> eventosExpected = new ArrayList<>();
-        eventosExpected.add(eventoExpected);
-
-        assertEquals(eventosExpected, eventoService.findEventosByTipo("Boda"));
+        eventoService.findEventosByTipo(evento.getTipo());
+        verify(eventoRepository, times(1)).findEventoByTipo(evento.getTipo());
     }
 
     @Test
     public void getEventosTest(){
-        when(eventoRepository.findAll()).thenReturn(eventos);
+        eventoService.getEventos();
+        verify(eventoRepository, times(1)).findAll();
+    }
 
-        Evento eventoExpected1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
-        Evento eventoExpected2 = new Evento("Comunión", "Cena", 100, 10, "Aielo de Malferit", new Date(), "Comunión-Cena");
-        List<Evento> eventosExpected = new ArrayList<>();
-        eventosExpected.add(eventoExpected1);
-        eventosExpected.add(eventoExpected2);
+    @Test
+    public void getEventoByIdTest(){
+        eventoService.getById(evento.getId());
+        verify(eventoRepository, times(1)).findEventoById(evento.getId());
+    }
 
-        assertEquals(eventosExpected, eventoService.getEventos());
+    @Test
+    public void saveEventoTest(){
+        eventoService.save(evento);
+        verify(eventoRepository, times(1)).save(evento);
+        verify(googleCalendarService, times(1)).add(evento);
+    }
+
+    @Test
+    public void updateEventoTest(){
+        eventoService.update(evento);
+        verify(eventoRepository, times(1)).save(evento);
+        verify(googleCalendarService, times(1)).update(evento);
+    }
+
+    @Test
+    public void deleteEventoTest(){
+        eventoService.delete(evento);
+        verify(eventoRepository, times(1)).delete(evento);
+        verify(mesaRepository, times(1)).deleteByIdEvento(evento.getId());
+        verify(invitadoRepository, times(1)).deleteByIdEvento(evento.getId());
+        verify(googleCalendarService, times(1)).delete(evento);
     }
 
 }
