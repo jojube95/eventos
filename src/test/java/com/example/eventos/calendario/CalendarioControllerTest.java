@@ -2,6 +2,8 @@ package com.example.eventos.calendario;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.utilities.TestUtilities;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,6 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,14 +32,21 @@ public class CalendarioControllerTest {
     private EventoService eventoService;
 
     @Test
-    public void homeShouldReturnEventoFromService() throws Exception {
-        Evento evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+    public void getCalendario() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/calendario.html");
+
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+
         List<Evento> eventos = new ArrayList<>();
-        eventos.add(evento);
+        eventos.add(evento1);
+        eventos.add(evento2);
 
-        when(eventoService.findEventosByTipo("Boda")).thenReturn(eventos);
+        when(eventoService.getEventos()).thenReturn(eventos);
 
-        this.mockMvc.perform(get("/home")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Evento: Boda - Cena - 150")));
+        String resultContent = this.mockMvc.perform(get("/calendario")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 }

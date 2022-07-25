@@ -1,0 +1,44 @@
+<div class="container">
+    <button type="button" class="btn btn-primary" style="margin-bottom: 10px" id="botonAnyadir" eventoId="eventoId" onclick="anyadirClicked(this.getAttribute('eventoId'))">Añadir</button>
+
+    <table class="display compact" id="protagonistas">
+
+        <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <td>
+
+
+
+            </td>
+            <td>Pepe</td>
+            <td>666777888</td>
+            <td>pepe@correo.es</td>
+            <td>
+                <button type="button" class="btn btn-danger" id="botonEliminar" protagonistaIndex="0" eventoId="eventoId" onclick="eliminarClicked(this.getAttribute('eventoId'), this.getAttribute('protagonistaIndex'))">Eliminar</button>
+            </td>
+        </tr>
+        <tr style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <td>
+
+
+
+            </td>
+            <td>Antonio</td>
+            <td>666777999</td>
+            <td>antonio@correo.es</td>
+            <td>
+                <button type="button" class="btn btn-danger" id="botonEliminar" protagonistaIndex="1" eventoId="eventoId" onclick="eliminarClicked(this.getAttribute('eventoId'), this.getAttribute('protagonistaIndex'))">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
