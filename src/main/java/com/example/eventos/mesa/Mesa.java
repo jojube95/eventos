@@ -3,6 +3,8 @@ package com.example.eventos.mesa;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 @Document("mesa")
 public class Mesa {
     @Id
@@ -69,5 +71,13 @@ public class Mesa {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mesa mesa = (Mesa) o;
+        return personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(id, mesa.id) && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
     }
 }

@@ -174,7 +174,7 @@ public class Evento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
-        return personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(id, evento.id) && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha, evento.fecha) && Objects.equals(protagonistas, evento.protagonistas);
+        return personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(id, evento.id) && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas);
     }
 
     @Override

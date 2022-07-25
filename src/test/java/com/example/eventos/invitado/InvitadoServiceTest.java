@@ -1,8 +1,5 @@
 package com.example.eventos.invitado;
 
-import com.example.eventos.evento.Evento;
-import com.example.eventos.evento.EventoRepository;
-import com.example.eventos.evento.EventoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

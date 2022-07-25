@@ -15,14 +15,16 @@ public class EventoTest {
     Evento eventoProtagonistas;
     Protagonista protagonista;
     List<Protagonista> protagonistas;
+    Date fecha;
 
     @BeforeEach
     public void initEach(){
+        fecha = new Date();
         protagonistas = new ArrayList<Protagonista>();
         protagonista = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         protagonistas.add(protagonista);
-        eventoNoProtagonistas = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
-        eventoProtagonistas = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", new Date(), 80, 15, true, protagonistas, "Comunión-Comida");
+        eventoNoProtagonistas = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
+        eventoProtagonistas = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida");
     }
 
     @Test
@@ -32,7 +34,7 @@ public class EventoTest {
         assertEquals(150, eventoNoProtagonistas.getPersonas());
         assertEquals(10, eventoNoProtagonistas.getNinyos());
         assertEquals("Aielo de Malferit", eventoNoProtagonistas.getLocalidad());
-        assertEquals(new Date(), eventoNoProtagonistas.getFecha());
+        assertEquals(fecha, eventoNoProtagonistas.getFecha());
         assertEquals("Boda-Cena", eventoNoProtagonistas.getTitulo());
         assertEquals(new ArrayList<Protagonista>(), eventoNoProtagonistas.getProtagonistas());
     }
@@ -45,7 +47,7 @@ public class EventoTest {
         assertEquals(50, eventoProtagonistas.getPersonas());
         assertEquals(15, eventoProtagonistas.getNinyos());
         assertEquals("Olleria", eventoProtagonistas.getLocalidad());
-        assertEquals(new Date(), eventoProtagonistas.getFecha());
+        assertEquals(fecha, eventoProtagonistas.getFecha());
         assertEquals(80, eventoProtagonistas.getPrecioMenu());
         assertEquals(15, eventoProtagonistas.getPrecioMenuNinyos());
         assertEquals("Comunión-Comida", eventoProtagonistas.getTitulo());
