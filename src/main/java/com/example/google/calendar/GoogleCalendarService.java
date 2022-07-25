@@ -73,7 +73,7 @@ public class GoogleCalendarService {
         }
     }
 
-    private Event create(Evento evento){
+    static Event create(Evento evento){
         Event event = new Event()
                 .setId(evento.getId())
                 .setSummary(evento.getTitulo())
