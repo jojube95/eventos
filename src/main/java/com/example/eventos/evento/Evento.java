@@ -46,6 +46,19 @@ public class Evento {
         this.confirmado = false;
     }
 
+    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo) {
+        super();
+        this.id = id;
+        this.tipo = tipo;
+        this.horario = horario;
+        this.personas = personas;
+        this.ninyos = ninyos;
+        this.localidad = localidad;
+        this.fecha = fecha;
+        this.titulo = titulo;
+        this.confirmado = false;
+    }
+
     public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
                   float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo) {
         super();
@@ -174,7 +187,7 @@ public class Evento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
-        return personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(id, evento.id) && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas);
+        return Objects.equals(id, evento.id) && personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas);
     }
 
     @Override

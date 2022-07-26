@@ -16,6 +16,18 @@ public class Invitado {
     private String nombre;
     private String descripcion;
 
+    public Invitado(){
+
+    }
+
+    public Invitado(String id, String idEvento, String idMesa, String nombre, String descripcion) {
+        this.id = id;
+        this.idEvento = idEvento;
+        this.idMesa = idMesa;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     public Invitado(String idEvento, String idMesa, String nombre, String descripcion) {
         this.idEvento = idEvento;
         this.idMesa = idMesa;
@@ -61,6 +73,16 @@ public class Invitado {
 
     public void setIdEvento(String idEvento) {
         this.idEvento = idEvento;
+    }
+
+    @Override
+    public String toString() {
+        return "Invitado{" +
+                "idEvento='" + idEvento + '\'' +
+                ", idMesa='" + idMesa + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 
     @Override

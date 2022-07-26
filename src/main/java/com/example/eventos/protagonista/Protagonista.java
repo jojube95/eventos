@@ -1,5 +1,7 @@
 package com.example.eventos.protagonista;
 
+import java.util.Objects;
+
 public class Protagonista {
     private String tipo;
     private String nombre;
@@ -47,5 +49,13 @@ public class Protagonista {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Protagonista that = (Protagonista) o;
+        return Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo);
     }
 }

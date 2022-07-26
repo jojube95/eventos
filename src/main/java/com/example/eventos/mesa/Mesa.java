@@ -17,7 +17,33 @@ public class Mesa {
     private int numero;
     private boolean pagado;
 
+    public Mesa(){
+
+    }
+
     public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado) {
+        this.idEvento = idEvento;
+        this.representante = representante;
+        this.personas = personas;
+        this.numero = numero;
+        this.pagado = pagado;
+    }
+
+    public Mesa(String idEvento, int personas, int numero) {
+        this.idEvento = idEvento;
+        this.personas = personas;
+        this.numero = numero;
+    }
+
+    public Mesa(String id, String idEvento, int personas, int numero) {
+        this.id = id;
+        this.idEvento = idEvento;
+        this.personas = personas;
+        this.numero = numero;
+    }
+
+    public Mesa(String id, String idEvento, String representante, int personas, int numero, boolean pagado) {
+        this.id = id;
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
@@ -74,10 +100,21 @@ public class Mesa {
     }
 
     @Override
+    public String toString() {
+        return "Mesa{" +
+                "idEvento='" + idEvento + '\'' +
+                ", representante='" + representante + '\'' +
+                ", personas=" + personas +
+                ", numero=" + numero +
+                ", pagado=" + pagado +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
-        return personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(id, mesa.id) && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
+        return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
     }
 }
