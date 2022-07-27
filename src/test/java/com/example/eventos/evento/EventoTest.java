@@ -4,9 +4,7 @@ import com.example.eventos.protagonista.Protagonista;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,7 +17,7 @@ public class EventoTest {
 
     @BeforeEach
     public void initEach(){
-        fecha = new Date();
+        fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         protagonistas = new ArrayList<Protagonista>();
         protagonista = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         protagonistas.add(protagonista);
@@ -34,7 +32,7 @@ public class EventoTest {
         assertEquals(150, eventoNoProtagonistas.getPersonas());
         assertEquals(10, eventoNoProtagonistas.getNinyos());
         assertEquals("Aielo de Malferit", eventoNoProtagonistas.getLocalidad());
-        assertEquals(fecha, eventoNoProtagonistas.getFecha());
+        assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoNoProtagonistas.getFecha());
         assertEquals("Boda-Cena", eventoNoProtagonistas.getTitulo());
         assertEquals(new ArrayList<Protagonista>(), eventoNoProtagonistas.getProtagonistas());
     }
@@ -47,7 +45,7 @@ public class EventoTest {
         assertEquals(50, eventoProtagonistas.getPersonas());
         assertEquals(15, eventoProtagonistas.getNinyos());
         assertEquals("Olleria", eventoProtagonistas.getLocalidad());
-        assertEquals(fecha, eventoProtagonistas.getFecha());
+        assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoProtagonistas.getFecha());
         assertEquals(80, eventoProtagonistas.getPrecioMenu());
         assertEquals(15, eventoProtagonistas.getPrecioMenuNinyos());
         assertEquals("Comunión-Comida", eventoProtagonistas.getTitulo());

@@ -9,7 +9,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +38,8 @@ public class EventoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", new Date(), "Boda-Cena");
+        Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
+        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
     }
 
     @Test
