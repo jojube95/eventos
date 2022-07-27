@@ -1,6 +1,7 @@
+let calendar;
 document.addEventListener('DOMContentLoaded', function() {
     let calendarEl = document.getElementById('calendar');
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         editable: true,
         selectable: true,
@@ -48,10 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 });
+
 function verClicked(eventoId){
     location.href = "/verEvento?eventoId=" + eventoId;
 }
 
 function modificarClicked(eventoId){
     location.href = "/updateEvento?eventoId=" + eventoId;
+}
+
+function goToDate(date){
+    calendar.gotoDate(date);
 }
