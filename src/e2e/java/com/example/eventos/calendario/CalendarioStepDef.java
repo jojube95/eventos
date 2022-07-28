@@ -39,6 +39,12 @@ public class CalendarioStepDef {
     nextMonthButton.click();
   }
 
+  @When("^User click evento$")
+  public void user_click_evento() {
+    WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[1]"));
+    evento.click();
+  }
+
   @And("^User click today$")
   public void user_click_today(){
     WebElement nextMonthButton = connector.getDriver().findElement(By.xpath("//button[text()='today']"));
@@ -76,6 +82,50 @@ public class CalendarioStepDef {
     WebElement fechaElement = connector.getDriver().findElement(By.id("fc-dom-1"));
     String fechaText = fechaElement.getText();
     assertEquals("agosto de 2022", fechaText);
+  }
+
+  @Then("^Event modal detail dialog is shown$")
+  public void event_modal_detail_dialog_is_shown() {
+    WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
+    assertTrue(modal_detail.isDisplayed());
+  }
+
+  @And("^Event modal detail dialog show correct event data$")
+  public void event_modal_detail_show_correct_data() {
+    String actualFecha = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[1]")).getText();
+    String actualTipo = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[2]")).getText();
+    String actualHorario = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[3]")).getText();
+    String actualLocalidad = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[4]")).getText();
+    String actualPersonas = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[5]")).getText();
+    String actualNinyos = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[6]")).getText();
+    String actualConfirmado = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[7]")).getText();
+
+    String expectedFecha = "2022-07-02";
+    String expectedTipo = "Boda";
+    String expectedHorario = "Cena";
+    String expectedLocalidad = "Aielo de Malferit";
+    String expectedPersonas = "153";
+    String expectedNinyos = "13";
+    String expectedConfirmado   = "true";
+
+    assertEquals(expectedFecha, actualFecha);
+    assertEquals(expectedTipo, actualTipo);
+    assertEquals(expectedHorario, actualHorario);
+    assertEquals(expectedLocalidad, actualLocalidad);
+    assertEquals(expectedPersonas, actualPersonas);
+    assertEquals(expectedNinyos, actualNinyos);
+    assertEquals(expectedConfirmado, actualConfirmado);
+  }
+
+  @And("^Event modal detail dialog have three buttons$")
+  public void event_modal_detail_have_three_buttons() {
+    WebElement verButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9'])[1]"));
+    WebElement modificarButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9'])[2]"));
+    WebElement cerrarButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9']/following-sibling::button)[2]"));
+
+    assertTrue(verButton.isDisplayed());
+    assertTrue(modificarButton.isDisplayed());
+    assertTrue(cerrarButton.isDisplayed());
   }
 
   @And("^First event title should be Boda-Cena$")

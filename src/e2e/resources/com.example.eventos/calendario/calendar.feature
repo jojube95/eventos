@@ -31,3 +31,16 @@ Feature: Calendar page that shows all events
     When User click next month
     And User click today
     Then Date should be julio de 2022
+
+  Scenario: Click on event show modal dialog with detail data and three buttons
+    Given Open Chrome and visit calendar page
+    When User click evento
+    Then Event modal detail dialog is shown
+    And Event modal detail dialog show correct event data
+    And Event modal detail dialog have three buttons
+
+  Scenario: Click on ver redirects to verEvento page
+
+  Scenario: Click on modificar redirects to updateEvento page
+
+  Scenario: Click on cerrar close modal dialog
