@@ -26,7 +26,7 @@ public class WebConnector {
 
     @After
     public void destroySelenium() throws IOException {
-        //driver.close();
+        driver.close();
     }
 
     @After("@modifyDatabase")

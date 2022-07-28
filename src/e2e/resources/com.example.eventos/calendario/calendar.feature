@@ -40,7 +40,23 @@ Feature: Calendar page that shows all events
     And Event modal detail dialog have three buttons
 
   Scenario: Click on ver redirects to verEvento page
+    Given Open Chrome and visit calendar page
+    When User click evento
+    Then Event modal detail dialog is shown
+    When User click ver button
+    Then Redirect to verEvento page
+
 
   Scenario: Click on modificar redirects to updateEvento page
+    Given Open Chrome and visit calendar page
+    When User click evento
+    Then Event modal detail dialog is shown
+    When User click modificar button
+    Then Redirect to updateEvento page
 
   Scenario: Click on cerrar close modal dialog
+    Given Open Chrome and visit calendar page
+    When User click evento
+    Then Event modal detail dialog is shown
+    When User click close button
+    Then Modal detail dialogos is closed

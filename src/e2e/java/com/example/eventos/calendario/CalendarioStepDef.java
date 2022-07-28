@@ -5,12 +5,17 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarioStepDef {
 
@@ -43,6 +48,24 @@ public class CalendarioStepDef {
   public void user_click_evento() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[1]"));
     evento.click();
+  }
+
+  @When("^User click ver button$")
+  public void user_click_ver_button() {
+    WebElement verButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
+    verButton.click();
+  }
+
+  @When("^User click modificar button$")
+  public void user_click_modificar_button() {
+    WebElement modificarButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
+    modificarButton.click();
+  }
+
+  @When("^User click close button$")
+  public void user_click_close_button() {
+    WebElement closeButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[3]"));
+    closeButton.click();
   }
 
   @And("^User click today$")
@@ -86,8 +109,32 @@ public class CalendarioStepDef {
 
   @Then("^Event modal detail dialog is shown$")
   public void event_modal_detail_dialog_is_shown() {
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
     WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
     assertTrue(modal_detail.isDisplayed());
+  }
+
+  @Then("^Redirect to verEvento page$")
+  public void redirect_to_verEvento() {
+    String url = connector.getDriver().getCurrentUrl();
+    assertThat(url, CoreMatchers.containsString("/verEvento?eventoId=62dc2a63ec628818203950b9"));
+  }
+
+  @Then("^Redirect to updateEvento page$")
+  public void redirect_to_updateEvento() {
+    String url = connector.getDriver().getCurrentUrl();
+    assertThat(url, CoreMatchers.containsString("/updateEvento?eventoId=62dc2a63ec628818203950b9"));
+  }
+
+  @Then("^Modal detail dialogos is closed$")
+  public void modal_detail_dialog_is_closed() {
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
+
+    WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
+    assertFalse(modal_detail.isDisplayed());
   }
 
   @And("^Event modal detail dialog show correct event data$")
