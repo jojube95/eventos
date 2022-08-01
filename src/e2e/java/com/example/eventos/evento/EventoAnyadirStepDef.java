@@ -7,8 +7,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,10 +35,7 @@ public class EventoAnyadirStepDef {
         WebElement fechaInput = connector.getDriver().findElement(By.id("fecha"));
         WebElement localidadInput = connector.getDriver().findElement(By.id("localidad"));
 
-        fechaInput.click();
-
-        WebElement datepickerDayButton = connector.getDriver().findElement(By.xpath("(//td[text()='6'])[1]"));
-        datepickerDayButton.click();
+        ((JavascriptExecutor) connector.getDriver()).executeScript("$('#fecha').datepicker('update', new Date(2022, 06, 06));");
 
         localidadInput.sendKeys("Benetuser");
     }
@@ -142,6 +141,7 @@ public class EventoAnyadirStepDef {
     public void redirect_to_calendar_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+        ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
     }
 
     @Then("^Datepicker should display$")
@@ -152,48 +152,40 @@ public class EventoAnyadirStepDef {
 
     @Then("^Option tipo should be selected$")
     public void option_tipo_should_be_selected(){
-        WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Comunión", tituloInput.getText());
+        Select tituloSelect = new Select(connector.getDriver().findElement(By.id("tipo")));
+        WebElement optionSelected = tituloSelect.getFirstSelectedOption();
+        assertEquals("Comunión", optionSelected.getText());
     }
 
     @Then("^Option horario should be selected$")
     public void option_horario_should_be_selected(){
-        WebElement horarioInput = connector.getDriver().findElement(By.id("horario"));
-        assertEquals("Cena", horarioInput.getText());
-    }
-
-    @Then("^Required field label fecha should display$")
-    public void required_field_fecha_should_display(){
-        assertTrue(connector.getDriver().getPageSource().contains("Rellene este campo"));
-    }
-
-    @Then("^Required field label localidad should display$")
-    public void required_field_localidad_should_display(){
-        assertTrue(connector.getDriver().getPageSource().contains("Rellene este campo"));
+        Select horarioInput = new Select(connector.getDriver().findElement(By.id("horario")));
+        WebElement optionSelected = horarioInput.getFirstSelectedOption();
+        assertEquals("Cena", optionSelected.getText());
     }
 
     @Then("^Titulo should be Comunion-Comida$")
     public void titulo_should_be_comunion_comida(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Comunion-Comida", tituloInput.getText());
+        assertEquals("Comunion-Comida", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be Boda-Cena$")
     public void titulo_should_be_boda_cena(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Boda-Cena", tituloInput.getText());
+        assertEquals("Boda-Cena", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be editable$")
     public void titulo_should_be_editable(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("false", tituloInput.getAttribute("readOnly"));
+        assertEquals(null, tituloInput.getAttribute("readOnly"));
     }
 
     @Then("^Titulo fill with selected horario$")
     public void titulo_fill_with_selected_horario(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Sopar nadal-Comida", tituloInput.getText());
+        assertEquals("Sopar nadal-Comida", tituloInput.getAttribute("value"));
     }
 
     @And("^Created event is shown$")
@@ -242,7 +234,8 @@ public class EventoAnyadirStepDef {
     }
 
     @And("^Keep on anyadirEvento page$")
-    public void keep_on_anyadirEvento_page(){
+    public void keep_on_anyadirEvento_page() throws InterruptedException {
+        Thread.sleep(1000);
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/anyadirEvento"));
     }

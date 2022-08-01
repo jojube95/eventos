@@ -15,13 +15,13 @@ Feature: Anyadir evento page should add evento and show required fields
     Then Datepicker should display
     And First day should be monday
 
-  Scenario: When user select tipo option, tipo should be selected, and options should be hidden
+  Scenario: When user select tipo option, tipo should be selected
     Given Open Chrome and visit anyadirEvento page
     And User click tipo field
     When Use click tipo option
     Then Option tipo should be selected
 
-  Scenario: When user select horario option, horario should be selected, and options should be hidden
+  Scenario: When user select horario option, horario should be selected
     Given Open Chrome and visit anyadirEvento page
     And User click horario field
     When Use click horario option
@@ -31,15 +31,13 @@ Feature: Anyadir evento page should add evento and show required fields
     Given Open Chrome and visit anyadirEvento page
     And User fill localidad input
     When User click add evento
-    Then Required field label fecha should display
-    And Keep on anyadirEvento page
+    Then Keep on anyadirEvento page
 
   Scenario: When user dont fill localidad and click on anyadir, required field label should display
     Given Open Chrome and visit anyadirEvento page
     And User fill fecha input
     When User click add evento
-    Then Required field label localidad should display
-    And Keep on anyadirEvento page
+    Then Keep on anyadirEvento page
 
   Scenario: When user select tipo to comunion, titulo should be Comunion-Comida, readonly
     Given Open Chrome and visit anyadirEvento page

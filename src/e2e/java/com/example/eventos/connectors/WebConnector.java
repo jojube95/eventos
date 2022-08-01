@@ -5,6 +5,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +23,14 @@ public class WebConnector {
     @Before
     public void initSelenium() {
         System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--lang=es");
+
+        driver = new ChromeDriver(options);
     }
 
     @After
-    public void destroySelenium() throws IOException {
+    public void destroySelenium() {
         driver.close();
     }
 
