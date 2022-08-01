@@ -32,7 +32,6 @@ public class EventoAnyadirStepDef {
 
     @When("^User fill all fields$")
     public void user_fill_all_fields() {
-        WebElement fechaInput = connector.getDriver().findElement(By.id("fecha"));
         WebElement localidadInput = connector.getDriver().findElement(By.id("localidad"));
 
         ((JavascriptExecutor) connector.getDriver()).executeScript("$('#fecha').datepicker('update', new Date(2022, 06, 06));");
@@ -179,7 +178,7 @@ public class EventoAnyadirStepDef {
     @Then("^Titulo should be editable$")
     public void titulo_should_be_editable(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals(null, tituloInput.getAttribute("readOnly"));
+        assertNull(null, tituloInput.getAttribute("readOnly"));
     }
 
     @Then("^Titulo fill with selected horario$")
