@@ -6,14 +6,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EventoVerStepDef {
@@ -84,6 +81,12 @@ public class EventoVerStepDef {
         protagonistasButton.click();
     }
 
+    @And("^User click eliminar action$")
+    public void user_click_eliminar_action() {
+        WebElement eliminarButton = connector.getDriver().findElement(By.xpath("//div[@class='dropdown-menu show']//a[5]"));
+        eliminarButton.click();
+    }
+
     @Then("^Should display correct action buttons$")
     public void should_display_correct_action_buttons(){
         WebElement dropdownMenuButton = connector.getDriver().findElement(By.xpath("//div[@class='dropdown-menu show']"));
@@ -103,6 +106,12 @@ public class EventoVerStepDef {
         wait.until(ExpectedConditions.urlToBe("http://localhost:8081/updateEvento?eventoId=62dc2a63ec628818203950b9"));
     }
 
+    @Then("^Redirect to verEventos page$")
+    public void redirect_to_verEventos_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/verEventos"));
+    }
+
     @Then("^Page should redirect to mesas page with currect evento$")
     public void redirect_to_mesas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
@@ -117,8 +126,17 @@ public class EventoVerStepDef {
 
     @Then("^Calcular personas modal should display$")
     public void calcular_personas_modal_should_display(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
+        WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
+        assertTrue(modal_detail.isDisplayed());
+    }
+
+    @Then("^Eliminar evento modal should display$")
+    public void eliminar_evento_modal_should_display(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
         WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
         assertTrue(modal_detail.isDisplayed());
@@ -139,22 +157,80 @@ public class EventoVerStepDef {
         assertEquals("Cancelar", modal_personas_button_cancelar.getText());
     }
 
-    @When("^User click aceptar$")
-    public void user_click_aceptar() {
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
+    @And("^Eliminar evento modal content should be correct$")
+    public void eliminar_modal_content_should_be_correct(){
+        WebElement modal_eliminar_header = connector.getDriver().findElement(By.xpath("(//div[@class='modal-header']//h5)[1]"));
+        WebElement modal_eliminar_content = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content']//div)[2]"));
+        WebElement modal_eliminar_button_cerrar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
+        WebElement modal_eliminar_button_eliminar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
 
+        assertEquals("Confirmar", modal_eliminar_header.getText());
+        assertEquals("Está seguro de guardar los cambios?", modal_eliminar_content.getText());
+        assertEquals("Cerrar", modal_eliminar_button_cerrar.getText());
+        assertEquals("Eliminar", modal_eliminar_button_eliminar.getText());
+    }
+
+    @And("^Deleted event not in list verEventos$")
+    public void deleted_event_not_in_list(){
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        WebElement totalPersonas = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/tfoot[1]/tr[1]/th[2]"));
+
+        assertEquals(3, eventos.size());
+        assertEquals("169", totalPersonas.getText());
+    }
+
+    @When("^User click aceptar$")
+    public void user_click_aceptar() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
+        Thread.sleep(1000);
         WebElement modal_personas_button_aceptar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
         modal_personas_button_aceptar.click();
     }
 
+    @When("^User click cancelar")
+    public void user_click_cancelar() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
+        Thread.sleep(1000);
+        WebElement modal_personas_button_cancelar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
+        modal_personas_button_cancelar.click();
+    }
+
+    @When("^User click eliminar confirm")
+    public void user_click_eliminar_confirm() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
+        Thread.sleep(1000);
+        WebElement modal_eliminar_button = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
+        modal_eliminar_button.click();
+    }
+
+    @When("^User click cerrar confirm")
+    public void user_click_cerrar_confirm() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+
+        Thread.sleep(1000);
+        WebElement modal_cerrar_button = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
+        modal_cerrar_button.click();
+    }
+
+
+
     @Then("^Modal calcular personas should hide$")
     public void calcular_personas_modal_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//div[@class='modal-dialog']//div)[1]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
+    }
 
-        WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
-        assertFalse(modal_detail.isDisplayed());
+    @Then("^Eliminar modal should hide$")
+    public void eliminar_modal_should_hide(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @And("^Personas is asigned$")
@@ -163,7 +239,16 @@ public class EventoVerStepDef {
 
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.textToBePresentInElement(personas, "148"));
-
-        assertEquals("148", personas.getText());
     }
+
+    @And("^Personas still same$")
+    public void event_personas_isnt_recalculated() throws InterruptedException {
+        WebElement personas = connector.getDriver().findElement(By.xpath("(//p[@class='font-weight-bold']/following-sibling::p)[6]"));
+
+        Thread.sleep(5000);
+
+        assertEquals("153", personas.getText());
+    }
+
+
 }

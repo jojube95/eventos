@@ -48,16 +48,33 @@ Feature: Ver evento page should display event data and correct button actions
   Scenario: Click on modal calcular personas modal dialog cancelar dont change event personas
     Given Open Chrome and visit verEvento page
     When User click action button
+    And User click calcular personas action
+    And User click cancelar
+    Then Modal calcular personas should hide
+    And Personas still same
 
   Scenario: Click on eliminar should show eliminar modal dialog
     Given Open Chrome and visit verEvento page
     When User click action button
+    And User click eliminar action
+    Then Eliminar evento modal should display
+    And Eliminar evento modal content should be correct
+
 
   @modifyDatabase
   Scenario: Click on eliminar modal dialog aceptar should delete event
     Given Open Chrome and visit verEvento page
     When User click action button
+    And User click eliminar action
+    Then Eliminar evento modal should display
+    When User click eliminar confirm
+    Then Redirect to verEventos page
+    And Deleted event not in list verEventos
 
   Scenario: Click on eliminar modal dialog cerrar dont delete event
     Given Open Chrome and visit verEvento page
     When User click action button
+    And User click eliminar action
+    Then Eliminar evento modal should display
+    When User click cerrar confirm
+    Then Eliminar modal should hide
