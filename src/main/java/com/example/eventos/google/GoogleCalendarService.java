@@ -1,4 +1,4 @@
-package com.example.google.calendar;
+package com.example.eventos.google;
 
 import com.example.eventos.evento.Evento;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -11,6 +11,9 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -24,12 +27,20 @@ import java.util.Date;
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "eventos";
     private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials/googleAccountService.json";
-    private static final String CALENDAR_ID = "fkoiv6b5mmfr6lga0mm3q5hips@group.calendar.google.com";
+
+    private final String calendarId;
+
+    private final String mongodburi;
+
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private Calendar service;
 
-    public GoogleCalendarService() {
+    @Autowired
+    public GoogleCalendarService(@Value("${google.calenarId}") String calendarId, @Value("${spring.data.mongodb.uri}") String mongodburi) {
+        this.calendarId = calendarId;
+        this.mongodburi = mongodburi;
+
         try {
             GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH)).createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
@@ -47,9 +58,11 @@ public class GoogleCalendarService {
 
     public void add(Evento evento) {
         try{
+            System.out.println(this.mongodburi);
+            System.out.println(this.calendarId);
             Event event = create(evento);
 
-            this.service.events().insert(CALENDAR_ID, event).execute();
+            this.service.events().insert(this.calendarId, event).execute();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }
@@ -59,7 +72,7 @@ public class GoogleCalendarService {
         try{
             Event event = create(evento);
 
-            service.events().update(CALENDAR_ID, evento.getId(), event).execute();
+            service.events().update(this.calendarId, evento.getId(), event).execute();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }
@@ -67,7 +80,7 @@ public class GoogleCalendarService {
 
     public void delete(Evento evento) {
         try{
-            this.service.events().delete(CALENDAR_ID, evento.getId()).execute();
+            this.service.events().delete(this.calendarId, evento.getId()).execute();
         }catch (IOException e){
             System.err.println(e.getMessage());
         }

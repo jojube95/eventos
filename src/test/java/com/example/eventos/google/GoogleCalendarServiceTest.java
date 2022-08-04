@@ -1,9 +1,9 @@
-package com.example.google.calendar;
+package com.example.eventos.google;
 
 import com.example.eventos.evento.Evento;
+import com.example.eventos.google.GoogleCalendarService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.google.api.services.calendar.model.Event;
 

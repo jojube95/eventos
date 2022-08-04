@@ -2,7 +2,7 @@ package com.example.eventos.evento;
 
 import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
-import com.example.google.calendar.GoogleCalendarService;
+import com.example.eventos.google.GoogleCalendarService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
