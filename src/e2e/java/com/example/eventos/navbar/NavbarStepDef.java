@@ -1,7 +1,6 @@
 package com.example.eventos.navbar;
 
 import com.example.eventos.connectors.WebConnector;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.CoreMatchers;
@@ -15,12 +14,6 @@ public class NavbarStepDef {
 
     public NavbarStepDef(WebConnector connector) {
         this.connector = connector;
-    }
-
-    @Given("^Open Chrome and visit verEventos page$")
-    public void open_the_chrome_and_visit_ver_eventos_page() {
-        connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/verEventos");
     }
 
     @When("^User click on calendario navbar$")

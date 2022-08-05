@@ -9,134 +9,134 @@
     <link th:href="@{/css/updateEvento.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container">
-    <form action="#" th:action="@{/updateEvento}" th:object="${evento}" method="post">
-        <div class="form-row" hidden>
-            <div class="col">
-                <div class="form-group">
-                    <label for="id">Id</label>
-                    <input type="text" th:field="*{id}" class="form-control" id="id" placeholder="id" required>
+    <div class="container">
+        <form action="#" th:action="@{/updateEvento}" th:object="${evento}" method="post">
+            <div class="form-row" hidden>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="id">Id</label>
+                        <input type="text" th:field="*{id}" class="form-control" id="id" placeholder="id" required>
+                    </div>
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col">
+
                 </div>
             </div>
-            <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group required">
+                        <label th:text="#{evento.fecha}" class="control-label" for="fecha"></label>
+                        <input type="text" th:field="*{fecha}" class="form-control" id="fecha" th:placeholder="#{evento.fecha}" required>
+                    </div>
+                </div>
+                <div class="col">
 
-            </div>
-            <div class="col">
+                </div>
+                <div class="col">
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group required">
-                    <label th:text="#{evento.fecha}" class="control-label" for="fecha"></label>
-                    <input type="text" th:field="*{fecha}" class="form-control" id="fecha" th:placeholder="#{evento.fecha}" required>
                 </div>
             </div>
-            <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group required">
+                        <label th:text="#{evento.localidad}" class="control-label" for="localidad"></label>
+                        <input type="text" th:field="*{localidad}" class="form-control" id="localidad" th:placeholder="#{evento.localidad}" required>
+                    </div>
+                </div>
+                <div class="col">
 
-            </div>
-            <div class="col">
+                </div>
+                <div class="col">
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group required">
-                    <label th:text="#{evento.localidad}" class="control-label" for="localidad"></label>
-                    <input type="text" th:field="*{localidad}" class="form-control" id="localidad" th:placeholder="#{evento.localidad}" required>
                 </div>
             </div>
-            <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.tipo}" for="tipo"></label>
+                        <select th:field="*{tipo}" class="form-control" id="tipo" onchange="generarTitulo()">
+                            <option th:text="#{boda}" value="Boda"></option>
+                            <option th:text="#{comunion}" value="Comunion"></option>
+                            <option th:text="#{eventoComunal}" value="Evento comunal"></option>
+                            <option th:text="#{eventoIndividual}" value="Evento individual"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.horario}" for="horario"></label>
+                        <select th:field="*{horario}" class="form-control" id="horario" onchange="generarTitulo()">
+                            <option th:text="#{comida}" value="Comida"></option>
+                            <option th:text="#{cena}" value="Cena"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.titulo}" for="titulo"></label>
+                        <input type="text" th:field="*{titulo}" class="form-control" id="titulo" th:placeholder="#{evento.titulo}" onchange="anyadirHorario()" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.personas}" for="personas"></label>
+                        <input type="number" th:field="*{personas}" class="form-control" id="personas" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.precioMenu}" for="precioMenu"></label>
+                        <input type="number" step="0.01" th:field="*{precioMenu}" class="form-control" id="precioMenu" required>
+                    </div>
+                </div>
+                <div class="col">
 
+                </div>
             </div>
-            <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.ninyos}" for="ninyos"></label>
+                        <input type="number" th:field="*{ninyos}" class="form-control" id="ninyos" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.precioMenuNinyos}" for="precioMenuNinyos"></label>
+                        <input type="number" step="0.01" th:field="*{precioMenuNinyos}" class="form-control" id="precioMenuNinyos" required>
+                    </div>
+                </div>
+                <div class="col">
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.tipo}" for="tipo"></label>
-                    <select th:field="*{tipo}" class="form-control" id="tipo" onchange="generarTitulo()">
-                        <option th:text="#{boda}" value="Boda"></option>
-                        <option th:text="#{comunion}" value="Comunion"></option>
-                        <option th:text="#{eventoComunal}" value="Evento comunal"></option>
-                        <option th:text="#{eventoIndividual}" value="Evento individual"></option>
-                    </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.horario}" for="horario"></label>
-                    <select th:field="*{horario}" class="form-control" id="horario" onchange="generarTitulo()">
-                        <option th:text="#{comida}" value="Comida"></option>
-                        <option th:text="#{cena}" value="Cena"></option>
-                    </select>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label th:text="#{evento.confirmado}" for="confirmado"></label>
+                        <select th:field="*{confirmado}" class="form-control" id="confirmado">
+                            <option th:text="#{si}" value="true"></option>
+                            <option th:text="#{no}" value="false"></option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.titulo}" for="titulo"></label>
-                    <input type="text" th:field="*{titulo}" class="form-control" id="titulo" th:placeholder="#{evento.titulo}" onchange="anyadirHorario()" required>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.personas}" for="personas"></label>
-                    <input type="number" th:field="*{personas}" class="form-control" id="personas" required>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.precioMenu}" for="precioMenu"></label>
-                    <input type="number" th:field="*{precioMenu}" class="form-control" id="precioMenu" required>
-                </div>
-            </div>
-            <div class="col">
+                <div class="col">
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.ninyos}" for="niynos"></label>
-                    <input type="number" th:field="*{ninyos}" class="form-control" id="niynos" required>
+                </div>
+                <div class="col">
+
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.precioMenuNinyos}" for="precioMenuNinyos"></label>
-                    <input type="number" th:field="*{precioMenuNinyos}" class="form-control" id="precioMenuNinyos" required>
-                </div>
-            </div>
-            <div class="col">
 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <div class="form-group">
-                    <label th:text="#{evento.confirmado}" for="confirmado"></label>
-                    <select th:field="*{confirmado}" class="form-control" id="confirmado">
-                        <option th:text="#{si}" value="true"></option>
-                        <option th:text="#{no}" value="false"></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-
-        <button th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
-    </form>
-</div>
+            <button th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
+        </form>
+    </div>
 </body>
 </html>

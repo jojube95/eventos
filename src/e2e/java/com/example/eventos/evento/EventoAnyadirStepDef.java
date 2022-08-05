@@ -53,13 +53,13 @@ public class EventoAnyadirStepDef {
 
     @When("^Use click tipo option$")
     public void user_click_tipo_option() {
-        WebElement comunionOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[1]/div/select/option[2]"));
+        WebElement comunionOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[2]"));
         comunionOption.click();
     }
 
     @When("^Use click horario option$")
     public void user_click_horario_option() {
-        WebElement cenaOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[2]/div/select/option[2]"));
+        WebElement cenaOption = connector.getDriver().findElement(By.xpath("(//select[@id='horario']//option)[2]"));
         cenaOption.click();
     }
 
@@ -72,7 +72,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to comunion$")
     public void user_select_tipo_comunion() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement comunionOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[1]/div/select/option[2]"));
+        WebElement comunionOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[2]"));
         tipoSelect.click();
         comunionOption.click();
     }
@@ -80,7 +80,7 @@ public class EventoAnyadirStepDef {
     @When("^User select horario to cena$")
     public void user_select_horario_cena() {
         WebElement horarioSelect = connector.getDriver().findElement(By.id("horario"));
-        WebElement cenaOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[2]/div/select/option[2]"));
+        WebElement cenaOption = connector.getDriver().findElement(By.xpath("(//select[@id='horario']//option)[2]"));
         horarioSelect.click();
         cenaOption.click();
     }
@@ -88,7 +88,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento individual$")
     public void user_select_tipo_evento_individual() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoIndividualOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[1]/div/select/option[4]"));
+        WebElement eventoIndividualOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[4]"));
         tipoSelect.click();
         eventoIndividualOption.click();
 
@@ -97,7 +97,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento comunal")
     public void user_select_tipo_evento_comunal() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoComunalOption = connector.getDriver().findElement(By.xpath("/html/body/div[2]/form/div[3]/div[1]/div/select/option[3]"));
+        WebElement eventoComunalOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[3]"));
         tipoSelect.click();
         eventoComunalOption.click();
 
@@ -234,7 +234,7 @@ public class EventoAnyadirStepDef {
 
     @And("^Keep on anyadirEvento page$")
     public void keep_on_anyadirEvento_page() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/anyadirEvento"));
     }
