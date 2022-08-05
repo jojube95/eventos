@@ -68,12 +68,6 @@ public class CalendarioStepDef {
     closeButton.click();
   }
 
-  @And("^User click today$")
-  public void user_click_today(){
-    WebElement nextMonthButton = connector.getDriver().findElement(By.xpath("//button[text()='today']"));
-    nextMonthButton.click();
-  }
-
   @And("^Calendar will be displayed$")
   public void calendar_will_be_displayed() {
     WebElement calendario = connector.getDriver().findElement(By.id("calendar"));

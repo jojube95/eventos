@@ -26,12 +26,6 @@ Feature: Calendar page that shows all events
     Then Date should be junio de 2022
     And 2 events is shown
 
-  Scenario: Visit calendar page and return to today
-    Given Open Chrome and visit calendar page
-    When User click next month
-    And User click today
-    Then Date should be julio de 2022
-
   Scenario: Click on event show modal dialog with detail data and three buttons
     Given Open Chrome and visit calendar page
     When User click evento
