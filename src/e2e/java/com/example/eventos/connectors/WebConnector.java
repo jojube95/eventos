@@ -2,11 +2,9 @@ package com.example.eventos.connectors;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +12,6 @@ import java.io.InputStreamReader;
 
 public class WebConnector {
     WebDriver driver;
-
-    @BeforeAll
-    public static void before_all() throws IOException {
-        //restoreTestDatabase();
-    }
 
     @Before
     public void initSelenium() {
@@ -42,7 +35,6 @@ public class WebConnector {
     public WebDriver getDriver() {
         return driver;
     }
-
 
     public static void restoreTestDatabase() throws IOException {
         System.out.println("Restoring test database");
