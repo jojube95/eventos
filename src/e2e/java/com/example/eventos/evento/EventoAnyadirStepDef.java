@@ -234,7 +234,7 @@ public class EventoAnyadirStepDef {
 
     @And("^Keep on anyadirEvento page$")
     public void keep_on_anyadirEvento_page() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(500);
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/anyadirEvento"));
     }

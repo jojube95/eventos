@@ -18,6 +18,9 @@ public class WebConnector {
         System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=es");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1400,800");
 
         driver = new ChromeDriver(options);
     }

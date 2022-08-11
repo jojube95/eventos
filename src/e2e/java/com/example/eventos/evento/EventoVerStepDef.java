@@ -184,7 +184,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
         WebElement modal_personas_button_aceptar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
         modal_personas_button_aceptar.click();
     }
@@ -194,7 +194,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
         WebElement modal_personas_button_cancelar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
         modal_personas_button_cancelar.click();
     }
@@ -204,7 +204,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
         WebElement modal_eliminar_button = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
         modal_eliminar_button.click();
     }
@@ -214,7 +214,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
         WebElement modal_cerrar_button = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
         modal_cerrar_button.click();
     }
@@ -245,7 +245,7 @@ public class EventoVerStepDef {
     public void event_personas_isnt_recalculated() throws InterruptedException {
         WebElement personas = connector.getDriver().findElement(By.xpath("(//p[@class='font-weight-bold']/following-sibling::p)[6]"));
 
-        Thread.sleep(5000);
+        Thread.sleep(1500);
 
         assertEquals("153", personas.getText());
     }

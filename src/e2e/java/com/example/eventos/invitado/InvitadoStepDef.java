@@ -124,7 +124,7 @@ public class InvitadoStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         WebElement addButton = connector.getDriver().findElement(By.id("addRowBtn"));
         assertTrue(addButton.isDisplayed());
@@ -141,7 +141,7 @@ public class InvitadoStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         WebElement editButton = connector.getDriver().findElement(By.id("editRowBtn"));
         assertTrue(editButton.isDisplayed());
@@ -158,7 +158,7 @@ public class InvitadoStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         WebElement editButton = connector.getDriver().findElement(By.id("deleteRowBtn"));
         assertTrue(editButton.isDisplayed());
