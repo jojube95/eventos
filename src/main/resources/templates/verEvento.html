@@ -15,13 +15,13 @@
     <div class="col">
       <div class="dropdown">
         <button th:text="#{accion}" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a th:text="#{modificar}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{mesas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{calcularPersonas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{protagonistas}" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
+        <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a th:text="#{modificar}" id="modificarButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{mesas}" id="mesasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{calcularPersonas}" id="calcularPersonasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{protagonistas}" id="protagonistasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
           <div role="separator" class="dropdown-divider"></div>
-          <a th:text="#{eliminar}" class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#exampleModal"></a>
+          <a th:text="#{eliminar}" id="eliminarButton" class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#confirmarEliminarModal"></a>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
   <div class="row">
     <div class="col">
       <p th:text="#{evento.fecha}" class="font-weight-bold"></p>
-      <p th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
+      <p id="eventoFecha" th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}" class="font-weight-normal"></p>
     </div>
     <div class="col">
 
@@ -48,7 +48,7 @@
   <div class="row">
     <div class="col">
       <p th:text="#{evento.localidad}" class="font-weight-bold"></p>
-      <p th:text="${evento.localidad}" class="font-weight-normal"></p>
+      <p id="eventoLocalidad" th:text="${evento.localidad}" class="font-weight-normal"></p>
     </div>
     <div class="col">
 
@@ -60,25 +60,25 @@
   <div class="row">
     <div class="col">
       <p th:text="#{evento.tipo}" class="font-weight-bold"></p>
-      <p th:text="${evento.tipo}" class="font-weight-normal"></p>
+      <p id="eventoTipo" th:text="${evento.tipo}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.horario}" class="font-weight-bold"></p>
-      <p th:text="${evento.horario}" class="font-weight-normal"></p>
+      <p id="eventoHorario" th:text="${evento.horario}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.titulo}" class="font-weight-bold"></p>
-      <p th:text="${evento.titulo}" class="font-weight-normal"></p>
+      <p id="eventoTitulo" th:text="${evento.titulo}" class="font-weight-normal"></p>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <p th:text="#{evento.personas}" class="font-weight-bold"></p>
-      <p th:text="${evento.personas}" class="font-weight-normal" id="personas"></p>
+      <p id="eventoPersonas" th:text="${evento.personas}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
-      <p th:text="${evento.precioMenu}" class="font-weight-normal"></p>
+      <p id="eventoPrecioMenu" th:text="${evento.precioMenu}" class="font-weight-normal"></p>
     </div>
     <div class="col">
 
@@ -87,11 +87,11 @@
   <div class="row">
     <div class="col">
       <p th:text="#{evento.ninyos}" class="font-weight-bold"></p>
-      <p th:text="${evento.ninyos}" class="font-weight-normal"></p>
+      <p id="eventoNinyos" th:text="${evento.ninyos}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.precioMenuNinyos}" class="font-weight-bold"></p>
-      <p th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
+      <p id="eventoPrecioMenuNinyos" th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
     </div>
     <div class="col">
 
@@ -102,7 +102,7 @@
       <p th:text="#{evento.confirmado}" class="font-weight-bold"></p>
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
-        <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
+        <label id="eventoConfirmado" class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
       </div>
     </div>
     <div class="col">
@@ -113,7 +113,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -124,8 +124,8 @@
         </div>
         <div th:text="#{seguroGuardarCambios}" class="modal-body"></div>
         <div class="modal-footer">
-          <button th:text="#{cerrar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
-          <button th:text="#{eliminar}" type="button" class="btn btn-primary" id="botonModalGuardar" th:eventoId="${evento.id}" onclick="confirmarEliminar(this.getAttribute('eventoId'))"></button>
+          <button th:text="#{cerrar}" id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+          <button th:text="#{eliminar}" id="modalEliminarButton" type="button" class="btn btn-primary" th:eventoId="${evento.id}" onclick="confirmarEliminar(this.getAttribute('eventoId'))"></button>
         </div>
       </div>
     </div>
@@ -165,7 +165,7 @@
       type: "POST",
       url: "/evento/updatePersonas?eventoId=" + eventoId + "&personas=" + personas,
       success: function () {
-        $('#personas').text(personas);
+        $('#eventoPersonas').text(personas);
       },
       error: function (er) {
         alert(er);

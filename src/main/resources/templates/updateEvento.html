@@ -60,10 +60,10 @@
                     <div class="form-group">
                         <label th:text="#{evento.tipo}" for="tipo"></label>
                         <select th:field="*{tipo}" class="form-control" id="tipo" onchange="generarTitulo()">
-                            <option th:text="#{boda}" value="Boda"></option>
-                            <option th:text="#{comunion}" value="Comunion"></option>
-                            <option th:text="#{eventoComunal}" value="Evento comunal"></option>
-                            <option th:text="#{eventoIndividual}" value="Evento individual"></option>
+                            <option id="optionBoda" th:text="#{boda}" value="Boda"></option>
+                            <option id="optionComunion" th:text="#{comunion}" value="Comunion"></option>
+                            <option id="optionEventoComunal" th:text="#{eventoComunal}" value="Evento comunal"></option>
+                            <option id="optionEventoIndividual" th:text="#{eventoIndividual}" value="Evento individual"></option>
                         </select>
                     </div>
                 </div>
@@ -71,8 +71,8 @@
                     <div class="form-group">
                         <label th:text="#{evento.horario}" for="horario"></label>
                         <select th:field="*{horario}" class="form-control" id="horario" onchange="generarTitulo()">
-                            <option th:text="#{comida}" value="Comida"></option>
-                            <option th:text="#{cena}" value="Cena"></option>
+                            <option id="optionComida" th:text="#{comida}" value="Comida"></option>
+                            <option id="optionCena" th:text="#{cena}" value="Cena"></option>
                         </select>
                     </div>
                 </div>
@@ -122,8 +122,8 @@
                     <div class="form-group">
                         <label th:text="#{evento.confirmado}" for="confirmado"></label>
                         <select th:field="*{confirmado}" class="form-control" id="confirmado">
-                            <option th:text="#{si}" value="true"></option>
-                            <option th:text="#{no}" value="false"></option>
+                            <option id="optionSi" th:text="#{si}" value="true"></option>
+                            <option id="optionNo" th:text="#{no}" value="false"></option>
                         </select>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <button th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
+            <button id="buttonModificar" th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
         </form>
     </div>
 </body>

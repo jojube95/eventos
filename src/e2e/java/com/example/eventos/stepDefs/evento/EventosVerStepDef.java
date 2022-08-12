@@ -1,6 +1,6 @@
-package com.example.eventos.evento;
+package com.example.eventos.stepDefs.evento;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -93,20 +93,20 @@ public class EventosVerStepDef {
 
     @When("^User click first event$")
     public void user_click_first_event(){
-        WebElement evento1 = connector.getDriver().findElement(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]"));
+        WebElement evento1 = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/tbody/tr[1]"));
         evento1.click();
     }
 
     @Then("^Table display all events with correct data$")
     public void table_display_correct_data() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td"));
-        List<WebElement> evento3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[3]/td"));
-        List<WebElement> evento4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[4]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
+        List<WebElement> evento3 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[3]/td"));
+        List<WebElement> evento4 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(4, eventos.size());
 
@@ -161,9 +161,9 @@ public class EventosVerStepDef {
 
     @Then("^Three events shown$")
     public void three_events_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(3, eventos.size());
 
@@ -177,9 +177,9 @@ public class EventosVerStepDef {
 
     @Then("^Two events shown$")
     public void two_events_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(2, eventos.size());
 
@@ -200,11 +200,11 @@ public class EventosVerStepDef {
 
     @Then("^Evento boda is shown$")
     public void evento_boda_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(1, eventos.size());
 
@@ -228,12 +228,12 @@ public class EventosVerStepDef {
 
     @Then("^Evento comida is shown$")
     public void evento_comida_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(2, eventos.size());
 
@@ -267,12 +267,12 @@ public class EventosVerStepDef {
 
     @Then("^Evento Aielo de Malferit is shown$")
     public void evento_aielo_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(2, eventos.size());
 
@@ -306,12 +306,12 @@ public class EventosVerStepDef {
 
     @Then("^Evento confirmado is shown$")
     public void evento_confirmado_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(2, eventos.size());
 
@@ -345,11 +345,11 @@ public class EventosVerStepDef {
 
     @Then("^Evento Comida and Olleria is shown$")
     public void evento_comida_olleria_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(1, eventos.size());
 
@@ -461,5 +461,4 @@ public class EventosVerStepDef {
         assertEquals("Sí", options.get(1).getText());
         assertEquals("No", options.get(2).getText());
     }
-
 }

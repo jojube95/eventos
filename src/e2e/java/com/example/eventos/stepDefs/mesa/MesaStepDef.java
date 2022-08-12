@@ -1,6 +1,6 @@
-package com.example.eventos.mesa;
+package com.example.eventos.stepDefs.mesa;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,10 +10,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MesaStepDef {
@@ -31,14 +29,14 @@ public class MesaStepDef {
 
     @Then("^Table display all mesas$")
     public void table_display_all_mesas() {
-        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
-        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
-        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[2]/td"));
-        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[3]/td"));
-        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[4]/td"));
+        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
+        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[2]/td"));
+        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
+        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
 
         assertEquals(4, mesas.size());
 
@@ -59,7 +57,7 @@ public class MesaStepDef {
 
     @When("^User click first mesa$")
     public void user_click_firest_mesa(){
-        WebElement firstMesa = connector.getDriver().findElement(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]"));
+        WebElement firstMesa = connector.getDriver().findElement(By.xpath("//table[@id='mesas']/tbody/tr[1]"));
         firstMesa.click();
     }
 
@@ -124,63 +122,42 @@ public class MesaStepDef {
     public void add_modal_mesa_should_display(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement addButton = connector.getDriver().findElement(By.id("addRowBtn"));
-        assertTrue(addButton.isDisplayed());
     }
 
     @Then("^Add modal mesa should hide$")
     public void add_modal_mesa_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement addButton = connector.getDriver().findElement(By.id("addRowBtn"));
-        assertFalse(addButton.isDisplayed());
     }
 
     @Then("^Edit modal mesa should display$")
     public void edit_modal_mesa_should_display(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement editButton = connector.getDriver().findElement(By.id("editRowBtn"));
-        assertTrue(editButton.isDisplayed());
     }
 
     @Then("^Edit modal mesa should hide")
     public void edit_modal_mesa_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement editButton = connector.getDriver().findElement(By.id("editRowBtn"));
-        assertFalse(editButton.isDisplayed());
     }
 
     @Then("^Delete modal mesa should display$")
     public void delete_modal_mesa_should_display(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement deleteButton = connector.getDriver().findElement(By.id("deleteRowBtn"));
-        assertTrue(deleteButton.isDisplayed());
     }
 
     @Then("^Delete modal mesa should hide")
     public void delete_modal_mesa_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement deleteButton = connector.getDriver().findElement(By.id("deleteRowBtn"));
-        assertFalse(deleteButton.isDisplayed());
     }
 
     @Then("^Invitados modal mesa should display$")
     public void invitado_modal_mesa_should_display(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        WebElement invitados = connector.getDriver().findElement(By.id("invitados"));
-        assertTrue(invitados.isDisplayed());
     }
 
     @And("^User click edit modal mesa$")
@@ -200,15 +177,15 @@ public class MesaStepDef {
 
     @And("^New mesa display on table$")
     public void new_mesa_display_on_table() {
-        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
-        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
-        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[2]/td"));
-        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[3]/td"));
-        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[4]/td"));
-        List<WebElement> mesa5 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[5]/td"));
+        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
+        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[2]/td"));
+        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
+        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
+        List<WebElement> mesa5 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[5]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
 
         assertEquals(5, mesas.size());
 
@@ -232,14 +209,14 @@ public class MesaStepDef {
 
     @And("^Edited mesa display on table$")
     public void edited_mesa_display_on_table() {
-        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
-        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
-        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[2]/td"));
-        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[3]/td"));
-        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[4]/td"));
+        List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
+        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[2]/td"));
+        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
+        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
 
         assertEquals(4, mesas.size());
 
@@ -260,13 +237,13 @@ public class MesaStepDef {
 
     @And("^First mesa should be deleted$")
     public void first_mesa_should_be_deleted() {
-        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
-        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
-        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[2]/td"));
-        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[3]/td"));
+        List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
+        List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[2]/td"));
+        List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
 
         assertEquals(3, mesas.size());
 

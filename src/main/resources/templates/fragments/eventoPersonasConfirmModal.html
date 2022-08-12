@@ -18,8 +18,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button th:text="#{aceptar}" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${eventoId}" th:personas="${personas}" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('personas'))"></button>
-                <button th:text="#{cancelar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+                <button th:text="#{aceptar}" id="modalConfirmarPersonasAceptarButton" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${eventoId}" th:personas="${personas}" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('personas'))"></button>
+                <button th:text="#{cancelar}" id="modalConfirmarPersonasCancelarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
             </div>
         </div>
     </div>

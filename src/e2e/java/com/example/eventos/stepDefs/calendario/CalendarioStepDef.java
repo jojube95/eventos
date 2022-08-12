@@ -1,6 +1,6 @@
-package com.example.eventos.calendario;
+package com.example.eventos.stepDefs.calendario;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -52,19 +52,19 @@ public class CalendarioStepDef {
 
   @When("^User click ver button$")
   public void user_click_ver_button() {
-    WebElement verButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
+    WebElement verButton = connector.getDriver().findElement(By.id("modalEventoVerButton"));
     verButton.click();
   }
 
   @When("^User click modificar button$")
   public void user_click_modificar_button() {
-    WebElement modificarButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
+    WebElement modificarButton = connector.getDriver().findElement(By.id("modalEventoModificarButton"));
     modificarButton.click();
   }
 
   @When("^User click close button$")
   public void user_click_close_button() {
-    WebElement closeButton = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[3]"));
+    WebElement closeButton = connector.getDriver().findElement(By.id("modalEventoCerrarButton"));
     closeButton.click();
   }
 
@@ -104,10 +104,7 @@ public class CalendarioStepDef {
   @Then("^Event modal detail dialog is shown$")
   public void event_modal_detail_dialog_is_shown() {
     WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-    WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
-    assertTrue(modal_detail.isDisplayed());
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("eventDetailModal")));
   }
 
   @Then("^Redirect to verEvento page$")
@@ -124,22 +121,19 @@ public class CalendarioStepDef {
 
   @Then("^Modal detail dialogos is closed$")
   public void modal_detail_dialog_is_closed() {
-    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(4));
-    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
-
-    WebElement modal_detail = connector.getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
-    assertFalse(modal_detail.isDisplayed());
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("eventDetailModal")));
   }
 
   @And("^Event modal detail dialog show correct event data$")
   public void event_modal_detail_show_correct_data() {
-    String actualFecha = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[1]")).getText();
-    String actualTipo = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[2]")).getText();
-    String actualHorario = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[3]")).getText();
-    String actualLocalidad = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[4]")).getText();
-    String actualPersonas = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[5]")).getText();
-    String actualNinyos = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[6]")).getText();
-    String actualConfirmado = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[7]")).getText();
+    String actualFecha = connector.getDriver().findElement(By.id("modalEventoFecha")).getText();
+    String actualTipo = connector.getDriver().findElement(By.id("modalEventoTipo")).getText();
+    String actualHorario = connector.getDriver().findElement(By.id("modalEventoHorario")).getText();
+    String actualLocalidad = connector.getDriver().findElement(By.id("modalEventoLocalidad")).getText();
+    String actualPersonas = connector.getDriver().findElement(By.id("modalEventoPersonas")).getText();
+    String actualNinyos = connector.getDriver().findElement(By.id("modalEventoNinyos")).getText();
+    String actualConfirmado = connector.getDriver().findElement(By.id("modalEventoConfirmado")).getText();
 
     String expectedFecha = "2022-07-02";
     String expectedTipo = "Boda";
@@ -160,9 +154,9 @@ public class CalendarioStepDef {
 
   @And("^Event modal detail dialog have three buttons$")
   public void event_modal_detail_have_three_buttons() {
-    WebElement verButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9'])[1]"));
-    WebElement modificarButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9'])[2]"));
-    WebElement cerrarButton = connector.getDriver().findElement(By.xpath("(//button[@eventoid='62dc2a63ec628818203950b9']/following-sibling::button)[2]"));
+    WebElement verButton = connector.getDriver().findElement(By.id("modalEventoVerButton"));
+    WebElement modificarButton = connector.getDriver().findElement(By.id("modalEventoModificarButton"));
+    WebElement cerrarButton = connector.getDriver().findElement(By.id("modalEventoCerrarButton"));
 
     assertTrue(verButton.isDisplayed());
     assertTrue(modificarButton.isDisplayed());

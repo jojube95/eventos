@@ -1,6 +1,6 @@
-package com.example.eventos.evento;
+package com.example.eventos.stepDefs.evento;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -53,26 +53,26 @@ public class EventoAnyadirStepDef {
 
     @When("^Use click tipo option$")
     public void user_click_tipo_option() {
-        WebElement comunionOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[2]"));
+        WebElement comunionOption = connector.getDriver().findElement(By.id("optionComunion"));
         comunionOption.click();
     }
 
     @When("^Use click horario option$")
     public void user_click_horario_option() {
-        WebElement cenaOption = connector.getDriver().findElement(By.xpath("(//select[@id='horario']//option)[2]"));
+        WebElement cenaOption = connector.getDriver().findElement(By.id("optionCena"));
         cenaOption.click();
     }
 
     @When("^User click add evento$")
     public void user_click_add_button() {
-        WebElement addButton = connector.getDriver().findElement(By.xpath("//button[@type='submit']"));
+        WebElement addButton = connector.getDriver().findElement(By.id("buttonAnyadir"));
         addButton.click();
     }
 
     @When("^User select tipo to comunion$")
     public void user_select_tipo_comunion() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement comunionOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[2]"));
+        WebElement comunionOption = connector.getDriver().findElement(By.id("optionComunion"));
         tipoSelect.click();
         comunionOption.click();
     }
@@ -80,7 +80,7 @@ public class EventoAnyadirStepDef {
     @When("^User select horario to cena$")
     public void user_select_horario_cena() {
         WebElement horarioSelect = connector.getDriver().findElement(By.id("horario"));
-        WebElement cenaOption = connector.getDriver().findElement(By.xpath("(//select[@id='horario']//option)[2]"));
+        WebElement cenaOption = connector.getDriver().findElement(By.id("optionCena"));
         horarioSelect.click();
         cenaOption.click();
     }
@@ -88,7 +88,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento individual$")
     public void user_select_tipo_evento_individual() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoIndividualOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[4]"));
+        WebElement eventoIndividualOption = connector.getDriver().findElement(By.id("optionEventoIndividual"));
         tipoSelect.click();
         eventoIndividualOption.click();
 
@@ -97,7 +97,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento comunal")
     public void user_select_tipo_evento_comunal() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoComunalOption = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[3]"));
+        WebElement eventoComunalOption = connector.getDriver().findElement(By.id("optionEventoComunal"));
         tipoSelect.click();
         eventoComunalOption.click();
 
@@ -199,15 +199,15 @@ public class EventoAnyadirStepDef {
         evento.click();
 
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("eventDetailModal")));
 
-        String actualFecha = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[1]")).getText();
-        String actualTipo = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[2]")).getText();
-        String actualHorario = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[3]")).getText();
-        String actualLocalidad = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[4]")).getText();
-        String actualPersonas = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[5]")).getText();
-        String actualNinyos = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[6]")).getText();
-        String actualConfirmado = connector.getDriver().findElement(By.xpath("(//div[@class='col-4 font-weight-bold']/following-sibling::div)[7]")).getText();
+        String actualFecha = connector.getDriver().findElement(By.id("modalEventoFecha")).getText();
+        String actualTipo = connector.getDriver().findElement(By.id("modalEventoTipo")).getText();
+        String actualHorario = connector.getDriver().findElement(By.id("modalEventoHorario")).getText();
+        String actualLocalidad = connector.getDriver().findElement(By.id("modalEventoLocalidad")).getText();
+        String actualPersonas = connector.getDriver().findElement(By.id("modalEventoPersonas")).getText();
+        String actualNinyos = connector.getDriver().findElement(By.id("modalEventoNinyos")).getText();
+        String actualConfirmado = connector.getDriver().findElement(By.id("modalEventoConfirmado")).getText();
 
         String expectedFecha = "2022-07-06";
         String expectedTipo = "Boda";

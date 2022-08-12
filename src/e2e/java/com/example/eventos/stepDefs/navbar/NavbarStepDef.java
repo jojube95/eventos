@@ -1,6 +1,6 @@
-package com.example.eventos.navbar;
+package com.example.eventos.stepDefs.navbar;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.CoreMatchers;
@@ -18,25 +18,25 @@ public class NavbarStepDef {
 
     @When("^User click on calendario navbar$")
     public void user_click_calendario_navbar() {
-        WebElement calendarioNavbarButton = connector.getDriver().findElement(By.xpath("//li[@class='nav-item']//a[1]"));
+        WebElement calendarioNavbarButton = connector.getDriver().findElement(By.id("navBarCalendario"));
         calendarioNavbarButton.click();
     }
 
     @When("^User click on eventos navbar$")
     public void user_click_eventos_navbar() {
-        WebElement eventosNavbarButton = connector.getDriver().findElement(By.xpath("(//li[@class='nav-item dropdown']//a)[1]"));
+        WebElement eventosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdown"));
         eventosNavbarButton.click();
     }
 
     @When("^User click on anyadir navbar$")
     public void user_click_anyadir_navbar() {
-        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.xpath("//div[@class='dropdown-menu show']//a[1]"));
+        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadir"));
         anyadirNavbarButton.click();
     }
 
     @When("^User click on ver navbar$")
     public void user_click_ver_navbar() {
-        WebElement verNavbarButton = connector.getDriver().findElement(By.xpath("//div[@class='dropdown-menu show']//a[2]"));
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVer"));
         verNavbarButton.click();
     }
 

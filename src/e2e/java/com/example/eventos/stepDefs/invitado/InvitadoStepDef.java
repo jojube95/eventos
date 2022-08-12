@@ -1,6 +1,6 @@
-package com.example.eventos.invitado;
+package com.example.eventos.stepDefs.invitado;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,16 +24,16 @@ public class InvitadoStepDef {
 
     @Then("^Invitados content should be correct$")
     public void invitados_content_should_be_correct() {
-        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr"));
+        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr"));
 
-        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[1]/td"));
-        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[2]/td"));
-        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[3]/td"));
-        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[4]/td"));
-        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[5]/td"));
-        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[6]/td"));
+        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[1]/td"));
+        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[2]/td"));
+        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[3]/td"));
+        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[4]/td"));
+        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
+        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
 
         assertEquals(6, invitados.size());
 
@@ -78,7 +78,7 @@ public class InvitadoStepDef {
 
     @When("^User click first invitado$")
     public void user_click_first_invitado(){
-        WebElement invitado = connector.getDriver().findElement(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[1]"));
+        WebElement invitado = connector.getDriver().findElement(By.xpath("//table[@id='invitados']/tbody/tr[1]"));
         invitado.click();
     }
 
@@ -120,14 +120,9 @@ public class InvitadoStepDef {
     }
 
     @Then("^Add invitado modal should display$")
-    public void add_modal_invitado_should_display$() throws InterruptedException {
+    public void add_modal_invitado_should_display$() {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        Thread.sleep(500);
-
-        WebElement addButton = connector.getDriver().findElement(By.id("addRowBtn"));
-        assertTrue(addButton.isDisplayed());
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("addRowBtn")));
     }
 
     @Then("^Add invitado modal should hide")
@@ -137,14 +132,9 @@ public class InvitadoStepDef {
     }
 
     @Then("^Edit invitado modal should display$")
-    public void edit_modal_invitado_should_display$() throws InterruptedException {
+    public void edit_modal_invitado_should_display$() {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        Thread.sleep(500);
-
-        WebElement editButton = connector.getDriver().findElement(By.id("editRowBtn"));
-        assertTrue(editButton.isDisplayed());
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("editRowBtn")));
     }
 
     @Then("^Edit invitado modal should hide")
@@ -154,14 +144,9 @@ public class InvitadoStepDef {
     }
 
     @Then("^Delete invitado modal should display$")
-    public void delete_modal_invitado_should_display$() throws InterruptedException {
+    public void delete_modal_invitado_should_display$() {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-
-        Thread.sleep(500);
-
-        WebElement editButton = connector.getDriver().findElement(By.id("deleteRowBtn"));
-        assertTrue(editButton.isDisplayed());
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("deleteRowBtn")));
     }
 
     @Then("^Delete invitado modal should hide")
@@ -172,17 +157,17 @@ public class InvitadoStepDef {
 
     @And("^New invitado should display on table$")
     public void added_invitado_should_display() {
-        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr"));
+        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr"));
 
-        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[1]/td"));
-        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[2]/td"));
-        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[3]/td"));
-        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[4]/td"));
-        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[5]/td"));
-        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[6]/td"));
-        List<WebElement> invitados7 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[7]/td"));
+        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[1]/td"));
+        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[2]/td"));
+        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[3]/td"));
+        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[4]/td"));
+        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
+        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
+        List<WebElement> invitados7 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[7]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
 
         assertEquals(7, invitados.size());
 
@@ -212,16 +197,16 @@ public class InvitadoStepDef {
 
     @And("^Edited invitado should display on table$")
     public void edited_invitado_should_display() {
-        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr"));
+        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr"));
 
-        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[1]/td"));
-        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[2]/td"));
-        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[3]/td"));
-        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[4]/td"));
-        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[5]/td"));
-        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[6]/td"));
+        List<WebElement> invitados1 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[1]/td"));
+        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[2]/td"));
+        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[3]/td"));
+        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[4]/td"));
+        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
+        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
 
         assertEquals(6, invitados.size());
 
@@ -248,15 +233,15 @@ public class InvitadoStepDef {
 
     @And("^Deleted invitado shouldnt display on table$")
     public void deleted_invitado_shouldnt_display() {
-        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr"));
+        List<WebElement> invitados = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr"));
 
-        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[1]/td"));
-        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[2]/td"));
-        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[3]/td"));
-        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[4]/td"));
-        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tbody/tr[5]/td"));
+        List<WebElement> invitados2 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[1]/td"));
+        List<WebElement> invitados3 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[2]/td"));
+        List<WebElement> invitados4 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[3]/td"));
+        List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[4]/td"));
+        List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[3]/div/div/div/div[2]/div/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
 
         assertEquals(5, invitados.size());
 

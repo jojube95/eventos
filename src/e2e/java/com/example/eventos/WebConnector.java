@@ -1,4 +1,4 @@
-package com.example.eventos.connectors;
+package com.example.eventos;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;

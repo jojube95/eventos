@@ -1,13 +1,12 @@
-package com.example.eventos.evento;
+package com.example.eventos.stepDefs.evento;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class EventoModificarStepDef {
 
     @When("^User click modificar evento$")
     public void user_click_modificar_button() {
-        WebElement modificarButton = connector.getDriver().findElement(By.xpath("//button[@type='submit']"));
+        WebElement modificarButton = connector.getDriver().findElement(By.id("buttonModificar"));
         modificarButton.click();
     }
 
@@ -49,7 +48,7 @@ public class EventoModificarStepDef {
     @When("^User select horario to comida")
     public void user_select_horario_comida() {
         WebElement horarioSelect = connector.getDriver().findElement(By.id("horario"));
-        WebElement comidaOption = connector.getDriver().findElement(By.xpath("(//select[@id='horario']//option)[1]"));
+        WebElement comidaOption = connector.getDriver().findElement(By.id("optionComida"));
         horarioSelect.click();
         comidaOption.click();
     }
@@ -59,15 +58,15 @@ public class EventoModificarStepDef {
         WebElement fecha = connector.getDriver().findElement(By.id("fecha"));
         WebElement localidad = connector.getDriver().findElement(By.id("localidad"));
         WebElement tipo = connector.getDriver().findElement(By.id("tipo"));
-        WebElement optionComunion = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[2]"));
+        WebElement optionComunion = connector.getDriver().findElement(By.id("optionComunion"));
         WebElement horario = connector.getDriver().findElement(By.id("horario"));
-        WebElement optionComida = connector.getDriver().findElement(By.xpath("//select[@id='horario']//option[1]"));
+        WebElement optionComida = connector.getDriver().findElement(By.id("optionComida"));
         WebElement personas = connector.getDriver().findElement(By.id("personas"));
         WebElement precioMenu = connector.getDriver().findElement(By.id("precioMenu"));
         WebElement ninyos = connector.getDriver().findElement(By.id("ninyos"));
         WebElement precioMenuNinyos = connector.getDriver().findElement(By.id("precioMenuNinyos"));
         WebElement confirmado = connector.getDriver().findElement(By.id("confirmado"));
-        WebElement optionNo = connector.getDriver().findElement(By.xpath("(//select[@id='confirmado']//option)[2]"));
+        WebElement optionNo = connector.getDriver().findElement(By.id("optionNo"));
         WebElement offTitulo = connector.getDriver().findElement(By.xpath("html[1]/body[1]/div[2]/form[1]/div[5]/div[3]"));
 
 
@@ -170,14 +169,14 @@ public class EventoModificarStepDef {
 
     @And("^Edited content should be correct$")
     public void edited_evento_should_be_correct() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[2]/td"));
-        List<WebElement> evento3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[3]/td"));
-        List<WebElement> evento4 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tbody/tr[4]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
+        List<WebElement> evento3 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[3]/td"));
+        List<WebElement> evento4 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div[3]/div/table/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
 
         assertEquals(4, eventos.size());
 

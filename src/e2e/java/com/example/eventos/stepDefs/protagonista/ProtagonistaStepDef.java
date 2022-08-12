@@ -1,6 +1,6 @@
-package com.example.eventos.protagonista;
+package com.example.eventos.stepDefs.protagonista;
 
-import com.example.eventos.connectors.WebConnector;
+import com.example.eventos.WebConnector;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -65,10 +65,10 @@ public class ProtagonistaStepDef {
 
     @Then("^Table should show two protagonists$")
     public void table_should_show_two_protagonists() {
-        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr"));
 
-        List<WebElement> protagonista1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
-        List<WebElement> protagonista2 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[2]/td"));
+        List<WebElement> protagonista1 = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr[1]/td"));
+        List<WebElement> protagonista2 = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr[2]/td"));
 
         assertEquals(2, protagonistas.size());
 
@@ -97,9 +97,9 @@ public class ProtagonistaStepDef {
 
     @And("^Added protagonista should display$")
     public void added_protagonista_should_display() {
-        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr"));
 
-        List<WebElement> protagonista3 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[3]/td"));
+        List<WebElement> protagonista3 = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr[3]/td"));
 
         assertEquals(3, protagonistas.size());
 
@@ -111,9 +111,9 @@ public class ProtagonistaStepDef {
 
     @And("^Deleted protagonista shouldnt display$")
     public void deleted_protagonist_shouldnt_display() {
-        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr"));
+        List<WebElement> protagonistas = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr"));
 
-        List<WebElement> protagonista1 = connector.getDriver().findElements(By.xpath("/html/body/div[2]/div/table/tbody/tr[1]/td"));
+        List<WebElement> protagonista1 = connector.getDriver().findElements(By.xpath("//table[@id='protagonistas']/tbody/tr[1]/td"));
 
         assertEquals(1, protagonistas.size());
 
