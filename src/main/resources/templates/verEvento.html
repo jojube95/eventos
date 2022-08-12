@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="fragments/head :: head"/>
 
@@ -140,10 +140,6 @@
 
   function protagonistasClicked(eventoId){
     location.href = "/evento/protagonistas?eventoId=" + eventoId;
-  }
-
-  function atrasClicked(){
-    history.back();
   }
 
   function confirmarEliminar(eventoId){

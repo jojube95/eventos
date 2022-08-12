@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataMongoTest
 public class EventoRepositoryIT {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -27,7 +28,7 @@ public class EventoRepositoryIT {
 
         Evento evento1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
         Evento evento2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena");
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -40,17 +41,8 @@ public class EventoRepositoryIT {
     }
 
     @Test
-    public void findEventoByTipoTest(){
-        Evento eventoExpected = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
-        List<Evento> eventosExpected = new ArrayList<>();
-        eventosExpected.add(eventoExpected);
-
-        assertEquals(eventosExpected, eventoRepository.findEventoByTipo("Boda"));
-    }
-
-    @Test
     public void findAllTest(){
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -70,7 +62,7 @@ public class EventoRepositoryIT {
 
     @Test
     public void findByIdTest(){
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -83,7 +75,7 @@ public class EventoRepositoryIT {
 
     @Test
     public void saveTest(){
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -98,7 +90,7 @@ public class EventoRepositoryIT {
     public void deleteTest(){
         Evento evento1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
         Evento evento2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena");
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);

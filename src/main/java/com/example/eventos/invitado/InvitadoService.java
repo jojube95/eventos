@@ -1,14 +1,15 @@
 package com.example.eventos.invitado;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class InvitadoService {
-    @Autowired
-    private InvitadoRepository invitadoRepository;
+    private final InvitadoRepository invitadoRepository;
+
+    public InvitadoService(InvitadoRepository invitadoRepository) {
+        this.invitadoRepository = invitadoRepository;
+    }
 
     public List<Invitado> findByMesa(String idMesa){
         return invitadoRepository.findByIdMesa(idMesa);

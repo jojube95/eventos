@@ -1,17 +1,14 @@
 package com.example.eventos.google;
 
 import com.example.eventos.evento.Evento;
-import com.example.eventos.google.GoogleCalendarService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.google.api.services.calendar.model.Event;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)

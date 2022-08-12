@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         firstDay: 1,
         eventSources: [
             {
-                events: function(fetchInfo, successCallback, failureCallback) {
+                events: function(fetchInfo, successCallback) {
                     successCallback(
                         eventos.map(function(eventEl) {
                             return {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $.ajax({
                 url: "/evento/updateFecha?id=" + eventoId + "&fecha=" + nuevaFecha,
-                success: function (data) {
+                success: function () {
                     $("#confirmModal").modal("show");
                 }
             });

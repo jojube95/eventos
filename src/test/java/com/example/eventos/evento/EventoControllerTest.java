@@ -23,6 +23,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @WebMvcTest(EventoController.class)
 public class EventoControllerTest {
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -134,7 +136,7 @@ public class EventoControllerTest {
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        this.mockMvc.perform(get("/evento/updateFecha").param("id", evento.getId()).param("fecha", new Date(2022, 3, 10).toString())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
+        this.mockMvc.perform(get("/evento/updateFecha").param("id", evento.getId()).param("fecha", new GregorianCalendar(2022, Calendar.JULY, 10).getTime().toString())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).update(evento);
     }
@@ -144,12 +146,12 @@ public class EventoControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
-        List<Mesa> mesas = new ArrayList<Mesa>();
+        List<Mesa> mesas = new ArrayList<>();
         Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, true);
         Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, true);
         mesas.add(mesa1);
         mesas.add(mesa2);
-        List<Invitado> invitados = new ArrayList<Invitado>();
+        List<Invitado> invitados = new ArrayList<>();
         Invitado invitado1 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
         Invitado invitado2 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
         invitados.add(invitado1);

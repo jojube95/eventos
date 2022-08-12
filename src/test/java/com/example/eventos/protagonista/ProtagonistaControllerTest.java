@@ -23,6 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ProtagonistaController.class)
 public class ProtagonistaControllerTest {
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -40,7 +42,7 @@ public class ProtagonistaControllerTest {
     public void getProtagonistasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verProtagonistas.html");
 
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -58,7 +60,7 @@ public class ProtagonistaControllerTest {
 
     @Test
     public void getEliminarProtagonistaTest() throws Exception {
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
@@ -89,7 +91,7 @@ public class ProtagonistaControllerTest {
 
     @Test
     public void postSaveProtagonistaTest() throws Exception {
-        List<Protagonista> protagonistas = new ArrayList<Protagonista>();
+        List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista2);

@@ -1,15 +1,16 @@
 package com.example.eventos.mesa;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class MesaService {
 
-    @Autowired
-    private MesaRepository mesaRepository;
+    private final MesaRepository mesaRepository;
+
+    public MesaService(MesaRepository mesaRepository) {
+        this.mesaRepository = mesaRepository;
+    }
 
     public List<Mesa> findByEvento(String idEvento){
         return mesaRepository.findByIdEvento(idEvento);

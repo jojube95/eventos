@@ -3,27 +3,25 @@ package com.example.eventos.evento;
 import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class EventoService {
 
-    @Autowired
-    private EventoRepository eventoRepository;
+    private final EventoRepository eventoRepository;
 
-    @Autowired
-    private MesaRepository mesaRepository;
+    private final MesaRepository mesaRepository;
 
-    @Autowired
-    private InvitadoRepository invitadoRepository;
+    private final InvitadoRepository invitadoRepository;
 
-    @Autowired
-    private GoogleCalendarService googleCalendarService;
+    private final GoogleCalendarService googleCalendarService;
 
-    public List<Evento> findEventosByTipo(String tipo){
-        return eventoRepository.findEventoByTipo(tipo);
+    public EventoService(EventoRepository eventoRepository, MesaRepository mesaRepository, InvitadoRepository invitadoRepository, GoogleCalendarService googleCalendarService) {
+        this.eventoRepository = eventoRepository;
+        this.mesaRepository = mesaRepository;
+        this.invitadoRepository = invitadoRepository;
+        this.googleCalendarService = googleCalendarService;
     }
 
     public List<Evento> getEventos(){

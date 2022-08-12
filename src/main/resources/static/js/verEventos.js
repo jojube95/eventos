@@ -14,7 +14,7 @@ $( document ).ready(function() {
     });
 
     $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
+        function( settings, data ) {
             let min = minDate.val();
             let max = maxDate.val();
 
@@ -60,7 +60,7 @@ $( document ).ready(function() {
                         .data()
                         .unique()
                         .sort()
-                        .each(function (d, j) {
+                        .each(function (d) {
                             select.append('<option value="' + d + '">' + d + '</option>');
                         });
                 });
@@ -78,7 +78,7 @@ $( document ).ready(function() {
             select.append('<option value="si">Sí</option>');
             select.append('<option value="no">No</option>');
         },
-        footerCallback: function (row, data, start, end, display) {
+        footerCallback: function () {
             let api = this.api();
             let rows = api.rows({search:'applied'}).count();
 

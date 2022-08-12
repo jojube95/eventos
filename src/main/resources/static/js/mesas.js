@@ -31,7 +31,7 @@ $(document).ready(function() {
             visible: isEventoIndividual,
             options : pagadoOptions,
             select2 : { width: "100%"},
-            render: function (data, type, row, meta) {
+            render: function (data) {
                 if (data == null || !(data in pagadoOptions)) return null;
                 return pagadoOptions[data];
             }
@@ -103,7 +103,7 @@ $(document).ready(function() {
                 error: error
             });
         },
-        footerCallback: function (row, data, start, end, display) {
+        footerCallback: function () {
             let api = this.api();
             let rows = api.rows({search:'applied'}).count();
 

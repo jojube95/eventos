@@ -4,7 +4,6 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +12,17 @@ import java.util.List;
 
 @Controller
 public class EventoController {
-    @Autowired
-    private EventoService eventoService;
+    private final EventoService eventoService;
 
-    @Autowired
-    private MesaService mesaService;
+    private final MesaService mesaService;
 
-    @Autowired
-    private InvitadoService invitadoService;
+    private final InvitadoService invitadoService;
+
+    public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
+        this.eventoService = eventoService;
+        this.mesaService = mesaService;
+        this.invitadoService = invitadoService;
+    }
 
     @GetMapping("/verEventos")
     public String verEventos(Model model) {
@@ -76,7 +78,7 @@ public class EventoController {
     }
 
     @GetMapping("/evento/updateFecha")
-    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha, Model model){
+    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha){
         Evento evento = eventoService.getById(id);
         evento.setFecha(fecha);
         eventoService.update(evento);

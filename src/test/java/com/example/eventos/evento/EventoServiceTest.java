@@ -43,12 +43,6 @@ public class EventoServiceTest {
     }
 
     @Test
-    public void findEventosByTipoTest(){
-        eventoService.findEventosByTipo(evento.getTipo());
-        verify(eventoRepository, times(1)).findEventoByTipo(evento.getTipo());
-    }
-
-    @Test
     public void getEventosTest(){
         eventoService.getEventos();
         verify(eventoRepository, times(1)).findAll();

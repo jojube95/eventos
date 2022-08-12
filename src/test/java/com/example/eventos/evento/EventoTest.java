@@ -18,7 +18,7 @@ public class EventoTest {
     @BeforeEach
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        protagonistas = new ArrayList<Protagonista>();
+        protagonistas = new ArrayList<>();
         protagonista = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         protagonistas.add(protagonista);
         eventoNoProtagonistas = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");

@@ -2,20 +2,21 @@ package com.example.eventos.mesa;
 
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MesaRestController {
-    @Autowired
-    private MesaService mesaService;
+    private final MesaService mesaService;
 
-    @Autowired
-    private InvitadoService invitadoService;
+    private final InvitadoService invitadoService;
+
+    public MesaRestController(MesaService mesaService, InvitadoService invitadoService) {
+        this.mesaService = mesaService;
+        this.invitadoService = invitadoService;
+    }
 
     @PostMapping("/evento/mesas/add")
-    public Mesa add(@RequestBody Mesa mesa, Model model){
+    public Mesa add(@RequestBody Mesa mesa){
         mesaService.save(mesa);
         for (int i = 1; i <= mesa.getPersonas(); i++) {
             invitadoService.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, ""));
@@ -24,14 +25,14 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/delete")
-    public Mesa delete(@RequestBody Mesa mesa, Model model){
+    public Mesa delete(@RequestBody Mesa mesa){
         mesaService.delete(mesa);
         invitadoService.deleteInvitados(mesa.getId());
         return mesa;
     }
 
     @PostMapping("/evento/mesas/update")
-    public Mesa update(@RequestBody Mesa mesa, Model model){
+    public Mesa update(@RequestBody Mesa mesa){
         mesaService.save(mesa);
         return mesa;
     }

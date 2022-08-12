@@ -158,7 +158,7 @@ public class Evento {
 
     public List<Protagonista> getProtagonistas() {
         if (protagonistas == null){
-            return new ArrayList<Protagonista>();
+            return new ArrayList<>();
         }
         else{
             return protagonistas;

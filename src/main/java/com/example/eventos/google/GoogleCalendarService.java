@@ -116,7 +116,7 @@ public class GoogleCalendarService {
                 this.service.events().delete(this.calendarId, evento.getId()).execute();
             }
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
