@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
-      - 'features/**'
   pull_request:
     types:
-      - closed
+      - opened
 
 jobs:
   build:
