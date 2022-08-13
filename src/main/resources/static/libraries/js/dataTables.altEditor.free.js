@@ -1102,7 +1102,7 @@
                 } 
                 else {
                     console.error('You must load Bootstrap or Foundation in order to open modal dialogs');
-                    return;
+
                 }
             },
 
@@ -1123,7 +1123,7 @@
 
                 } else {
                     console.error('You must load Bootstrap or Foundation in order to open modal dialogs');
-                    return;
+
                 }
             },
 
