@@ -33,10 +33,10 @@
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
                     <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
-                        <option value="Boda">Boda</option>
-                        <option value="Comunion">Comunión</option>
-                        <option value="Evento comunal">Evento comunal</option>
-                        <option value="Evento individual">Evento individual</option>
+                        <option id="optionBoda" value="Boda">Boda</option>
+                        <option id="optionComunion" value="Comunion">Comunión</option>
+                        <option id="optionEventoComunal" value="Evento comunal">Evento comunal</option>
+                        <option id="optionEventoIndividual" value="Evento individual">Evento individual</option>
                     </select>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                 <div class="form-group">
                     <label for="horario">Horario</label>
                     <select class="form-control" id="horario" onchange="generarTitulo()" name="horario">
-                        <option value="Comida">Comida</option>
-                        <option value="Cena">Cena</option>
+                        <option id="optionComida" value="Comida">Comida</option>
+                        <option id="optionCena" value="Cena">Cena</option>
                     </select>
                 </div>
             </div>
@@ -107,6 +107,6 @@
 
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Añadir</button>
+        <button id="buttonAnyadir" class="btn btn-primary" type="submit">Añadir</button>
     </form>
 </div>
