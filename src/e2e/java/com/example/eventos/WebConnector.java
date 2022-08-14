@@ -18,8 +18,8 @@ public class WebConnector {
         if(System.getProperty("os.name").toLowerCase().contains("win")){
             System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/windows/chromedriver.exe");
         }
-        else if(System.getProperty("os.name").toLowerCase().contains("nux")){
-            System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/linux/chromedriver");
+        else {
+            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         }
 
         ChromeOptions options = new ChromeOptions();
