@@ -15,7 +15,13 @@ public class WebConnector {
 
     @Before
     public void initSelenium() {
-        System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/chromedriver.exe");
+        if(System.getProperty("os.name").toLowerCase().contains("win")){
+            System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/windows/chromedriver.exe");
+        }
+        else if(System.getProperty("os.name").toLowerCase().contains("nux")){
+            System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/linux/chromedriver");
+        }
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=es");
         options.addArguments("--headless");
