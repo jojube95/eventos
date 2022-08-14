@@ -12,14 +12,14 @@
                     <input type="hidden" id="idMesa" name="idMesa" th:value="${idMesa}">
                     <input type="hidden" id="idEvento" name="idEvento" th:value="${idEvento}">
                     <table class="display compact" id="invitados" style="width: 100%">
-
+                        <caption th:text="#{table.description.invitados}"></caption>
                         <thead>
                         <tr>
-                            <th th:text="#{invitado.id}"></th>
-                            <th th:text="#{invitado.idEvento}"></th>
-                            <th th:text="#{invitado.idMesa}"></th>
-                            <th th:text="#{invitado.nombre}"></th>
-                            <th th:text="#{invitado.descripcion}"></th>
+                            <th th:text="#{invitado.id}" scope="col"></th>
+                            <th th:text="#{invitado.idEvento}" scope="col"></th>
+                            <th th:text="#{invitado.idMesa}" scope="col"></th>
+                            <th th:text="#{invitado.nombre}" scope="col"></th>
+                            <th th:text="#{invitado.descripcion}" scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>

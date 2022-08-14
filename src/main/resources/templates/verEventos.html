@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Eventos</title>
+
     <th:block th:include="fragments/head :: head"/>
     <th:block th:include="fragments/headDatePicker :: head"/>
 
@@ -25,18 +27,18 @@
 
         <div class="row">
             <table class="display compact" id="eventos">
-
+                <caption th:text="#{table.description.eventos}"></caption>
                 <thead>
                 <tr>
-                    <th th:text="#{evento.fecha}"></th>
-                    <th th:text="#{evento.tipo}"></th>
-                    <th th:text="#{evento.horario}"></th>
-                    <th th:text="#{evento.localidad}"></th>
-                    <th th:text="#{evento.personas}"></th>
-                    <th th:text="#{evento.precioMenu}"></th>
-                    <th th:text="#{evento.ninyos}"></th>
-                    <th th:text="#{evento.precioMenuNinyos}"></th>
-                    <th th:text="#{evento.confirmado}"></th>
+                    <th th:text="#{evento.fecha}" scope="col"></th>
+                    <th th:text="#{evento.tipo}" scope="col"></th>
+                    <th th:text="#{evento.horario}" scope="col"></th>
+                    <th th:text="#{evento.localidad}" scope="col"></th>
+                    <th th:text="#{evento.personas}" scope="col"></th>
+                    <th th:text="#{evento.precioMenu}" scope="col"></th>
+                    <th th:text="#{evento.ninyos}" scope="col"></th>
+                    <th th:text="#{evento.precioMenuNinyos}" scope="col"></th>
+                    <th th:text="#{evento.confirmado}" scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
