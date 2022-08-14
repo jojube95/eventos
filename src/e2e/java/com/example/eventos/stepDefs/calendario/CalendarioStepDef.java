@@ -121,7 +121,7 @@ public class CalendarioStepDef {
 
   @Then("^Modal detail dialogos is closed$")
   public void modal_detail_dialog_is_closed() {
-    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
     wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("eventDetailModal")));
   }
 

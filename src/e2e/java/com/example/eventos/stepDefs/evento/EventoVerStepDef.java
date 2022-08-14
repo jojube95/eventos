@@ -126,7 +126,7 @@ public class EventoVerStepDef {
 
     @Then("^Calcular personas modal should display$")
     public void calcular_personas_modal_should_display(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
     }
 
@@ -175,10 +175,10 @@ public class EventoVerStepDef {
 
     @When("^User click aceptar$")
     public void user_click_aceptar() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
 
-        Thread.sleep(250);
+        Thread.sleep(1000);
         WebElement modal_personas_button_aceptar = connector.getDriver().findElement(By.id("modalConfirmarPersonasAceptarButton"));
         modal_personas_button_aceptar.click();
     }
@@ -188,7 +188,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
 
-        Thread.sleep(250);
+        Thread.sleep(1000);
         WebElement modal_personas_button_cancelar = connector.getDriver().findElement(By.id("modalConfirmarPersonasCancelarButton"));
         modal_personas_button_cancelar.click();
     }
@@ -198,7 +198,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmarEliminarModal")));
 
-        Thread.sleep(250);
+        Thread.sleep(1000);
         WebElement modal_eliminar_button = connector.getDriver().findElement(By.id("modalEliminarButton"));
         modal_eliminar_button.click();
     }
@@ -208,7 +208,7 @@ public class EventoVerStepDef {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmarEliminarModal")));
 
-        Thread.sleep(250);
+        Thread.sleep(1000);
         WebElement modal_cerrar_button = connector.getDriver().findElement(By.id("modalEliminarCerrarButton"));
         modal_cerrar_button.click();
     }
