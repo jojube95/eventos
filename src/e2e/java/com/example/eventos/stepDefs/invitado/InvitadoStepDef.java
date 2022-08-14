@@ -33,7 +33,7 @@ public class InvitadoStepDef {
         List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
         List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/td"));
 
         assertEquals(6, invitados.size());
 
@@ -167,7 +167,7 @@ public class InvitadoStepDef {
         List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
         List<WebElement> invitados7 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[7]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/td"));
 
         assertEquals(7, invitados.size());
 
@@ -206,7 +206,7 @@ public class InvitadoStepDef {
         List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
         List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[6]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/td"));
 
         assertEquals(6, invitados.size());
 
@@ -241,7 +241,7 @@ public class InvitadoStepDef {
         List<WebElement> invitados5 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[4]/td"));
         List<WebElement> invitados6 = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr[5]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tfoot/tr/td"));
 
         assertEquals(5, invitados.size());
 

@@ -36,7 +36,7 @@ public class MesaStepDef {
         List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
         List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/td"));
 
         assertEquals(4, mesas.size());
 
@@ -185,7 +185,7 @@ public class MesaStepDef {
         List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
         List<WebElement> mesa5 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[5]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/td"));
 
         assertEquals(5, mesas.size());
 
@@ -216,7 +216,7 @@ public class MesaStepDef {
         List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
         List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/td"));
 
         assertEquals(4, mesas.size());
 
@@ -243,7 +243,7 @@ public class MesaStepDef {
         List<WebElement> mesa3 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[2]/td"));
         List<WebElement> mesa4 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[3]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tfoot/tr/td"));
 
         assertEquals(3, mesas.size());
 

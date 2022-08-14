@@ -53,11 +53,7 @@ public class WebConnector {
 
         String finalCommand = command + " " + path + " --drop --numInsertionWorkersPerCollection=10 --quiet";
 
-        Process process = Runtime.getRuntime().exec(finalCommand);
-
-        BufferedReader inStream = new BufferedReader(
-                    new InputStreamReader( process.getInputStream() ));
-        System.out.println(inStream.readLine());
+        Runtime.getRuntime().exec(finalCommand);
 
         System.out.println("Restored test database");
     }

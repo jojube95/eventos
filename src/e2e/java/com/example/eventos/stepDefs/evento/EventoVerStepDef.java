@@ -167,7 +167,7 @@ public class EventoVerStepDef {
     @And("^Deleted event not in list verEventos$")
     public void deleted_event_not_in_list(){
         List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
-        WebElement totalPersonas = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/tfoot[1]/tr[1]/th[2]"));
+        WebElement totalPersonas = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/tfoot[1]/tr[1]/td[2]"));
 
         assertEquals(3, eventos.size());
         assertEquals("169", totalPersonas.getText());

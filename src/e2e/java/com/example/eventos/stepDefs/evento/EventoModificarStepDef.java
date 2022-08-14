@@ -176,7 +176,7 @@ public class EventoModificarStepDef {
         List<WebElement> evento3 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[3]/td"));
         List<WebElement> evento4 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[4]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/th"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/td"));
 
         assertEquals(4, eventos.size());
 
