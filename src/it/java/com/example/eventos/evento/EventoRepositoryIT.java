@@ -11,7 +11,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class EventoRepositoryIT {
+class EventoRepositoryIT {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -41,7 +41,7 @@ public class EventoRepositoryIT {
     }
 
     @Test
-    public void findAllTest(){
+    void findAllTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
@@ -61,7 +61,7 @@ public class EventoRepositoryIT {
     }
 
     @Test
-    public void findByIdTest(){
+    void findByIdTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
@@ -74,7 +74,7 @@ public class EventoRepositoryIT {
     }
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
@@ -87,7 +87,7 @@ public class EventoRepositoryIT {
     }
 
     @Test
-    public void deleteTest(){
+    void deleteTest(){
         Evento evento1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
         Evento evento2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena");
         List<Protagonista> protagonistas = new ArrayList<>();

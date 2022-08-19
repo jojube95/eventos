@@ -196,4 +196,9 @@ public class Evento {
                 "Localidad: " + localidad + "\n" +
                 "Confirmada: " + (confirmado ? "Sí" : "No");
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tipo, horario, personas, ninyos, localidad, precioMenu, precioMenuNinyos, confirmado, titulo, fecha, protagonistas);
+    }
 }

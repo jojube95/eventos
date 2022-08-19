@@ -17,7 +17,7 @@ import java.util.GregorianCalendar;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EventoServiceTest {
+class EventoServiceTest {
 
     @Mock
     EventoRepository eventoRepository;
@@ -43,33 +43,33 @@ public class EventoServiceTest {
     }
 
     @Test
-    public void getEventosTest(){
+    void getEventosTest(){
         eventoService.getEventos();
         verify(eventoRepository, times(1)).findAll();
     }
 
     @Test
-    public void getEventoByIdTest(){
+    void getEventoByIdTest(){
         eventoService.getById(evento.getId());
         verify(eventoRepository, times(1)).findEventoById(evento.getId());
     }
 
     @Test
-    public void saveEventoTest(){
+    void saveEventoTest(){
         eventoService.save(evento);
         verify(eventoRepository, times(1)).save(evento);
         verify(googleCalendarService, times(1)).add(evento);
     }
 
     @Test
-    public void updateEventoTest(){
+    void updateEventoTest(){
         eventoService.update(evento);
         verify(eventoRepository, times(1)).save(evento);
         verify(googleCalendarService, times(1)).update(evento);
     }
 
     @Test
-    public void deleteEventoTest(){
+    void deleteEventoTest(){
         eventoService.delete(evento);
         verify(eventoRepository, times(1)).delete(evento);
         verify(mesaRepository, times(1)).deleteByIdEvento(evento.getId());

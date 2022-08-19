@@ -315,7 +315,7 @@
                                         $.ajax({
                                             type: "POST",
                                             contentType: "application/json",
-                                            url: "/evento/mesas/invitados/add",
+                                            url: "/evento/mesas/invitados/addUpdate",
                                             data: JSON.stringify(rowdata),
                                             dataType: 'json',
                                             success: success,
@@ -337,7 +337,7 @@
                                         $.ajax({
                                             type: "POST",
                                             contentType: "application/json",
-                                            url: "/evento/mesas/invitados/update",
+                                            url: "/evento/mesas/invitados/addUpdate",
                                             data: JSON.stringify(rowdata),
                                             dataType: 'json',
                                             success: success,

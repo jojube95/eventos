@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MesaController.class)
-public class MesaControllerTest {
+class MesaControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -38,7 +38,7 @@ public class MesaControllerTest {
     }
 
     @Test
-    public void getMesasTest() throws Exception {
+    void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
         Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");

@@ -11,6 +11,8 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ public class GoogleCalendarService {
 
     private Calendar service;
 
+    Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
+
     @Autowired
     public GoogleCalendarService(@Value("${google.calenarId}") String calendarId) {
         this.calendarId = calendarId;
@@ -41,13 +45,13 @@ public class GoogleCalendarService {
             GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH)).createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
             // Build a new authorized API client service.
-            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            this.service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+            final NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            this.service = new Calendar.Builder(netHttpTransport, JSON_FACTORY, credential)
                     .setApplicationName(APPLICATION_NAME)
                     .build();
         }
         catch (IOException | GeneralSecurityException e){
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }
@@ -58,7 +62,7 @@ public class GoogleCalendarService {
 
             return this.service.events().insert(this.calendarId, event).execute().getId();
         }catch (IOException e){
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return "";
@@ -70,7 +74,7 @@ public class GoogleCalendarService {
 
             service.events().update(this.calendarId, evento.getId(), event).execute();
         }catch (IOException e){
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -78,7 +82,7 @@ public class GoogleCalendarService {
         try{
             this.service.events().delete(this.calendarId, evento.getId()).execute();
         }catch (IOException e){
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -116,7 +120,7 @@ public class GoogleCalendarService {
                 this.service.events().delete(this.calendarId, evento.getId()).execute();
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 

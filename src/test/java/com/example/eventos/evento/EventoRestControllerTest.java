@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(EventoRestController.class)
-public class EventoRestControllerTest {
+class EventoRestControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -24,7 +24,7 @@ public class EventoRestControllerTest {
     private EventoService eventoService;
 
     @Test
-    public void updateTest() throws Exception {
+    void updateTest() throws Exception {
         Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
         int personas = 60;
 

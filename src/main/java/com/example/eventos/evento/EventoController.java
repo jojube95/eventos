@@ -18,6 +18,11 @@ public class EventoController {
 
     private final InvitadoService invitadoService;
 
+    private static final String EVENTO_ATTRIBUTE = "evento";
+    private static final String EVENTOS_ATTRIBUTE = "eventos";
+    private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
+    private static final String PERSONAS_ATTRIBUTE = "personas";
+
     public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
         this.eventoService = eventoService;
         this.mesaService = mesaService;
@@ -27,20 +32,20 @@ public class EventoController {
     @GetMapping("/verEventos")
     public String verEventos(Model model) {
         List<Evento> eventos = eventoService.getEventos();
-        model.addAttribute("eventos", eventos);
+        model.addAttribute(EVENTOS_ATTRIBUTE, eventos);
         return "verEventos";
     }
 
     @GetMapping("/anyadirEvento")
     public String anyadirEvento(Model model) {
-        model.addAttribute("evento", new Evento());
+        model.addAttribute(EVENTO_ATTRIBUTE, new Evento());
         return "anyadirEvento";
     }
 
     @GetMapping("/updateEvento")
     public String updateEvento(@RequestParam("eventoId") String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute("evento", evento);
+        model.addAttribute(EVENTO_ATTRIBUTE, evento);
         return "updateEvento";
     }
 
@@ -53,7 +58,7 @@ public class EventoController {
     @GetMapping("/verEvento")
     public String verEvento(@RequestParam("eventoId") String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute("evento", evento);
+        model.addAttribute(EVENTO_ATTRIBUTE, evento);
         return "verEvento";
     }
 
@@ -93,8 +98,8 @@ public class EventoController {
             List<Invitado> invitados = invitadoService.findByMesa(mesa.getId());
             personas += invitados.size();
         }
-        model.addAttribute("eventoId", eventoId);
-        model.addAttribute("personas", personas);
+        model.addAttribute(EVENTO_ID_ATTRIBUTE, eventoId);
+        model.addAttribute(PERSONAS_ATTRIBUTE, personas);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

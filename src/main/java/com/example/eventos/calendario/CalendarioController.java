@@ -22,9 +22,9 @@ public class CalendarioController {
     public String calendario(Model model) throws JsonProcessingException {
         List<Evento> eventos = eventoService.getEventos();
 
-        ObjectMapper Obj = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        String eventosJson = Obj.writeValueAsString(eventos);
+        String eventosJson = objectMapper.writeValueAsString(eventos);
 
         model.addAttribute("eventosJson", eventosJson);
 

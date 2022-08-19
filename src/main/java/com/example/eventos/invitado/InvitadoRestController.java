@@ -12,8 +12,8 @@ public class InvitadoRestController {
         this.invitadoService = invitadoService;
     }
 
-    @PostMapping("/evento/mesas/invitados/add")
-    public Invitado add(@RequestBody Invitado invitado){
+    @PostMapping("/evento/mesas/invitados/addUpdate")
+    public Invitado addUpdate(@RequestBody Invitado invitado){
         invitadoService.save(invitado);
         return invitado;
     }
@@ -21,12 +21,6 @@ public class InvitadoRestController {
     @PostMapping("/evento/mesas/invitados/delete")
     public Invitado delete(@RequestBody Invitado invitado){
         invitadoService.delete(invitado);
-        return invitado;
-    }
-
-    @PostMapping("/evento/mesas/invitados/update")
-    public Invitado update(@RequestBody Invitado invitado){
-        invitadoService.save(invitado);
         return invitado;
     }
 }

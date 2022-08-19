@@ -11,7 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class InvitadoServiceTest {
+class InvitadoServiceTest {
     @Mock
     InvitadoRepository invitadoRepository;
 
@@ -26,27 +26,26 @@ public class InvitadoServiceTest {
     }
 
     @Test
-    public void findByMesaTest(){
+    void findByMesaTest(){
         invitadoService.findByMesa(invitado.getIdMesa());
         verify(invitadoRepository, times(1)).findByIdMesa(invitado.getIdMesa());
     }
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         invitadoService.save(invitado);
         verify(invitadoRepository, times(1)).save(invitado);
     }
 
     @Test
-    public void deleteTest(){
+    void deleteTest(){
         invitadoService.delete(invitado);
         verify(invitadoRepository, times(1)).delete(invitado);
     }
 
     @Test
-    public void deleteInvitadosTest(){
+    void deleteInvitadosTest(){
         invitadoService.deleteInvitados(invitado.getIdMesa());
         verify(invitadoRepository, times(1)).deleteByIdMesa(invitado.getIdMesa());
     }
-
 }

@@ -217,13 +217,13 @@ public class EventoVerStepDef {
 
     @Then("^Modal calcular personas should hide$")
     public void calcular_personas_modal_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @Then("^Eliminar modal should hide$")
     public void eliminar_modal_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 

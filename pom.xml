@@ -5,7 +5,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.0</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
   <groupId>com.example</groupId>
   <artifactId>eventos</artifactId>
@@ -19,6 +19,14 @@
     <cucumber.plugin>pretty</cucumber.plugin>
     <cucumber.filter.tags>@wip</cucumber.filter.tags>
     <cucumber.version>7.3.4</cucumber.version>
+    <sonar.projectKey>jojube95_eventos</sonar.projectKey>
+    <sonar.organization>jojube95</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.exclusions>src/main/resources/static/libraries/**/*</sonar.exclusions>
+    <sonar.coverage.exclusions>**/GoogleCalendarService.*</sonar.coverage.exclusions>
+    <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+    <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S4684</sonar.issue.ignore.multicriteria.e1.ruleKey>
+    <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*Controller.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
   </properties>
 
   <dependencies>
@@ -345,11 +353,20 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.8</version>
+        <configuration>
+          <excludes>
+            <exclude>**/GoogleCalendarService.*</exclude>
+          </excludes>
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -365,8 +382,6 @@
           </execution>
         </executions>
       </plugin>
-
-
     </plugins>
   </build>
 </project>

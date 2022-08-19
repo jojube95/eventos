@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class InvitadoRepositoryIT {
+class InvitadoRepositoryIT {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -36,7 +36,7 @@ public class InvitadoRepositoryIT {
     }
 
     @Test
-    public void findByIdMesaTest(){
+    void findByIdMesaTest(){
         Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
         Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");
         List<Invitado> expectedInvitados = new ArrayList<>();
@@ -47,14 +47,14 @@ public class InvitadoRepositoryIT {
     }
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         Invitado invitadoExpected = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
 
         assertEquals(invitadoExpected, invitadoRepository.save(invitadoExpected));
     }
 
     @Test
-    public void deleteTest(){
+    void deleteTest(){
         Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Celiaco");
         Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "");
         Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
@@ -73,7 +73,7 @@ public class InvitadoRepositoryIT {
     }
 
     @Test
-    public void deleteByIdMesaTest(){
+    void deleteByIdMesaTest(){
         Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Celiaco");
         Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "");
         Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
@@ -89,7 +89,7 @@ public class InvitadoRepositoryIT {
     }
 
     @Test
-    public void deleteByIdEventoTest(){
+    void deleteByIdEventoTest(){
         Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
         Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
         Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");

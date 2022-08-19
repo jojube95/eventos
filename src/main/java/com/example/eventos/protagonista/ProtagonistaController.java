@@ -16,6 +16,10 @@ public class ProtagonistaController {
 
     private final EventoService eventoService;
 
+    private static final String EVENTO_ATTRIBUTE = "evento";
+    private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
+    private static final String PROTAGONISTA_ATTRIBUTE = "protagonista";
+
     public ProtagonistaController(EventoService eventoService) {
         this.eventoService = eventoService;
     }
@@ -23,7 +27,7 @@ public class ProtagonistaController {
     @GetMapping("/evento/protagonistas")
     public String updateFecha(@RequestParam("eventoId") String eventoId, Model model){
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute("evento", evento);
+        model.addAttribute(EVENTO_ATTRIBUTE, evento);
         return "verProtagonistas";
     }
 
@@ -32,15 +36,15 @@ public class ProtagonistaController {
         Evento evento = eventoService.getById(eventoId);
         evento.getProtagonistas().remove(protagonistaIndex);
         eventoService.update(evento);
-        redirectAttributes.addAttribute("eventoId", evento.getId());
+        redirectAttributes.addAttribute(EVENTO_ID_ATTRIBUTE, evento.getId());
         return "redirect:/evento/protagonistas";
     }
 
     @GetMapping("/evento/protagonistas/anyadir")
     public String anyadirEvento(@RequestParam("eventoId") String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute("evento", evento);
-        model.addAttribute("protagonista", new Protagonista());
+        model.addAttribute(EVENTO_ATTRIBUTE, evento);
+        model.addAttribute(PROTAGONISTA_ATTRIBUTE, new Protagonista());
         return "anyadirProtagonista";
     }
 
@@ -51,7 +55,7 @@ public class ProtagonistaController {
         protagonistas.add(protagonista);
         evento.setProtagonistas(protagonistas);
         eventoService.update(evento);
-        redirectAttributes.addAttribute("eventoId", evento.getId());
+        redirectAttributes.addAttribute(EVENTO_ID_ATTRIBUTE, evento.getId());
         return "redirect:/evento/protagonistas";
     }
 }

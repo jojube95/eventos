@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CalendarioController.class)
-public class CalendarioControllerTest {
+class CalendarioControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -35,7 +35,7 @@ public class CalendarioControllerTest {
     }
 
     @Test
-    public void getCalendario() throws Exception {
+    void getCalendario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/calendario.html");
 
         Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");

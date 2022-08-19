@@ -58,4 +58,9 @@ public class Protagonista {
         Protagonista that = (Protagonista) o;
         return Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tipo, nombre, telefono, correo);
+    }
 }

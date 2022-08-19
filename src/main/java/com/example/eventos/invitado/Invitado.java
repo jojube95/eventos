@@ -92,4 +92,9 @@ public class Invitado {
         Invitado invitado = (Invitado) o;
         return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa) && Objects.equals(nombre, invitado.nombre) && Objects.equals(descripcion, invitado.descripcion);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, idEvento, idMesa, nombre, descripcion);
+    }
 }

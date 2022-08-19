@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GoogleCalendarServiceIT {
+class GoogleCalendarServiceIT {
     private final GoogleCalendarService googleCalendarService = new GoogleCalendarService("5vtcks38679juuk2s0v86c37t4@group.calendar.google.com");
     Evento evento;
 
@@ -28,7 +28,7 @@ public class GoogleCalendarServiceIT {
     }
 
     @Test
-    public void eventoIsAddedToGoogleCalendar() throws IOException {
+    void eventoIsAddedToGoogleCalendar() throws IOException {
         List<Event> eventos = this.googleCalendarService.getEvents();
 
         assertEquals(1, eventos.size());
@@ -39,7 +39,7 @@ public class GoogleCalendarServiceIT {
     }
 
     @Test
-    public void eventoIsUpdatedInGoogleCalendar() throws IOException {
+    void eventoIsUpdatedInGoogleCalendar() throws IOException {
         evento.setTitulo("Comunión-Cena");
         evento.setPersonas(99);
         evento.setLocalidad("Olleria");
@@ -58,7 +58,7 @@ public class GoogleCalendarServiceIT {
     }
 
     @Test
-    public void eventoIsDeletedInGoogleCalendar() throws IOException {
+    void eventoIsDeletedInGoogleCalendar() throws IOException {
         this.googleCalendarService.delete(evento);
 
         List<Event> eventos = this.googleCalendarService.getEvents();

@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MesaRestController.class)
-public class MesaRestControllerTest {
+class MesaRestControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -34,7 +34,7 @@ public class MesaRestControllerTest {
     private InvitadoService invitadoService;
 
     @Test
-    public void addTest() throws Exception {
+    void addTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
@@ -51,7 +51,7 @@ public class MesaRestControllerTest {
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    void deleteTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
@@ -66,7 +66,7 @@ public class MesaRestControllerTest {
     }
 
     @Test
-    public void updateTest() throws Exception {
+    void updateTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")

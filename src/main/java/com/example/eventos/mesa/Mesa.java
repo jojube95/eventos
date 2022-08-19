@@ -117,4 +117,9 @@ public class Mesa {
         Mesa mesa = (Mesa) o;
         return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, idEvento, representante, personas, numero, pagado);
+    }
 }

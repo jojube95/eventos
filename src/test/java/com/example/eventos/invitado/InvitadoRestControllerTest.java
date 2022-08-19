@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(InvitadoRestController.class)
-public class InvitadoRestControllerTest {
+class InvitadoRestControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -29,10 +29,10 @@ public class InvitadoRestControllerTest {
     private InvitadoService invitadoService;
 
     @Test
-    public void addTest() throws Exception {
+    void addUpdateTest() throws Exception {
         Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/add")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/addUpdate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(invitado));
@@ -43,7 +43,7 @@ public class InvitadoRestControllerTest {
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    void deleteTest() throws Exception {
         Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/delete")
@@ -54,19 +54,5 @@ public class InvitadoRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
         verify(invitadoService, times(1)).delete(invitado);
-    }
-
-    @Test
-    public void updateTest() throws Exception {
-        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(invitado));
-
-        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
-
-        verify(invitadoService, times(1)).save(invitado);
     }
 }

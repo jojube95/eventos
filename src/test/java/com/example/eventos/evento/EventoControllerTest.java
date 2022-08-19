@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @WebMvcTest(EventoController.class)
-public class EventoControllerTest {
+class EventoControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -45,7 +45,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getVerEventosTest() throws Exception {
+    void getVerEventosTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventos.html");
 
         Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
@@ -64,7 +64,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getAnyadirEventoTest() throws Exception {
+    void getAnyadirEventoTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEvento.html");
 
         String resultContent = this.mockMvc.perform(get("/anyadirEvento")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -74,7 +74,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getUpdateEventoTest() throws Exception {
+    void getUpdateEventoTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEvento.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
@@ -88,7 +88,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void postUpdateEventoTest() throws Exception {
+    void postUpdateEventoTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         this.mockMvc.perform(post("/updateEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
@@ -97,7 +97,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getVerEventoTest() throws Exception {
+    void getVerEventoTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEvento.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
@@ -111,7 +111,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void postAnyadirEventoTest() throws Exception {
+    void postAnyadirEventoTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         this.mockMvc.perform(post("/anyadirEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
@@ -120,7 +120,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getEliminarEventoTest() throws Exception {
+    void getEliminarEventoTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -131,7 +131,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getUpdateFechaTest() throws Exception {
+    void getUpdateFechaTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -142,7 +142,21 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void getCalcularPersonasTest() throws Exception {
+    void getEventoModalTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoModal.html");
+
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById("id")).thenReturn(evento);
+
+        String resultContent = this.mockMvc.perform(get("/evento/{id}", "id")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void getCalcularPersonasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");

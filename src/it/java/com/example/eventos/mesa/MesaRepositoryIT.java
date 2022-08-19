@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class MesaRepositoryIT {
+class MesaRepositoryIT {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -34,7 +34,7 @@ public class MesaRepositoryIT {
     }
 
     @Test
-    public void findByEventoTest(){
+    void findByEventoTest(){
         Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true);
         Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false);
         List<Mesa> expectedMesas = new ArrayList<>();
@@ -45,14 +45,14 @@ public class MesaRepositoryIT {
     }
 
     @Test
-    public void saveTest(){
+    void saveTest(){
         Mesa mesaExpected = new Mesa("idEvento3", "Jose", 10, 1, true);
 
         assertEquals(mesaExpected, mesaRepository.save(mesaExpected));
     }
 
     @Test
-    public void deleteTest(){
+    void deleteTest(){
         Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true);
         Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false);
         Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1);
@@ -69,7 +69,7 @@ public class MesaRepositoryIT {
     }
 
     @Test
-    public void deleteByIdEventoTest(){
+    void deleteByIdEventoTest(){
         Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1);
         Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 2);
 

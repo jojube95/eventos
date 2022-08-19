@@ -12,19 +12,20 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class GoogleCalendarServiceTest {
+class GoogleCalendarServiceTest {
+
     @Test
-    public void createTest(){
+    void createTest(){
         Date fecha = new GregorianCalendar(2014, Calendar.JANUARY, 11).getTime();
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         Event createdEvent = GoogleCalendarService.create(evento);
 
-        assertEquals(createdEvent.getId(), "id");
-        assertEquals(createdEvent.getSummary(), "Comunión-Comida");
-        assertEquals(createdEvent.getDescription(), "Personas: 50\n" + "Localidad: Olleria\n" + "Confirmada: Sí");
-        assertEquals(createdEvent.getStart().getDate().toString(), "2014-01-11");
-        assertEquals(createdEvent.getEnd().getDate().toString(), "2014-01-12");
+        assertEquals("id", createdEvent.getId());
+        assertEquals("Comunión-Comida", createdEvent.getSummary());
+        assertEquals("Personas: 50\n" + "Localidad: Olleria\n" + "Confirmada: Sí", createdEvent.getDescription());
+        assertEquals("2014-01-11", createdEvent.getStart().getDate().toString());
+        assertEquals("2014-01-12", createdEvent.getEnd().getDate().toString());
     }
 }
