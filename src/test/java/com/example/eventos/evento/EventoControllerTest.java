@@ -1,0 +1,181 @@
+package com.example.eventos.evento;
+
+import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.mesa.Mesa;
+import com.example.eventos.mesa.MesaService;
+import com.example.utilities.TestUtilities;
+import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import java.util.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@WebMvcTest(EventoController.class)
+class EventoControllerTest {
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private EventoService eventoService;
+
+    @MockBean
+    private MesaService mesaService;
+
+    @MockBean
+    private InvitadoService invitadoService;
+
+    Date fecha;
+
+    @BeforeEach
+    public void initEach(){
+        fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
+    }
+
+    @Test
+    void getVerEventosTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventos.html");
+
+        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        List<Evento> eventos = new ArrayList<>();
+        eventos.add(evento1);
+        eventos.add(evento2);
+
+        when(eventoService.getEventos()).thenReturn(eventos);
+
+        String resultContent = this.mockMvc.perform(get("/verEventos")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void getAnyadirEventoTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEvento.html");
+
+        String resultContent = this.mockMvc.perform(get("/anyadirEvento")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void getUpdateEventoTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEvento.html");
+
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        String resultContent = this.mockMvc.perform(get("/updateEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void postUpdateEventoTest() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        this.mockMvc.perform(post("/updateEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+
+        verify(eventoService, times(1)).update(evento);
+    }
+
+    @Test
+    void getVerEventoTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEvento.html");
+
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        String resultContent = this.mockMvc.perform(get("/verEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void postAnyadirEventoTest() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        this.mockMvc.perform(post("/anyadirEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
+
+        verify(eventoService, times(1)).save(evento);
+    }
+
+    @Test
+    void getEliminarEventoTest() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        this.mockMvc.perform(get("/eliminarEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+
+        verify(eventoService, times(1)).delete(evento);
+    }
+
+    @Test
+    void getUpdateFechaTest() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        this.mockMvc.perform(get("/evento/updateFecha").param("id", evento.getId()).param("fecha", new GregorianCalendar(2022, Calendar.JULY, 10).getTime().toString())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
+
+        verify(eventoService, times(1)).update(evento);
+    }
+
+    @Test
+    void getEventoModalTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoModal.html");
+
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById("id")).thenReturn(evento);
+
+        String resultContent = this.mockMvc.perform(get("/evento/{id}", "id")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    void getCalcularPersonasTest() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
+
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        List<Mesa> mesas = new ArrayList<>();
+        Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, true);
+        Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, true);
+        mesas.add(mesa1);
+        mesas.add(mesa2);
+        List<Invitado> invitados = new ArrayList<>();
+        Invitado invitado1 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
+        Invitado invitado2 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
+        invitados.add(invitado1);
+        invitados.add(invitado2);
+        when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);
+        when(invitadoService.findByMesa(null)).thenReturn(invitados);
+
+        String resultContent = this.mockMvc.perform(get("/evento/calcularPersonas").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = resultContent.replaceAll(" ", "");
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+}

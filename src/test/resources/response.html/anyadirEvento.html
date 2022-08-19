@@ -1,0 +1,112 @@
+<div class="container">
+    <form action="/anyadirEvento" method="post">
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="fecha">Fecha</label>
+                    <input type="text" class="form-control" id="fecha" placeholder="Fecha" required name="fecha" value="">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="localidad">Localidad</label>
+                    <input type="text" class="form-control" id="localidad" placeholder="Localidad" required name="localidad" value="">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
+                        <option id="optionBoda" value="Boda">Boda</option>
+                        <option id="optionComunion" value="Comunion">Comunión</option>
+                        <option id="optionEventoComunal" value="Evento comunal">Evento comunal</option>
+                        <option id="optionEventoIndividual" value="Evento individual">Evento individual</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="horario">Horario</label>
+                    <select class="form-control" id="horario" onchange="generarTitulo()" name="horario">
+                        <option id="optionComida" value="Comida">Comida</option>
+                        <option id="optionCena" value="Cena">Cena</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Título" onchange="anyadirHorario()" required name="titulo" value="">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="personas">Personas</label>
+                    <input type="number" class="form-control" id="personas" required name="personas" value="0">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenu">Precio Menú</label>
+                    <input type="number" step="0.01" class="form-control" id="precioMenu" required name="precioMenu" value="0.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="ninyos">Niños</label>
+                    <input type="number" class="form-control" id="ninyos" required name="ninyos" value="0">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenuNinyos">Precio Menú Niños</label>
+                    <input type="number" step="0.01" class="form-control" id="precioMenuNinyos" required name="precioMenuNinyos" value="0.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="confirmado">Confirmado</label>
+                    <select class="form-control" id="confirmado" name="confirmado">
+                        <option id="optionSi" value="true">Sí</option>
+                        <option id="optionNo" value="false" selected="selected">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <button id="buttonAnyadir" class="btn btn-primary" type="submit">Añadir</button>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+<div class="modal fade" id="eventDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="modalContents">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 th:text="#{detalles}" class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.fecha}"></div>
+                        <div class="col-8" id="modalEventoFecha" th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.tipo}"></div>
+                        <div class="col-8" id="modalEventoTipo" th:text="${evento.tipo}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.horario}"></div>
+                        <div class="col-8" id="modalEventoHorario" th:text="${evento.horario}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.localidad}"></div>
+                        <div class="col-8" id="modalEventoLocalidad" th:text="${evento.localidad}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.personas}"></div>
+                        <div class="col-8" id="modalEventoPersonas" th:text="${evento.personas}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.ninyos}"></div>
+                        <div class="col-8" id="modalEventoNinyos" th:text="${evento.ninyos}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold" th:text="#{evento.confirmado}"></div>
+                        <div class="col-8" id="modalEventoConfirmado" th:text="${evento.confirmado}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalEventoVerButton" th:text="#{ver}" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${evento.id}" onclick="verClicked(this.getAttribute('eventoId'))"></button>
+                <button id="modalEventoModificarButton" th:text="#{modificar}" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></button>
+                <button id="modalEventoCerrarButton" th:text="#{cerrar}" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="modal fade" id="eventDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Fecha</div>
+                        <div class="col-8" id="modalEventoFecha">2022-07-25</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Tipo</div>
+                        <div class="col-8" id="modalEventoTipo">Comunión</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Horario</div>
+                        <div class="col-8" id="modalEventoHorario">Comida</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Localidad</div>
+                        <div class="col-8" id="modalEventoLocalidad">Olleria</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Personas</div>
+                        <div class="col-8" id="modalEventoPersonas">50</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Niños</div>
+                        <div class="col-8" id="modalEventoNinyos">15</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 font-weight-bold">Confirmado</div>
+                        <div class="col-8" id="modalEventoConfirmado">true</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalEventoVerButton" type="button" class="btn btn-primary" data-dismiss="modal" eventoId="id" onclick="verClicked(this.getAttribute('eventoId'))">Ver</button>
+                <button id="modalEventoModificarButton" type="button" class="btn btn-primary" data-dismiss="modal" eventoId="id" onclick="modificarClicked(this.getAttribute('eventoId'))">Modificar</button>
+                <button id="modalEventoCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
