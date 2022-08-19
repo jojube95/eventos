@@ -71,6 +71,8 @@ public class EventoVerStepDef {
 
     @When("^User click calcular personas action$")
     public void user_click_calcular_personas_action() {
+        new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.id("calcularPersonasButton")));
+
         WebElement calcularPersonasButton = connector.getDriver().findElement(By.id("calcularPersonasButton"));
         calcularPersonasButton.click();
     }
@@ -185,7 +187,7 @@ public class EventoVerStepDef {
 
     @When("^User click cancelar")
     public void user_click_cancelar() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
 
         Thread.sleep(1000);
@@ -217,13 +219,13 @@ public class EventoVerStepDef {
 
     @Then("^Modal calcular personas should hide$")
     public void calcular_personas_modal_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @Then("^Eliminar modal should hide$")
     public void eliminar_modal_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
@@ -231,7 +233,7 @@ public class EventoVerStepDef {
     public void event_personas_is_recalculated(){
         WebElement personas = connector.getDriver().findElement(By.id("eventoPersonas"));
 
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.textToBePresentInElement(personas, "148"));
     }
 

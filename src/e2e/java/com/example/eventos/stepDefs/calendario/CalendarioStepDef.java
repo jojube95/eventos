@@ -64,6 +64,8 @@ public class CalendarioStepDef {
 
   @When("^User click close button$")
   public void user_click_close_button() {
+    new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.id("modalEventoCerrarButton")));
+
     WebElement closeButton = connector.getDriver().findElement(By.id("modalEventoCerrarButton"));
     closeButton.click();
   }
@@ -121,7 +123,7 @@ public class CalendarioStepDef {
 
   @Then("^Modal detail dialogos is closed$")
   public void modal_detail_dialog_is_closed() {
-    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(10));
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
     wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("eventDetailModal")));
   }
 
