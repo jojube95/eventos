@@ -9,6 +9,7 @@ import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -149,8 +150,8 @@ public class EventoModificarStepDef {
     }
 
     @And("^Keep on updateEvento page$")
-    public void keep_on_updateEvento_page() throws InterruptedException {
-        Thread.sleep(500);
+    public void keep_on_updateEvento_page() {
+        connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/updateEvento?eventoId=62dc2a63ec628818203950b9"));
     }
