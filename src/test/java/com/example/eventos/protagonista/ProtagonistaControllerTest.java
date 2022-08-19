@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProtagonistaController.class)
-public class ProtagonistaControllerTest {
+class ProtagonistaControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
@@ -39,7 +39,7 @@ public class ProtagonistaControllerTest {
     }
     
     @Test
-    public void getProtagonistasTest() throws Exception {
+    void getProtagonistasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verProtagonistas.html");
 
         List<Protagonista> protagonistas = new ArrayList<>();
