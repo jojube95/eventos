@@ -22,6 +22,7 @@
     <sonar.projectKey>jojube95_eventos</sonar.projectKey>
     <sonar.organization>jojube95</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.sources>src/main/java,src/main/resources</sonar.sources>
     <sonar.exclusions>src/main/resources/static/libraries/**/*</sonar.exclusions>
     <sonar.coverage.exclusions>**/GoogleCalendarService.*</sonar.coverage.exclusions>
     <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
