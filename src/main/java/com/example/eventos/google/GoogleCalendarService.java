@@ -20,6 +20,7 @@ import java.io.*;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,20 +57,33 @@ public class GoogleCalendarService {
 
     }
 
-    public Event add(Evento evento) throws IOException {
+    public Event add(Evento evento) {
             Event event = create(evento);
 
+        try {
             return this.service.events().insert(this.calendarId, event).execute();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+        return event;
     }
 
-    public void update(Evento evento) throws IOException {
+    public void update(Evento evento) {
             Event event = create(evento);
 
+        try {
             service.events().update(this.calendarId, evento.getId(), event).execute();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 
-    public void delete(Evento evento) throws IOException {
+    public void delete(Evento evento) {
+        try {
             this.service.events().delete(this.calendarId, evento.getId()).execute();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     static Event create(Evento evento){
@@ -95,14 +109,23 @@ public class GoogleCalendarService {
         return event;
     }
 
-    public List<Event> getEvents() throws IOException {
-        return this.service.events().list(this.calendarId).execute().getItems();
+    public List<Event> getEvents() {
+        try {
+            return this.service.events().list(this.calendarId).execute().getItems();
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+        return new ArrayList<>();
     }
 
-    public void clearEvents() throws IOException {
+    public void clearEvents() {
         List<Event> eventos = getEvents();
         for (Event evento : eventos){
-            this.service.events().delete(this.calendarId, evento.getId()).execute();
+            try {
+                this.service.events().delete(this.calendarId, evento.getId()).execute();
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
         }
     }
 

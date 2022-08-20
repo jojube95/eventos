@@ -71,7 +71,7 @@ public class EventoVerStepDef {
 
     @When("^User click calcular personas action$")
     public void user_click_calcular_personas_action() {
-        new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.id("calcularPersonasButton")));
+        new WebDriverWait(connector.getDriver(), Duration.ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(By.id("calcularPersonasButton")));
 
         WebElement calcularPersonasButton = connector.getDriver().findElement(By.id("calcularPersonasButton"));
         calcularPersonasButton.click();
@@ -176,21 +176,23 @@ public class EventoVerStepDef {
     }
 
     @When("^User click aceptar$")
-    public void user_click_aceptar() {
+    public void user_click_aceptar() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
 
-        connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        Thread.sleep(1000);
+
         WebElement modal_personas_button_aceptar = connector.getDriver().findElement(By.id("modalConfirmarPersonasAceptarButton"));
         modal_personas_button_aceptar.click();
     }
 
     @When("^User click cancelar")
-    public void user_click_cancelar() {
+    public void user_click_cancelar() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmPersonasModal")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
 
-        connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+        Thread.sleep(1000);
+
         WebElement modal_personas_button_cancelar = connector.getDriver().findElement(By.id("modalConfirmarPersonasCancelarButton"));
         modal_personas_button_cancelar.click();
     }
