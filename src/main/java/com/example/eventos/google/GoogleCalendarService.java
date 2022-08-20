@@ -20,10 +20,8 @@ import java.io.*;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class GoogleCalendarService {
@@ -118,7 +116,7 @@ public class GoogleCalendarService {
         try {
             this.service.events().delete(this.calendarId, id).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 

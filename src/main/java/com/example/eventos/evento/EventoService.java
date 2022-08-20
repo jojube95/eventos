@@ -4,7 +4,6 @@ import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
 import org.springframework.stereotype.Service;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -33,17 +32,17 @@ public class EventoService {
         return eventoRepository.findEventoById(id);
     }
 
-    public void save(Evento evento) throws IOException {
+    public void save(Evento evento) {
         eventoRepository.save(evento);
         googleCalendarService.add(evento);
     }
 
-    public void update(Evento evento) throws IOException {
+    public void update(Evento evento) {
         eventoRepository.save(evento);
         googleCalendarService.update(evento);
     }
 
-    public void delete(Evento evento) throws IOException {
+    public void delete(Evento evento) {
         eventoRepository.delete(evento);
         mesaRepository.deleteByIdEvento(evento.getId());
         invitadoRepository.deleteByIdEvento(evento.getId());
