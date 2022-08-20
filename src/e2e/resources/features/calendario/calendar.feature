@@ -1,5 +1,10 @@
 Feature: Calendar page that shows all events
 
+  Scenario: Visit root page should redirect to calendario page
+    Given Open Chrome and visit root page
+    Then Page should redirect to calendar page
+    And Calendar will be displayed
+
   Scenario: Visit calendar page on julio de 2022
     Given Open Chrome and visit calendar page
     And Calendar will be displayed

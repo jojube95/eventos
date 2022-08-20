@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class GoogleCalendarService {
@@ -109,16 +108,13 @@ public class GoogleCalendarService {
         return event;
     }
 
-    public List<Event> getEvents() throws IOException {
-        return this.service.events().list(this.calendarId).execute().getItems();
+    public Event getEventById(String id) throws IOException {
+        return service.events().get(this.calendarId, id).execute();
     }
 
-    public void clearEvents() {
+    public void clearEventById(String id) {
         try {
-            List<Event> eventos = getEvents();
-            for (Event evento : eventos){
-                this.service.events().delete(this.calendarId, evento.getId()).execute();
-            }
+            this.service.events().delete(this.calendarId, id).execute();
         } catch (IOException e) {
             logger.error(e.getMessage());
         }

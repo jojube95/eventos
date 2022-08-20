@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -25,14 +27,14 @@ public class ProtagonistaController {
     }
 
     @GetMapping("/evento/protagonistas")
-    public String updateFecha(@RequestParam("eventoId") String eventoId, Model model){
+    public String updateFecha(@RequestParam("eventoId") String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO_ATTRIBUTE, evento);
         return "verProtagonistas";
     }
 
     @GetMapping("/evento/protagonistas/eliminar")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex, RedirectAttributes redirectAttributes) {
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex, RedirectAttributes redirectAttributes) throws IOException {
         Evento evento = eventoService.getById(eventoId);
         evento.getProtagonistas().remove(protagonistaIndex);
         eventoService.update(evento);
@@ -49,7 +51,7 @@ public class ProtagonistaController {
     }
 
     @PostMapping("/evento/protagonistas/anyadir")
-    public String save(@ModelAttribute Protagonista protagonista, @RequestParam("eventoId") String eventoId, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute Protagonista protagonista, @RequestParam("eventoId") String eventoId, RedirectAttributes redirectAttributes) throws IOException {
         Evento evento = eventoService.getById(eventoId);
         List<Protagonista> protagonistas = evento.getProtagonistas();
         protagonistas.add(protagonista);

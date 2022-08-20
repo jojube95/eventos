@@ -16,6 +16,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <skip.integration.tests>false</skip.integration.tests>
+    <skip.unit.tests>false</skip.unit.tests>
     <cucumber.plugin>pretty</cucumber.plugin>
     <cucumber.filter.tags>@wip</cucumber.filter.tags>
     <cucumber.version>7.3.4</cucumber.version>
@@ -278,6 +280,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M4</version>
         <configuration>
+          <skipTests>${skip.unit.tests}</skipTests>
           <parallel>methods</parallel>
           <threadCount>4</threadCount>
         </configuration>
@@ -293,6 +296,7 @@
               <goal>verify</goal>
             </goals>
             <configuration>
+              <skipTests>${skip.integration.tests}</skipTests>
               <parallel>methods</parallel>
               <threadCount>4</threadCount>
               <failIfNoTests>true</failIfNoTests>

@@ -20,7 +20,7 @@ public class MesaController {
     }
 
     @GetMapping("/evento/mesas")
-    public String getMesas(@RequestParam("eventoId") String eventoId, Model model){
+    public String getMesas(@RequestParam("eventoId") String eventoId, Model model) {
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute("idEvento", eventoId);

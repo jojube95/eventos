@@ -28,21 +28,21 @@ public class EventoService {
         return eventoRepository.findAll();
     }
 
-    public Evento getById(String id){
+    public Evento getById(String id) {
         return eventoRepository.findEventoById(id);
     }
 
-    public void save(Evento evento){
+    public void save(Evento evento) {
         eventoRepository.save(evento);
         googleCalendarService.add(evento);
     }
 
-    public void update(Evento evento){
+    public void update(Evento evento) {
         eventoRepository.save(evento);
         googleCalendarService.update(evento);
     }
 
-    public void delete(Evento evento){
+    public void delete(Evento evento) {
         eventoRepository.delete(evento);
         mesaRepository.deleteByIdEvento(evento.getId());
         invitadoRepository.deleteByIdEvento(evento.getId());
