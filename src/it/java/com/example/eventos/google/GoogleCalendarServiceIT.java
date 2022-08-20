@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GoogleCalendarServiceIT {
@@ -19,23 +18,21 @@ class GoogleCalendarServiceIT {
     Evento evento;
 
     @BeforeEach
-    public void initEach() throws IOException {
+    public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         evento = new Evento("Boda", "Comida", 150, 10, "Benetuser", fecha, "Boda-Comida");
-        this.googleCalendarService.clearEvents();
-        Event event = this.googleCalendarService.add(evento);
-        evento.setId(event.getId());
+        String idEvento = this.googleCalendarService.add(evento);
+        evento.setId(idEvento);
     }
 
     @Test
     void eventoIsAddedToGoogleCalendar() throws IOException {
-        List<Event> eventos = this.googleCalendarService.getEvents();
+        Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
-        assertEquals(1, eventos.size());
-        assertEquals("Boda-Comida", eventos.get(0).getSummary());
-        assertEquals("Personas: 150\nLocalidad: Benetuser\nConfirmada: No", eventos.get(0).getDescription());
-        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-25")), eventos.get(0).getStart());
-        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-26")), eventos.get(0).getEnd());
+        assertEquals("Boda-Comida", eventoCalendar.getSummary());
+        assertEquals("Personas: 150\nLocalidad: Benetuser\nConfirmada: No", eventoCalendar.getDescription());
+        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-25")), eventoCalendar.getStart());
+        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-26")), eventoCalendar.getEnd());
     }
 
     @Test
@@ -48,26 +45,25 @@ class GoogleCalendarServiceIT {
 
         this.googleCalendarService.update(evento);
 
-        List<Event> eventos = this.googleCalendarService.getEvents();
+        Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
-        assertEquals(1, eventos.size());
-        assertEquals("Comunión-Cena", eventos.get(0).getSummary());
-        assertEquals("Personas: 99\nLocalidad: Olleria\nConfirmada: Sí", eventos.get(0).getDescription());
-        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-28")), eventos.get(0).getStart());
-        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-29")), eventos.get(0).getEnd());
+        assertEquals("Comunión-Cena", eventoCalendar.getSummary());
+        assertEquals("Personas: 99\nLocalidad: Olleria\nConfirmada: Sí", eventoCalendar.getDescription());
+        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-28")), eventoCalendar.getStart());
+        assertEquals(new EventDateTime().setDate(new DateTime("2022-07-29")), eventoCalendar.getEnd());
     }
 
     @Test
     void eventoIsDeletedInGoogleCalendar() throws IOException {
         this.googleCalendarService.delete(evento);
 
-        List<Event> eventos = this.googleCalendarService.getEvents();
+        Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
-        assertEquals(0, eventos.size());
+        assertEquals("cancelled", eventoCalendar.getStatus());
     }
 
     @AfterEach
-    public void clearCalendar() throws IOException {
-        this.googleCalendarService.clearEvents();
+    public void clearEventoFromCalendar() {
+        this.googleCalendarService.clearEventById(evento.getId());
     }
 }

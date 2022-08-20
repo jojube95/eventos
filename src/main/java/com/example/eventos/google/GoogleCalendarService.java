@@ -57,31 +57,32 @@ public class GoogleCalendarService {
 
     }
 
-    public Event add(Evento evento) {
+    public String add(Evento evento) {
+        try{
             Event event = create(evento);
 
-        try {
-            return this.service.events().insert(this.calendarId, event).execute();
-        } catch (IOException e) {
+            return this.service.events().insert(this.calendarId, event).execute().getId();
+        }catch (IOException e){
             logger.error(e.getMessage());
         }
-        return event;
+
+        return "";
     }
 
-    public void update(Evento evento) {
+    public void update(Evento evento){
+        try{
             Event event = create(evento);
 
-        try {
             service.events().update(this.calendarId, evento.getId(), event).execute();
-        } catch (IOException e) {
+        }catch (IOException e){
             logger.error(e.getMessage());
         }
     }
 
     public void delete(Evento evento) {
-        try {
+        try{
             this.service.events().delete(this.calendarId, evento.getId()).execute();
-        } catch (IOException e) {
+        }catch (IOException e){
             logger.error(e.getMessage());
         }
     }
@@ -109,23 +110,15 @@ public class GoogleCalendarService {
         return event;
     }
 
-    public List<Event> getEvents() {
-        try {
-            return this.service.events().list(this.calendarId).execute().getItems();
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-        return new ArrayList<>();
+    public Event getEventById(String id) throws IOException {
+        return service.events().get(this.calendarId, id).execute();
     }
 
-    public void clearEvents() {
-        List<Event> eventos = getEvents();
-        for (Event evento : eventos){
-            try {
-                this.service.events().delete(this.calendarId, evento.getId()).execute();
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
+    public void clearEventById(String id) {
+        try {
+            this.service.events().delete(this.calendarId, id).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
