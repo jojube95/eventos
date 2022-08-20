@@ -18,6 +18,11 @@ public class CalendarioController {
         this.eventoService = eventoService;
     }
 
+    @GetMapping("/")
+    public String redirectCalendario() {
+        return "redirect:/calendario";
+    }
+
     @GetMapping("/calendario")
     public String calendario(Model model) throws JsonProcessingException {
         List<Evento> eventos = eventoService.getEventos();

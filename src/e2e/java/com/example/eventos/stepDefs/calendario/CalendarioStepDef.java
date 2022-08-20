@@ -32,6 +32,12 @@ public class CalendarioStepDef {
     ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
   }
 
+  @Given("^Open Chrome and visit root page$")
+  public void open_the_chrome_and_visit_root_page() {
+    connector.getDriver().manage().window().maximize();
+    connector.getDriver().get("http://localhost:8081");
+  }
+
   @When("^User click last month$")
   public void user_click_last_month() {
     WebElement nextMonthButton = connector.getDriver().findElement(By.xpath("(//div[@class='fc-button-group']//button)[1]"));
@@ -113,6 +119,12 @@ public class CalendarioStepDef {
   public void redirect_to_verEvento() {
     String url = connector.getDriver().getCurrentUrl();
     assertThat(url, CoreMatchers.containsString("/verEvento?eventoId=62dc2a63ec628818203950b9"));
+  }
+
+  @Then("^Page should redirect to calendar page$")
+  public void should_redirect_to_calendar_page() {
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+    wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
   }
 
   @Then("^Redirect to updateEvento page$")
