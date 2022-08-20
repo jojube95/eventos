@@ -19,12 +19,12 @@ class GoogleCalendarServiceIT {
     Evento evento;
 
     @BeforeEach
-    public void initEach(){
+    public void initEach() throws IOException {
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         evento = new Evento("Boda", "Comida", 150, 10, "Benetuser", fecha, "Boda-Comida");
         this.googleCalendarService.clearEvents();
-        String eventId = this.googleCalendarService.add(evento);
-        evento.setId(eventId);
+        Event event = this.googleCalendarService.add(evento);
+        evento.setId(event.getId());
     }
 
     @Test
@@ -67,7 +67,7 @@ class GoogleCalendarServiceIT {
     }
 
     @AfterEach
-    public void clearCalendar(){
+    public void clearCalendar() throws IOException {
         this.googleCalendarService.clearEvents();
     }
 }

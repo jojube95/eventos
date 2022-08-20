@@ -7,6 +7,7 @@ import com.example.eventos.mesa.MesaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class EventoController {
     }
 
     @PostMapping("/updateEvento")
-    public String updateEvento(@ModelAttribute Evento evento) {
+    public String updateEvento(@ModelAttribute Evento evento) throws IOException {
         eventoService.update(evento);
         return "redirect:/verEventos";
     }
@@ -63,27 +64,27 @@ public class EventoController {
     }
 
     @PostMapping("/anyadirEvento")
-    public String save(@ModelAttribute Evento evento) {
+    public String save(@ModelAttribute Evento evento) throws IOException {
         eventoService.save(evento);
         return "redirect:/calendario";
     }
 
     @GetMapping("/eliminarEvento")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId) throws IOException {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
         return "redirect:/verEventos";
     }
 
     @GetMapping("/evento/{id}")
-    public String evento(@PathVariable("id") String id, Model model){
+    public String evento(@PathVariable("id") String id, Model model) {
         Evento evento = eventoService.getById(id);
         model.addAttribute(evento);
         return "fragments/eventoModal :: modalContents";
     }
 
     @GetMapping("/evento/updateFecha")
-    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha){
+    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) throws IOException {
         Evento evento = eventoService.getById(id);
         evento.setFecha(fecha);
         eventoService.update(evento);

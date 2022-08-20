@@ -56,34 +56,20 @@ public class GoogleCalendarService {
 
     }
 
-    public String add(Evento evento) {
-        try{
+    public Event add(Evento evento) throws IOException {
             Event event = create(evento);
 
-            return this.service.events().insert(this.calendarId, event).execute().getId();
-        }catch (IOException e){
-            logger.error(e.getMessage());
-        }
-
-        return "";
+            return this.service.events().insert(this.calendarId, event).execute();
     }
 
-    public void update(Evento evento){
-        try{
+    public void update(Evento evento) throws IOException {
             Event event = create(evento);
 
             service.events().update(this.calendarId, evento.getId(), event).execute();
-        }catch (IOException e){
-            logger.error(e.getMessage());
-        }
     }
 
-    public void delete(Evento evento) {
-        try{
+    public void delete(Evento evento) throws IOException {
             this.service.events().delete(this.calendarId, evento.getId()).execute();
-        }catch (IOException e){
-            logger.error(e.getMessage());
-        }
     }
 
     static Event create(Evento evento){
@@ -113,14 +99,10 @@ public class GoogleCalendarService {
         return this.service.events().list(this.calendarId).execute().getItems();
     }
 
-    public void clearEvents() {
-        try {
-            List<Event> eventos = getEvents();
-            for (Event evento : eventos){
-                this.service.events().delete(this.calendarId, evento.getId()).execute();
-            }
-        } catch (IOException e) {
-            logger.error(e.getMessage());
+    public void clearEvents() throws IOException {
+        List<Event> eventos = getEvents();
+        for (Event evento : eventos){
+            this.service.events().delete(this.calendarId, evento.getId()).execute();
         }
     }
 

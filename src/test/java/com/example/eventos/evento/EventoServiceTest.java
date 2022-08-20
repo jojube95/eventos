@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -49,27 +49,27 @@ class EventoServiceTest {
     }
 
     @Test
-    void getEventoByIdTest(){
+    void getEventoByIdTest() throws Exception {
         eventoService.getById(evento.getId());
         verify(eventoRepository, times(1)).findEventoById(evento.getId());
     }
 
     @Test
-    void saveEventoTest(){
+    void saveEventoTest() throws IOException {
         eventoService.save(evento);
         verify(eventoRepository, times(1)).save(evento);
         verify(googleCalendarService, times(1)).add(evento);
     }
 
     @Test
-    void updateEventoTest(){
+    void updateEventoTest() throws IOException {
         eventoService.update(evento);
         verify(eventoRepository, times(1)).save(evento);
         verify(googleCalendarService, times(1)).update(evento);
     }
 
     @Test
-    void deleteEventoTest(){
+    void deleteEventoTest() throws IOException {
         eventoService.delete(evento);
         verify(eventoRepository, times(1)).delete(evento);
         verify(mesaRepository, times(1)).deleteByIdEvento(evento.getId());
