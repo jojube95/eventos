@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class WebSecurity {
@@ -18,7 +19,8 @@ public class WebSecurity {
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UsuarioService usuarioService) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
+        return http
+                .getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(usuarioService)
                 .passwordEncoder(bCryptPasswordEncoder)
                 .and()
@@ -27,11 +29,18 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/anyadirEvento").hasRole("ADMIN")
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/login**", "/resources/**", "/webjars/**").permitAll()
+                .antMatchers("/**").hasRole("ADMIN")
                 .antMatchers("/verEventos").hasRole("USUARIO")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers("/**").authenticated()
+                .and()
+                .formLogin(form -> form.loginPage("/login"))
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID");
         return http.build();
     }
 }
