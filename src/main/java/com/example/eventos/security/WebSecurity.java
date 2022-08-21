@@ -32,7 +32,7 @@ public class WebSecurity {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login**", "/resources/**", "/webjars/**").permitAll()
-                .antMatchers("/**").hasRole("ADMIN")
+                .antMatchers("/anyadirEvento").hasRole("ADMIN")
                 .antMatchers("/verEventos").hasRole("USUARIO")
                 .antMatchers("/**").authenticated()
                 .and()

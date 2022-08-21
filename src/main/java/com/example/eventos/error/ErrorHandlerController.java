@@ -14,8 +14,22 @@ public class ErrorHandlerController implements ErrorController {
     public String handleError(HttpServletRequest request, Model model) {
         Exception e = (Exception) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
 
+        String statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE).toString();
+
+        model.addAttribute("statusCode", statusCode);
+
         if (e == null) {
-            model.addAttribute("errorDetail", "La pagina no existe.");
+            switch (statusCode){
+                case "404":
+                    model.addAttribute("errorDetail", "La pagina no existe.");
+                    break;
+                case "403":
+                    model.addAttribute("errorDetail", "No tiene permisos suficientes.");
+                    break;
+                default:
+                    model.addAttribute("errorDetail", "Ha habido un error.");
+                    break;
+            }
         }
         else{
             model.addAttribute("errorDetail", e.getMessage());
