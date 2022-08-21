@@ -3,33 +3,39 @@ package com.example.eventos.usuario;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Document("usuario")
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     private String id;
 
     @Indexed(unique = true)
-    private String nombre;
+    private String username;
 
-    private String contrasenya;
+    private String password;
     private String rol;
 
     public Usuario(){
 
     }
 
-    public Usuario(String nombre, String contrasenya, String rol) {
-        this.nombre = nombre;
-        this.contrasenya = contrasenya;
+    public Usuario(String username, String password, String rol) {
+        this.username = username;
+        this.password = password;
         this.rol = rol;
     }
 
-    public Usuario(String id, String nombre, String contrasenya, String rol) {
+    public Usuario(String id, String username, String password, String rol) {
         this.id = id;
-        this.nombre = nombre;
-        this.contrasenya = contrasenya;
+        this.username = username;
+        this.password = password;
         this.rol = rol;
     }
 
@@ -41,20 +47,48 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getContrasenya() {
-        return contrasenya;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setContrasenya(String contrasenya) {
-        this.contrasenya = contrasenya;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        list.add(new SimpleGrantedAuthority(rol));
+        return list;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRol() {
@@ -69,7 +103,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
+                ", nombre='" + username + '\'' +
                 ", rol='" + rol + '\'' +
                 '}';
     }
@@ -79,11 +113,11 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(nombre, usuario.nombre) && Objects.equals(contrasenya, usuario.contrasenya) && Objects.equals(rol, usuario.rol);
+        return Objects.equals(id, usuario.id) && Objects.equals(username, usuario.username) && Objects.equals(password, usuario.password) && Objects.equals(rol, usuario.rol);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, contrasenya, rol);
+        return Objects.hash(id, username, password, rol);
     }
 }
