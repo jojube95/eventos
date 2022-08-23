@@ -22,8 +22,8 @@ public class EventoModificarStepDef {
         this.connector = connector;
     }
 
-    @Given("^Open Chrome and visit updateEvento page$")
-    public void open_the_chrome_and_visit_update_evento_page() {
+    @Given("^Visit updateEvento page$")
+    public void visit_update_evento_page() {
         connector.getDriver().manage().window().maximize();
         connector.getDriver().get("http://localhost:8081/updateEvento?eventoId=62dc2a63ec628818203950b9");
     }

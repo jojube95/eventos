@@ -22,8 +22,8 @@ public class ProtagonistaStepDef {
         this.connector = connector;
     }
 
-    @Given("^Given Open Chrome and visit protagonistas page$")
-    public void open_the_chrome_and_visit_ver_eventos_page() {
+    @Given("^Visit protagonistas page$")
+    public void visit_ver_eventos_page() {
         connector.getDriver().manage().window().maximize();
         connector.getDriver().get("http://localhost:8081/evento/protagonistas?eventoId=62dc2a63ec628818203950b9");
     }

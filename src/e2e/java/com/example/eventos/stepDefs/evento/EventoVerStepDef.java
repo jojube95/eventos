@@ -20,8 +20,8 @@ public class EventoVerStepDef {
         this.connector = connector;
     }
 
-    @Given("^Open Chrome and visit verEvento page$")
-    public void open_the_chrome_and_visit_ver_evento_page() {
+    @Given("^Visit verEvento page$")
+    public void visit_ver_evento_page() {
         connector.getDriver().manage().window().maximize();
         connector.getDriver().get("http://localhost:8081/verEvento?eventoId=62dc2a63ec628818203950b9");
     }

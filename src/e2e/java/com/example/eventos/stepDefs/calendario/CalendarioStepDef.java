@@ -25,15 +25,35 @@ public class CalendarioStepDef {
     this.connector = connector;
   }
 
-  @Given("^Open Chrome and visit calendar page$")
-  public void open_the_chrome_and_visit_calendar_page() {
+  @Given("^Open Chrome and logIn as admin$")
+  public void open_the_chrome_and_log_in_as_admin() {
+    connector.getDriver().manage().window().maximize();
+    connector.getDriver().get("http://localhost:8081");
+
+    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+    wait.until(ExpectedConditions.urlToBe("http://localhost:8081/login"));
+
+    WebElement username = connector.getDriver().findElement(By.id("username"));
+    WebElement password = connector.getDriver().findElement(By.id("password"));
+    WebElement loginButton = connector.getDriver().findElement(By.id("loginButton"));
+
+    username.sendKeys("admin");
+    password.sendKeys("admin");
+    loginButton.click();
+
+    WebDriverWait wait2 = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+    wait2.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+  }
+
+  @Given("^Visit calendar page$")
+  public void visit_calendar_page() {
     connector.getDriver().manage().window().maximize();
     connector.getDriver().get("http://localhost:8081/calendario");
     ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
   }
 
-  @Given("^Open Chrome and visit root page$")
-  public void open_the_chrome_and_visit_root_page() {
+  @Given("^Visit root page$")
+  public void visit_root_page() {
     connector.getDriver().manage().window().maximize();
     connector.getDriver().get("http://localhost:8081");
   }
