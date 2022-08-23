@@ -2,21 +2,26 @@ package com.example.eventos.mesa;
 
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.security.SecurityConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MesaRestController.class)
+@Import(SecurityConfiguration.class)
 class MesaRestControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -34,10 +39,12 @@ class MesaRestControllerTest {
     private InvitadoService invitadoService;
 
     @Test
+    @WithMockUser(username="admin",roles={"USUARIO"})
     void addTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(mesa));
@@ -51,10 +58,12 @@ class MesaRestControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin",roles={"USUARIO"})
     void deleteTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(mesa));
@@ -66,10 +75,12 @@ class MesaRestControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin",roles={"USUARIO"})
     void updateTest() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
+                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(mesa));
