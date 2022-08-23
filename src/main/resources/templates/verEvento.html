@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <title>Eventos</title>
 
@@ -78,7 +78,7 @@
       <p th:text="#{evento.personas}" class="font-weight-bold"></p>
       <p id="eventoPersonas" th:text="${evento.personas}" class="font-weight-normal"></p>
     </div>
-    <div class="col">
+    <div class="col" sec:authorize="hasRole('ADMIN')">
       <p th:text="#{evento.precioMenu}" class="font-weight-bold"></p>
       <p id="eventoPrecioMenu" th:text="${evento.precioMenu}" class="font-weight-normal"></p>
     </div>
@@ -91,7 +91,7 @@
       <p th:text="#{evento.ninyos}" class="font-weight-bold"></p>
       <p id="eventoNinyos" th:text="${evento.ninyos}" class="font-weight-normal"></p>
     </div>
-    <div class="col">
+    <div class="col" sec:authorize="hasRole('ADMIN')">
       <p th:text="#{evento.precioMenuNinyos}" class="font-weight-bold"></p>
       <p id="eventoPrecioMenuNinyos" th:text="${evento.precioMenuNinyos}" class="font-weight-normal"></p>
     </div>
@@ -170,7 +170,12 @@
         $('#eventoPersonas').text(personas);
       },
       error: function (er) {
-        alert(er);
+        if(er.status === 405){
+          alert("No tiene permisos suficientes.")
+        }
+        else{
+          alert("Error al hacer la petición.")
+        }
       }
     })
   }
