@@ -9,7 +9,7 @@ public final class TestUtilities {
     public static String getContent(String path) {
         String content = "";
         try {
-            content = Files.asCharSource(new File(path), StandardCharsets.UTF_8).read().replaceAll(" ", "").replaceAll("\\r\\n", "");
+            content = Files.asCharSource(new File(path), StandardCharsets.UTF_8).read().replaceAll(" ", "").replaceAll("\\r|\\n", "");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -17,7 +17,7 @@ public final class TestUtilities {
     }
 
     public static String processContent(String content) {
-        content = content.replaceAll("<input(?:.*?)name=\"_csrf\"(?:.*?)>", "").replaceAll(" ", "").replaceAll("\\r\\n", "");
+        content = content.replaceAll("<input(?:.*?)name=\"_csrf\"(?:.*?)>", "").replaceAll(" ", "").replaceAll("\\r|\\n", "");
         return content;
     }
 }
