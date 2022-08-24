@@ -1,6 +1,5 @@
 package com.example.eventos.usuario;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,12 +8,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UsuarioServiceTest {
+class UsuarioServiceTest {
 
     @Mock
     UsuarioRepository usuarioRepository;
@@ -46,7 +44,7 @@ public class UsuarioServiceTest {
     void loadUserByUsernameDontFindedTest() {
         when(usuarioRepository.findUsuarioByUsername(usuario.getUsername())).thenReturn(null);
 
-        Throwable exception = assertThrows(UsernameNotFoundException.class, () -> usuarioService.loadUserByUsername(usuario.getUsername()));
+        Throwable exception = assertThrows(UsernameNotFoundException.class, () -> usuarioService.loadUserByUsername("usuario"));
         assertEquals("Username does not exist", exception.getMessage());
     }
 }
