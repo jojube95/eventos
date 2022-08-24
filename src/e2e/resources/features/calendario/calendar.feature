@@ -1,12 +1,14 @@
 Feature: Calendar page that shows all events
 
   Scenario: Visit root page should redirect to calendario page
-    Given Open Chrome and visit root page
+    Given Open Chrome and logIn as admin
+    And Visit root page
     Then Page should redirect to calendar page
     And Calendar will be displayed
 
   Scenario: Visit calendar page on julio de 2022
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     And Calendar will be displayed
     And Date should be julio de 2022
     Then User will see 4 different eventos
@@ -20,26 +22,30 @@ Feature: Calendar page that shows all events
     And Fourth event should be placed on day 23
 
   Scenario: Visit calendar page and navigate month later
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click next month
     Then Date should be agosto de 2022
     And No event is shown
 
   Scenario: Visit calendar page and navigate month past
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click last month
     Then Date should be junio de 2022
     And 2 events is shown
 
   Scenario: Click on event show modal dialog with detail data and three buttons
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click evento
     Then Event modal detail dialog is shown
     And Event modal detail dialog show correct event data
     And Event modal detail dialog have three buttons
 
   Scenario: Click on ver redirects to verEvento page
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click evento
     Then Event modal detail dialog is shown
     When User click ver button
@@ -47,14 +53,16 @@ Feature: Calendar page that shows all events
 
 
   Scenario: Click on modificar redirects to updateEvento page
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click evento
     Then Event modal detail dialog is shown
     When User click modificar button
     Then Redirect to updateEvento page
 
   Scenario: Click on cerrar close modal dialog
-    Given Open Chrome and visit calendar page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
     When User click evento
     Then Event modal detail dialog is shown
     When User click close button

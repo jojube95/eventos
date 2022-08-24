@@ -24,8 +24,8 @@ public class EventoAnyadirStepDef {
         this.connector = connector;
     }
 
-    @Given("^Open Chrome and visit anyadirEvento page$")
-    public void open_the_chrome_and_visit_calendar_page() {
+    @Given("^Visit anyadirEvento page$")
+    public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
         connector.getDriver().get("http://localhost:8081/anyadirEvento");
     }

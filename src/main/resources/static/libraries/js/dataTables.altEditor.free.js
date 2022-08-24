@@ -1045,7 +1045,12 @@
                         errstr = error.responseText;
                     }
                     else {
-                        errstr = (error.status == null) ? "" : this.language.error.responseCode + error.status;
+                        if (error.status === 405) {
+                            errstr = "No tiene permisos suficientes."
+                        }
+                        else{
+                            errstr = (error.status == null) ? "" : this.language.error.responseCode + error.status;
+                        }
                     }
 
                     var message = '<div class="alert alert-danger" role="alert">' +

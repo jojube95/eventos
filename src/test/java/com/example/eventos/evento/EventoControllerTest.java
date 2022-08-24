@@ -4,6 +4,7 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaService;
+import com.example.eventos.security.SecurityConfiguration;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,19 +12,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.*;
+import static com.example.utilities.TestUtilities.processContent;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @WebMvcTest(EventoController.class)
+@Import(SecurityConfiguration.class)
 class EventoControllerTest {
-
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
@@ -45,8 +50,9 @@ class EventoControllerTest {
     }
 
     @Test
-    void getVerEventosTest() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventos.html");
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void getVerEventosTestUsuario() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosUsuario.html");
 
         Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
         Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
@@ -57,91 +63,228 @@ class EventoControllerTest {
 
         when(eventoService.getEventos()).thenReturn(eventos);
 
-        String resultContent = this.mockMvc.perform(get("/verEventos")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEventos");
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
-    void getAnyadirEventoTest() throws Exception {
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getVerEventosTestAdmin() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosAdmin.html");
+
+        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        List<Evento> eventos = new ArrayList<>();
+        eventos.add(evento1);
+        eventos.add(evento2);
+
+        when(eventoService.getEventos()).thenReturn(eventos);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEventos");
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void getAnyadirEventoTestUsuario() throws Exception {
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEvento");
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getAnyadirEventoTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEvento.html");
 
-        String resultContent = this.mockMvc.perform(get("/anyadirEvento")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEvento");
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateEventoTest() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEvento")
+                .param("eventoId", evento.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getUpdateEventoTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEvento.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        String resultContent = this.mockMvc.perform(get("/updateEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEvento")
+                .param("eventoId", evento.getId());
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
-    void postUpdateEventoTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void postUpdateEventoTestUsuario() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
-        this.mockMvc.perform(post("/updateEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
+                .with(csrf())
+                .flashAttr("evento", evento);
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(eventoService, times(0)).update(evento);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void postUpdateEventoTestAdmin() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
+                .with(csrf())
+                .flashAttr("evento", evento);
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
 
         verify(eventoService, times(1)).update(evento);
     }
 
     @Test
-    void getVerEventoTest() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEvento.html");
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void getVerEventoTestUsuario() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoUsuario.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        String resultContent = this.mockMvc.perform(get("/verEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEvento")
+                .param("eventoId", evento.getId());
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
-    void postAnyadirEventoTest() throws Exception {
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getVerEventoTestAdmin() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoAdmin.html");
+
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
-        this.mockMvc.perform(post("/anyadirEvento").flashAttr("evento", evento)).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEvento")
+                .param("eventoId", evento.getId());
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
+
+        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+    }
+
+    @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void postAnyadirEventoTestUsuario() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
+                .with(csrf())
+                .flashAttr("evento", evento);
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(eventoService, times(0)).save(evento);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void postAnyadirEventoTestAdmin() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
+                .with(csrf())
+                .flashAttr("evento", evento);
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).save(evento);
     }
 
     @Test
-    void getEliminarEventoTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void getEliminarEventoTestUsuario() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        this.mockMvc.perform(get("/eliminarEvento").param("eventoId", evento.getId())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eliminarEvento")
+                .param("eventoId", evento.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(eventoService, times(0)).delete(evento);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getEliminarEventoTestAdmin() throws Exception {
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eliminarEvento")
+                .param("eventoId", evento.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
 
         verify(eventoService, times(1)).delete(evento);
     }
 
     @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateFechaTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        this.mockMvc.perform(get("/evento/updateFecha").param("id", evento.getId()).param("fecha", new GregorianCalendar(2022, Calendar.JULY, 10).getTime().toString())).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/updateFecha")
+                .param("id", evento.getId())
+                .param("fecha", new GregorianCalendar(2022, Calendar.JULY, 10).getTime().toString());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).update(evento);
     }
 
     @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEventoModalTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoModal.html");
 
@@ -149,13 +292,16 @@ class EventoControllerTest {
 
         when(eventoService.getById("id")).thenReturn(evento);
 
-        String resultContent = this.mockMvc.perform(get("/evento/{id}", "id")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/{id}", "id");
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getCalcularPersonasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
 
@@ -173,8 +319,11 @@ class EventoControllerTest {
         when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);
         when(invitadoService.findByMesa(null)).thenReturn(invitados);
 
-        String resultContent = this.mockMvc.perform(get("/evento/calcularPersonas").param("eventoId", evento.getId())).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = resultContent.replaceAll(" ", "");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/calcularPersonas")
+                .param("eventoId", evento.getId());
+
+        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }

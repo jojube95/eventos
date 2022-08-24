@@ -11,7 +11,11 @@
             <div class="col-md-12">
                 <div class="error-template">
                     <h1 th:text="#{error}"></h1>
+                    <hr>
+                    <span th:text="#{codigoError}"></span>
+                    <span th:text="${statusCode}"></span>
                     <div th:text="${errorDetail}" class="error-details"></div>
+                    <hr>
                     <div class="error-actions">
                         <a th:text="#{volver}" href="/calendario" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span></a>
                     </div>

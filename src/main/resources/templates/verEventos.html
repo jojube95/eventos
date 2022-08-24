@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Eventos</title>
 
@@ -14,6 +14,8 @@
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
+
+    <span sec:authentication="principal.authorities" id="userRole" hidden></span>
 
     <div class="container">
         <div class="row">
@@ -35,9 +37,9 @@
                     <th th:text="#{evento.horario}" scope="col"></th>
                     <th th:text="#{evento.localidad}" scope="col"></th>
                     <th th:text="#{evento.personas}" scope="col"></th>
-                    <th th:text="#{evento.precioMenu}" scope="col"></th>
+                    <th th:text="#{evento.precioMenu}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
                     <th th:text="#{evento.ninyos}" scope="col"></th>
-                    <th th:text="#{evento.precioMenuNinyos}" scope="col"></th>
+                    <th th:text="#{evento.precioMenuNinyos}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
                     <th th:text="#{evento.confirmado}" scope="col"></th>
                 </tr>
                 </thead>
@@ -48,9 +50,9 @@
                     <td th:text="${evento.horario}"></td>
                     <td th:text="${evento.localidad}"></td>
                     <td th:text="${evento.personas}"></td>
-                    <td th:text="${evento.precioMenu}"></td>
+                    <td th:text="${evento.precioMenu}" sec:authorize="hasRole('ADMIN')"></td>
                     <td th:text="${evento.ninyos}"></td>
-                    <td th:text="${evento.precioMenuNinyos}"></td>
+                    <td th:text="${evento.precioMenuNinyos}" sec:authorize="hasRole('ADMIN')"></td>
                     <td>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" th:checked="${evento.confirmado}">
@@ -63,9 +65,9 @@
                 <tr>
                     <td th:text="#{total}" colspan="4" style="text-align:right"></td>
                     <td></td>
+                    <td sec:authorize="hasRole('ADMIN')"></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td sec:authorize="hasRole('ADMIN')"></td>
                     <td></td>
                 </tr>
                 </tfoot>

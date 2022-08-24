@@ -21,8 +21,8 @@ public class MesaStepDef {
         this.connector = connector;
     }
 
-    @Given("^Open Chrome and visit mesas page$")
-    public void open_the_chrome_and_visit_mesas_page() {
+    @Given("^Visit mesas page$")
+    public void visit_mesas_page() {
         connector.getDriver().manage().window().maximize();
         connector.getDriver().get("http://localhost:8081/evento/mesas?eventoId=62dc2a96ec628818203950ba");
     }

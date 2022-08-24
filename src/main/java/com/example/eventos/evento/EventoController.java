@@ -70,7 +70,7 @@ public class EventoController {
     }
 
     @GetMapping("/eliminarEvento")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId) throws IOException {
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
         return "redirect:/verEventos";
@@ -84,7 +84,7 @@ public class EventoController {
     }
 
     @GetMapping("/evento/updateFecha")
-    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) throws IOException {
+    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) {
         Evento evento = eventoService.getById(id);
         evento.setFecha(fecha);
         eventoService.update(evento);

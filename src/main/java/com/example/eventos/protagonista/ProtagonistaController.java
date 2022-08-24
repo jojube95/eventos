@@ -34,7 +34,7 @@ public class ProtagonistaController {
     }
 
     @GetMapping("/evento/protagonistas/eliminar")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex, RedirectAttributes redirectAttributes) throws IOException {
+    public String eliminarEvento(@RequestParam("eventoId") String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex, RedirectAttributes redirectAttributes) {
         Evento evento = eventoService.getById(eventoId);
         evento.getProtagonistas().remove(protagonistaIndex);
         eventoService.update(evento);
