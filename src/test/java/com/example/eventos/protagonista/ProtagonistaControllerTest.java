@@ -43,7 +43,7 @@ class ProtagonistaControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getProtagonistasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verProtagonistas.html");
 
@@ -67,7 +67,7 @@ class ProtagonistaControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEliminarProtagonistaTest() throws Exception {
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
@@ -89,7 +89,7 @@ class ProtagonistaControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void getAnyadirProtagonistaTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirProtagonista.html");
 
@@ -107,7 +107,7 @@ class ProtagonistaControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void postSaveProtagonistaTest() throws Exception {
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");

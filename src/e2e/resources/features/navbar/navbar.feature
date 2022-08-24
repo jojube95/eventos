@@ -21,3 +21,10 @@ Feature: Navbar should navigate to other pages
     Then Dropdown buttons navbar is shown
     When User click on ver navbar
     Then Ver eventos page is shown
+
+  Scenario: Click on logout should close sesion and redirect to login page
+    Given Open Chrome and logIn as admin
+    And Visit calendar page
+    When User click logout button
+    Then Redirect to login page
+    And Logout message shows

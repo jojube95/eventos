@@ -30,8 +30,26 @@ class EventoRestControllerTest {
     private EventoService eventoService;
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
-    void updateTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void updateTestUsuario() throws Exception {
+        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        int personas = 60;
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/updatePersonas")
+                .with(csrf())
+                .param("eventoId", evento.getId())
+                .param("personas", String.valueOf(personas));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(eventoService, times(0)).update(evento);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void updateTestAdmin() throws Exception {
         Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
         int personas = 60;
 

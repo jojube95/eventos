@@ -1,12 +1,17 @@
 package com.example.eventos.stepDefs.navbar;
 
 import com.example.eventos.WebConnector;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NavbarStepDef {
@@ -14,6 +19,12 @@ public class NavbarStepDef {
 
     public NavbarStepDef(WebConnector connector) {
         this.connector = connector;
+    }
+
+    @When("^User click logout button$")
+    public void user_click_logout_button() {
+        WebElement navBarLogout = connector.getDriver().findElement(By.id("navBarLogout"));
+        navBarLogout.click();
     }
 
     @When("^User click on calendario navbar$")
@@ -62,5 +73,17 @@ public class NavbarStepDef {
     public void ver_eventos_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/verEventos"));
+    }
+
+    @Then("^Redirect to login page$")
+    public void redirect_to_login_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/login?logout"));
+    }
+
+    @And("^Logout message shows$")
+    public void logout_message_shows(){
+        String message = connector.getDriver().findElement(By.className("text-success")).getText();
+        assertEquals("Has salido", message);
     }
 }

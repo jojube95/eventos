@@ -39,8 +39,27 @@ class MesaRestControllerTest {
     private InvitadoService invitadoService;
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
-    void addTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void addTestUsuario() throws Exception {
+        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(mesa));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(mesaService, times(0)).save(mesa);
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", ""));
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", ""));
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", ""));
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void addTestAdmin() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
@@ -58,8 +77,25 @@ class MesaRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
-    void deleteTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void deleteTestUsuario() throws Exception {
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(mesa));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(mesaService, times(0)).delete(mesa);
+        verify(invitadoService, times(0)).deleteInvitados(mesa.getId());
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void deleteTestAdmin() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
@@ -75,8 +111,24 @@ class MesaRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
+    @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTest() throws Exception {
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(mesa));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(mesaService, times(0)).save(mesa);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void updateTestAdmin() throws Exception {
         Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")

@@ -34,8 +34,24 @@ class InvitadoRestControllerTest {
     private InvitadoService invitadoService;
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
-    void addUpdateTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void addUpdateTestUsuario() throws Exception {
+        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/addUpdate")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(invitado));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(invitadoService, times(0)).save(invitado);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void addUpdateTestAdmin() throws Exception {
         Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/addUpdate")
@@ -50,8 +66,24 @@ class InvitadoRestControllerTest {
     }
 
     @Test
-    @WithMockUser(username="admin",roles={"USUARIO"})
-    void deleteTest() throws Exception {
+    @WithMockUser(username="usuario",roles={"USUARIO"})
+    void deleteTestUsuario() throws Exception {
+        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/delete")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(invitado));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(invitadoService, times(0)).delete(invitado);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void deleteTestAdmin() throws Exception {
         Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/delete")
