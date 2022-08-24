@@ -2,9 +2,15 @@ package com.example.eventos.usuario;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UsuarioTest {
+class UsuarioTest {
     Usuario usuario1;
     Usuario usuario2;
     Usuario usuario3;
@@ -39,5 +45,18 @@ public class UsuarioTest {
     @Test
     void equalsFalse(){
         assertNotEquals(usuario1, usuario3);
+    }
+
+    @Test
+    void equalsToString(){
+        assertEquals("Usuario{id='id', nombre='username3', rol='rol3'}", usuario3.toString());
+    }
+
+    @Test
+    void getAuthoritiesTest() {
+        List<GrantedAuthority> expectedList = new ArrayList<>();
+        expectedList.add(new SimpleGrantedAuthority("rol"));
+
+        assertEquals(expectedList, usuario1.getAuthorities());
     }
 }

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SecurityController.class)
 @Import(SecurityConfiguration.class)
-public class SecurityControllerTest {
+class SecurityControllerTest {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired

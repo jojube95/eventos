@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ErrorHandlerController implements ErrorController {
 
+    private static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
+
     @GetMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Exception e = (Exception) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
@@ -21,18 +23,18 @@ public class ErrorHandlerController implements ErrorController {
         if (e == null) {
             switch (statusCode){
                 case "404":
-                    model.addAttribute("errorDetail", "La pagina no existe.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "La pagina no existe.");
                     break;
                 case "403":
-                    model.addAttribute("errorDetail", "No tiene permisos suficientes.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "No tiene permisos suficientes.");
                     break;
                 default:
-                    model.addAttribute("errorDetail", "Ha habido un error.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "Ha habido un error.");
                     break;
             }
         }
         else{
-            model.addAttribute("errorDetail", e.getMessage());
+            model.addAttribute(ATTRIBUTE_ERROR_DETAIL, e.getMessage());
         }
         return "error";
     }
