@@ -26,9 +26,11 @@
     <sonar.exclusions>src/main/resources/static/libraries/**/*</sonar.exclusions>
     <sonar.coverage.exclusions>**/GoogleCalendarService.*,src/main/resources/**/*</sonar.coverage.exclusions>
     <sonar.test.inclusions>src/test/java/**/*,src/it/java/**/*,src/e2e/java/**/*</sonar.test.inclusions>
-    <sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+    <sonar.issue.ignore.multicriteria>e1,e2</sonar.issue.ignore.multicriteria>
     <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S4684</sonar.issue.ignore.multicriteria.e1.ruleKey>
     <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*Controller.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
+    <sonar.issue.ignore.multicriteria.e2.ruleKey>Web:S5254</sonar.issue.ignore.multicriteria.e2.ruleKey>
+    <sonar.issue.ignore.multicriteria.e2.resourceKey>**/*.html</sonar.issue.ignore.multicriteria.e2.resourceKey>
   </properties>
 
   <dependencies>

@@ -56,6 +56,7 @@ class InvitadoControllerTest {
         when(invitadoService.findByMesa("idMesa")).thenReturn(invitados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/invitados")
+                .locale(new Locale("es", "ES"))
                 .param("idEvento", evento.getId())
                 .param("idMesa", "idMesa");
 

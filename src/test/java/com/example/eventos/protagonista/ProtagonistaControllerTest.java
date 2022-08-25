@@ -58,6 +58,7 @@ class ProtagonistaControllerTest {
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/protagonistas")
+                .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -98,6 +99,7 @@ class ProtagonistaControllerTest {
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/protagonistas/anyadir")
+                .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();

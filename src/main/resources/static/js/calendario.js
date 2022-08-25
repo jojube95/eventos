@@ -1,11 +1,13 @@
 let calendar;
+let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
+
 document.addEventListener('DOMContentLoaded', function() {
     let calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         editable: true,
         selectable: true,
-        locale: 'es',
+        locale: language,
         firstDay: 1,
         eventSources: [
             {

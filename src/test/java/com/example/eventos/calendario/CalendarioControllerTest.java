@@ -63,7 +63,8 @@ class CalendarioControllerTest {
 
         when(eventoService.getEventos()).thenReturn(eventos);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/calendario");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/calendario")
+                .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);
