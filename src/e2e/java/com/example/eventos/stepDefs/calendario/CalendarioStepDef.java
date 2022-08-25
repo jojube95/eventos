@@ -164,6 +164,7 @@ public class CalendarioStepDef {
     String actualFecha = connector.getDriver().findElement(By.id("modalEventoFecha")).getText();
     String actualTipo = connector.getDriver().findElement(By.id("modalEventoTipo")).getText();
     String actualHorario = connector.getDriver().findElement(By.id("modalEventoHorario")).getText();
+    String actualSala = connector.getDriver().findElement(By.id("modalEventoSala")).getText();
     String actualLocalidad = connector.getDriver().findElement(By.id("modalEventoLocalidad")).getText();
     String actualPersonas = connector.getDriver().findElement(By.id("modalEventoPersonas")).getText();
     String actualNinyos = connector.getDriver().findElement(By.id("modalEventoNinyos")).getText();
@@ -172,6 +173,7 @@ public class CalendarioStepDef {
     String expectedFecha = "2022-07-02";
     String expectedTipo = "Boda";
     String expectedHorario = "Cena";
+    String expectedSala = "Sala1";
     String expectedLocalidad = "Aielo de Malferit";
     String expectedPersonas = "153";
     String expectedNinyos = "13";
@@ -180,6 +182,7 @@ public class CalendarioStepDef {
     assertEquals(expectedFecha, actualFecha);
     assertEquals(expectedTipo, actualTipo);
     assertEquals(expectedHorario, actualHorario);
+    assertEquals(expectedSala, actualSala);
     assertEquals(expectedLocalidad, actualLocalidad);
     assertEquals(expectedPersonas, actualPersonas);
     assertEquals(expectedNinyos, actualNinyos);

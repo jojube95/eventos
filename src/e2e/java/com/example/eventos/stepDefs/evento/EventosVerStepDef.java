@@ -62,18 +62,26 @@ public class EventosVerStepDef {
         horarioComida.click();
     }
 
+    @When("^User enter sala Sala1")
+    public void user_enter_sala_sala1(){
+        WebElement salaSelect = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]"));
+        WebElement salaSala1 = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]/option[3]"));
+        salaSelect.click();
+        salaSala1.click();
+    }
+
     @When("^User enter localidad Aielo de Malferit$")
     public void user_enter_localidad_aielo(){
-        WebElement localidadSelect = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]"));
-        WebElement localidadAielo = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]/option[2]"));
+        WebElement localidadSelect = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[6]/select[1]"));
+        WebElement localidadAielo = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[6]/select[1]/option[2]"));
         localidadSelect.click();
         localidadAielo.click();
     }
 
     @When("^User enter confirmado Si$")
     public void user_enter_confirmado_si(){
-        WebElement confirmadoSelect = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[10]/select[1]"));
-        WebElement confirmadoBoda = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[10]/select[1]/option[2]"));
+        WebElement confirmadoSelect = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[11]/select[1]"));
+        WebElement confirmadoBoda = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[11]/select[1]/option[2]"));
         confirmadoSelect.click();
         confirmadoBoda.click();
     }
@@ -114,45 +122,49 @@ public class EventosVerStepDef {
         assertEquals("Boda-Cena", evento1.get(1).getText());
         assertEquals("Boda", evento1.get(2).getText());
         assertEquals("Cena", evento1.get(3).getText());
-        assertEquals("Aielo de Malferit", evento1.get(4).getText());
-        assertEquals("153", evento1.get(5).getText());
-        assertEquals("80.0", evento1.get(6).getText());
-        assertEquals("13", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("Si", evento1.get(9).getText());
+        assertEquals("Sala1", evento1.get(4).getText());
+        assertEquals("Aielo de Malferit", evento1.get(5).getText());
+        assertEquals("153", evento1.get(6).getText());
+        assertEquals("80.0", evento1.get(7).getText());
+        assertEquals("13", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("Si", evento1.get(10).getText());
 
         assertEquals("2022-07-10", evento2.get(0).getText());
         assertEquals("Comunion-Comida", evento2.get(1).getText());
         assertEquals("Comunion", evento2.get(2).getText());
         assertEquals("Comida", evento2.get(3).getText());
-        assertEquals("Olleria", evento2.get(4).getText());
-        assertEquals("43", evento2.get(5).getText());
-        assertEquals("50.0", evento2.get(6).getText());
-        assertEquals("18", evento2.get(7).getText());
-        assertEquals("15.0", evento2.get(8).getText());
-        assertEquals("No", evento2.get(9).getText());
+        assertEquals("Sala2", evento2.get(4).getText());
+        assertEquals("Olleria", evento2.get(5).getText());
+        assertEquals("43", evento2.get(6).getText());
+        assertEquals("50.0", evento2.get(7).getText());
+        assertEquals("18", evento2.get(8).getText());
+        assertEquals("15.0", evento2.get(9).getText());
+        assertEquals("No", evento2.get(10).getText());
 
         assertEquals("2022-07-16", evento3.get(0).getText());
         assertEquals("Sopar festes-Cena", evento3.get(1).getText());
         assertEquals("Evento individual", evento3.get(2).getText());
         assertEquals("Cena", evento3.get(3).getText());
-        assertEquals("Aielo de Malferit", evento3.get(4).getText());
-        assertEquals("90", evento3.get(5).getText());
-        assertEquals("35.0", evento3.get(6).getText());
-        assertEquals("23", evento3.get(7).getText());
-        assertEquals("15.0", evento3.get(8).getText());
-        assertEquals("Si", evento3.get(9).getText());
+        assertEquals("Patio", evento3.get(4).getText());
+        assertEquals("Aielo de Malferit", evento3.get(5).getText());
+        assertEquals("90", evento3.get(6).getText());
+        assertEquals("35.0", evento3.get(7).getText());
+        assertEquals("23", evento3.get(8).getText());
+        assertEquals("15.0", evento3.get(9).getText());
+        assertEquals("Si", evento3.get(10).getText());
 
         assertEquals("2022-07-23", evento4.get(0).getText());
         assertEquals("Dinar empresa-Comida", evento4.get(1).getText());
         assertEquals("Evento comunal", evento4.get(2).getText());
         assertEquals("Comida", evento4.get(3).getText());
-        assertEquals("Albaida", evento4.get(4).getText());
-        assertEquals("36", evento4.get(5).getText());
-        assertEquals("40.0", evento4.get(6).getText());
-        assertEquals("0", evento4.get(7).getText());
-        assertEquals("0.0", evento4.get(8).getText());
-        assertEquals("No", evento4.get(9).getText());
+        assertEquals("Sala1", evento4.get(4).getText());
+        assertEquals("Albaida", evento4.get(5).getText());
+        assertEquals("36", evento4.get(6).getText());
+        assertEquals("40.0", evento4.get(7).getText());
+        assertEquals("0", evento4.get(8).getText());
+        assertEquals("0.0", evento4.get(9).getText());
+        assertEquals("No", evento4.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("322", footer.get(1).getText());
@@ -216,12 +228,13 @@ public class EventosVerStepDef {
         assertEquals("Boda-Cena", evento1.get(1).getText());
         assertEquals("Boda", evento1.get(2).getText());
         assertEquals("Cena", evento1.get(3).getText());
-        assertEquals("Aielo de Malferit", evento1.get(4).getText());
-        assertEquals("153", evento1.get(5).getText());
-        assertEquals("80.0", evento1.get(6).getText());
-        assertEquals("13", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("Si", evento1.get(9).getText());
+        assertEquals("Sala1", evento1.get(4).getText());
+        assertEquals("Aielo de Malferit", evento1.get(5).getText());
+        assertEquals("153", evento1.get(6).getText());
+        assertEquals("80.0", evento1.get(7).getText());
+        assertEquals("13", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("Si", evento1.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("153", footer.get(1).getText());
@@ -246,23 +259,25 @@ public class EventosVerStepDef {
         assertEquals("Comunion-Comida", evento1.get(1).getText());
         assertEquals("Comunion", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
-        assertEquals("Olleria", evento1.get(4).getText());
-        assertEquals("43", evento1.get(5).getText());
-        assertEquals("50.0", evento1.get(6).getText());
-        assertEquals("18", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("No", evento1.get(9).getText());
+        assertEquals("Sala2", evento1.get(4).getText());
+        assertEquals("Olleria", evento1.get(5).getText());
+        assertEquals("43", evento1.get(6).getText());
+        assertEquals("50.0", evento1.get(7).getText());
+        assertEquals("18", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("No", evento1.get(10).getText());
 
         assertEquals("2022-07-23", evento2.get(0).getText());
         assertEquals("Dinar empresa-Comida", evento2.get(1).getText());
         assertEquals("Evento comunal", evento2.get(2).getText());
         assertEquals("Comida", evento2.get(3).getText());
-        assertEquals("Albaida", evento2.get(4).getText());
-        assertEquals("36", evento2.get(5).getText());
-        assertEquals("40.0", evento2.get(6).getText());
-        assertEquals("0", evento2.get(7).getText());
-        assertEquals("0.0", evento2.get(8).getText());
-        assertEquals("No", evento2.get(9).getText());
+        assertEquals("Sala1", evento2.get(4).getText());
+        assertEquals("Albaida", evento2.get(5).getText());
+        assertEquals("36", evento2.get(6).getText());
+        assertEquals("40.0", evento2.get(7).getText());
+        assertEquals("0", evento2.get(8).getText());
+        assertEquals("0.0", evento2.get(9).getText());
+        assertEquals("No", evento2.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("79", footer.get(1).getText());
@@ -270,6 +285,49 @@ public class EventosVerStepDef {
         assertEquals("18", footer.get(3).getText());
         assertEquals("7.50", footer.get(4).getText());
         assertEquals("3860€", footer.get(5).getText());
+    }
+
+    @Then("^Evento sala1 is shown$")
+    public void evento_sala1_is_shown() {
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
+
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr[2]/td"));
+
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tfoot/tr/td"));
+
+        assertEquals(2, eventos.size());
+
+        assertEquals("2022-07-02", evento1.get(0).getText());
+        assertEquals("Boda-Cena", evento1.get(1).getText());
+        assertEquals("Boda", evento1.get(2).getText());
+        assertEquals("Cena", evento1.get(3).getText());
+        assertEquals("Sala1", evento1.get(4).getText());
+        assertEquals("Aielo de Malferit", evento1.get(5).getText());
+        assertEquals("153", evento1.get(6).getText());
+        assertEquals("80.0", evento1.get(7).getText());
+        assertEquals("13", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("Si", evento1.get(10).getText());
+
+        assertEquals("2022-07-23", evento2.get(0).getText());
+        assertEquals("Dinar empresa-Comida", evento2.get(1).getText());
+        assertEquals("Evento comunal", evento2.get(2).getText());
+        assertEquals("Comida", evento2.get(3).getText());
+        assertEquals("Sala1", evento2.get(4).getText());
+        assertEquals("Albaida", evento2.get(5).getText());
+        assertEquals("36", evento2.get(6).getText());
+        assertEquals("40.0", evento2.get(7).getText());
+        assertEquals("0", evento2.get(8).getText());
+        assertEquals("0.0", evento2.get(9).getText());
+        assertEquals("No", evento2.get(10).getText());
+
+        assertEquals("Total:", footer.get(0).getText());
+        assertEquals("189", footer.get(1).getText());
+        assertEquals("60.00", footer.get(2).getText());
+        assertEquals("13", footer.get(3).getText());
+        assertEquals("7.50", footer.get(4).getText());
+        assertEquals("13875€", footer.get(5).getText());
     }
 
     @Then("^Evento Aielo de Malferit is shown$")
@@ -287,23 +345,25 @@ public class EventosVerStepDef {
         assertEquals("Boda-Cena", evento1.get(1).getText());
         assertEquals("Boda", evento1.get(2).getText());
         assertEquals("Cena", evento1.get(3).getText());
-        assertEquals("Aielo de Malferit", evento1.get(4).getText());
-        assertEquals("153", evento1.get(5).getText());
-        assertEquals("80.0", evento1.get(6).getText());
-        assertEquals("13", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("Si", evento1.get(9).getText());
+        assertEquals("Sala1", evento1.get(4).getText());
+        assertEquals("Aielo de Malferit", evento1.get(5).getText());
+        assertEquals("153", evento1.get(6).getText());
+        assertEquals("80.0", evento1.get(7).getText());
+        assertEquals("13", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("Si", evento1.get(10).getText());
 
         assertEquals("2022-07-16", evento2.get(0).getText());
         assertEquals("Sopar festes-Cena", evento2.get(1).getText());
         assertEquals("Evento individual", evento2.get(2).getText());
         assertEquals("Cena", evento2.get(3).getText());
-        assertEquals("Aielo de Malferit", evento2.get(4).getText());
-        assertEquals("90", evento2.get(5).getText());
-        assertEquals("35.0", evento2.get(6).getText());
-        assertEquals("23", evento2.get(7).getText());
-        assertEquals("15.0", evento2.get(8).getText());
-        assertEquals("Si", evento2.get(9).getText());
+        assertEquals("Patio", evento2.get(4).getText());
+        assertEquals("Aielo de Malferit", evento2.get(5).getText());
+        assertEquals("90", evento2.get(6).getText());
+        assertEquals("35.0", evento2.get(7).getText());
+        assertEquals("23", evento2.get(8).getText());
+        assertEquals("15.0", evento2.get(9).getText());
+        assertEquals("Si", evento2.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
@@ -328,23 +388,25 @@ public class EventosVerStepDef {
         assertEquals("Boda-Cena", evento1.get(1).getText());
         assertEquals("Boda", evento1.get(2).getText());
         assertEquals("Cena", evento1.get(3).getText());
-        assertEquals("Aielo de Malferit", evento1.get(4).getText());
-        assertEquals("153", evento1.get(5).getText());
-        assertEquals("80.0", evento1.get(6).getText());
-        assertEquals("13", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("Si", evento1.get(9).getText());
+        assertEquals("Sala1", evento1.get(4).getText());
+        assertEquals("Aielo de Malferit", evento1.get(5).getText());
+        assertEquals("153", evento1.get(6).getText());
+        assertEquals("80.0", evento1.get(7).getText());
+        assertEquals("13", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("Si", evento1.get(10).getText());
 
         assertEquals("2022-07-16", evento2.get(0).getText());
         assertEquals("Sopar festes-Cena", evento2.get(1).getText());
         assertEquals("Evento individual", evento2.get(2).getText());
         assertEquals("Cena", evento2.get(3).getText());
-        assertEquals("Aielo de Malferit", evento2.get(4).getText());
-        assertEquals("90", evento2.get(5).getText());
-        assertEquals("35.0", evento2.get(6).getText());
-        assertEquals("23", evento2.get(7).getText());
-        assertEquals("15.0", evento2.get(8).getText());
-        assertEquals("Si", evento2.get(9).getText());
+        assertEquals("Patio", evento2.get(4).getText());
+        assertEquals("Aielo de Malferit", evento2.get(5).getText());
+        assertEquals("90", evento2.get(6).getText());
+        assertEquals("35.0", evento2.get(7).getText());
+        assertEquals("23", evento2.get(8).getText());
+        assertEquals("15.0", evento2.get(9).getText());
+        assertEquals("Si", evento2.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
@@ -368,12 +430,13 @@ public class EventosVerStepDef {
         assertEquals("Comunion-Comida", evento1.get(1).getText());
         assertEquals("Comunion", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
-        assertEquals("Olleria", evento1.get(4).getText());
-        assertEquals("43", evento1.get(5).getText());
-        assertEquals("50.0", evento1.get(6).getText());
-        assertEquals("18", evento1.get(7).getText());
-        assertEquals("15.0", evento1.get(8).getText());
-        assertEquals("No", evento1.get(9).getText());
+        assertEquals("Sala2", evento1.get(4).getText());
+        assertEquals("Olleria", evento1.get(5).getText());
+        assertEquals("43", evento1.get(6).getText());
+        assertEquals("50.0", evento1.get(7).getText());
+        assertEquals("18", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("No", evento1.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("43", footer.get(1).getText());
@@ -417,6 +480,13 @@ public class EventosVerStepDef {
         assertEquals("", optionSelected.getText());
     }
 
+    @And("^Sala not selected")
+    public void sala_not_selected() {
+        Select sala = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]")));
+        WebElement optionSelected = sala.getFirstSelectedOption();
+        assertEquals("", optionSelected.getText());
+    }
+
     @And("^Localidad not selected")
     public void localidad_not_selected() {
         Select localidad = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]")));
@@ -426,7 +496,7 @@ public class EventosVerStepDef {
 
     @And("^Confirmar not selected")
     public void confirmar_not_selected() {
-        Select confirmar = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[10]/select[1]")));
+        Select confirmar = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[11]/select[1]")));
         WebElement optionSelected = confirmar.getFirstSelectedOption();
         assertEquals("", optionSelected.getText());
     }
@@ -453,9 +523,20 @@ public class EventosVerStepDef {
         assertEquals("Comida", options.get(2).getText());
     }
 
+    @And("^Sala options correct")
+    public void sala_options_correct() {
+        Select sala = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]")));
+        List<WebElement> options = sala.getOptions();
+
+        assertEquals("", options.get(0).getText());
+        assertEquals("Patio", options.get(1).getText());
+        assertEquals("Sala1", options.get(2).getText());
+        assertEquals("Sala2", options.get(3).getText());
+    }
+
     @And("^Localidad options correct")
     public void localidad_options_correct() {
-        Select localidad = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[5]/select[1]")));
+        Select localidad = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[6]/select[1]")));
         List<WebElement> options = localidad.getOptions();
 
         assertEquals("", options.get(0).getText());
@@ -466,7 +547,7 @@ public class EventosVerStepDef {
 
     @And("^Confirmar options correct")
     public void confirmar_options_correct() {
-        Select confirmar = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[10]/select[1]")));
+        Select confirmar = new Select(connector.getDriver().findElement(By.xpath("//table[@id='eventos']/thead[1]/tr[1]/th[11]/select[1]")));
         List<WebElement> options = confirmar.getOptions();
 
         assertEquals("", options.get(0).getText());

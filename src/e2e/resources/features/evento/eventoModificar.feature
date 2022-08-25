@@ -35,6 +35,13 @@ Feature: Modificar evento page should update evento and show required fields wit
     When Use click horario option
     Then Option horario should be selected
 
+  Scenario: When user select sala option, sala should be selected
+    Given Open Chrome and logIn as admin
+    And Visit updateEvento page
+    And User click sala field
+    When Use click sala option
+    Then Option sala2 should be selected
+
   Scenario: When user dont fill fecha and click on anyadir, required field label should display
     Given Open Chrome and logIn as admin
     And Visit updateEvento page

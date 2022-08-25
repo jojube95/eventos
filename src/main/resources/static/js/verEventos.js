@@ -39,7 +39,7 @@ $( document ).ready(function() {
     let table = $('#eventos').DataTable({
         order: [0, 'asc'],
         columnDefs: [
-            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 10] : [1, 2, 3, 4, 8]) }
+            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 5, 10] : [1, 2, 3, 4, 5, 8]) }
         ],
         lengthMenu: [
             [10, 25, 50, -1],
@@ -47,7 +47,7 @@ $( document ).ready(function() {
         ],
          initComplete: function () {
             this.api()
-                .columns([2, 3, 4])
+                .columns([2, 3, 4, 5])
                 .every(function () {
                     let column = this;
                     let select = $('<select class="filtro-select"><option value=""></option></select>')

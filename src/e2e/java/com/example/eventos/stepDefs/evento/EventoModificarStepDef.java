@@ -62,6 +62,8 @@ public class EventoModificarStepDef {
         WebElement optionComunion = connector.getDriver().findElement(By.id("optionComunion"));
         WebElement horario = connector.getDriver().findElement(By.id("horario"));
         WebElement optionComida = connector.getDriver().findElement(By.id("optionComida"));
+        WebElement sala = connector.getDriver().findElement(By.id("sala"));
+        WebElement optionPatio = connector.getDriver().findElement(By.id("patio"));
         WebElement personas = connector.getDriver().findElement(By.id("personas"));
         WebElement precioMenu = connector.getDriver().findElement(By.id("precioMenu"));
         WebElement ninyos = connector.getDriver().findElement(By.id("ninyos"));
@@ -84,6 +86,9 @@ public class EventoModificarStepDef {
 
         horario.click();
         optionComida.click();
+
+        sala.click();
+        optionPatio.click();
 
         personas.clear();
         personas.sendKeys("155");
@@ -182,44 +187,52 @@ public class EventoModificarStepDef {
         assertEquals(4, eventos.size());
 
         assertEquals("2022-07-10", evento1.get(0).getText());
-        assertEquals("Comunion", evento1.get(1).getText());
-        assertEquals("Comida", evento1.get(2).getText());
-        assertEquals("Olleria", evento1.get(3).getText());
-        assertEquals("43", evento1.get(4).getText());
-        assertEquals("50.0", evento1.get(5).getText());
-        assertEquals("18", evento1.get(6).getText());
-        assertEquals("15.0", evento1.get(7).getText());
-        assertEquals("No", evento1.get(8).getText());
+        assertEquals("Comunion-Comida", evento1.get(1).getText());
+        assertEquals("Comunion", evento1.get(2).getText());
+        assertEquals("Comida", evento1.get(3).getText());
+        assertEquals("Sala2", evento1.get(4).getText());
+        assertEquals("Olleria", evento1.get(5).getText());
+        assertEquals("43", evento1.get(6).getText());
+        assertEquals("50.0", evento1.get(7).getText());
+        assertEquals("18", evento1.get(8).getText());
+        assertEquals("15.0", evento1.get(9).getText());
+        assertEquals("No", evento1.get(10).getText());
 
         assertEquals("2022-07-16", evento2.get(0).getText());
-        assertEquals("Evento individual", evento2.get(1).getText());
-        assertEquals("Cena", evento2.get(2).getText());
-        assertEquals("Aielo de Malferit", evento2.get(3).getText());
-        assertEquals("90", evento2.get(4).getText());
-        assertEquals("35.0", evento2.get(5).getText());
-        assertEquals("23", evento2.get(6).getText());
-        assertEquals("15.0", evento2.get(7).getText());
-        assertEquals("Si", evento2.get(8).getText());
+        assertEquals("Sopar festes-Cena", evento2.get(1).getText());
+        assertEquals("Evento individual", evento2.get(2).getText());
+        assertEquals("Cena", evento2.get(3).getText());
+        assertEquals("Patio", evento2.get(4).getText());
+        assertEquals("Aielo de Malferit", evento2.get(5).getText());
+        assertEquals("90", evento2.get(6).getText());
+        assertEquals("35.0", evento2.get(7).getText());
+        assertEquals("23", evento2.get(8).getText());
+        assertEquals("15.0", evento2.get(9).getText());
+        assertEquals("Si", evento2.get(10).getText());
 
         assertEquals("2022-07-18", evento3.get(0).getText());
-        assertEquals("Comunion", evento3.get(1).getText());
-        assertEquals("Comida", evento3.get(2).getText());
-        assertEquals("Bufali", evento3.get(3).getText());
-        assertEquals("155", evento3.get(4).getText());
-        assertEquals("85.0", evento3.get(5).getText());
-        assertEquals("17", evento3.get(6).getText());
-        assertEquals("15.5", evento3.get(7).getText());
-        assertEquals("No", evento3.get(8).getText());
+        assertEquals("Comunion-Comida", evento3.get(1).getText());
+        assertEquals("Comunion", evento3.get(2).getText());
+        assertEquals("Comida", evento3.get(3).getText());
+        assertEquals("Patio", evento3.get(4).getText());
+        assertEquals("Bufali", evento3.get(5).getText());
+        assertEquals("155", evento3.get(6).getText());
+        assertEquals("85.0", evento3.get(7).getText());
+        assertEquals("17", evento3.get(8).getText());
+        assertEquals("15.5", evento3.get(9).getText());
+        assertEquals("No", evento3.get(10).getText());
 
         assertEquals("2022-07-23", evento4.get(0).getText());
-        assertEquals("Evento comunal", evento4.get(1).getText());
-        assertEquals("Comida", evento4.get(2).getText());
-        assertEquals("Albaida", evento4.get(3).getText());
-        assertEquals("36", evento4.get(4).getText());
-        assertEquals("40.0", evento4.get(5).getText());
-        assertEquals("0", evento4.get(6).getText());
-        assertEquals("0.0", evento4.get(7).getText());
-        assertEquals("No", evento4.get(8).getText());
+        assertEquals("Dinar empresa-Comida", evento4.get(1).getText());
+        assertEquals("Evento comunal", evento4.get(2).getText());
+        assertEquals("Comida", evento4.get(3).getText());
+        assertEquals("Sala1", evento4.get(4).getText());
+        assertEquals("Albaida", evento4.get(5).getText());
+        assertEquals("36", evento4.get(6).getText());
+        assertEquals("40.0", evento4.get(7).getText());
+        assertEquals("0", evento4.get(8).getText());
+        assertEquals("0.0", evento4.get(9).getText());
+        assertEquals("No", evento4.get(10).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("324", footer.get(1).getText());

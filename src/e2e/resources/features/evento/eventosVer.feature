@@ -9,10 +9,12 @@ Feature: Table with eventos and diferent filteres
     And Search is void
     And Tipo not selected
     And Horario not selected
+    And Sala not selected
     And Localidad not selected
     And Confirmar not selected
     And Tipo options correct
     And Horario options correct
+    And Sala options correct
     And Localidad options correct
     And Confirmar options correct
 
@@ -36,6 +38,12 @@ Feature: Table with eventos and diferent filteres
     And Visit verEventos page
     When User enter horario Comida
     Then Evento comida is shown
+
+  Scenario: User enter sala and events filters
+    Given Open Chrome and logIn as admin
+    And Visit verEventos page
+    When User enter sala Sala1
+    Then Evento sala1 is shown
 
   Scenario: User enter localidad and events filters
     Given Open Chrome and logIn as admin

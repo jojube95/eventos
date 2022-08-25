@@ -32,6 +32,7 @@ public class EventoVerStepDef {
         WebElement localidad = connector.getDriver().findElement(By.id("eventoLocalidad"));
         WebElement tipo = connector.getDriver().findElement(By.id("eventoTipo"));
         WebElement horario = connector.getDriver().findElement(By.id("eventoHorario"));
+        WebElement sala = connector.getDriver().findElement(By.id("eventoSala"));
         WebElement titulo = connector.getDriver().findElement(By.id("eventoTitulo"));
         WebElement personas = connector.getDriver().findElement(By.id("eventoPersonas"));
         WebElement precioMenu = connector.getDriver().findElement(By.id("eventoPrecioMenu"));
@@ -44,6 +45,7 @@ public class EventoVerStepDef {
         assertEquals("Boda", tipo.getText());
         assertEquals("Cena", horario.getText());
         assertEquals("Boda-Cena", titulo.getText());
+        assertEquals("Sala1", sala.getText());
         assertEquals("153", personas.getText());
         assertEquals("80.0", precioMenu.getText());
         assertEquals("13", ninyos.getText());
