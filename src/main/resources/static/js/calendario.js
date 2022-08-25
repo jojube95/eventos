@@ -1,5 +1,5 @@
 let calendar;
-let language = document.documentElement.lang;
+let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
     let calendarEl = document.getElementById('calendar');
