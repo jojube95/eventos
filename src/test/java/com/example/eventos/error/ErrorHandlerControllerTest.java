@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import javax.servlet.RequestDispatcher;
+import java.util.Locale;
+
 import static com.example.utilities.TestUtilities.processContent;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,6 +32,7 @@ public class ErrorHandlerControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/errorPageException.html");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/error")
+                .locale(new Locale("es", "ES"))
                 .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 500)
                 .requestAttr(RequestDispatcher.ERROR_EXCEPTION, new Exception("Test exception message"));
 
@@ -46,6 +49,7 @@ public class ErrorHandlerControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/error" + statusCode + ".html");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/error")
+                .locale(new Locale("es", "ES"))
                 .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, statusCode);
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();

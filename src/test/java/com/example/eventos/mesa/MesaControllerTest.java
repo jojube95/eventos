@@ -61,6 +61,7 @@ class MesaControllerTest {
         when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas")
+                .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
