@@ -18,7 +18,7 @@ class GoogleCalendarServiceTest {
     void createTest(){
         Date fecha = new GregorianCalendar(2014, Calendar.JANUARY, 11).getTime();
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         Event createdEvent = GoogleCalendarService.create(evento);
 

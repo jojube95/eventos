@@ -54,8 +54,8 @@ class CalendarioControllerTest {
     void getCalendario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/calendario.html");
 
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena");
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento1);

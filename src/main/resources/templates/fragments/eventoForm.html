@@ -57,6 +57,25 @@
     </div>
 </div>
 
+<div class="form-row" th:fragment="sala">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{evento.sala}" for="sala"></label>
+            <select th:field="*{sala}" class="form-control" id="sala">
+                <option id="sala1" th:text="#{sala1}" value="Sala1"></option>
+                <option id="sala2" th:text="#{sala2}" value="Sala2"></option>
+                <option id="patio" th:text="#{patio}" value="Patio"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
 <div class="form-row" th:fragment="personas">
     <div class="col">
         <div class="form-group">

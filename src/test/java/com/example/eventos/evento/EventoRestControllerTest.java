@@ -32,7 +32,7 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
         int personas = 60;
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -50,7 +50,7 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
         int personas = 60;
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
