@@ -1,6 +1,9 @@
 package com.example.eventos.error;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ErrorHandlerController implements ErrorController {
+
+    @Autowired
+    private MessageSource messageSource;
 
     private static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
 
@@ -23,13 +29,13 @@ public class ErrorHandlerController implements ErrorController {
         if (e == null) {
             switch (statusCode){
                 case "404":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "La pagina no existe.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("paginaNoExiste", null, LocaleContextHolder.getLocale()));
                     break;
                 case "403":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "No tiene permisos suficientes.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("noTienePermisos", null, LocaleContextHolder.getLocale()));
                     break;
                 default:
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, "Ha habido un error.");
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("haHabidoError", null, LocaleContextHolder.getLocale()));
                     break;
             }
         }
