@@ -30,7 +30,7 @@
     <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S4684</sonar.issue.ignore.multicriteria.e1.ruleKey>
     <sonar.issue.ignore.multicriteria.e1.resourceKey>**/*Controller.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
     <sonar.issue.ignore.multicriteria.e2.ruleKey>java:S5254</sonar.issue.ignore.multicriteria.e2.ruleKey>
-    <sonar.issue.ignore.multicriteria.e2.resourceKey>**/*.html</sonar.issue.ignore.multicriteria.e2.resourceKey>
+    <sonar.issue.ignore.multicriteria.e2.resourceKey>src/main/resources/**/*</sonar.issue.ignore.multicriteria.e2.resourceKey>
   </properties>
 
   <dependencies>
