@@ -39,7 +39,7 @@ $( document ).ready(function() {
     let table = $('#eventos').DataTable({
         order: [0, 'asc'],
         columnDefs: [
-            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 8] : [1, 2, 3, 6]) }
+            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 9] : [1, 2, 3, 4, 7]) }
         ],
         lengthMenu: [
             [10, 25, 50, -1],
@@ -47,7 +47,7 @@ $( document ).ready(function() {
         ],
          initComplete: function () {
             this.api()
-                .columns([1, 2 , 3])
+                .columns([2, 3 , 4])
                 .every(function () {
                     let column = this;
                     let select = $('<select class="filtro-select"><option value=""></option></select>')
@@ -68,7 +68,7 @@ $( document ).ready(function() {
                 });
 
 
-            let column = userIsAdmin ? this.api().column([8]) : this.api().column([6]);
+            let column = userIsAdmin ? this.api().column([9]) : this.api().column([7]);
             let select = $('<select class="filtro-select"><option value=""></option></select>')
                 .appendTo($(column.header()))
                 .on('change', function () {
@@ -86,7 +86,7 @@ $( document ).ready(function() {
 
             // Total over all pages
             let totalPersonas = api
-                .column(4, {search:'applied'})
+                .column(5, {search:'applied'})
                 .data()
                 .reduce(function (a, b) {
                     return Number(a) + Number(b);
@@ -95,7 +95,7 @@ $( document ).ready(function() {
             let totalNinyos;
             if (userIsAdmin) {
                 totalNinyos = api
-                    .column(6, {search:'applied'})
+                    .column(7, {search:'applied'})
                     .data()
                     .reduce(function (a, b) {
                         return Number(a) + Number(b);
@@ -103,7 +103,7 @@ $( document ).ready(function() {
             }
             else{
                 totalNinyos = api
-                    .column(5, {search:'applied'})
+                    .column(6, {search:'applied'})
                     .data()
                     .reduce(function (a, b) {
                         return Number(a) + Number(b);
@@ -115,13 +115,13 @@ $( document ).ready(function() {
             if (userIsAdmin) {
                 // Promedio
                 promedioPrecioPersonas = api
-                    .column(5, {search:'applied'})
+                    .column(6, {search:'applied'})
                     .data()
                     .reduce(function (a, b) {
                         return Number(a) + Number(b);
                     }, 0);
                 promedioPrecioNinyos = api
-                    .column(7, {search:'applied'})
+                    .column(8, {search:'applied'})
                     .data()
                     .reduce(function (a, b) {
                         return Number(a) + Number(b);
@@ -133,20 +133,20 @@ $( document ).ready(function() {
                 .rows({search:'applied'})
                 .data()
                 .reduce(function (a, b) {
-                    return a + (Number(b[4]) * Number(b[5])) + (Number(b[6]) * Number(b[7]))
+                    return a + (Number(b[5]) * Number(b[6])) + (Number(b[7]) * Number(b[8]))
                 }, 0);
 
             // Update footer
             if (userIsAdmin) {
-                $(api.column(4).footer()).html(totalPersonas);
-                $(api.column(5).footer()).html((promedioPrecioPersonas / rows).toFixed(2));
-                $(api.column(7).footer()).html((promedioPrecioNinyos / rows).toFixed(2));
-                $(api.column(6).footer()).html(totalNinyos);
-                $(api.column(8).footer()).html(total + '€');
+                $(api.column(5).footer()).html(totalPersonas);
+                $(api.column(6).footer()).html((promedioPrecioPersonas / rows).toFixed(2));
+                $(api.column(8).footer()).html((promedioPrecioNinyos / rows).toFixed(2));
+                $(api.column(7).footer()).html(totalNinyos);
+                $(api.column(9).footer()).html(total + '€');
             }
             else {
-                $(api.column(4).footer()).html(totalPersonas);
-                $(api.column(5).footer()).html(totalNinyos);
+                $(api.column(5).footer()).html(totalPersonas);
+                $(api.column(6).footer()).html(totalNinyos);
             }
         }
     });
