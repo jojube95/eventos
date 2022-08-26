@@ -175,6 +175,15 @@ public class MesaStepDef {
         assertEquals("6", personasInput.getAttribute("value"));
     }
 
+    @And("^Add modal mesa content should have max table number$")
+    public void add_modal_data_should_have_max_table_number(){
+        WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
+        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+
+        assertEquals("5", numeroInput.getAttribute("value"));
+        assertEquals("", personasInput.getAttribute("value"));
+    }
+
     @And("^New mesa display on table$")
     public void new_mesa_display_on_table() {
         List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
