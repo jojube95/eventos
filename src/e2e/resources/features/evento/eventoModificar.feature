@@ -12,6 +12,7 @@ Feature: Modificar evento page should update evento and show required fields wit
     When User edit inputs
     And User click modificar evento
     Then Redirect to verEventos page
+    And Set dates to avoid future test fails
     And Edited content should be correct
 
   Scenario: When click fecha field, datepicker should open

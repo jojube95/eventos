@@ -87,10 +87,8 @@ public class MesaStepDef {
 
     @When("^User fill add mesa form$")
     public void user_fill_add_mesa_form(){
-        WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
         WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
 
-        numeroInput.sendKeys("5");
         personasInput.sendKeys("9");
     }
 
