@@ -76,9 +76,46 @@ class EventoTest {
     }
 
     @Test
-    void equalsTestFalse(){
+    void equalsTestFalseTipo(){
         Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 151, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setTitulo("Comunión");
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalseHorario(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setHorario("Comida");
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalsePersonas(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setPersonas(151);
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalseLocalidad(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setLocalidad("Olleria");
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalseSala(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setSala("Sala2");
 
         assertNotEquals(evento1, evento2);
     }
