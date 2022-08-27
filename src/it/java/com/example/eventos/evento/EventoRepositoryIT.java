@@ -74,6 +74,27 @@ class EventoRepositoryIT {
     }
 
     @Test
+    void findByFechaBeforeTest(){
+        mongoTemplate.getDb().drop();
+
+        Date fechaEvento1 = new GregorianCalendar(2022, Calendar.JULY, 2).getTime();
+        Date fechaEvento2 = new GregorianCalendar(2022, Calendar.JULY, 4).getTime();
+
+        Date fechaBefore = new GregorianCalendar(2022, Calendar.JULY, 3).getTime();
+
+        Evento evento1 = new Evento("id3", "Boda", "Cena", 150, 10, "Aielo de Malferit", fechaEvento1, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("id4", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fechaEvento2, "Comunión-Cena", "Sala1");
+
+        mongoTemplate.insert(evento1);
+        mongoTemplate.insert(evento2);
+
+        List<Evento> eventoResponse = eventoRepository.findByFechaBefore(fechaBefore);
+
+        assertEquals(1, eventoResponse.size());
+        assertEquals(evento1, eventoResponse.get(0));
+    }
+
+    @Test
     void saveTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");

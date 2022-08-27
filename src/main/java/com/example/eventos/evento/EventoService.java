@@ -3,7 +3,12 @@ package com.example.eventos.evento;
 import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,7 +30,16 @@ public class EventoService {
     }
 
     public List<Evento> getEventos(){
-        return eventoRepository.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return eventoRepository.findAll();
+        }
+        else{
+            Date date = DateUtils.addMonths(new Date(), 2);
+            return eventoRepository.findByFechaBefore(date);
+        }
+
     }
 
     public Evento getById(String id) {
