@@ -1,19 +1,23 @@
 $( document ).ready(function() {
     let userIsAdmin = $('#userRole').text() === "[ROLE_ADMIN]";
+    let minInitDate = new Date();
+    let maxInitDate = new Date();
+    minInitDate.setMonth(minInitDate.getMonth() - 1);
+    maxInitDate.setMonth(maxInitDate.getMonth() + 1);
 
     let minDate = $('#fechaMin').datepicker({
         format: "yyyy-mm-dd",
         language: "es",
         orientation: "bottom auto",
         autoclose: true
-    });
+    }).datepicker("setDate", minInitDate);
 
     let maxDate = $('#fechaMax').datepicker({
         format: "yyyy-mm-dd",
         language: "es",
         orientation: "bottom auto",
         autoclose: true
-    });
+    }).datepicker("setDate", maxInitDate);
 
     $.fn.dataTable.ext.search.push(
         function( settings, data ) {

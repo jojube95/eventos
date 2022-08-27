@@ -5,13 +5,17 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,10 +33,25 @@ public class EventosVerStepDef {
         connector.getDriver().get("http://localhost:8081/verEventos");
     }
 
+    @Given("^Set dates to avoid future test fails$")
+    public void set_initial_dates() {
+        WebElement fechaMin = connector.getDriver().findElement(By.id("fechaMin"));
+        WebElement fechaMax = connector.getDriver().findElement(By.id("fechaMax"));
+
+        fechaMin.clear();
+        fechaMin.sendKeys("2022-01-01");
+        connector.getDriver().findElement(By.tagName("html")).click();
+
+        fechaMax.clear();
+        fechaMax.sendKeys("2022-12-31");
+        connector.getDriver().findElement(By.tagName("html")).click();
+    }
+
     @When("^User enter min date 2022-07-10$")
     public void user_enter_min_date(){
         WebElement fechaMin = connector.getDriver().findElement(By.id("fechaMin"));
 
+        fechaMin.clear();
         fechaMin.sendKeys("2022-07-10");
 
         connector.getDriver().findElement(By.tagName("html")).click();
@@ -41,6 +60,8 @@ public class EventosVerStepDef {
     @When("^User enter max date 2022-07-16$")
     public void user_enter_max_date(){
         WebElement fechaMax = connector.getDriver().findElement(By.id("fechaMax"));
+
+        fechaMax.clear();
         fechaMax.sendKeys("2022-07-16");
 
         connector.getDriver().findElement(By.tagName("html")).click();
@@ -553,5 +574,22 @@ public class EventosVerStepDef {
         assertEquals("", options.get(0).getText());
         assertEquals("Sí", options.get(1).getText());
         assertEquals("No", options.get(2).getText());
+    }
+
+    @Then("^User see correct filter dates")
+    public void user_see_correct_filter_dates() {
+        WebElement fechaMin = connector.getDriver().findElement(By.id("fechaMin"));
+        WebElement fechaMax = connector.getDriver().findElement(By.id("fechaMax"));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date initMinDate = DateUtils.addMonths(new Date(), -1);
+        Date initMaxDate = DateUtils.addMonths(new Date(), 1);
+
+        String expectedMinDate = formatter.format(initMinDate);
+        String expectedMaxDate = formatter.format(initMaxDate);
+
+        assertEquals(expectedMinDate, fechaMin.getAttribute("value"));
+        assertEquals(expectedMaxDate, fechaMax.getAttribute("value"));
     }
 }
