@@ -79,6 +79,7 @@ Feature: Ver evento page should display event data and correct button actions
     Then Eliminar evento modal should display
     When User click eliminar confirm
     Then Redirect to verEventos page
+    And Set dates to avoid future test fails
     And Deleted event not in list verEventos
 
   Scenario: Click on eliminar modal dialog cerrar dont delete event

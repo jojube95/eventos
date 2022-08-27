@@ -3,13 +3,13 @@ function generarTitulo(){
     let selectedTipo = $('#tipo').val();
     let selectedHorario = $('#horario').val();
 
-    if(selectedTipo === 'Boda' || selectedTipo === 'Comunion'){
-        tituloInput.val(selectedTipo + '-' + selectedHorario);
-        tituloInput.prop('readonly', true);
-    }
-    else{
+    if(selectedTipo === 'Evento comunal' || selectedTipo === 'Evento individual'){
         tituloInput.val('');
         tituloInput.prop('readonly', false);
+    }
+    else{
+        tituloInput.val(selectedTipo + '-' + selectedHorario);
+        tituloInput.prop('readonly', true);
     }
 }
 

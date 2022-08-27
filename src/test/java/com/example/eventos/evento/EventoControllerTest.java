@@ -54,8 +54,8 @@ class EventoControllerTest {
     void getVerEventosTestUsuario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosUsuario.html");
 
-        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
-        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento1);
@@ -77,8 +77,8 @@ class EventoControllerTest {
     void getVerEventosTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosAdmin.html");
 
-        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
-        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento2 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento1);
@@ -120,7 +120,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateEventoTest() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -135,7 +135,7 @@ class EventoControllerTest {
     void getUpdateEventoTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEvento.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -152,7 +152,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void postUpdateEventoTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
                 .with(csrf())
@@ -166,7 +166,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void postUpdateEventoTestAdmin() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
                 .with(csrf())
@@ -182,7 +182,7 @@ class EventoControllerTest {
     void getVerEventoTestUsuario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoUsuario.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -201,7 +201,7 @@ class EventoControllerTest {
     void getVerEventoTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoAdmin.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -218,7 +218,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void postAnyadirEventoTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
                 .with(csrf())
@@ -232,7 +232,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void postAnyadirEventoTestAdmin() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
                 .with(csrf())
@@ -246,7 +246,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEliminarEventoTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -261,7 +261,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getEliminarEventoTestAdmin() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -276,7 +276,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateFechaTest() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
@@ -294,7 +294,7 @@ class EventoControllerTest {
     void getEventoModalTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoModal.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
 
         when(eventoService.getById("id")).thenReturn(evento);
 
@@ -312,7 +312,7 @@ class EventoControllerTest {
     void getCalcularPersonasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
         List<Mesa> mesas = new ArrayList<>();
         Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, true);
         Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, true);

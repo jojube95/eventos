@@ -32,7 +32,7 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
         int personas = 60;
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -50,12 +50,12 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida");
+        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
         int personas = 60;
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        String expectedResponse = "{\"id\":\"id\",\"tipo\":\"Comunion\",\"horario\":\"Comida\",\"personas\":60,\"ninyos\":15,\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"eventoIndividual\":false}";
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":\"Comunion\",\"horario\":\"Comida\",\"personas\":60,\"ninyos\":15,\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"sala\":\"Sala1\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"eventoIndividual\":false}";
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/updatePersonas")
                 .with(csrf())

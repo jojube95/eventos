@@ -14,22 +14,27 @@ $(document).ready(function() {
             visible: false
         },
         {
-            data: "numero"
+            data: "numero",
+            orderable: false,
+            unique: true
 
         },
         {
             data: "representante",
             visible: isEventoIndividual,
-            type: isEventoIndividual ? "" : "hidden"
+            type: isEventoIndividual ? "" : "hidden",
+            orderable: false
         },
         {
-            data: "personas"
+            data: "personas",
+            orderable: false
         },
         {
             data: "pagado",
             type: isEventoIndividual ? "select" : "hidden",
             visible: isEventoIndividual,
             options : pagadoOptions,
+            orderable: false,
             select2 : { width: "100%"},
             render: function (data) {
                 if (data == null || !(data in pagadoOptions)) return null;
@@ -41,6 +46,7 @@ $(document).ready(function() {
     mesasDt = $('#mesas').DataTable({
         "sPaginationType": "full_numbers",
         columns: columnDefs,
+        order: [2, 'asc'],
         dom: 'Bfrtip',
         select: 'single',
         responsive: true,
@@ -127,6 +133,16 @@ $(document).ready(function() {
         }
     });
 
+    $('.dt-buttons > button:first-child').on( "click", function() {
+        waitForElm('#numero').then(() => {
+            let tableNumbers = $('#mesas > tbody > tr > td:first-child').get().map((element) => {
+                return Number($(element).text());
+            });
+            let nextTableNumber = Math.max.apply(Math, tableNumbers) + 1;
+
+            $('#numero').val(nextTableNumber);
+        });
+    });
 });
 
 function cerrarInvitadosClicked(numeroInvitados){
@@ -146,6 +162,26 @@ function cerrarInvitadosClicked(numeroInvitados){
             mesasDt.row({ selected: true }).data(mesaSeleccionada);
             mesasDt.draw();
         },
+    });
+}
+
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     });
 }
 

@@ -37,6 +37,8 @@
                 <option id="optionComunion" th:text="#{comunion}" value="Comunion"></option>
                 <option id="optionEventoComunal" th:text="#{eventoComunal}" value="Evento comunal"></option>
                 <option id="optionEventoIndividual" th:text="#{eventoIndividual}" value="Evento individual"></option>
+                <option id="optionBautizo" th:text="#{bautizo}" value="Bautizo"></option>
+                <option id="optionPruebas" th:text="#{pruebas}" value="Pruebas"></option>
             </select>
         </div>
     </div>
@@ -54,6 +56,25 @@
             <label th:text="#{evento.titulo}" for="titulo"></label>
             <input type="text" th:field="*{titulo}" class="form-control" id="titulo" th:placeholder="#{evento.titulo}" onchange="anyadirHorario()" required>
         </div>
+    </div>
+</div>
+
+<div class="form-row" th:fragment="sala">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{evento.sala}" for="sala"></label>
+            <select th:field="*{sala}" class="form-control" id="sala">
+                <option id="sala1" th:text="#{sala1}" value="Sala1"></option>
+                <option id="sala2" th:text="#{sala2}" value="Sala2"></option>
+                <option id="patio" th:text="#{patio}" value="Patio"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
     </div>
 </div>
 

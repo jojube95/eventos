@@ -33,8 +33,10 @@
                 <thead>
                 <tr>
                     <th th:text="#{evento.fecha}" scope="col"></th>
+                    <th th:text="#{evento.titulo}" scope="col"></th>
                     <th th:text="#{evento.tipo}" scope="col"></th>
                     <th th:text="#{evento.horario}" scope="col"></th>
+                    <th th:text="#{evento.sala}" scope="col"></th>
                     <th th:text="#{evento.localidad}" scope="col"></th>
                     <th th:text="#{evento.personas}" scope="col"></th>
                     <th th:text="#{evento.precioMenu}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
@@ -46,8 +48,10 @@
                 <tbody>
                 <tr th:each="evento: ${eventos}" style="cursor: pointer" th:eventoId="${evento.id}" onclick="rowClicked(this.getAttribute('eventoId'))">
                     <td th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${evento.titulo}"></td>
                     <td th:text="${evento.tipo}"></td>
                     <td th:text="${evento.horario}"></td>
+                    <td th:text="${evento.sala}"></td>
                     <td th:text="${evento.localidad}"></td>
                     <td th:text="${evento.personas}"></td>
                     <td th:text="${evento.precioMenu}" sec:authorize="hasRole('ADMIN')"></td>
@@ -63,7 +67,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td th:text="#{total}" colspan="4" style="text-align:right"></td>
+                    <td th:text="#{total}" colspan="6" style="text-align:right"></td>
                     <td></td>
                     <td sec:authorize="hasRole('ADMIN')"></td>
                     <td></td>

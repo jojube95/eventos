@@ -51,6 +51,12 @@ public class EventoAnyadirStepDef {
         horarioSelect.click();
     }
 
+    @When("^User click sala field$")
+    public void user_click_sala_field() {
+        WebElement salaSelect = connector.getDriver().findElement(By.id("sala"));
+        salaSelect.click();
+    }
+
     @When("^Use click tipo option$")
     public void user_click_tipo_option() {
         WebElement comunionOption = connector.getDriver().findElement(By.id("optionComunion"));
@@ -61,6 +67,12 @@ public class EventoAnyadirStepDef {
     public void user_click_horario_option() {
         WebElement cenaOption = connector.getDriver().findElement(By.id("optionCena"));
         cenaOption.click();
+    }
+
+    @When("^Use click sala option$")
+    public void user_click_sala_option() {
+        WebElement salaOption = connector.getDriver().findElement(By.id("sala2"));
+        salaOption.click();
     }
 
     @When("^User click add evento$")
@@ -161,6 +173,13 @@ public class EventoAnyadirStepDef {
         Select horarioInput = new Select(connector.getDriver().findElement(By.id("horario")));
         WebElement optionSelected = horarioInput.getFirstSelectedOption();
         assertEquals("Cena", optionSelected.getText());
+    }
+
+    @Then("^Option sala2 should be selected$")
+    public void option_sala2_should_be_selected(){
+        Select salaInput = new Select(connector.getDriver().findElement(By.id("sala")));
+        WebElement optionSelected = salaInput.getFirstSelectedOption();
+        assertEquals("Sala2", optionSelected.getText());
     }
 
     @Then("^Titulo should be Comunion-Comida$")

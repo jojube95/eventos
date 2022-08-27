@@ -87,10 +87,8 @@ public class MesaStepDef {
 
     @When("^User fill add mesa form$")
     public void user_fill_add_mesa_form(){
-        WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
         WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
 
-        numeroInput.sendKeys("5");
         personasInput.sendKeys("9");
     }
 
@@ -173,6 +171,15 @@ public class MesaStepDef {
 
         assertEquals("1", numeroInput.getAttribute("value"));
         assertEquals("6", personasInput.getAttribute("value"));
+    }
+
+    @And("^Add modal mesa content should have max table number$")
+    public void add_modal_data_should_have_max_table_number(){
+        WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
+        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+
+        assertEquals("5", numeroInput.getAttribute("value"));
+        assertEquals("", personasInput.getAttribute("value"));
     }
 
     @And("^New mesa display on table$")

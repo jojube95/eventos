@@ -4,7 +4,6 @@ import com.example.eventos.protagonista.Protagonista;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +23,7 @@ public class Evento {
     private float precioMenuNinyos;
     private boolean confirmado;
     private String titulo;
+    private String sala;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
@@ -34,7 +34,7 @@ public class Evento {
 
     }
 
-    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo) {
+    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.tipo = tipo;
         this.horario = horario;
@@ -43,10 +43,11 @@ public class Evento {
         this.localidad = localidad;
         this.fecha = fecha;
         this.titulo = titulo;
+        this.sala = sala;
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo) {
+    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -56,11 +57,12 @@ public class Evento {
         this.localidad = localidad;
         this.fecha = fecha;
         this.titulo = titulo;
+        this.sala = sala;
         this.confirmado = false;
     }
 
     public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
-                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo) {
+                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -73,6 +75,7 @@ public class Evento {
         this.precioMenuNinyos = precioMenuNinyos;
         this.confirmado = confirmado;
         this.protagonistas = protagonistas;
+        this.sala = sala;
         this.titulo = titulo;
     }
 
@@ -156,6 +159,14 @@ public class Evento {
         this.confirmado = confirmado;
     }
 
+    public String getSala() {
+        return sala;
+    }
+
+    public void setSala(String sala) {
+        this.sala = sala;
+    }
+
     public List<Protagonista> getProtagonistas() {
         if (protagonistas == null){
             return new ArrayList<>();
@@ -187,7 +198,7 @@ public class Evento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
-        return Objects.equals(id, evento.id) && personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas);
+        return Objects.equals(id, evento.id) && personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
     }
 
     @Override

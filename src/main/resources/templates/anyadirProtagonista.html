@@ -4,6 +4,8 @@
     <title>Eventos</title>
 
     <th:block th:include="fragments/head :: head"/>
+
+    <link th:href="@{/css/anyadirProtagonista.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
@@ -18,8 +20,8 @@
                     <option th:text="#{otro}" value="otro"></option>
                 </select>
             </div>
-            <div class="form-group">
-                <label th:text="#{protagonista.nombre}" for="nombre"></label>
+            <div class="form-group required">
+                <label th:text="#{protagonista.nombre}" class="control-label" for="nombre"></label>
                 <input type="text" th:field="*{nombre}" class="form-control" id="nombre" th:placeholder="#{protagonista.nombre}" required>
             </div>
             <div class="form-group">

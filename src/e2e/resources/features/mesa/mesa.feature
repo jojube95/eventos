@@ -10,6 +10,7 @@ Feature: Mesa page should show eventos mesas that can be added, edited and delet
     And Visit mesas page
     When User click add mesa button
     Then Add modal mesa should display
+    And Add modal mesa content should have max table number
 
   Scenario: Click edit should display edit modal with mesa data
     Given Open Chrome and logIn as admin

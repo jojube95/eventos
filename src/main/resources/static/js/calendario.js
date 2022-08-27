@@ -2,6 +2,15 @@ let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
+    const tipoColor = new Map([
+        ['Boda', 'FireBrick'],
+        ['Comunion', 'DeepSkyBlue'],
+        ['Evento comunal', 'DarkSeaGreen'],
+        ['Evento individual', 'DarkGreen'],
+        ['Bautizo', 'DarkKhaki'],
+        ['Pruebas', 'DarkGrey']
+    ]);
+
     let calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -17,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             return {
                                 id: eventEl['id'],
                                 title: eventEl['titulo'],
-                                start: new Date(eventEl['fecha']).toISOString().split('T')[0]
+                                start: new Date(eventEl['fecha']).toISOString().split('T')[0],
+                                color: tipoColor.get(eventEl.tipo)
                             }
                         })
                     )
                 },
-                color: 'blue',
                 textColor: 'white'
             }
         ],
