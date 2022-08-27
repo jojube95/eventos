@@ -79,7 +79,7 @@ class EventoTest {
     void equalsTestFalseTipo(){
         Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        evento2.setTitulo("Comunión");
+        evento2.setTipo("Comunión");
 
         assertNotEquals(evento1, evento2);
     }
@@ -103,10 +103,55 @@ class EventoTest {
     }
 
     @Test
+    void equalsTestFalseNinyos(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setNinyos(12);
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalsePrecio(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setPrecioMenu(85);
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalsePrecioNinyos(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setPrecioMenuNinyos(15);
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalseTitulo(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setTitulo("AOAE");
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
     void equalsTestFalseLocalidad(){
         Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setLocalidad("Olleria");
+
+        assertNotEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestFalseFecha(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setFecha(new GregorianCalendar(2022, Calendar.JULY, 26).getTime());
 
         assertNotEquals(evento1, evento2);
     }
@@ -126,5 +171,12 @@ class EventoTest {
         Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
         assertEquals(evento1, evento2);
+    }
+
+    @Test
+    void equalsTestNull(){
+        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+
+        assertNotEquals(evento1, null);
     }
 }
