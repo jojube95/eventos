@@ -6,5 +6,7 @@ import java.util.List;
 
 @Repository
 public interface EmpleadoRepository extends MongoRepository<Empleado, String> {
+    Empleado findEventoById(String id);
+
     List<Empleado> findEventoByTipo(String tipo);
 }

@@ -15,6 +15,10 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
+    public Empleado getById(String id) {
+        return empleadoRepository.findEventoById(id);
+    }
+
     public List<Empleado> getByTipo(String tipo) {
         return empleadoRepository.findEventoByTipo(tipo);
     }
