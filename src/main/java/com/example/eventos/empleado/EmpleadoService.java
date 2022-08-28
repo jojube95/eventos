@@ -18,4 +18,12 @@ public class EmpleadoService {
     public List<Empleado> getByTipo(String tipo) {
         return empleadoRepository.findEventoByTipo(tipo);
     }
+
+    public void save(Empleado empleado) {
+        empleadoRepository.save(empleado);
+    }
+
+    public void delete(Empleado empleado) {
+        empleadoRepository.delete(empleado);
+    }
 }
