@@ -14,6 +14,10 @@ public class Empleado {
     private String telefono;
     private boolean fijo;
 
+    public Empleado() {
+
+    }
+
     public Empleado(String id, String tipo, String nombre, String telefono, boolean fijo) {
         this.id = id;
         this.tipo = tipo;

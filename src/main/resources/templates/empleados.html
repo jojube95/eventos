@@ -31,7 +31,7 @@
                 <td th:text="${empleado.telefono}"></td>
                 <td th:text="${empleado.fijo}"></td>
                 <td>
-                    <button th:text="#{modificar}" type="button" class="btn btn-danger" th:empleadoIndex="${iter.index}" onclick="modificarClicked(this.getAttribute('empleadoIndex'))"></button>
+                    <button th:text="#{modificar}" type="button" class="btn btn-primary" th:empleadoIndex="${iter.index}" onclick="modificarClicked(this.getAttribute('empleadoIndex'))"></button>
                 </td>
                 <td>
                     <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:empleadoIndex="${iter.index}" onclick="eliminarClicked(this.getAttribute('empleadoIndex'))"></button>
