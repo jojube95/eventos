@@ -9,4 +9,6 @@ public interface EmpleadoRepository extends MongoRepository<Empleado, String> {
     Empleado findEventoById(String id);
 
     List<Empleado> findEventoByTipo(String tipo);
+
+    List<Empleado> findEventoByTipoAndFijo(String tipo, boolean fijo);
 }

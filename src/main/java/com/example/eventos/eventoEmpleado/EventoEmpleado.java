@@ -17,6 +17,10 @@ public class EventoEmpleado {
     private boolean confirmado;
     private float horasExtras;
 
+    public EventoEmpleado(){
+
+    }
+
     public EventoEmpleado(String id, String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
         this.id = id;
         this.idEvento = idEvento;

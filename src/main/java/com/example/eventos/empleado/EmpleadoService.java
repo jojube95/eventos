@@ -23,6 +23,10 @@ public class EmpleadoService {
         return empleadoRepository.findEventoByTipo(tipo);
     }
 
+    public List<Empleado> getByTipoAndFijo(String tipo, boolean fijo) {
+        return empleadoRepository.findEventoByTipoAndFijo(tipo, fijo);
+    }
+
     public void save(Empleado empleado) {
         empleadoRepository.save(empleado);
     }
