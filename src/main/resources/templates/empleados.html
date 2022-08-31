@@ -31,7 +31,12 @@
                 <td th:text="${empleado.tipo}"></td>
                 <td th:text="${empleado.nombre}"></td>
                 <td th:text="${empleado.telefono}"></td>
-                <td th:text="${empleado.fijo}"></td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:checked="${empleado.fijo}">
+                        <label class="custom-control-label" th:text="${empleado.fijo} ? 'Si' : 'No'"></label>
+                    </div>
+                </td>
                 <td>
                     <button th:text="#{modificar}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="modificarClicked(this.getAttribute('empleadoId'))"></button>
                 </td>

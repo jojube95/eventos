@@ -43,7 +43,8 @@ $( document ).ready(function() {
     let table = $('#eventos').DataTable({
         order: [0, 'asc'],
         columnDefs: [
-            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 5, 10] : [1, 2, 3, 4, 5, 8]) }
+            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 5, 10] : [1, 2, 3, 4, 5, 8]) },
+            { className: "dt-right", targets: (userIsAdmin? [6, 7, 8, 9] : [6, 7]) }
         ],
         lengthMenu: [
             [10, 25, 50, -1],

@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     orderable: false,
                     targets: [2, 3, 5, 6, 7]
-                }
+                },
+                { className: "dt-right", "targets": [ 5, 6, 7 ] }
             ],
             searching: false,
             paging: false,
