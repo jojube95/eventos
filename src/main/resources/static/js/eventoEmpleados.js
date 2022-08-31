@@ -4,7 +4,7 @@ $(document).ready(function() {
     eventoEmpleadosDt = $('#eventoEmpleados').DataTable({
         "sPaginationType": "full_numbers",
         columnDefs: [
-            { visible: false, targets: [0, 1, 2, 3] },
+            { visible: false, targets: [0, 1, 2, 3] }
         ],
         dom: 'Bfrtip',
         select: 'single',
@@ -105,14 +105,8 @@ function updateProgresbar(){
     let camarerosConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input[checked="checked"]').length;
     let camarerosNoConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input').length - camarerosConfirmados;
 
-    console.log(camarerosConfirmados);
-    console.log(camarerosNoConfirmados);
-
     let porcentageConfirmados = (camarerosConfirmados / camarerosRecomendados) * 100;
     let porcentageNoConfirmados = (camarerosNoConfirmados / camarerosRecomendados) * 100;
-
-    console.log(porcentageConfirmados);
-    console.log(porcentageNoConfirmados);
 
     $("#progressbarConfirmados").css("width", porcentageConfirmados + '%');
     $("#progressbarNoConfirmados").css("width", porcentageNoConfirmados + '%');
