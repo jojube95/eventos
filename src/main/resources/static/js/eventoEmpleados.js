@@ -90,7 +90,7 @@ function modificarModalClicked(eventoEmpleadoId){
             let labelConfirmado = modifiedRow.children('td').eq(2).children('div').children('label');
             let columnHorasExtra = modifiedRow.children('td').eq(3);
 
-            data.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.prop('checked', 'checked');
+            data.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
             data.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
             columnHorasExtra.text(data.horasExtras);
 
