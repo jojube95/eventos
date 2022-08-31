@@ -37,7 +37,8 @@ $( document ).ready(function() {
     let table = $('#historialEmpleado').DataTable({
         order: [0, 'asc'],
         columnDefs: [
-            { orderable: false, targets: [1, 2, 3, 4, 5] }
+            { orderable: false, targets: [1, 2, 3, 4, 5] },
+            { className: "dt-right", "targets": [6, 7] }
         ],
         lengthMenu: [
             [10, 25, 50, -1],
