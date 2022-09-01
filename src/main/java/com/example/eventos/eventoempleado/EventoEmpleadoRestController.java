@@ -1,4 +1,4 @@
-package com.example.eventos.eventoEmpleado;
+package com.example.eventos.eventoempleado;
 
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.IOException;
 
 @RestController
 public class EventoEmpleadoRestController {
@@ -20,13 +19,13 @@ public class EventoEmpleadoRestController {
     }
 
     @PostMapping("/evento/empleados/anyadir")
-    public EventoEmpleado add(@RequestParam("eventoId") String eventoId, @RequestParam("empleadoId") String empleadoId) throws IOException {
+    public EventoEmpleado add(@RequestParam("eventoId") String eventoId, @RequestParam("empleadoId") String empleadoId) {
         Empleado empleado = empleadoService.getById(empleadoId);
         return eventoEmpleadoService.save(new EventoEmpleado(eventoId, empleadoId, empleado.getTipo(), empleado.getNombre(), empleado.isFijo(), false, 0.0F));
     }
 
     @PostMapping("/evento/empleados/eliminar")
-    public EventoEmpleado delete(@RequestParam("eventoEmpleadoId") String eventoEmpleadoId) throws IOException {
+    public EventoEmpleado delete(@RequestParam("eventoEmpleadoId") String eventoEmpleadoId) {
         EventoEmpleado eventoEmpleado = eventoEmpleadoService.getById(eventoEmpleadoId);
         eventoEmpleadoService.delete(eventoEmpleado);
         return eventoEmpleado;

@@ -91,6 +91,6 @@ class EmpleadoTest {
     void equalsTestNull(){
         Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
 
-        assertNotEquals(empleado1, null);
+        assertNotEquals(null, empleado1);
     }
 }

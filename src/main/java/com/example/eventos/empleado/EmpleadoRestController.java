@@ -3,7 +3,6 @@ package com.example.eventos.empleado;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.IOException;
 
 @RestController
 public class EmpleadoRestController {
@@ -15,7 +14,7 @@ public class EmpleadoRestController {
     }
 
     @PostMapping("/eliminarEmpleado")
-    public Empleado delete(@RequestParam("empleadoId") String empleadoId) throws IOException {
+    public Empleado delete(@RequestParam("empleadoId") String empleadoId) {
         Empleado empleado = empleadoService.getById(empleadoId);
         empleadoService.delete(empleado);
         return empleado;

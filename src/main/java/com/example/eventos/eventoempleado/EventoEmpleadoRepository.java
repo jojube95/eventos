@@ -1,4 +1,4 @@
-package com.example.eventos.eventoEmpleado;
+package com.example.eventos.eventoempleado;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

@@ -13,7 +13,7 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-        <form action="#" th:action="@{/anyadirEmpleado}" th:object="${empleado}" method="post">
+        <form action="#" th:action="@{/anyadirUpdateEmpleado}" th:object="${empleado}" method="post">
             <div th:replace="fragments/empleadoForm :: tipo"></div>
             <div th:replace="fragments/empleadoForm :: nombreTelefono"></div>
             <div th:replace="fragments/empleadoForm :: fijo"></div>

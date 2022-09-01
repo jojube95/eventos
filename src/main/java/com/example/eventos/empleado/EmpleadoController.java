@@ -2,15 +2,15 @@ package com.example.eventos.empleado;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoEmpleado.EventoEmpleado;
-import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
+import com.example.eventos.eventoempleado.EventoEmpleado;
+import com.example.eventos.eventoempleado.EventoEmpleadoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +39,8 @@ public class EmpleadoController {
         return "anyadirEmpleado";
     }
 
-    @PostMapping("/anyadirEmpleado")
-    public String save(@ModelAttribute Empleado empleado) throws IOException {
+    @PostMapping("/anyadirUpdateEmpleado")
+    public String save(@ModelAttribute Empleado empleado) {
         empleadoService.save(empleado);
         return "redirect:/empleados";
     }
@@ -50,12 +50,6 @@ public class EmpleadoController {
         Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute("empleado", empleado);
         return "updateEmpleado";
-    }
-
-    @PostMapping("/updateEmpleado")
-    public String updateEmpleado(@ModelAttribute Empleado empleado) {
-        empleadoService.save(empleado);
-        return "redirect:/empleados";
     }
 
     @GetMapping("/historialEmpleado")

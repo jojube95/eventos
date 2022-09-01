@@ -1,8 +1,7 @@
 package com.example.eventos.empleado;
 
-import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
+import com.example.eventos.eventoempleado.EventoEmpleadoService;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
@@ -86,10 +85,10 @@ class EmpleadoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void postAnyadirEmpleadoTestUsuario() throws Exception {
+    void postUpdateAnyadirEmpleadoTestUsuario() throws Exception {
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 
@@ -100,10 +99,10 @@ class EmpleadoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void postAnyadirEmpleadoTestAdmin() throws Exception {
+    void postUpdateAnyadirEmpleadoTestAdmin() throws Exception {
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 
@@ -142,34 +141,6 @@ class EmpleadoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
-    }
-
-    @Test
-    @WithMockUser(username="usuario",roles={"USUARIO"})
-    void postUpdateEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEmpleado")
-                .with(csrf())
-                .flashAttr("empleado", empleado);
-
-        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
-
-        verify(empleadoService, times(0)).save(empleado);
-    }
-
-    @Test
-    @WithMockUser(username="admin",roles={"ADMIN"})
-    void postUpdateEmpleadoTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEmpleado")
-                .with(csrf())
-                .flashAttr("empleado", empleado);
-
-        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/empleados"));
-
-        verify(empleadoService, times(1)).save(empleado);
     }
 
     @Test

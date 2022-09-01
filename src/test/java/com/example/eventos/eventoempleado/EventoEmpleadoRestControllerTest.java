@@ -1,10 +1,8 @@
-package com.example.eventos.eventoEmpleado;
+package com.example.eventos.eventoempleado;
 
 import com.example.eventos.empleado.Empleado;
-import com.example.eventos.empleado.EmpleadoRestController;
 import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
-import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.security.SecurityConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,7 +22,6 @@ import java.util.GregorianCalendar;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(EventoEmpleadoRestController.class)

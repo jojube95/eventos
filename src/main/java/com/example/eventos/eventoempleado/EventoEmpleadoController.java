@@ -1,4 +1,4 @@
-package com.example.eventos.eventoEmpleado;
+package com.example.eventos.eventoempleado;
 
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;

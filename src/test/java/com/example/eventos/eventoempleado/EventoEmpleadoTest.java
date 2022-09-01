@@ -1,6 +1,5 @@
-package com.example.eventos.eventoEmpleado;
+package com.example.eventos.eventoempleado;
 
-import com.example.eventos.empleado.Empleado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -120,6 +119,6 @@ class EventoEmpleadoTest {
     void equalsTestNull(){
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado("idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
 
-        assertNotEquals(eventoEmpleado1, null);
+        assertNotEquals(null, eventoEmpleado1);
     }
 }
