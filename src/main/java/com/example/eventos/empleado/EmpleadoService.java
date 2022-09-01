@@ -16,15 +16,15 @@ public class EmpleadoService {
     }
 
     public Empleado getById(String id) {
-        return empleadoRepository.findEventoById(id);
+        return empleadoRepository.findEmpleadoById(id);
     }
 
     public List<Empleado> getByTipo(String tipo) {
-        return empleadoRepository.findEventoByTipo(tipo);
+        return empleadoRepository.findEmpleadoByTipo(tipo);
     }
 
     public List<Empleado> getByTipoAndFijo(String tipo, boolean fijo) {
-        return empleadoRepository.findEventoByTipoAndFijo(tipo, fijo);
+        return empleadoRepository.findEmpleadoByTipoAndFijo(tipo, fijo);
     }
 
     public void save(Empleado empleado) {
