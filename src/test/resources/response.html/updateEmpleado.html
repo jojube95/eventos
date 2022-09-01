@@ -1,0 +1,70 @@
+<div class="container">
+    <form action="/updateEmpleado" method="post">
+        <div class="form-row" hidden>
+            <div class="col">
+                <div class="form-group">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" id="id" placeholder="id" required name="id" value="id">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
+                        <option id="optionCamarero" value="Camarero/a">Camarero/a</option>
+                        <option id="optionCocinera" value="Cocinero/a">Cocinero/a</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" required name="nombre" value="nombre">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="telefono">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required name="telefono" value="telefono">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="fijo">Fijo</label>
+                    <select class="form-control" id="fijo" name="fijo">
+                        <option id="optionSi" value="true" selected="selected">Sí</option>
+                        <option id="optionNo" value="false">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <button id="buttonModificar" class="btn btn-primary" type="submit">Modificar</button>
+    </form>
+</div>

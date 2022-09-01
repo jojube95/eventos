@@ -1,0 +1,37 @@
+<div class="modal fade" id="eventoEmpleadoModificarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="confirmado">Confirmado</label>
+                                <select class="form-control" id="confirmado" name="confirmado">
+                                    <option id="optionSi" value="true">Sí</option>
+                                    <option id="optionNo" value="false" selected="selected">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="control-label" for="horasExtras">Horas extras</label>
+                                <input type="text" class="form-control" id="horasExtras" name="horasExtras" value="0.5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalEventoModificarButton" type="button" class="btn btn-primary" data-dismiss="modal" eventoEmpleadoId="id1" onclick="modificarModalClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                <button id="modalEventoCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

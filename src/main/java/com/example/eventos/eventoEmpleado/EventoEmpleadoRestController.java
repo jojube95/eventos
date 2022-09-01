@@ -20,7 +20,7 @@ public class EventoEmpleadoRestController {
     }
 
     @PostMapping("/evento/empleados/anyadir")
-    public EventoEmpleado update(@RequestParam("eventoId") String eventoId, @RequestParam("empleadoId") String empleadoId) throws IOException {
+    public EventoEmpleado add(@RequestParam("eventoId") String eventoId, @RequestParam("empleadoId") String empleadoId) throws IOException {
         Empleado empleado = empleadoService.getById(empleadoId);
         return eventoEmpleadoService.save(new EventoEmpleado(eventoId, empleadoId, empleado.getTipo(), empleado.getNombre(), empleado.isFijo(), false, 0.0F));
     }
