@@ -1,7 +1,7 @@
 package com.example.eventos.empleado;
 
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoempleado.EventoEmpleadoService;
+import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;

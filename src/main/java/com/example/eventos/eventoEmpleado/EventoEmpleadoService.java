@@ -1,4 +1,4 @@
-package com.example.eventos.eventoempleado;
+package com.example.eventos.eventoEmpleado;
 
 import org.springframework.stereotype.Service;
 import java.util.List;

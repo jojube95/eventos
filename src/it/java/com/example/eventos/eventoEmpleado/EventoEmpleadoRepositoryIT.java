@@ -1,4 +1,4 @@
-package com.example.eventos.eventoempleado;
+package com.example.eventos.eventoEmpleado;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,8 +2,8 @@ package com.example.eventos.empleado;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoempleado.EventoEmpleado;
-import com.example.eventos.eventoempleado.EventoEmpleadoService;
+import com.example.eventos.eventoEmpleado.EventoEmpleado;
+import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

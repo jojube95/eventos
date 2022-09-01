@@ -1,4 +1,4 @@
-package com.example.eventos.eventoempleado;
+package com.example.eventos.eventoEmpleado;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
