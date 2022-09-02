@@ -15,22 +15,7 @@ $( document ).ready(function() {
 
     $.fn.dataTable.ext.search.push(
         function( settings, data ) {
-            let min = minDate.val();
-            let max = maxDate.val();
-
-            if (minDate.val()){
-                min = new Date(minDate.val());
-            }
-            if (maxDate.val()){
-                max = new Date(maxDate.val());
-            }
-            let date = new Date( data[0] );
-
-            return (min === '' && max === '') ||
-                (min === '' && date <= max) ||
-                (min <= date && max === '') ||
-                (min <= date && date <= max);
-
+            return filterDate(settings, data, minDate, maxDate);
         }
     );
 
@@ -44,27 +29,8 @@ $( document ).ready(function() {
             [10, 25, 50, -1],
             [10, 25, 50, 'All'],
         ],
-         initComplete: function () {
-            this.api()
-                .columns([2, 3, 4, 5])
-                .every(function () {
-                    let column = this;
-                    let select = $('<select class="filtro-select"><option value=""></option></select>')
-                        .appendTo($(column.header()))
-                        .on('change', function () {
-                            let val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
-
-                    column
-                        .data()
-                        .unique()
-                        .sort()
-                        .each(function (d) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
-                });
+        initComplete: function () {
+            addSelectHeaderTo(this, [2, 3, 4, 5]);
         },
         footerCallback: function () {
             let api = this.api();
