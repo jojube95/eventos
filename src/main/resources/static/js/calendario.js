@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         eventClick: function(info) {
             let eventoId = info.event.id;
-
             $.ajax({
                 url: "/evento?eventoId=" + eventoId,
                 success: function (data) {
