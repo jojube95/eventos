@@ -53,7 +53,7 @@
 
                 <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.nombre}" th:value="${empleadoNoFijo.id}"></option>
             </select>
-            <button th:text="#{anyadir}" type="button" class="btn btn-primary" onclick="anyadirClicked()"></button>
+            <button th:text="#{anyadir}" id="buttonAnyadir" type="button" class="btn btn-primary" onclick="anyadirClicked()"></button>
         </div>
 
         <div class="row">

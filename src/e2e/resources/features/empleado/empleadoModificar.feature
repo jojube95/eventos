@@ -3,7 +3,7 @@ Feature: Modificar empleado page should modify empleado
   Scenario: User modify empleado
     Given Open Chrome and logIn as admin
     And Visit modificar empleado page
-    Then Empleado data should be fill
+    Then Empleado data should be correct
     When User edit empleado fields
     And User click modificar empleado button
     Then Redirect to empleados page

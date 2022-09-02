@@ -35,19 +35,37 @@ public class NavbarStepDef {
 
     @When("^User click on eventos navbar$")
     public void user_click_eventos_navbar() {
-        WebElement eventosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdown"));
+        WebElement eventosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdownEventos"));
         eventosNavbarButton.click();
+    }
+
+    @When("^User click on empleado navbar$")
+    public void user_click_empleado_navbar() {
+        WebElement empleadosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdownEmpleados"));
+        empleadosNavbarButton.click();
     }
 
     @When("^User click on anyadir navbar$")
     public void user_click_anyadir_navbar() {
-        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadir"));
+        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadirEvento"));
         anyadirNavbarButton.click();
     }
 
     @When("^User click on ver navbar$")
     public void user_click_ver_navbar() {
-        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVer"));
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVerEventos"));
+        verNavbarButton.click();
+    }
+
+    @When("^User click on anyadir empleado navbar$")
+    public void user_click_anyadir_empleado_navbar() {
+        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadirEmpleado"));
+        anyadirNavbarButton.click();
+    }
+
+    @When("^User click on ver empleado navbar$")
+    public void user_click_ver_empleado_navbar() {
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVerEmpleados"));
         verNavbarButton.click();
     }
 
@@ -63,6 +81,12 @@ public class NavbarStepDef {
         assertTrue(navbarDropdownButtons.isDisplayed());
     }
 
+    @Then("^Dropdown buttons empleado navbar is shown$")
+    public void dropdown_navbar_empleado_buttons_is_shown() {
+        WebElement navbarDropdownButtons = connector.getDriver().findElement(By.xpath("(//li[contains(@class,'nav-item dropdown')]//div)[2]"));
+        assertTrue(navbarDropdownButtons.isDisplayed());
+    }
+
     @Then("^Anyadir evento page is shown$")
     public void anyadir_evento_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
@@ -73,6 +97,18 @@ public class NavbarStepDef {
     public void ver_eventos_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
         assertThat(url, CoreMatchers.containsString("/verEventos"));
+    }
+
+    @Then("^Anyadir empleado page is shown$")
+    public void redirect_to_anyadir_empleados_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/anyadirEmpleado"));
+    }
+
+    @Then("^Ver empleados page is shown$")
+    public void redirect_to_empleados_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleados"));
     }
 
     @Then("^Redirect to login page$")

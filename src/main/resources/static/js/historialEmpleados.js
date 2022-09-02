@@ -70,7 +70,7 @@ $( document ).ready(function() {
             let api = this.api();
             let rows = api.rows({search:'applied'}).count();
 
-            $(api.column(1).footer()).html("Total: " + rows);
+            $(api.column(1).footer()).html(rows);
         }
     });
 
