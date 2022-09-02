@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Eventos</title>
+
+    <th:block th:include="fragments/head :: head"/>
+
+    <script th:src="@{/js/anyadirUpdateEmpleado.js}" type="text/javascript"></script>
+
+    <link th:href="@{/css/anyadirUpdateEmpleado.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container">
+        <form action="#" th:action="@{/anyadirUpdateEmpleado}" th:object="${empleado}" method="post">
+            <div th:replace="fragments/empleadoForm :: tipo"></div>
+            <div th:replace="fragments/empleadoForm :: nombreTelefono"></div>
+            <div th:replace="fragments/empleadoForm :: fijo"></div>
+            <button id="buttonAnyadir" th:text="#{anyadir}" class="btn btn-primary" type="submit"></button>
+        </form>
+    </div>
+</body>
+</html>

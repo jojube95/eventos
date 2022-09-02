@@ -5,12 +5,6 @@ Feature: Ver evento page should display event data and correct button actions
     And Visit verEvento page
     Then Event should display correct data
 
-  Scenario: Visit verEvento page should display correct action buttons
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
-    When User click action button
-    Then Should display correct action buttons
-
   Scenario: Click on modificar button should redirect to updateEvento page with current evento id
     Given Open Chrome and logIn as admin
     And Visit verEvento page
@@ -32,6 +26,13 @@ Feature: Ver evento page should display event data and correct button actions
     When User click action button
     And User click protagonistas action
     Then Page should redirect to protagonistas page with currect evento
+
+  Scenario: Click on empleados button should redirect to mesas page with currect evento id
+    Given Open Chrome and logIn as admin
+    And Visit verEvento page
+    When User click action button
+    And User click empleados action
+    Then Page should redirect to empelados page with currect evento
 
   Scenario: Click on calcular personas button should show modal with the correct personas
     Given Open Chrome and logIn as admin

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Eventos</title>
+
+    <th:block th:include="fragments/head :: head"/>
+    <script th:src="@{/libraries/js/jquery.dataTables.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/empleados.js}" type="text/javascript"></script>
+    <link th:href="@{/libraries/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <table class="display compact" id="empleados">
+            <caption th:text="#{table.description.empleados}"></caption>
+            <thead>
+            <tr>
+                <th th:text="#{empleado.id}" scope="col"></th>
+                <th th:text="#{empleado.tipo}" scope="col"></th>
+                <th th:text="#{empleado.nombre}" scope="col"></th>
+                <th th:text="#{empleado.telefono}" scope="col"></th>
+                <th th:text="#{empleado.fijo}" scope="col"></th>
+                <th th:text="#{modificar}" scope="col"></th>
+                <th th:text="#{historial}" scope="col"></th>
+                <th th:text="#{eliminar}" scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="empleado, iter: ${empleados}" style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+                <td th:text="${empleado.id}"></td>
+                <td th:text="${empleado.tipo}"></td>
+                <td th:text="${empleado.nombre}"></td>
+                <td th:text="${empleado.telefono}"></td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:checked="${empleado.fijo}">
+                        <label class="custom-control-label" th:text="${empleado.fijo} ? 'Si' : 'No'"></label>
+                    </div>
+                </td>
+                <td>
+                    <button th:text="#{modificar}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="modificarClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+                <td>
+                    <button th:text="#{historial}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="historialClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+                <td>
+                    <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="eliminarClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 th:text="#{confirmar}" class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div th:text="#{seguroGuardarCambios}" class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button th:text="#{cerrar}" id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+                        <button th:text="#{eliminar}" id="modalEliminarButton" type="button" class="btn btn-primary"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

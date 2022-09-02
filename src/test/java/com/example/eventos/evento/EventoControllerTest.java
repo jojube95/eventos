@@ -298,8 +298,9 @@ class EventoControllerTest {
 
         when(eventoService.getById("id")).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/{id}", "id")
-                .locale(new Locale("es", "ES"));
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento")
+                .locale(new Locale("es", "ES"))
+                .param("eventoId", evento.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);

@@ -76,9 +76,9 @@ public class EventoController {
         return "redirect:/verEventos";
     }
 
-    @GetMapping("/evento/{id}")
-    public String evento(@PathVariable("id") String id, Model model) {
-        Evento evento = eventoService.getById(id);
+    @GetMapping("/evento")
+    public String evento(@RequestParam("eventoId") String eventoId, Model model) {
+        Evento evento = eventoService.getById(eventoId);
         model.addAttribute(evento);
         return "fragments/eventoModal :: modalContents";
     }

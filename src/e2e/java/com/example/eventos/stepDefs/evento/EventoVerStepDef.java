@@ -85,23 +85,16 @@ public class EventoVerStepDef {
         protagonistasButton.click();
     }
 
+    @When("^User click empleados action$")
+    public void user_click_empleados_action() {
+        WebElement empleadosButton = connector.getDriver().findElement(By.id("empleadosButton"));
+        empleadosButton.click();
+    }
+
     @And("^User click eliminar action$")
     public void user_click_eliminar_action() {
         WebElement eliminarButton = connector.getDriver().findElement(By.id("eliminarButton"));
         eliminarButton.click();
-    }
-
-    @Then("^Should display correct action buttons$")
-    public void should_display_correct_action_buttons(){
-        WebElement dropdownMenuButton = connector.getDriver().findElement(By.id("dropdown-menu"));
-        List<WebElement> options = dropdownMenuButton.findElements(By.tagName("a"));
-
-        assertEquals(5, options.size());
-        assertEquals("Modificar", options.get(0).getText());
-        assertEquals("Mesas", options.get(1).getText());
-        assertEquals("Calcular personas", options.get(2).getText());
-        assertEquals("Protagonistas", options.get(3).getText());
-        assertEquals("Eliminar", options.get(4).getText());
     }
 
     @Then("^Page should redirect to modificar page with currect evento$")
@@ -126,6 +119,12 @@ public class EventoVerStepDef {
     public void redirect_to_protagonistas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/protagonistas?eventoId=62dc2a63ec628818203950b9"));
+    }
+
+    @Then("^Page should redirect to empelados page with currect evento$")
+    public void redirect_to_empleados_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/empleados?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Calcular personas modal should display$")

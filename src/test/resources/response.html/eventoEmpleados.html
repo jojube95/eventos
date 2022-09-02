@@ -1,0 +1,126 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <span class="font-weight-bold">Personas</span>
+            <span id="personas" class="font-weight-normal">50</span>
+        </div>
+        <div class="col">
+            <span class="font-weight-bold">Camareros recomendados</span>
+            <span id="camarerosRecomendados" class="font-weight-normal">2</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="progress">
+                <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: green;"></div>
+                <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: yellow;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <select class="form-control" style="width: auto" id="empleado">
+            <option disabled>Fijos</option>
+
+            <option value="id1">nombre1</option>
+
+            <option value="id2">nombre2</option>
+
+            <option disabled>No fijos</option>
+
+            <option value="id3">nombre3</option>
+
+            <option value="id4">nombre4</option>
+        </select>
+        <button id="buttonAnyadir" type="button" class="btn btn-primary" onclick="anyadirClicked()">Añadir</button>
+    </div>
+
+    <div class="row">
+        <table class="display compact" id="eventoEmpleados">
+            <caption>Tabla con la información de los empleados de un evento</caption>
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Id evento</th>
+                <th scope="col">Id empleado</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fijo</th>
+                <th scope="col">Confirmado</th>
+                <th scope="col">Horas extras</th>
+                <th scope="col">Modificar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>id1</td>
+                <td>idEvento1</td>
+                <td>idEmpleado1</td>
+                <td>tipo1</td>
+                <td>nombre1</td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" checked="checked">
+                        <label class="custom-control-label">Si</label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label">No</label>
+                    </div>
+                </td>
+                <td>0.5</td>
+                <td>
+                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id1" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id1" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>id2</td>
+                <td>idEvento2</td>
+                <td>idEmpleado2</td>
+                <td>tipo2</td>
+                <td>nombre2</td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label">No</label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" checked="checked">
+                        <label class="custom-control-label">Si</label>
+                    </div>
+                </td>
+                <td>1.5</td>
+                <td>
+                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id2" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id2" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>Total:</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

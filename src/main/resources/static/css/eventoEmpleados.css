@@ -1,0 +1,15 @@
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+    padding: 4px;
+}
+
+#empleado {
+    margin-right: 10px;
+}
+
+div.progress{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border-style: groove;
+    border-color: black;
+}

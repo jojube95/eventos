@@ -177,6 +177,6 @@ class EventoTest {
     void equalsTestNull(){
         Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
-        assertNotEquals(evento1, null);
+        assertNotEquals(null, evento1);
     }
 }

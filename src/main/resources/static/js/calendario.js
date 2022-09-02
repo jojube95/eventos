@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let eventoId = info.event.id;
 
             $.ajax({
-                url: "/evento/" + eventoId,
+                url: "/evento?eventoId=" + eventoId,
                 success: function (data) {
                     $("#eventDetailModalHolder").html(data);
                     $("#eventDetailModal").modal("show");

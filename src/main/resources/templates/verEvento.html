@@ -22,6 +22,7 @@
           <a th:text="#{mesas}" id="mesasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{calcularPersonas}" id="calcularPersonasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{protagonistas}" id="protagonistasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{empleados}" id="empleadosButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="empleadosClicked(this.getAttribute('eventoId'))"></a>
           <div role="separator" class="dropdown-divider"></div>
           <a th:text="#{eliminar}" id="eliminarButton" class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#confirmarEliminarModal"></a>
         </div>
@@ -162,6 +163,10 @@
 
   function mesasClicked(eventoId){
     location.href = "/evento/mesas?eventoId=" + eventoId;
+  }
+
+  function empleadosClicked(eventoId){
+    location.href = "/evento/empleados?eventoId=" + eventoId;
   }
 
   function calcularPersonasClicked(eventoId){

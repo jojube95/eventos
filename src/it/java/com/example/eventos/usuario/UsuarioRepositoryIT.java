@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class UsuarioRepositoryIT {
+class UsuarioRepositoryIT {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MongoTemplate mongoTemplate;

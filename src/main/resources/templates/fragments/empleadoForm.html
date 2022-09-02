@@ -1,0 +1,53 @@
+<div class="form-row" th:fragment="tipo">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{empleado.tipo}" for="tipo"></label>
+            <select th:field="*{tipo}" class="form-control" id="tipo" onchange="generarTitulo()">
+                <option id="optionCamarero" th:text="#{camarero}" value="Camarero/a"></option>
+                <option id="optionCocinera" th:text="#{cocinero}" value="Cocinero/a"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<div class="form-row" th:fragment="nombreTelefono">
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{empleado.nombre}" class="control-label" for="nombre"></label>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" th:placeholder="#{empleado.nombre}" required>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{empleado.telefono}" class="control-label" for="telefono"></label>
+            <input type="text" th:field="*{telefono}" class="form-control" id="telefono" th:placeholder="#{empleado.telefono}" required>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<div class="form-row" th:fragment="fijo">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{empleado.fijo}" for="fijo"></label>
+            <select th:field="*{fijo}" class="form-control" id="fijo">
+                <option id="optionSi" th:text="#{si}" value="true"></option>
+                <option id="optionNo" th:text="#{no}" value="false"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
