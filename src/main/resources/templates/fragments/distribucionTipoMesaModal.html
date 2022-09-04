@@ -1,0 +1,17 @@
+<div class="modal fade" id="distribucionTipoMesaModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true" th:fragment="modalContents">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 th:text="#{dialogo}" class="modal-title" id="confirmModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div th:text="#{guardado}" class="modal-body"></div>
+      <div class="modal-footer">
+        <button th:text="#{redonda}" id="buttonRedonda" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:personas="${personas}" onclick="addCircleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'))"></button>
+        <button th:text="#{larga}" id="buttonLarga" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:personas="${personas}" onclick="addRectangleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'))"></button>
+      </div>
+    </div>
+  </div>
+</div>
