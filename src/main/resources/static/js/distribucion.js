@@ -47,14 +47,40 @@ $(document).ready(function() {
 
     canvas = new fabric.Canvas('canvas');
 
+    loadCanvas();
 });
 
 function anyadirClicked(mesaId, numero, personas){
     $.ajax({
         url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&personas=" + personas,
         success: function (data) {
-            $("#distribucionTipoMesaModalHolder").html(data);
-            $("#distribucionTipoMesaModal").modal("toggle");
+            if (personas > 4 && personas <= 11) {
+                $("#distribucionTipoMesaModalHolder").html(data);
+                $("#distribucionTipoMesaModal").modal("show");
+            }
+            else if(personas <= 4){
+                addRectangleTable(mesaId, numero, personas);
+            }
+            else{
+                addRectangleTable(mesaId, numero, personas);
+            }
+        }
+    });
+}
+
+function guardarClicked(){
+    let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
+
+    $.ajax({
+        url: "/evento/distribucion/guardar?idEvento=" + idEvento,
+        type: "POST",
+        data: JSON.stringify(json),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $("#confirmModal").modal("show");
+        },
+        error: function (err) {
+            alert(err);
         }
     });
 }
@@ -93,25 +119,27 @@ function addCircleTable(mesaId, numero, personas) {
         mtr: false
     });
 
-    group.toObject = function() {
-        return {
-            mesaId: mesaId,
-            numero: numero,
-            personas: personas
-        };
-    };
+    group['mesaId'] = mesaId;
+    group['numero'] = numero;
+    group['personas'] = personas;
 
     canvas.add(group);
     canvas.renderAll();
 
-    $("#distribucionTipoMesaModal").modal("toggle");
+    $("#distribucionTipoMesaModal").modal("hide");
     disableAnyadirButton(mesaId, true);
 }
 
 function addRectangleTable(mesaId, numero, personas) {
+    let numeroLargas = Math.ceil(personas / 6);
+    let personasUltimaMesa = personas % 6;
+    let tableLength;
+    personasUltimaMesa > 0 && personasUltimaMesa <=2 ? tableLength = ((numeroLargas - 1) * 80) + 20 : tableLength = numeroLargas * 80;
+    let numeroDivisiones = numeroLargas - 1;
+
     let rect = new fabric.Rect({
         width : 50,
-        height : 80,
+        height : tableLength,
         fill : 'white',
         stroke: 'black',
         strokeWidth: 1,
@@ -143,18 +171,27 @@ function addRectangleTable(mesaId, numero, personas) {
         mtr: false
     });
 
-    group.toObject = function() {
-        return {
-            mesaId: mesaId,
-            numero: numero,
-            personas: personas
-        };
-    };
+    group['mesaId'] = mesaId;
+    group['numero'] = numero;
+    group['personas'] = personas;
+
+    let groupTop = Number(group.top);
+    let groupLeft = Number(group.left);
+
+
+    for (let i = 0; i < numeroDivisiones; i++) {
+        let line = new fabric.Line([groupTop + 50, groupLeft + 30 + (i * 80), groupTop + 100, groupLeft + 30 + (i * 80)], {
+            strokeDashArray: [5, 5],
+            stroke: 'grey'
+        });
+
+        group.addWithUpdate(line);
+    }
 
     canvas.add(group);
     canvas.renderAll();
 
-    $("#distribucionTipoMesaModal").modal("toggle");
+    $("#distribucionTipoMesaModal").modal("hide");
     disableAnyadirButton(mesaId, true);
 }
 
@@ -165,7 +202,7 @@ function deleteObject(eventData, transform) {
     canvas.remove(target);
     canvas.requestRenderAll();
 
-    disableAnyadirButton(target.toObject().mesaId, false);
+    disableAnyadirButton(target.mesaId, false);
 }
 
 function renderIcon(ctx, left, top, styleOverride, fabricObject) {
@@ -177,6 +214,27 @@ function renderIcon(ctx, left, top, styleOverride, fabricObject) {
     ctx.restore();
 }
 
-function disableAnyadirButton(mesaId, enable){
-    $("button[mesaId='" + mesaId + "']").prop("disabled", enable);
+function loadCanvas(){
+    canvas.loadFromJSON(distribucion,canvas.renderAll.bind(canvas));
+
+    let objects = canvas.getObjects();
+
+    objects.forEach(function(object, i) {
+        object.setControlsVisibility({
+            tl: false,
+            tr: false,
+            br: false,
+            bl: false,
+            ml: false,
+            mt: false,
+            mr: false,
+            mb: false,
+            mtr: false
+        });
+        disableAnyadirButton(object.mesaId, true);
+    });
+}
+
+function disableAnyadirButton(mesaId, disabled){
+    $("button[mesaId='" + mesaId + "']").prop("disabled", disabled);
 }

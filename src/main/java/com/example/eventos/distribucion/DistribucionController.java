@@ -1,5 +1,6 @@
 package com.example.eventos.distribucion;
 
+import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.mesa.Mesa;
@@ -23,9 +24,11 @@ public class DistribucionController {
 
     @GetMapping("/evento/distribucion")
     public String distribucion(@RequestParam("eventoId") String eventoId, Model model) {
+        Evento evento = eventoService.getById(eventoId);
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         model.addAttribute("idEvento", eventoId);
         model.addAttribute("mesas", mesas);
+        model.addAttribute("distribucion", evento.getDistribucion().getDistribucion());
         return "distribucion";
     }
 

@@ -1,5 +1,6 @@
 package com.example.eventos.protagonista;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.security.SecurityConfiguration;
@@ -53,7 +54,7 @@ class ProtagonistaControllerTest {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -76,7 +77,7 @@ class ProtagonistaControllerTest {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -94,7 +95,7 @@ class ProtagonistaControllerTest {
     void getAnyadirProtagonistaTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirProtagonista.html");
 
-        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -116,7 +117,7 @@ class ProtagonistaControllerTest {
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 

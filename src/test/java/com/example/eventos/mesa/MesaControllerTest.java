@@ -1,5 +1,6 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.security.SecurityConfiguration;
@@ -48,7 +49,7 @@ class MesaControllerTest {
     void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
-        Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Mesa mesa1 = new Mesa("idEvento", "Pepe", 10, 1, true);
         Mesa mesa2 = new Mesa("idEvento", "Antonio", 6, 2, false);
         Mesa mesa3 = new Mesa("idEvento", "José", 7, 3, true);

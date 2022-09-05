@@ -1,5 +1,6 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.protagonista.Protagonista;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,6 +30,8 @@ public class Evento {
     private Date fecha;
 
     private List<Protagonista> protagonistas;
+
+    private Distribucion distribucion;
 
     public Evento() {
 
@@ -62,7 +65,7 @@ public class Evento {
     }
 
     public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
-                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala) {
+                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -187,6 +190,19 @@ public class Evento {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public Distribucion getDistribucion() {
+        if (distribucion == null){
+            return new Distribucion("");
+        }
+        else{
+            return distribucion;
+        }
+    }
+
+    public void setDistribucion(Distribucion distribucion) {
+        this.distribucion = distribucion;
     }
 
     public boolean isEventoIndividual(){
