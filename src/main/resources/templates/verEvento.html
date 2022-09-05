@@ -20,7 +20,6 @@
         <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a th:text="#{modificar}" id="modificarButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{mesas}" id="mesasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{distribucion}" id="distribucionButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="distribucionClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{calcularPersonas}" id="calcularPersonasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{protagonistas}" id="protagonistasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
           <a th:text="#{empleados}" id="empleadosButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="empleadosClicked(this.getAttribute('eventoId'))"></a>
@@ -164,10 +163,6 @@
 
   function mesasClicked(eventoId){
     location.href = "/evento/mesas?eventoId=" + eventoId;
-  }
-
-  function distribucionClicked(eventoId){
-    location.href = "/evento/distribucion?eventoId=" + eventoId;
   }
 
   function empleadosClicked(eventoId){

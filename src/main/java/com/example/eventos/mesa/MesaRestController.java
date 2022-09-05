@@ -1,7 +1,5 @@
 package com.example.eventos.mesa;
 
-import com.example.eventos.evento.Evento;
-import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -13,12 +11,9 @@ public class MesaRestController {
 
     private final InvitadoService invitadoService;
 
-    private final EventoService eventoService;
-
-    public MesaRestController(MesaService mesaService, InvitadoService invitadoService, EventoService eventoService) {
+    public MesaRestController(MesaService mesaService, InvitadoService invitadoService) {
         this.mesaService = mesaService;
         this.invitadoService = invitadoService;
-        this.eventoService = eventoService;
     }
 
     @PostMapping("/evento/mesas/add")
@@ -32,20 +27,14 @@ public class MesaRestController {
 
     @PostMapping("/evento/mesas/delete")
     public Mesa delete(@RequestBody Mesa mesa) throws JSONException {
-        Evento evento = eventoService.getById(mesa.getIdEvento());
         mesaService.delete(mesa);
         invitadoService.deleteInvitados(mesa.getId());
-        evento.getDistribucion().deleteMesa(mesa);
-        eventoService.update(evento);
         return mesa;
     }
 
     @PostMapping("/evento/mesas/update")
     public Mesa update(@RequestBody Mesa mesa) throws JSONException {
-        Evento evento = eventoService.getById(mesa.getIdEvento());
         mesaService.save(mesa);
-        evento.getDistribucion().updateMesa(mesa);
-        eventoService.update(evento);
         return mesa;
     }
 

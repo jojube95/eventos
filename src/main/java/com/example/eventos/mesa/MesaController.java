@@ -25,6 +25,7 @@ public class MesaController {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute("idEvento", eventoId);
         model.addAttribute("isEventoIndividual", evento.isEventoIndividual());
+        model.addAttribute("distribucion", evento.getDistribucion().getDistribucion());
         model.addAttribute("mesas", mesas);
         return "mesas";
     }

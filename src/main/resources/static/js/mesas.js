@@ -1,11 +1,12 @@
 let pagadoOptions = { "true" : "Sí", "false" : "No" };
 let mesasDt;
 
+let canvas;
+
 $(document).ready(function() {
     let columnDefs = [
         {
             data: "id",
-            type: "hidden",
             visible: false
         },
         {
@@ -83,7 +84,15 @@ $(document).ready(function() {
                 url: "/evento/mesas/add",
                 data: JSON.stringify(rowdata),
                 dataType: 'json',
-                success: success,
+                success: function (mesa) {
+                    success(mesa);
+                    $.ajax({
+                        url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&personas=" + mesa.personas,
+                        success: function (data) {
+                            anyadirMesaDistribucion(mesa.id, mesa.numero, mesa.personas, 150, 100, data);
+                        }
+                    });
+                },
                 error: error
             });
         },
@@ -94,7 +103,17 @@ $(document).ready(function() {
                 url: "/evento/mesas/delete",
                 data: JSON.stringify(rowdata[0]),
                 dataType: 'json',
-                success: success,
+                success: function (mesa){
+                    success(mesa);
+
+                    canvas.getObjects().forEach(function(object, i) {
+                        if (object.mesaId === mesa.id){
+                            canvas.remove(object);
+                            canvas.renderAll();
+                            guardarDistribucion();
+                        }
+                    });
+                },
                 error: error
             });
         },
@@ -105,7 +124,35 @@ $(document).ready(function() {
                 url: "/evento/mesas/update",
                 data: JSON.stringify(rowdata),
                 dataType: 'json',
-                success: success,
+                success: function (mesa){
+                    success(mesa);
+
+                    canvas.getObjects().forEach(function(object) {
+                        if (object.mesaId === mesa.id){
+                            let mesaId = object.mesaId;
+                            let numero = object.numero;
+                            let personas = object.personas;
+                            let top = object.top;
+                            let left = object.left;
+
+                            if(personas > 11){
+                                canvas.remove(object);
+                                addRectangleTable(mesaId, numero, personas, top, left);
+                            }
+                            else if(personas <= 4){
+                                canvas.remove(object);
+                                addRectangleTable(mesaId, numero, personas, top, left);
+                            }
+                            else{
+                                object.set({ numero: mesa.numero, personas: mesa.personas});
+                                object._objects[1].set({ text: "T-" + mesa.numero + "\n" + mesa.personas + "p"});
+                            }
+
+                            guardarDistribucion();
+                            canvas.renderAll();
+                        }
+                    });
+                },
                 error: error
             });
         },
@@ -143,8 +190,39 @@ $(document).ready(function() {
             $('#numero').val(nextTableNumber);
         });
     });
+
+    canvas = new fabric.Canvas('canvas');
+
+    fabric.util.addListener(canvas.upperCanvasEl, 'click', function (e) {
+        let target = canvas.findTarget(e);
+
+        let index = $('tr[mesaId="' + target.mesaId + '"]').index();
+
+        mesasDt.row(':eq(' + index + ')').select();
+    });
+
+    fabric.util.addListener(canvas.upperCanvasEl, 'dblclick', function (e) {
+        let target = canvas.findTarget(e);
+        changeTableType(target);
+    });
+
+    loadCanvas();
 });
 
+function anyadirMesaDistribucion(mesaId, numero, personas, top, left, htmlModal){
+    if (personas > 4 && personas <= 11) {
+        $("#distribucionTipoMesaModalHolder").html(htmlModal);
+        $("#distribucionTipoMesaModal").modal("show");
+    }
+    else if(personas <= 4){
+        addRectangleTable(mesaId, numero, personas, top, left);
+    }
+    else{
+        addRectangleTable(mesaId, numero, personas, top, left);
+    }
+    $("#distribucionTipoMesaModal").modal("hide");
+    guardarDistribucion();
+}
 function cerrarInvitadosClicked(numeroInvitados){
     let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
     mesaSeleccionada.personas = numeroInvitados.toString();
@@ -162,6 +240,167 @@ function cerrarInvitadosClicked(numeroInvitados){
             mesasDt.row({ selected: true }).data(mesaSeleccionada);
             mesasDt.draw();
         },
+    });
+}
+
+function guardarDistribucion(){
+    let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
+
+    $.ajax({
+        url: "/evento/distribucion/guardar?idEvento=" + idEvento,
+        type: "POST",
+        data: JSON.stringify(json),
+        contentType: "application/json; charset=utf-8",
+        error: function (err) {
+            alert(err);
+        }
+    });
+}
+
+function guardarClicked(){
+    let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
+
+    $.ajax({
+        url: "/evento/distribucion/guardar?idEvento=" + idEvento,
+        type: "POST",
+        data: JSON.stringify(json),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $("#confirmModal").modal("show");
+        },
+        error: function (err) {
+            alert(err);
+        }
+    });
+}
+
+function addCircleTable(mesaId, numero, personas, top, left) {
+    let circle = new fabric.Circle({
+        radius: 30,
+        fill : 'white',
+        stroke: 'black',
+        strokeWidth: 1,
+        originX: 'center',
+        originY: 'center'
+    });
+
+    let text = new fabric.Text("T-" + numero + "\n" + personas + "p", {
+        fontSize: 12,
+        originX: 'center',
+        originY: 'center'
+    });
+
+    let group = new fabric.Group([ circle, text ], {
+        left: left,
+        top: top,
+        hasRotatingPoint: false
+    });
+
+    group.setControlsVisibility({
+        tl: false,
+        tr: false,
+        br: false,
+        bl: false,
+        ml: false,
+        mt: false,
+        mr: false,
+        mb: false,
+        mtr: false
+    });
+
+    group['mesaId'] = mesaId;
+    group['numero'] = numero;
+    group['personas'] = personas;
+
+    canvas.add(group);
+    canvas.renderAll();
+}
+
+function addRectangleTable(mesaId, numero, personas, top, left) {
+    let numeroLargas = Math.ceil(personas / 6);
+    let personasUltimaMesa = personas % 6;
+    let tableLength;
+    personasUltimaMesa > 0 && personasUltimaMesa <=2 ? tableLength = ((numeroLargas - 1) * 80) + 20 : tableLength = numeroLargas * 80;
+
+    let rect = new fabric.Rect({
+        width : 50,
+        height : tableLength,
+        fill : 'white',
+        stroke: 'black',
+        strokeWidth: 1,
+        originX: 'center',
+        originY: 'center'
+    });
+
+    let text = new fabric.Text("T-" + numero + "\n" + personas + "p", {
+        fontSize: 12,
+        originX: 'center',
+        originY: 'center'
+    });
+
+    let group = new fabric.Group([ rect, text ], {
+        left: left,
+        top: top,
+        hasRotatingPoint: false
+    });
+
+    group.setControlsVisibility({
+        tl: false,
+        tr: false,
+        br: false,
+        bl: false,
+        ml: false,
+        mt: false,
+        mr: false,
+        mb: false,
+        mtr: false
+    });
+
+    group['mesaId'] = mesaId;
+    group['numero'] = numero;
+    group['personas'] = personas;
+
+    canvas.add(group);
+    canvas.renderAll();
+}
+
+function changeTableType(table){
+    let tableType = table._objects[0].type;
+    let mesaId = table.mesaId;
+    let numero = table.numero;
+    let personas = table.personas;
+    let top = table.top;
+    let left = table.left;
+
+    canvas.remove(table);
+
+    if(tableType === 'rect'){
+        addCircleTable(mesaId, numero, personas, top, left);
+    }
+    else{
+        addRectangleTable(mesaId, numero, personas, top, left);
+    }
+
+    canvas.renderAll();
+}
+
+function loadCanvas(){
+    canvas.loadFromJSON(distribucion,canvas.renderAll.bind(canvas));
+
+    let objects = canvas.getObjects();
+
+    objects.forEach(function(object, i) {
+        object.setControlsVisibility({
+            tl: false,
+            tr: false,
+            br: false,
+            bl: false,
+            ml: false,
+            mt: false,
+            mr: false,
+            mb: false,
+            mtr: false
+        });
     });
 }
 
