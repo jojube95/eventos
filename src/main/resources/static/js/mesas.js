@@ -7,6 +7,7 @@ $(document).ready(function() {
     let columnDefs = [
         {
             data: "id",
+            type: "hidden",
             visible: false
         },
         {
@@ -130,8 +131,8 @@ $(document).ready(function() {
                     canvas.getObjects().forEach(function(object) {
                         if (object.mesaId === mesa.id){
                             let mesaId = object.mesaId;
-                            let numero = object.numero;
-                            let personas = object.personas;
+                            let numero = mesa.numero;
+                            let personas = mesa.personas;
                             let top = object.top;
                             let left = object.left;
 
@@ -148,8 +149,9 @@ $(document).ready(function() {
                                 object._objects[1].set({ text: "T-" + mesa.numero + "\n" + mesa.personas + "p"});
                             }
 
-                            guardarDistribucion();
                             canvas.renderAll();
+
+                            guardarDistribucion();
                         }
                     });
                 },
@@ -210,6 +212,7 @@ $(document).ready(function() {
 });
 
 function anyadirMesaDistribucion(mesaId, numero, personas, top, left, htmlModal){
+    // 50px - 1m
     if (personas > 4 && personas <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $("#distribucionTipoMesaModal").modal("show");
@@ -276,7 +279,7 @@ function guardarClicked(){
 
 function addCircleTable(mesaId, numero, personas, top, left) {
     let circle = new fabric.Circle({
-        radius: 30,
+        radius: 40,
         fill : 'white',
         stroke: 'black',
         strokeWidth: 1,
@@ -320,7 +323,7 @@ function addRectangleTable(mesaId, numero, personas, top, left) {
     let numeroLargas = Math.ceil(personas / 6);
     let personasUltimaMesa = personas % 6;
     let tableLength;
-    personasUltimaMesa > 0 && personasUltimaMesa <=2 ? tableLength = ((numeroLargas - 1) * 80) + 20 : tableLength = numeroLargas * 80;
+    personasUltimaMesa > 0 && personasUltimaMesa <= 2 ? tableLength = ((numeroLargas - 1) * 100) + 32.5 : tableLength = numeroLargas * 100;
 
     let rect = new fabric.Rect({
         width : 50,
@@ -382,6 +385,7 @@ function changeTableType(table){
     }
 
     canvas.renderAll();
+    guardarDistribucion();
 }
 
 function loadCanvas(){
