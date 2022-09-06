@@ -325,6 +325,15 @@ function guardarClicked(){
     });
 }
 
+function exportarClicked(){
+    // only jpeg is supported by jsPDF
+    let imgData = canvas.toDataURL("image/jpeg", 1.0);
+    let pdf = new jsPDF('landscape');
+
+    pdf.addImage(imgData, 'JPEG', 0, 0);
+    pdf.save("distribució.pdf");
+}
+
 function addCircleTable(mesaId, numero, personas, top, left) {
     let circle = new fabric.Circle({
         radius: 40,

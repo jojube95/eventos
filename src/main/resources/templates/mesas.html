@@ -18,6 +18,7 @@
     <script th:src="@{/libraries/js/select2.js}" type="text/javascript" ></script>
     <script th:src="@{/libraries/js/dataTables.altEditor.free.js}" type="text/javascript"></script>
     <script th:src="@{/libraries/js/fabric.min.js}" type="text/javascript" ></script>
+    <script th:src="@{/libraries/js/jspdf.min.js}" type="text/javascript" ></script>
     <script th:src="@{/js/mesas.js}" type="text/javascript"></script>
 
     <script th:inline="javascript">
@@ -49,7 +50,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-left: 30px; margin-right: 30px">
         <div class="row">
             <div class="col-4">
                 <table class="display compact" id="mesas">
@@ -88,15 +89,17 @@
             </div>
             <div class="col-8">
                 <div class="row">
-                    <canvas id="canvas" width="700" height="500" style="border: 1px solid rgb(204, 204, 204);"></canvas>
+                    <canvas id="canvas" width="1100" height="600" style="border: 1px solid rgb(204, 204, 204);"></canvas>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top: 10px">
                     <button th:text="#{guardar}" class="btn btn-primary" type="submit" onclick="guardarClicked()"></button>
+                    <button th:text="#{exportar}" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarClicked()"></button>
                 </div>
             </div>
     </div>
 
     <div id="invitadosModalHolder"></div>
+    </div>
 
 </body>
 </html>
