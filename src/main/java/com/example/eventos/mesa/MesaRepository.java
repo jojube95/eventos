@@ -10,4 +10,6 @@ public interface MesaRepository  extends MongoRepository<Mesa, String> {
     List<Mesa> findByIdEvento(String idEvento);
 
     void deleteByIdEvento(String idEvento);
+
+    List<Mesa> findByIdEventoOrderByNumeroAsc(String idEvento);
 }

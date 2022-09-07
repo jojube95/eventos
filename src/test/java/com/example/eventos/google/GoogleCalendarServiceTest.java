@@ -1,5 +1,6 @@
 package com.example.eventos.google;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +19,7 @@ class GoogleCalendarServiceTest {
     void createTest(){
         Date fecha = new GregorianCalendar(2014, Calendar.JANUARY, 11).getTime();
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         Event createdEvent = GoogleCalendarService.create(evento);
 

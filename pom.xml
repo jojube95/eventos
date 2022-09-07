@@ -24,7 +24,7 @@
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.sources>src/main/java,src/main/resources</sonar.sources>
     <sonar.exclusions>src/main/resources/static/libraries/**/*</sonar.exclusions>
-    <sonar.coverage.exclusions>**/GoogleCalendarService.*,src/main/resources/**/*</sonar.coverage.exclusions>
+    <sonar.coverage.exclusions>**/GoogleCalendarService.*,**/PdfCreator.*,src/main/resources/**/*</sonar.coverage.exclusions>
     <sonar.test.inclusions>src/test/java/**/*,src/it/java/**/*,src/e2e/java/**/*</sonar.test.inclusions>
     <sonar.issue.ignore.multicriteria>e1,e2</sonar.issue.ignore.multicriteria>
     <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S4684</sonar.issue.ignore.multicriteria.e1.ruleKey>
@@ -157,6 +157,11 @@
       <groupId>org.webjars</groupId>
       <artifactId>bootstrap-datepicker</artifactId>
       <version>1.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.13</version>
     </dependency>
     <dependency>
       <groupId>org.webjars</groupId>

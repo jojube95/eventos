@@ -32,6 +32,12 @@ class MesaServiceTest {
     }
 
     @Test
+    void findByEventoOrderByNumeroTest(){
+        mesaService.findByEventoOrderByNumero(mesa.getIdEvento());
+        verify(mesaRepository, times(1)).findByIdEventoOrderByNumeroAsc(mesa.getIdEvento());
+    }
+
+    @Test
     void saveTest(){
         mesaService.save(mesa);
         verify(mesaRepository, times(1)).save(mesa);

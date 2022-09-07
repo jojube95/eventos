@@ -56,32 +56,32 @@ public class MesaStepDef {
     }
 
     @When("^User click first mesa$")
-    public void user_click_firest_mesa(){
+    public void user_click_firest_mesa() {
         WebElement firstMesa = connector.getDriver().findElement(By.xpath("//table[@id='mesas']/tbody/tr[1]"));
         firstMesa.click();
     }
 
     @When("^User click add mesa button$")
     public void user_click_add(){
-        WebElement add = connector.getDriver().findElement(By.xpath("(//button[@type='button'])[2]"));
+        WebElement add = connector.getDriver().findElement(By.xpath("(//div[@class='dt-buttons']//button)[1]"));
         add.click();
     }
 
     @When("^User click edit mesa button$")
     public void user_click_edit(){
-        WebElement edit = connector.getDriver().findElement(By.xpath("(//button[@type='button'])[3]"));
+        WebElement edit = connector.getDriver().findElement(By.xpath("(//div[@class='dt-buttons']//button)[2]"));
         edit.click();
     }
 
     @When("^User click delete mesa button$")
-    public void user_click_delete(){
-        WebElement delete = connector.getDriver().findElement(By.xpath("(//button[@type='button'])[4]"));
+    public void user_click_delete() {
+        WebElement delete = connector.getDriver().findElement(By.xpath("(//div[@class='dt-buttons']//button)[3]"));
         delete.click();
     }
 
     @When("^User click invitados mesa button$")
     public void user_click_invitados(){
-        WebElement invitados = connector.getDriver().findElement(By.xpath("(//button[@type='button'])[5]"));
+        WebElement invitados = connector.getDriver().findElement(By.xpath("(//div[@class='dt-buttons']//button)[4]"));
         invitados.click();
     }
 
@@ -94,6 +94,9 @@ public class MesaStepDef {
 
     @When("^User fill edit mesa form$")
     public void user_fill_edit_mesa_form(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("editRowBtn")));
+
         WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
         WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
 
@@ -106,6 +109,9 @@ public class MesaStepDef {
 
     @When("^User click delete mesa confirm button$")
     public void user_delete_mesa_confirm_button(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("deleteRowBtn")));
+
         WebElement deleteButton = connector.getDriver().findElement(By.id("deleteRowBtn"));
         deleteButton.click();
     }
@@ -119,7 +125,19 @@ public class MesaStepDef {
     @Then("^Add modal mesa should display$")
     public void add_modal_mesa_should_display(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("addRowBtn")));
+    }
+
+    @Then("^Type mesa modal should display$")
+    public void type_modal_mesa_should_display(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonRedonda")));
+    }
+
+    @Then("^User click on redonda$")
+    public void user_click_redonda(){
+        WebElement redondaButton = connector.getDriver().findElement(By.id("buttonRedonda"));
+        redondaButton.click();
     }
 
     @Then("^Add modal mesa should hide$")
@@ -140,22 +158,10 @@ public class MesaStepDef {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
-    @Then("^Delete modal mesa should display$")
-    public void delete_modal_mesa_should_display(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
-    }
-
     @Then("^Delete modal mesa should hide")
     public void delete_modal_mesa_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
-    }
-
-    @Then("^Invitados modal mesa should display$")
-    public void invitado_modal_mesa_should_display(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @And("^User click edit modal mesa$")
@@ -184,6 +190,9 @@ public class MesaStepDef {
 
     @And("^New mesa display on table$")
     public void new_mesa_display_on_table() {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='mesas']/tbody[1]/tr[5]")));
+
         List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
         List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
@@ -216,6 +225,11 @@ public class MesaStepDef {
 
     @And("^Edited mesa display on table$")
     public void edited_mesa_display_on_table() {
+        WebElement columnaEditada = connector.getDriver().findElement(By.xpath("//table[@id='mesas']/tbody[1]/tr[1]/td[1]"));
+
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.textToBePresentInElement(columnaEditada, "5"));
+
         List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
         List<WebElement> mesa1 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));
@@ -244,6 +258,9 @@ public class MesaStepDef {
 
     @And("^First mesa should be deleted$")
     public void first_mesa_should_be_deleted() {
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//table[@id='mesas']/tbody[1]/tr[4]")));
+
         List<WebElement> mesas = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr"));
 
         List<WebElement> mesa2 = connector.getDriver().findElements(By.xpath("//table[@id='mesas']/tbody/tr[1]/td"));

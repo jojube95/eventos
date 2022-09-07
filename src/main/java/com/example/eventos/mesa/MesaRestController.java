@@ -25,14 +25,14 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/delete")
-    public Mesa delete(@RequestBody Mesa mesa){
+    public Mesa delete(@RequestBody Mesa mesa) {
         mesaService.delete(mesa);
         invitadoService.deleteInvitados(mesa.getId());
         return mesa;
     }
 
     @PostMapping("/evento/mesas/update")
-    public Mesa update(@RequestBody Mesa mesa){
+    public Mesa update(@RequestBody Mesa mesa) {
         mesaService.save(mesa);
         return mesa;
     }

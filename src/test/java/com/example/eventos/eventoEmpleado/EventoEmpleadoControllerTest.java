@@ -1,5 +1,6 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
@@ -50,7 +51,7 @@ class EventoEmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEventoEmpleadosTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados")
                 .param("eventoId", evento.getId());
@@ -63,7 +64,7 @@ class EventoEmpleadoControllerTest {
     void getEventoEmpleadosTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleados.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1");
+        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Empleado> empleadosFijos = new ArrayList<>();
         List<Empleado> empleadosNoFijos = new ArrayList<>();
