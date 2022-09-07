@@ -325,13 +325,17 @@ function guardarClicked(){
     });
 }
 
-function exportarClicked(){
+function exportarDistribucionClicked(){
     // only jpeg is supported by jsPDF
     let imgData = canvas.toDataURL("image/jpeg", 1.0);
     let pdf = new jsPDF('landscape');
 
     pdf.addImage(imgData, 'JPEG', 0, 0);
     pdf.save("distribució.pdf");
+}
+
+function exportarListadoClicked(){
+    window.location = "/evento/mesas/generarListado?eventoId=" + idEvento;
 }
 
 function addCircleTable(mesaId, numero, personas, top, left) {
