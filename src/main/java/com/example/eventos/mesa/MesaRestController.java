@@ -2,7 +2,6 @@ package com.example.eventos.mesa;
 
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,14 +25,14 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/delete")
-    public Mesa delete(@RequestBody Mesa mesa) throws JSONException {
+    public Mesa delete(@RequestBody Mesa mesa) {
         mesaService.delete(mesa);
         invitadoService.deleteInvitados(mesa.getId());
         return mesa;
     }
 
     @PostMapping("/evento/mesas/update")
-    public Mesa update(@RequestBody Mesa mesa) throws JSONException {
+    public Mesa update(@RequestBody Mesa mesa) {
         mesaService.save(mesa);
         return mesa;
     }
