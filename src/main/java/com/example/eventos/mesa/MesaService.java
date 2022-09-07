@@ -16,6 +16,10 @@ public class MesaService {
         return mesaRepository.findByIdEvento(idEvento);
     }
 
+    public List<Mesa> findByEventoOrderByNumero(String idEvento){
+        return mesaRepository.findByIdEventoOrderByNumeroAsc(idEvento);
+    }
+
     public void save(Mesa mesa){
         mesaRepository.save(mesa);
     }
