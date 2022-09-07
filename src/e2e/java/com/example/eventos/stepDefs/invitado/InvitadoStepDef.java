@@ -155,6 +155,12 @@ public class InvitadoStepDef {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("deleteRowBtn")));
     }
 
+    @Then("^Invitados modal mesa should display$")
+    public void invitados_modal_mesa_should_display(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("invitados")));
+    }
+
     @And("^New invitado should display on table$")
     public void added_invitado_should_display() {
         List<WebElement> invitados = connector.getDriver().findElements(By.xpath("//table[@id='invitados']/tbody/tr"));

@@ -24,16 +24,16 @@ public class WebConnector {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=es");
-        options.addArguments("--headless");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1400,800");
+        //options.addArguments("--headless");
+        //options.addArguments("--disable-gpu");
+        //options.addArguments("--window-size=1400,800");
 
         driver = new ChromeDriver(options);
     }
 
     @After
     public void destroySelenium() {
-        driver.close();
+        //driver.close();
     }
 
     @After("@modifyDatabase")
