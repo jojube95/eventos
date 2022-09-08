@@ -15,15 +15,10 @@ $(document).ready(function() {
         footerCallback: function () {
             let api = this.api();
 
-            let totalPersonas = api
-                .column(3, {search:'applied'})
-                .data()
-                .reduce(function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0);
+            let rows = api.rows({search:'applied'}).count();
+            let totalText = $(api.column(4).footer()).text();
 
-            // Update footer
-            $(api.column(3).footer()).html("Total: " + totalPersonas);
+            $(api.column(4).footer()).text(totalText + " " + rows);
         }
     });
     updateProgresbar();
