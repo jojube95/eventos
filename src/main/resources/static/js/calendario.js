@@ -25,9 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         eventos.map(function(eventEl) {
                             return {
                                 id: eventEl['id'],
-                                title: eventEl['titulo'],
+                                title: eventEl['titulo'] + " " + eventEl['personas'] + "p",
                                 start: new Date(eventEl['fecha']).toISOString().split('T')[0],
-                                color: tipoColor.get(eventEl.tipo)
+                                color: tipoColor.get(eventEl.tipo),
+                                eventDisplay: 'block'
                             }
                         })
                     )
