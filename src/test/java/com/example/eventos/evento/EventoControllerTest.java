@@ -173,7 +173,7 @@ class EventoControllerTest {
                 .with(csrf())
                 .flashAttr("evento", evento);
 
-        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).update(evento);
     }
@@ -269,7 +269,7 @@ class EventoControllerTest {
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eliminarEvento")
                 .param("eventoId", evento.getId());
 
-        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/verEventos"));
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).delete(evento);
     }

@@ -106,7 +106,7 @@ public class EventoVerStepDef {
     @Then("^Redirect to verEventos page$")
     public void redirect_to_verEventos_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/verEventos"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
     }
 
     @Then("^Page should redirect to mesas page with currect evento$")
