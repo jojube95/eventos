@@ -53,7 +53,7 @@ public class EventoController {
     @PostMapping("/updateEvento")
     public String updateEvento(@ModelAttribute Evento evento) throws IOException {
         eventoService.update(evento);
-        return "redirect:/verEventos";
+        return "redirect:/calendario";
     }
 
     @GetMapping("/verEvento")
@@ -73,7 +73,7 @@ public class EventoController {
     public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
-        return "redirect:/verEventos";
+        return "redirect:/calendario";
     }
 
     @GetMapping("/evento")
