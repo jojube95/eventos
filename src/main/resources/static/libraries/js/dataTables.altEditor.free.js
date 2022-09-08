@@ -309,6 +309,7 @@
                                         }
                                     ],
                                     onAddRow: function(datatable, rowdata, success, error) {
+                                        changeElementToLoadingSpinner($('#addRowBtn'));
                                         delete rowdata.id;
                                         rowdata.idEvento = $('#idEvento').val();
                                         rowdata.idMesa = $('#idMesa').val();
@@ -323,6 +324,7 @@
                                         });
                                     },
                                     onDeleteRow: function(datatable, rowdata, success, error) {
+                                        changeElementToLoadingSpinner($('#deleteRowBtn'));
                                         $.ajax({
                                             type: "POST",
                                             contentType: "application/json",
@@ -334,6 +336,7 @@
                                         });
                                     },
                                     onEditRow: function(datatable, rowdata, success, error) {
+                                        changeElementToLoadingSpinner($('#editRowBtn'));
                                         $.ajax({
                                             type: "POST",
                                             contentType: "application/json",

@@ -16,15 +16,18 @@ $(document).ready(function() {
             let api = this.api();
 
             let rows = api.rows({search:'applied'}).count();
-            let totalText = $(api.column(4).footer()).text();
 
-            $(api.column(4).footer()).text(totalText + " " + rows);
+            $(api.column(4).footer()).text("Total: " + rows);
         }
     });
     updateProgresbar();
 });
 
 function anyadirClicked (){
+    let anyadirButton = $('#buttonAnyadir');
+    let anyadirButtonHtml = anyadirButton.html();
+    changeElementToLoadingSpinner(anyadirButton);
+
     let empleadoId = $('#empleado option').filter(':selected').val();
     $.ajax({
         type: "POST",
@@ -44,11 +47,14 @@ function anyadirClicked (){
                 '<button type="button" class="btn btn-danger" eventoempleadoid="' + data.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
             ] ).draw();
             updateProgresbar();
+            anyadirButton.html(anyadirButtonHtml);
         }
     })
 }
 
 function eliminarClicked(eventoEmpleadoId){
+    changeElementToLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
+
     $.ajax({
         type: "POST",
         url: "/evento/empleados/eliminar?eventoEmpleadoId=" + eventoEmpleadoId,
@@ -72,6 +78,8 @@ function modificarClicked(eventoEmpleadoId){
 }
 
 function modificarModalClicked(eventoEmpleadoId){
+    changeElementToLoadingSpinner($('#modalEventoModificarButton'));
+
     let confirmado = $('#confirmado option').filter(':selected').val();
     let horasExtras = $('#horasExtras').val();
 
@@ -105,6 +113,13 @@ function updateProgresbar(){
 
     $("#progressbarConfirmados").css("width", porcentageConfirmados + '%');
     $("#progressbarNoConfirmados").css("width", porcentageNoConfirmados + '%');
+}
+
+function changeElementToLoadingSpinner(element){
+    element.html("<button class=\"btn btn-primary\" type=\"button\" disabled>\n" +
+        "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
+        "  <span class=\"sr-only\">Loading...</span>\n" +
+        "</button>")
 }
 
 

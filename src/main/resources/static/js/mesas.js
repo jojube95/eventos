@@ -138,6 +138,8 @@ function onAddClicked(){
 }
 
 function onAddRow(datatable, rowdata, success, error){
+    changeElementToLoadingSpinner($("#addRowBtn"));
+
     rowdata.idEvento = idEvento;
     delete rowdata.id;
 
@@ -166,6 +168,8 @@ function addMesaAjax(mesaRowData, success, error){
 }
 
 function onDeleteRow(datatable, rowdata, success, error){
+    changeElementToLoadingSpinner($("#deleteRowBtn"));
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -188,6 +192,8 @@ function onDeleteRow(datatable, rowdata, success, error){
 }
 
 function onEditRow(datatable, rowdata, success, error){
+    changeElementToLoadingSpinner($("#editRowBtn"));
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -309,6 +315,10 @@ function guardarDistribucion(){
 }
 
 function guardarClicked(){
+    let guardarButton = $("#guardarButton");
+    let guardarButtonHtml = guardarButton.html();
+    changeElementToLoadingSpinner(guardarButton);
+
     let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
 
     $.ajax({
@@ -317,7 +327,7 @@ function guardarClicked(){
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
         success: function () {
-            $("#confirmModal").modal("show");
+            guardarButton.html(guardarButtonHtml);
         },
         error: function (err) {
             alert(err);
@@ -466,5 +476,12 @@ function waitForElm(selector) {
             subtree: true
         });
     });
+}
+
+function changeElementToLoadingSpinner(element){
+    element.html("<button class=\"btn btn-primary\" type=\"button\" disabled>\n" +
+        "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
+        "  <span class=\"sr-only\">Loading...</span>\n" +
+        "</button>")
 }
 
