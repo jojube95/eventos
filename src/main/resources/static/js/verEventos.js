@@ -29,7 +29,13 @@ $( document ).ready(function() {
         order: [0, 'asc'],
         columnDefs: [
             { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 5, 10] : [1, 2, 3, 4, 5, 8]) },
-            { className: "dt-right", targets: (userIsAdmin? [6, 7, 8, 9] : [6, 7]) }
+            { className: "dt-right", targets: (userIsAdmin? [6, 7, 8, 9, 11] : [6, 7]) },
+            {
+                targets: (userIsAdmin? [11] : []),
+                render: function (data, type, row) {
+                    return Math.round(((row[6] * row[7]) + (row[8] * row[9])) * 0.325) + "€";
+                }
+            }
         ],
         lengthMenu: [
             [10, 25, 50, -1],
@@ -98,21 +104,21 @@ $( document ).ready(function() {
                     }, 0);
             }
 
-            // Total
-            let total = api
-                .rows({search:'applied'})
-                .data()
-                .reduce(function (a, b) {
-                    return a + (Number(b[6]) * Number(b[7])) + (Number(b[8]) * Number(b[9]))
-                }, 0);
-
             // Update footer
             if (userIsAdmin) {
+                // Total
+                let total = api
+                    .rows({search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return a + (Number(b[6]) * Number(b[7])) + (Number(b[8]) * Number(b[9]))
+                    }, 0);
+
                 $(api.column(6).footer()).html(totalPersonas);
                 $(api.column(7).footer()).html((promedioPrecioPersonas / rows).toFixed(2));
                 $(api.column(9).footer()).html((promedioPrecioNinyos / rows).toFixed(2));
                 $(api.column(8).footer()).html(totalNinyos);
-                $(api.column(10).footer()).html(total + '€');
+                $(api.column(11).footer()).html(Math.round(total * 0.325) + '€');
             }
             else {
                 $(api.column(6).footer()).html(totalPersonas);

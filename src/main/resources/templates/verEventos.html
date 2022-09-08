@@ -44,6 +44,7 @@
                     <th th:text="#{evento.ninyos}" scope="col"></th>
                     <th th:text="#{evento.precioMenuNinyos}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
                     <th th:text="#{evento.confirmado}" scope="col"></th>
+                    <th th:text="#{evento.neto}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,6 +65,7 @@
                             <label class="custom-control-label" th:text="${evento.confirmado} ? 'Si' : 'No'"></label>
                         </div>
                     </td>
+                    <td sec:authorize="hasRole('ADMIN')"></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -74,6 +76,7 @@
                     <td></td>
                     <td sec:authorize="hasRole('ADMIN')"></td>
                     <td></td>
+                    <td sec:authorize="hasRole('ADMIN')"></td>
                 </tr>
                 </tfoot>
             </table>
