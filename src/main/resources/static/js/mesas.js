@@ -2,6 +2,11 @@ let pagadoOptions = { "true" : "Sí", "false" : "No" };
 let mesasDt;
 let canvas;
 
+let alturaLarga = 80;
+let anchuraLarga = 40;
+let alturaApoyo = 26;
+let radioRedonda = 36;
+
 $(document).ready(function() {
     let columnDefs = [
         {
@@ -98,6 +103,8 @@ $(document).ready(function() {
     onCanvasObjectDoubleClick();
 
     loadCanvas();
+
+    loadBackgroundImage();
 });
 
 function onCanvasObjectClick(){
@@ -263,13 +270,10 @@ function updateMesaOnCanvas(mesa){
 function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
 
-    // 50px - 1m
+    // 40px - 1m
     if (personas > 4 && personas <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
-    }
-    else if(personas <= 4){
-        addRectangleTable(mesaId, numero, personas, top, left);
     }
     else{
         addRectangleTable(mesaId, numero, personas, top, left);
@@ -350,7 +354,7 @@ function exportarListadoClicked(){
 
 function addCircleTable(mesaId, numero, personas, top, left) {
     let circle = new fabric.Circle({
-        radius: 40,
+        radius: radioRedonda,
         fill : 'white',
         stroke: 'black',
         strokeWidth: 1,
@@ -365,10 +369,10 @@ function addRectangleTable(mesaId, numero, personas, top, left) {
     let numeroLargas = Math.ceil(personas / 6);
     let personasUltimaMesa = personas % 6;
     let tableLength;
-    personasUltimaMesa > 0 && personasUltimaMesa <= 2 ? tableLength = ((numeroLargas - 1) * 100) + 32.5 : tableLength = numeroLargas * 100;
+    personasUltimaMesa > 0 && personasUltimaMesa <= 2 ? tableLength = ((numeroLargas - 1) * alturaLarga) + alturaApoyo : tableLength = numeroLargas * alturaLarga;
 
     let rect = new fabric.Rect({
-        width : 50,
+        width : anchuraLarga,
         height : tableLength,
         fill : 'white',
         stroke: 'black',
@@ -475,6 +479,12 @@ function waitForElm(selector) {
             childList: true,
             subtree: true
         });
+    });
+}
+
+function loadBackgroundImage(){
+    fabric.Image.fromURL("./../images/distribucionBackground.png", (img) => {
+        canvas.setBackgroundImage(img);
     });
 }
 
