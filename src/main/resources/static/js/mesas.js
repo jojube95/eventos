@@ -103,17 +103,17 @@ $(document).ready(function() {
     onCanvasObjectDoubleClick();
 
     loadCanvas();
-
-    loadBackgroundImage();
 });
 
 function onCanvasObjectClick(){
     fabric.util.addListener(canvas.upperCanvasEl, 'click', function (e) {
         let target = canvas.findTarget(e);
 
-        let index = $('tr[mesaId="' + target.mesaId + '"]').index();
+        if (target !== undefined){
+            let index = $('tr[mesaId="' + target.mesaId + '"]').index();
 
-        mesasDt.row(':eq(' + index + ')').select();
+            mesasDt.row(':eq(' + index + ')').select();
+        }
     });
 }
 
@@ -363,6 +363,8 @@ function addCircleTable(mesaId, numero, personas, top, left) {
     });
 
     insertTextToObject(mesaId, numero, personas, top, left, circle);
+
+    updateTotalTables("redondas", 1);
 }
 
 function addRectangleTable(mesaId, numero, personas, top, left) {
@@ -382,6 +384,8 @@ function addRectangleTable(mesaId, numero, personas, top, left) {
     });
 
     insertTextToObject(mesaId, numero, personas, top, left, rect);
+
+    updateTotalTables("largas", numeroLargas);
 }
 
 function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert){
@@ -443,23 +447,79 @@ function changeTableType(table){
 }
 
 function loadCanvas(){
-    canvas.loadFromJSON(distribucion,canvas.renderAll.bind(canvas));
+    if(distribucion.length === 0){
+        loadBackgroundImage();
+        addTotalTablesTextsToCanvas();
 
-    let objects = canvas.getObjects();
+        let objects = canvas.getObjects();
+        objects.forEach(function(object) {
+            object.setControlsVisibility({
+                tl: false,
+                tr: false,
+                br: false,
+                bl: false,
+                ml: false,
+                mt: false,
+                mr: false,
+                mb: false,
+                mtr: false
+            });
+        });
+    }
 
-    objects.forEach(function(object) {
-        object.setControlsVisibility({
-            tl: false,
-            tr: false,
-            br: false,
-            bl: false,
-            ml: false,
-            mt: false,
-            mr: false,
-            mb: false,
-            mtr: false
+    canvas.loadFromJSON(distribucion,function(){
+        canvas.renderAll.bind(canvas);
+
+        let objects = canvas.getObjects();
+
+        console.log(objects);
+
+        if(objects.length === 0){
+            loadBackgroundImage();
+            addTotalTablesTextsToCanvas();
+        }
+
+        objects.forEach(function(object) {
+            object.setControlsVisibility({
+                tl: false,
+                tr: false,
+                br: false,
+                bl: false,
+                ml: false,
+                mt: false,
+                mr: false,
+                mb: false,
+                mtr: false
+            });
         });
     });
+}
+
+function addTotalTablesTextsToCanvas(){
+    let fontSize = 16;
+
+    let largas = new fabric.Text("Llargues: ", {
+        id: 'largas',
+        fontSize: fontSize,
+        top: 700,
+        left: 800
+    });
+    let redondas = new fabric.Text("Redones: ", {
+        id: 'redondas',
+        fontSize: fontSize,
+        top: 720,
+        left: 800
+    });
+    let apoyo = new fabric.Text("Apoyo: ", {
+        id: 'apoyo',
+        fontSize: fontSize,
+        top: 740,
+        left: 800
+    });
+
+    addObjectToCanvas(largas);
+    addObjectToCanvas(redondas);
+    addObjectToCanvas(apoyo);
 }
 
 function waitForElm(selector) {
@@ -485,6 +545,7 @@ function waitForElm(selector) {
 function loadBackgroundImage(){
     fabric.Image.fromURL("./../images/distribucionBackground.png", (img) => {
         canvas.setBackgroundImage(img);
+        canvas.renderAll();
     });
 }
 
@@ -493,5 +554,23 @@ function changeElementToLoadingSpinner(element){
         "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
         "  <span class=\"sr-only\">Loading...</span>\n" +
         "</button>")
+}
+
+function updateTotalTables(idTotalTablesObject, updatedBy){
+    let currentText = getCanvasObjectById(idTotalTablesObject).getText();
+    let text = currentText.split(":")[0];
+    let number = Number(currentText.split(":")[1]);
+
+    getCanvasObjectById(idTotalTablesObject).setText(text + ":" + number + updatedBy);
+    canvas.renderAll();
+}
+
+function getCanvasObjectById(id){
+    canvas.getObjects().forEach(function(o) {
+        if(o.id === id) {
+            return o;
+        }
+    })
+    return null;
 }
 
