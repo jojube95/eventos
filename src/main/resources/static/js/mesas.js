@@ -2,6 +2,7 @@ let pagadoOptions = { "true" : "Sí", "false" : "No" };
 let mesasDt;
 let canvas;
 
+// 40px - 1m
 let alturaLarga = 80;
 let anchuraLarga = 40;
 let alturaApoyo = 26;
@@ -246,23 +247,22 @@ function updateMesaOnCanvas(mesa){
             let personas = mesa.personas;
             let top = object.top;
             let left = object.left;
+            let tipo = object._objects[0].type;
 
-            if(personas > 11){
-                canvas.remove(object);
-                addRectangleTable(mesaId, numero, personas, top, left);
-            }
-            else if(personas <= 4){
+            if(tipo === 'rect'){
                 canvas.remove(object);
                 addRectangleTable(mesaId, numero, personas, top, left);
             }
             else{
-                object.set({ numero: numero, personas: personas});
-                object._objects[1].set({ text: "T-" + numero + "\n" + personas + "p"});
+                if(personas > 4 && personas <= 11) {
+                    canvas.remove(object);
+                    addCircleTable(mesaId, numero, personas, top, left);
+                }
+                else{
+                    canvas.remove(object);
+                    addRectangleTable(mesaId, numero, personas, top, left);
+                }
             }
-
-            canvas.renderAll();
-
-            guardarDistribucion();
         }
     });
 }
@@ -270,7 +270,6 @@ function updateMesaOnCanvas(mesa){
 function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
 
-    // 40px - 1m
     if (personas > 4 && personas <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
@@ -279,7 +278,6 @@ function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
         addRectangleTable(mesaId, numero, personas, top, left);
     }
     $(tipoMesaModal).modal("hide");
-    guardarDistribucion();
 }
 
 function cerrarInvitadosClicked(numeroInvitados){
@@ -363,15 +361,10 @@ function addCircleTable(mesaId, numero, personas, top, left) {
     });
 
     insertTextToObject(mesaId, numero, personas, top, left, circle);
-
-    updateTotalTables("redondas", 1);
 }
 
 function addRectangleTable(mesaId, numero, personas, top, left) {
-    let numeroLargas = Math.ceil(personas / 6);
-    let personasUltimaMesa = personas % 6;
-    let tableLength;
-    personasUltimaMesa > 0 && personasUltimaMesa <= 2 ? tableLength = ((numeroLargas - 1) * alturaLarga) + alturaApoyo : tableLength = numeroLargas * alturaLarga;
+    let tableLength = calcularLongitudMesaLarga(personas);
 
     let rect = new fabric.Rect({
         width : anchuraLarga,
@@ -384,8 +377,6 @@ function addRectangleTable(mesaId, numero, personas, top, left) {
     });
 
     insertTextToObject(mesaId, numero, personas, top, left, rect);
-
-    updateTotalTables("largas", numeroLargas);
 }
 
 function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert){
@@ -420,9 +411,32 @@ function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert)
     addObjectToCanvas(group);
 }
 
+function calcularLongitudMesaLarga(personas){
+    let mesas = calcularLargasApoyos(personas);
+    return (mesas.largas * alturaLarga) + (mesas.apoyos * alturaApoyo)
+}
+
+function calcularLargasApoyos(personas){
+    let personasUltimaMesa = personas % 6;
+
+    if (personas <= 2){
+        return {'largas' : 0, 'apoyos': 2}
+    }
+    else if (personas > 2 && personas <= 6){
+        return {'largas' : 1, 'apoyos': 0}
+    }
+    else if (personasUltimaMesa > 0 && personasUltimaMesa <= 2){
+        return {'largas' : Math.ceil(personas / 6) - 1, 'apoyos': 1}
+    }
+    else{
+        return {'largas' : Math.ceil(personas / 6), 'apoyos': 0}
+    }
+}
+
 function addObjectToCanvas(object){
     canvas.add(object);
     canvas.renderAll();
+    guardarDistribucion();
 }
 
 function changeTableType(table){
@@ -441,15 +455,11 @@ function changeTableType(table){
     else{
         addRectangleTable(mesaId, numero, personas, top, left);
     }
-
-    canvas.renderAll();
-    guardarDistribucion();
 }
 
 function loadCanvas(){
     if(distribucion.length === 0){
         loadBackgroundImage();
-        addTotalTablesTextsToCanvas();
 
         let objects = canvas.getObjects();
         objects.forEach(function(object) {
@@ -472,11 +482,8 @@ function loadCanvas(){
 
         let objects = canvas.getObjects();
 
-        console.log(objects);
-
         if(objects.length === 0){
             loadBackgroundImage();
-            addTotalTablesTextsToCanvas();
         }
 
         objects.forEach(function(object) {
@@ -493,33 +500,6 @@ function loadCanvas(){
             });
         });
     });
-}
-
-function addTotalTablesTextsToCanvas(){
-    let fontSize = 16;
-
-    let largas = new fabric.Text("Llargues: ", {
-        id: 'largas',
-        fontSize: fontSize,
-        top: 700,
-        left: 800
-    });
-    let redondas = new fabric.Text("Redones: ", {
-        id: 'redondas',
-        fontSize: fontSize,
-        top: 720,
-        left: 800
-    });
-    let apoyo = new fabric.Text("Apoyo: ", {
-        id: 'apoyo',
-        fontSize: fontSize,
-        top: 740,
-        left: 800
-    });
-
-    addObjectToCanvas(largas);
-    addObjectToCanvas(redondas);
-    addObjectToCanvas(apoyo);
 }
 
 function waitForElm(selector) {
@@ -554,23 +534,5 @@ function changeElementToLoadingSpinner(element){
         "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
         "  <span class=\"sr-only\">Loading...</span>\n" +
         "</button>")
-}
-
-function updateTotalTables(idTotalTablesObject, updatedBy){
-    let currentText = getCanvasObjectById(idTotalTablesObject).getText();
-    let text = currentText.split(":")[0];
-    let number = Number(currentText.split(":")[1]);
-
-    getCanvasObjectById(idTotalTablesObject).setText(text + ":" + number + updatedBy);
-    canvas.renderAll();
-}
-
-function getCanvasObjectById(id){
-    canvas.getObjects().forEach(function(o) {
-        if(o.id === id) {
-            return o;
-        }
-    })
-    return null;
 }
 
