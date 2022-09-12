@@ -25,8 +25,7 @@ $(document).ready(function() {
 
 function anyadirClicked (){
     let anyadirButton = $('#buttonAnyadir');
-    let anyadirButtonHtml = anyadirButton.html();
-    changeElementToLoadingSpinner(anyadirButton);
+    toggleLoadingSpinner(anyadirButton);
 
     let empleadoId = $('#empleado option').filter(':selected').val();
     $.ajax({
@@ -47,13 +46,13 @@ function anyadirClicked (){
                 '<button type="button" class="btn btn-danger" eventoempleadoid="' + data.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
             ] ).draw();
             updateProgresbar();
-            anyadirButton.html(anyadirButtonHtml);
+            toggleLoadingSpinner(anyadirButton);
         }
     })
 }
 
 function eliminarClicked(eventoEmpleadoId){
-    changeElementToLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
+    toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
 
     $.ajax({
         type: "POST",
@@ -78,7 +77,7 @@ function modificarClicked(eventoEmpleadoId){
 }
 
 function modificarModalClicked(eventoEmpleadoId){
-    changeElementToLoadingSpinner($('#modalEventoModificarButton'));
+    toggleLoadingSpinner($('#modalEventoModificarButton'));
 
     let confirmado = $('#confirmado option').filter(':selected').val();
     let horasExtras = $('#horasExtras').val();
@@ -114,13 +113,3 @@ function updateProgresbar(){
     $("#progressbarConfirmados").css("width", porcentageConfirmados + '%');
     $("#progressbarNoConfirmados").css("width", porcentageNoConfirmados + '%');
 }
-
-function changeElementToLoadingSpinner(element){
-    element.html("<button class=\"btn btn-primary\" type=\"button\" disabled>\n" +
-        "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
-        "  <span class=\"sr-only\">Loading...</span>\n" +
-        "</button>")
-}
-
-
-

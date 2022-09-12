@@ -34,7 +34,7 @@ function eliminarClicked(empleadoId){
     $('#confirmarEliminarModal').modal('toggle');
 
     $('#modalEliminarButton').on('click', function(){
-        changeElementToLoadingSpinner($(this));
+        toggleLoadingSpinner($(this));
         $.ajax({
             type: "POST",
             url: "/eliminarEmpleado?empleadoId=" + empleadoId,
@@ -47,11 +47,4 @@ function eliminarClicked(empleadoId){
             }
         });
     })
-}
-
-function changeElementToLoadingSpinner(element){
-    element.html("<button class=\"btn btn-primary\" type=\"button\" disabled>\n" +
-        "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
-        "  <span class=\"sr-only\">Loading...</span>\n" +
-        "</button>")
 }

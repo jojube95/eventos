@@ -146,7 +146,7 @@ function onAddClicked(){
 }
 
 function onAddRow(datatable, rowdata, success, error){
-    changeElementToLoadingSpinner($("#addRowBtn"));
+    toggleLoadingSpinner($("#addRowBtn"));
 
     rowdata.idEvento = idEvento;
     delete rowdata.id;
@@ -176,7 +176,7 @@ function addMesaAjax(mesaRowData, success, error){
 }
 
 function onDeleteRow(datatable, rowdata, success, error){
-    changeElementToLoadingSpinner($("#deleteRowBtn"));
+    toggleLoadingSpinner($("#deleteRowBtn"));
 
     $.ajax({
         type: "POST",
@@ -200,7 +200,7 @@ function onDeleteRow(datatable, rowdata, success, error){
 }
 
 function onEditRow(datatable, rowdata, success, error){
-    changeElementToLoadingSpinner($("#editRowBtn"));
+    toggleLoadingSpinner($("#editRowBtn"));
 
     $.ajax({
         type: "POST",
@@ -318,8 +318,7 @@ function guardarDistribucion(){
 
 function guardarClicked(){
     let guardarButton = $("#guardarButton");
-    let guardarButtonHtml = guardarButton.html();
-    changeElementToLoadingSpinner(guardarButton);
+    toggleLoadingSpinner(guardarButton);
 
     let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
 
@@ -329,7 +328,7 @@ function guardarClicked(){
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
         success: function () {
-            guardarButton.html(guardarButtonHtml);
+            toggleLoadingSpinner(guardarButton);
         },
         error: function (err) {
             alert(err);
@@ -480,26 +479,6 @@ function loadCanvas(){
     loadBackgroundImage();
 }
 
-function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(() => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
-}
-
 function loadBackgroundImage(){
     canvas.setBackgroundImage(null, function(){
         fabric.Image.fromURL("./../images/" + sala + "Background.png", (img) => {
@@ -507,12 +486,5 @@ function loadBackgroundImage(){
             canvas.renderAll();
         });
     });
-}
-
-function changeElementToLoadingSpinner(element){
-    element.html("<button class=\"btn btn-primary\" type=\"button\" disabled>\n" +
-        "  <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>\n" +
-        "  <span class=\"sr-only\">Loading...</span>\n" +
-        "</button>")
 }
 
