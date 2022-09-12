@@ -25,6 +25,7 @@
         let idEvento = [[${idEvento}]];
         let isEventoIndividual = [[${isEventoIndividual}]];
         let distribucion = [[${distribucion}]];
+        let sala = [[${sala}]];
     </script>
 
 </head>
@@ -72,7 +73,7 @@
             </div>
             <div class="col-8">
                 <div class="row">
-                    <canvas id="canvas" width="960" height="800" style="border: 1px solid rgb(204, 204, 204);"></canvas>
+                    <canvas id="canvas" width="1040" height="920" style="border: 1px solid rgb(204, 204, 204);"></canvas>
                 </div>
                 <div class="row" style="margin-top: 10px">
                     <button th:text="#{guardar}" id="guardarButton" class="btn btn-primary" type="submit" onclick="guardarClicked()"></button>

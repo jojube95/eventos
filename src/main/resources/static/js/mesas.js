@@ -458,33 +458,10 @@ function changeTableType(table){
 }
 
 function loadCanvas(){
-    if(distribucion.length === 0){
-        loadBackgroundImage();
-
-        let objects = canvas.getObjects();
-        objects.forEach(function(object) {
-            object.setControlsVisibility({
-                tl: false,
-                tr: false,
-                br: false,
-                bl: false,
-                ml: false,
-                mt: false,
-                mr: false,
-                mb: false,
-                mtr: false
-            });
-        });
-    }
-
     canvas.loadFromJSON(distribucion,function(){
         canvas.renderAll.bind(canvas);
 
         let objects = canvas.getObjects();
-
-        if(objects.length === 0){
-            loadBackgroundImage();
-        }
 
         objects.forEach(function(object) {
             object.setControlsVisibility({
@@ -500,6 +477,7 @@ function loadCanvas(){
             });
         });
     });
+    loadBackgroundImage();
 }
 
 function waitForElm(selector) {
@@ -523,9 +501,11 @@ function waitForElm(selector) {
 }
 
 function loadBackgroundImage(){
-    fabric.Image.fromURL("./../images/distribucionBackground.png", (img) => {
-        canvas.setBackgroundImage(img);
-        canvas.renderAll();
+    canvas.setBackgroundImage(null, function(){
+        fabric.Image.fromURL("./../images/" + sala + "Background.png", (img) => {
+            canvas.setBackgroundImage(img);
+            canvas.renderAll();
+        });
     });
 }
 
