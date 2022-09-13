@@ -35,6 +35,8 @@ public class EventoEmpleadoStepDef {
     public void evento_empleados_correct_data() {
         List<WebElement> empleados = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr"));
 
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tfoot/tr/td"));
+
         List<WebElement> empleado1 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[1]/td"));
         List<WebElement> empleado2 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[2]/td"));
 
@@ -49,6 +51,8 @@ public class EventoEmpleadoStepDef {
         assertEquals("No", empleado2.get(1).getText());
         assertEquals("Si", empleado2.get(2).getText());
         assertEquals("0.5", empleado2.get(3).getText());
+
+        assertEquals("Total: 2", footer.get(0).getText());
     }
 
     @And("^Evento empleado select list should be correct$")
@@ -67,8 +71,8 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("11.1111%"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("11.1111%"));
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: yellow;"));
     }
 
     @And("^Progressbar should update new empleado$")
@@ -76,8 +80,8 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("11.1111%"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("22.2222%"));
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%; background-color: yellow;"));
     }
 
     @And("^Progressbar should update updated empleado$")
@@ -85,8 +89,8 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("22.2222%"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("0%"));
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%; background-color: green;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%; background-color: yellow;"));
     }
 
     @And("^Progressbar should update with deleted empleado$")
@@ -94,8 +98,8 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("11.1111%"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("0%"));
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%; background-color: yellow;"));
     }
 
     @When("^User select empleado$")
@@ -150,6 +154,8 @@ public class EventoEmpleadoStepDef {
 
         List<WebElement> empleados = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr"));
 
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tfoot/tr/td"));
+
         List<WebElement> empleado1 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[1]/td"));
         List<WebElement> empleado2 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[2]/td"));
         List<WebElement> empleado3 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[3]/td"));
@@ -170,6 +176,8 @@ public class EventoEmpleadoStepDef {
         assertEquals("No", empleado3.get(1).getText());
         assertEquals("No", empleado3.get(2).getText());
         assertEquals("0", empleado3.get(3).getText());
+
+        assertEquals("Total: 3", footer.get(0).getText());
     }
 
     @Then("^Evento empleado update modal should display$")
@@ -191,6 +199,8 @@ public class EventoEmpleadoStepDef {
 
         List<WebElement> empleados = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr"));
 
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tfoot/tr/td"));
+
         List<WebElement> empleado1 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[1]/td"));
 
         assertEquals(1, empleados.size());
@@ -199,6 +209,8 @@ public class EventoEmpleadoStepDef {
         assertEquals("No", empleado1.get(1).getText());
         assertEquals("Si", empleado1.get(2).getText());
         assertEquals("0.5", empleado1.get(3).getText());
+
+        assertEquals("Total: 1", footer.get(0).getText());
     }
 
     @Then("^Evento empleado update modal should have correct data$")
@@ -214,6 +226,8 @@ public class EventoEmpleadoStepDef {
     public void evento_empleados_is_updated_on_list() {
         List<WebElement> empleados = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr"));
 
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tfoot/tr/td"));
+
         List<WebElement> empleado1 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[1]/td"));
         List<WebElement> empleado2 = connector.getDriver().findElements(By.xpath("//table[@id='eventoEmpleados']/tbody/tr[2]/td"));
 
@@ -228,5 +242,7 @@ public class EventoEmpleadoStepDef {
         assertEquals("No", empleado2.get(1).getText());
         assertEquals("Si", empleado2.get(2).getText());
         assertEquals("0.5", empleado2.get(3).getText());
+
+        assertEquals("Total: 2", footer.get(0).getText());
     }
 }

@@ -8,7 +8,6 @@ Feature: Anyadir evento page should add evento and show required fields
     And User click add evento
     Then Redirect to calendar page
     And Created event is shown
-    And Select event show created data
 
   Scenario: When click fecha field, datepicker should open
     Given Open Chrome and logIn as admin

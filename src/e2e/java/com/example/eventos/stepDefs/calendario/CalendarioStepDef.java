@@ -76,26 +76,6 @@ public class CalendarioStepDef {
     evento.click();
   }
 
-  @When("^User click ver button$")
-  public void user_click_ver_button() {
-    WebElement verButton = connector.getDriver().findElement(By.id("modalEventoVerButton"));
-    verButton.click();
-  }
-
-  @When("^User click modificar button$")
-  public void user_click_modificar_button() {
-    WebElement modificarButton = connector.getDriver().findElement(By.id("modalEventoModificarButton"));
-    modificarButton.click();
-  }
-
-  @When("^User click close button$")
-  public void user_click_close_button() {
-    new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(By.id("modalEventoCerrarButton")));
-
-    WebElement closeButton = connector.getDriver().findElement(By.id("modalEventoCerrarButton"));
-    closeButton.click();
-  }
-
   @And("^Calendar will be displayed$")
   public void calendar_will_be_displayed() {
     WebElement calendario = connector.getDriver().findElement(By.id("calendar"));
@@ -129,12 +109,6 @@ public class CalendarioStepDef {
     assertEquals("agosto de 2022", fechaText);
   }
 
-  @Then("^Event modal detail dialog is shown$")
-  public void event_modal_detail_dialog_is_shown() {
-    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("eventDetailModal")));
-  }
-
   @Then("^Redirect to verEvento page$")
   public void redirect_to_verEvento() {
     String url = connector.getDriver().getCurrentUrl();
@@ -147,85 +121,32 @@ public class CalendarioStepDef {
     wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
   }
 
-  @Then("^Redirect to updateEvento page$")
-  public void redirect_to_updateEvento() {
-    String url = connector.getDriver().getCurrentUrl();
-    assertThat(url, CoreMatchers.containsString("/updateEvento?eventoId=62dc2a63ec628818203950b9"));
-  }
-
-  @Then("^Modal detail dialogos is closed$")
-  public void modal_detail_dialog_is_closed() {
-    WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("eventDetailModal")));
-  }
-
-  @And("^Event modal detail dialog show correct event data$")
-  public void event_modal_detail_show_correct_data() {
-    String actualFecha = connector.getDriver().findElement(By.id("modalEventoFecha")).getText();
-    String actualTipo = connector.getDriver().findElement(By.id("modalEventoTipo")).getText();
-    String actualHorario = connector.getDriver().findElement(By.id("modalEventoHorario")).getText();
-    String actualSala = connector.getDriver().findElement(By.id("modalEventoSala")).getText();
-    String actualLocalidad = connector.getDriver().findElement(By.id("modalEventoLocalidad")).getText();
-    String actualPersonas = connector.getDriver().findElement(By.id("modalEventoPersonas")).getText();
-    String actualNinyos = connector.getDriver().findElement(By.id("modalEventoNinyos")).getText();
-    String actualConfirmado = connector.getDriver().findElement(By.id("modalEventoConfirmado")).getText();
-
-    String expectedFecha = "2022-07-02";
-    String expectedTipo = "Boda";
-    String expectedHorario = "Cena";
-    String expectedSala = "Sala1";
-    String expectedLocalidad = "Aielo de Malferit";
-    String expectedPersonas = "153";
-    String expectedNinyos = "13";
-    String expectedConfirmado   = "true";
-
-    assertEquals(expectedFecha, actualFecha);
-    assertEquals(expectedTipo, actualTipo);
-    assertEquals(expectedHorario, actualHorario);
-    assertEquals(expectedSala, actualSala);
-    assertEquals(expectedLocalidad, actualLocalidad);
-    assertEquals(expectedPersonas, actualPersonas);
-    assertEquals(expectedNinyos, actualNinyos);
-    assertEquals(expectedConfirmado, actualConfirmado);
-  }
-
-  @And("^Event modal detail dialog have three buttons$")
-  public void event_modal_detail_have_three_buttons() {
-    WebElement verButton = connector.getDriver().findElement(By.id("modalEventoVerButton"));
-    WebElement modificarButton = connector.getDriver().findElement(By.id("modalEventoModificarButton"));
-    WebElement cerrarButton = connector.getDriver().findElement(By.id("modalEventoCerrarButton"));
-
-    assertTrue(verButton.isDisplayed());
-    assertTrue(modificarButton.isDisplayed());
-    assertTrue(cerrarButton.isDisplayed());
-  }
-
   @And("^First event title should be Boda-Cena$")
   public void first_event_title() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[1]"));
     String eventoText = evento.getText();
-    assertEquals("Boda-Cena", eventoText);
+    assertEquals("Boda-Cena 153p", eventoText);
   }
 
   @And("^Second event title should be Comunion-Comida$")
   public void second_event_title() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[2]"));
     String eventoText = evento.getText();
-    assertEquals("Comunion-Comida", eventoText);
+    assertEquals("Comunion-Comida 43p", eventoText);
   }
 
   @And("^Third event title should be Sopar festes-Cena$")
   public void third_event_title() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[3]"));
     String eventoText = evento.getText();
-    assertEquals("Sopar festes-Cena", eventoText);
+    assertEquals("Sopar festes-Cena 90p", eventoText);
   }
 
   @And("^Fourth event title should be Dinar empresa-Comida$")
   public void fourth_event_title() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[4]"));
     String eventoText = evento.getText();
-    assertEquals("Dinar empresa-Comida", eventoText);
+    assertEquals("Dinar empresa-Comida 36p", eventoText);
   }
 
   @And("^First event should be placed on day 2$")

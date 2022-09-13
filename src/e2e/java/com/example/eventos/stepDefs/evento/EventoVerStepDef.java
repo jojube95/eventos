@@ -103,12 +103,6 @@ public class EventoVerStepDef {
         wait.until(ExpectedConditions.urlToBe("http://localhost:8081/updateEvento?eventoId=62dc2a63ec628818203950b9"));
     }
 
-    @Then("^Redirect to verEventos page$")
-    public void redirect_to_verEventos_page(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
-    }
-
     @Then("^Page should redirect to mesas page with currect evento$")
     public void redirect_to_mesas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
@@ -165,15 +159,6 @@ public class EventoVerStepDef {
         assertEquals("Está seguro de guardar los cambios?", modal_eliminar_content.getText());
         assertEquals("Cerrar", modal_eliminar_button_cerrar.getText());
         assertEquals("Eliminar", modal_eliminar_button_eliminar.getText());
-    }
-
-    @And("^Deleted event not in list verEventos$")
-    public void deleted_event_not_in_list(){
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='eventos']/tbody/tr"));
-        WebElement totalPersonas = connector.getDriver().findElement(By.xpath("//table[@id='eventos']/tfoot[1]/tr[1]/td[2]"));
-
-        assertEquals(3, eventos.size());
-        assertEquals("169", totalPersonas.getText());
     }
 
     @When("^User click aceptar$")

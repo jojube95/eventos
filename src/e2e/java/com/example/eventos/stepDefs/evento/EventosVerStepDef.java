@@ -149,6 +149,7 @@ public class EventosVerStepDef {
         assertEquals("13", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("Si", evento1.get(10).getText());
+        assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("2022-07-10", evento2.get(0).getText());
         assertEquals("Comunion-Comida", evento2.get(1).getText());
@@ -161,6 +162,7 @@ public class EventosVerStepDef {
         assertEquals("18", evento2.get(8).getText());
         assertEquals("15.0", evento2.get(9).getText());
         assertEquals("No", evento2.get(10).getText());
+        assertEquals("787€", evento2.get(11).getText());
 
         assertEquals("2022-07-16", evento3.get(0).getText());
         assertEquals("Sopar festes-Cena", evento3.get(1).getText());
@@ -173,6 +175,7 @@ public class EventosVerStepDef {
         assertEquals("23", evento3.get(8).getText());
         assertEquals("15.0", evento3.get(9).getText());
         assertEquals("Si", evento3.get(10).getText());
+        assertEquals("1136€", evento3.get(11).getText());
 
         assertEquals("2022-07-23", evento4.get(0).getText());
         assertEquals("Dinar empresa-Comida", evento4.get(1).getText());
@@ -185,13 +188,14 @@ public class EventosVerStepDef {
         assertEquals("0", evento4.get(8).getText());
         assertEquals("0.0", evento4.get(9).getText());
         assertEquals("No", evento4.get(10).getText());
+        assertEquals("468€", evento4.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("322", footer.get(1).getText());
         assertEquals("51.25", footer.get(2).getText());
         assertEquals("54", footer.get(3).getText());
         assertEquals("11.25", footer.get(4).getText());
-        assertEquals("19790€", footer.get(5).getText());
+        assertEquals("6432€", footer.get(6).getText());
 
     }
 
@@ -208,7 +212,7 @@ public class EventosVerStepDef {
         assertEquals("41.67", footer.get(2).getText());
         assertEquals("41", footer.get(3).getText());
         assertEquals("10.00", footer.get(4).getText());
-        assertEquals("7355€", footer.get(5).getText());
+        assertEquals("2390€", footer.get(6).getText());
     }
 
     @Then("^Two events shown$")
@@ -224,7 +228,7 @@ public class EventosVerStepDef {
         assertEquals("42.50", footer.get(2).getText());
         assertEquals("41", footer.get(3).getText());
         assertEquals("15.00", footer.get(4).getText());
-        assertEquals("5915€", footer.get(5).getText());
+        assertEquals("1922€", footer.get(6).getText());
     }
 
     @And("^Fecha min is void$")
@@ -255,13 +259,14 @@ public class EventosVerStepDef {
         assertEquals("13", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("Si", evento1.get(10).getText());
+        assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("153", footer.get(1).getText());
         assertEquals("80.00", footer.get(2).getText());
         assertEquals("13", footer.get(3).getText());
         assertEquals("15.00", footer.get(4).getText());
-        assertEquals("12435€", footer.get(5).getText());
+        assertEquals("4041€", footer.get(6).getText());
     }
 
     @Then("^Evento comida is shown$")
@@ -286,6 +291,7 @@ public class EventosVerStepDef {
         assertEquals("18", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("No", evento1.get(10).getText());
+        assertEquals("787€", evento1.get(11).getText());
 
         assertEquals("2022-07-23", evento2.get(0).getText());
         assertEquals("Dinar empresa-Comida", evento2.get(1).getText());
@@ -298,13 +304,14 @@ public class EventosVerStepDef {
         assertEquals("0", evento2.get(8).getText());
         assertEquals("0.0", evento2.get(9).getText());
         assertEquals("No", evento2.get(10).getText());
+        assertEquals("468€", evento2.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("79", footer.get(1).getText());
         assertEquals("45.00", footer.get(2).getText());
         assertEquals("18", footer.get(3).getText());
         assertEquals("7.50", footer.get(4).getText());
-        assertEquals("3860€", footer.get(5).getText());
+        assertEquals("1255€", footer.get(6).getText());
     }
 
     @Then("^Evento sala1 is shown$")
@@ -329,6 +336,7 @@ public class EventosVerStepDef {
         assertEquals("13", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("Si", evento1.get(10).getText());
+        assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("2022-07-23", evento2.get(0).getText());
         assertEquals("Dinar empresa-Comida", evento2.get(1).getText());
@@ -341,13 +349,14 @@ public class EventosVerStepDef {
         assertEquals("0", evento2.get(8).getText());
         assertEquals("0.0", evento2.get(9).getText());
         assertEquals("No", evento2.get(10).getText());
+        assertEquals("468€", evento2.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("189", footer.get(1).getText());
         assertEquals("60.00", footer.get(2).getText());
         assertEquals("13", footer.get(3).getText());
         assertEquals("7.50", footer.get(4).getText());
-        assertEquals("13875€", footer.get(5).getText());
+        assertEquals("4509€", footer.get(6).getText());
     }
 
     @Then("^Evento Aielo de Malferit is shown$")
@@ -372,6 +381,7 @@ public class EventosVerStepDef {
         assertEquals("13", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("Si", evento1.get(10).getText());
+        assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("2022-07-16", evento2.get(0).getText());
         assertEquals("Sopar festes-Cena", evento2.get(1).getText());
@@ -384,13 +394,14 @@ public class EventosVerStepDef {
         assertEquals("23", evento2.get(8).getText());
         assertEquals("15.0", evento2.get(9).getText());
         assertEquals("Si", evento2.get(10).getText());
+        assertEquals("1136€", evento2.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
         assertEquals("57.50", footer.get(2).getText());
         assertEquals("36", footer.get(3).getText());
         assertEquals("15.00", footer.get(4).getText());
-        assertEquals("15930€", footer.get(5).getText());
+        assertEquals("5177€", footer.get(6).getText());
     }
 
     @Then("^Evento confirmado is shown$")
@@ -415,6 +426,7 @@ public class EventosVerStepDef {
         assertEquals("13", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("Si", evento1.get(10).getText());
+        assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("2022-07-16", evento2.get(0).getText());
         assertEquals("Sopar festes-Cena", evento2.get(1).getText());
@@ -427,13 +439,14 @@ public class EventosVerStepDef {
         assertEquals("23", evento2.get(8).getText());
         assertEquals("15.0", evento2.get(9).getText());
         assertEquals("Si", evento2.get(10).getText());
+        assertEquals("1136€", evento2.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
         assertEquals("57.50", footer.get(2).getText());
         assertEquals("36", footer.get(3).getText());
         assertEquals("15.00", footer.get(4).getText());
-        assertEquals("15930€", footer.get(5).getText());
+        assertEquals("5177€", footer.get(6).getText());
     }
 
     @Then("^Evento Comida and Olleria is shown$")
@@ -457,13 +470,14 @@ public class EventosVerStepDef {
         assertEquals("18", evento1.get(8).getText());
         assertEquals("15.0", evento1.get(9).getText());
         assertEquals("No", evento1.get(10).getText());
+        assertEquals("787€", evento1.get(11).getText());
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("43", footer.get(1).getText());
         assertEquals("50.00", footer.get(2).getText());
         assertEquals("18", footer.get(3).getText());
         assertEquals("15.00", footer.get(4).getText());
-        assertEquals("2420€", footer.get(5).getText());
+        assertEquals("787€", footer.get(6).getText());
     }
 
     @Then("^Redirect to verEvento page with currect evento$")

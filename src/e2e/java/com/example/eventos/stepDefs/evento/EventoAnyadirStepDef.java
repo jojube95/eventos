@@ -209,7 +209,7 @@ public class EventoAnyadirStepDef {
     @And("^Created event is shown$")
     public void created_event_is_shown(){
         WebElement createdEvento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title-container']//div)[2]"));
-        assertEquals("Boda-Comida", createdEvento.getText());
+        assertEquals("Boda-Comida 0p", createdEvento.getText());
     }
 
     @And("^Select event show created data$")
