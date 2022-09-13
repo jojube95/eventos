@@ -15,21 +15,18 @@ $(document).ready(function() {
         footerCallback: function () {
             let api = this.api();
 
-            let totalPersonas = api
-                .column(3, {search:'applied'})
-                .data()
-                .reduce(function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0);
+            let rows = api.rows({search:'applied'}).count();
 
-            // Update footer
-            $(api.column(3).footer()).html("Total: " + totalPersonas);
+            $(api.column(4).footer()).text("Total: " + rows);
         }
     });
     updateProgresbar();
 });
 
 function anyadirClicked (){
+    let anyadirButton = $('#buttonAnyadir');
+    toggleLoadingSpinner(anyadirButton);
+
     let empleadoId = $('#empleado option').filter(':selected').val();
     $.ajax({
         type: "POST",
@@ -49,11 +46,14 @@ function anyadirClicked (){
                 '<button type="button" class="btn btn-danger" eventoempleadoid="' + data.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
             ] ).draw();
             updateProgresbar();
+            toggleLoadingSpinner(anyadirButton);
         }
     })
 }
 
 function eliminarClicked(eventoEmpleadoId){
+    toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
+
     $.ajax({
         type: "POST",
         url: "/evento/empleados/eliminar?eventoEmpleadoId=" + eventoEmpleadoId,
@@ -77,6 +77,8 @@ function modificarClicked(eventoEmpleadoId){
 }
 
 function modificarModalClicked(eventoEmpleadoId){
+    toggleLoadingSpinner($('#modalEventoModificarButton'));
+
     let confirmado = $('#confirmado option').filter(':selected').val();
     let horasExtras = $('#horasExtras').val();
 
@@ -111,6 +113,3 @@ function updateProgresbar(){
     $("#progressbarConfirmados").css("width", porcentageConfirmados + '%');
     $("#progressbarNoConfirmados").css("width", porcentageNoConfirmados + '%');
 }
-
-
-

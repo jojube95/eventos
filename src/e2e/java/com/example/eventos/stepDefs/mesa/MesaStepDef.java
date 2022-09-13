@@ -143,7 +143,7 @@ public class MesaStepDef {
     @Then("^Add modal mesa should hide$")
     public void add_modal_mesa_should_hide(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("addRowBtn")));
     }
 
     @Then("^Edit modal mesa should display$")

@@ -35,35 +35,8 @@ Feature: Calendar page that shows all events
     Then Date should be junio de 2022
     And 2 events is shown
 
-  Scenario: Click on event show modal dialog with detail data and three buttons
+  Scenario: Click on event redirects to verEvento page
     Given Open Chrome and logIn as admin
     And Visit calendar page
     When User click evento
-    Then Event modal detail dialog is shown
-    And Event modal detail dialog show correct event data
-    And Event modal detail dialog have three buttons
-
-  Scenario: Click on ver redirects to verEvento page
-    Given Open Chrome and logIn as admin
-    And Visit calendar page
-    When User click evento
-    Then Event modal detail dialog is shown
-    When User click ver button
     Then Redirect to verEvento page
-
-
-  Scenario: Click on modificar redirects to updateEvento page
-    Given Open Chrome and logIn as admin
-    And Visit calendar page
-    When User click evento
-    Then Event modal detail dialog is shown
-    When User click modificar button
-    Then Redirect to updateEvento page
-
-  Scenario: Click on cerrar close modal dialog
-    Given Open Chrome and logIn as admin
-    And Visit calendar page
-    When User click evento
-    Then Event modal detail dialog is shown
-    When User click close button
-    Then Modal detail dialogos is closed

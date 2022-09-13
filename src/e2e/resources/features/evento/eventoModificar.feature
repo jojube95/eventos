@@ -11,9 +11,7 @@ Feature: Modificar evento page should update evento and show required fields wit
     And Visit updateEvento page
     When User edit inputs
     And User click modificar evento
-    Then Redirect to verEventos page
-    And Set dates to avoid future test fails
-    And Edited content should be correct
+    Then Redirect to calendar page
 
   Scenario: When click fecha field, datepicker should open
     Given Open Chrome and logIn as admin

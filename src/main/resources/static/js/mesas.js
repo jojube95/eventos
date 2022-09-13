@@ -2,6 +2,12 @@ let pagadoOptions = { "true" : "Sí", "false" : "No" };
 let mesasDt;
 let canvas;
 
+// 40px - 1m
+let alturaLarga = 80;
+let anchuraLarga = 40;
+let alturaApoyo = 26;
+let radioRedonda = 36;
+
 $(document).ready(function() {
     let columnDefs = [
         {
@@ -104,9 +110,11 @@ function onCanvasObjectClick(){
     fabric.util.addListener(canvas.upperCanvasEl, 'click', function (e) {
         let target = canvas.findTarget(e);
 
-        let index = $('tr[mesaId="' + target.mesaId + '"]').index();
+        if (target !== undefined){
+            let index = $('tr[mesaId="' + target.mesaId + '"]').index();
 
-        mesasDt.row(':eq(' + index + ')').select();
+            mesasDt.row(':eq(' + index + ')').select();
+        }
     });
 }
 
@@ -138,6 +146,8 @@ function onAddClicked(){
 }
 
 function onAddRow(datatable, rowdata, success, error){
+    toggleLoadingSpinner($("#addRowBtn"));
+
     rowdata.idEvento = idEvento;
     delete rowdata.id;
 
@@ -166,6 +176,8 @@ function addMesaAjax(mesaRowData, success, error){
 }
 
 function onDeleteRow(datatable, rowdata, success, error){
+    toggleLoadingSpinner($("#deleteRowBtn"));
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -188,6 +200,8 @@ function onDeleteRow(datatable, rowdata, success, error){
 }
 
 function onEditRow(datatable, rowdata, success, error){
+    toggleLoadingSpinner($("#editRowBtn"));
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -233,23 +247,22 @@ function updateMesaOnCanvas(mesa){
             let personas = mesa.personas;
             let top = object.top;
             let left = object.left;
+            let tipo = object._objects[0].type;
 
-            if(personas > 11){
-                canvas.remove(object);
-                addRectangleTable(mesaId, numero, personas, top, left);
-            }
-            else if(personas <= 4){
+            if(tipo === 'rect'){
                 canvas.remove(object);
                 addRectangleTable(mesaId, numero, personas, top, left);
             }
             else{
-                object.set({ numero: numero, personas: personas});
-                object._objects[1].set({ text: "T-" + numero + "\n" + personas + "p"});
+                if(personas > 4 && personas <= 11) {
+                    canvas.remove(object);
+                    addCircleTable(mesaId, numero, personas, top, left);
+                }
+                else{
+                    canvas.remove(object);
+                    addRectangleTable(mesaId, numero, personas, top, left);
+                }
             }
-
-            canvas.renderAll();
-
-            guardarDistribucion();
         }
     });
 }
@@ -257,19 +270,14 @@ function updateMesaOnCanvas(mesa){
 function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
 
-    // 50px - 1m
     if (personas > 4 && personas <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
-    }
-    else if(personas <= 4){
-        addRectangleTable(mesaId, numero, personas, top, left);
     }
     else{
         addRectangleTable(mesaId, numero, personas, top, left);
     }
     $(tipoMesaModal).modal("hide");
-    guardarDistribucion();
 }
 
 function cerrarInvitadosClicked(numeroInvitados){
@@ -309,6 +317,9 @@ function guardarDistribucion(){
 }
 
 function guardarClicked(){
+    let guardarButton = $("#guardarButton");
+    toggleLoadingSpinner(guardarButton);
+
     let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
 
     $.ajax({
@@ -317,7 +328,7 @@ function guardarClicked(){
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
         success: function () {
-            $("#confirmModal").modal("show");
+            toggleLoadingSpinner(guardarButton);
         },
         error: function (err) {
             alert(err);
@@ -340,7 +351,7 @@ function exportarListadoClicked(){
 
 function addCircleTable(mesaId, numero, personas, top, left) {
     let circle = new fabric.Circle({
-        radius: 40,
+        radius: radioRedonda,
         fill : 'white',
         stroke: 'black',
         strokeWidth: 1,
@@ -352,13 +363,10 @@ function addCircleTable(mesaId, numero, personas, top, left) {
 }
 
 function addRectangleTable(mesaId, numero, personas, top, left) {
-    let numeroLargas = Math.ceil(personas / 6);
-    let personasUltimaMesa = personas % 6;
-    let tableLength;
-    personasUltimaMesa > 0 && personasUltimaMesa <= 2 ? tableLength = ((numeroLargas - 1) * 100) + 32.5 : tableLength = numeroLargas * 100;
+    let tableLength = calcularLongitudMesaLarga(personas);
 
     let rect = new fabric.Rect({
-        width : 50,
+        width : anchuraLarga,
         height : tableLength,
         fill : 'white',
         stroke: 'black',
@@ -402,9 +410,32 @@ function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert)
     addObjectToCanvas(group);
 }
 
+function calcularLongitudMesaLarga(personas){
+    let mesas = calcularLargasApoyos(personas);
+    return (mesas.largas * alturaLarga) + (mesas.apoyos * alturaApoyo)
+}
+
+function calcularLargasApoyos(personas){
+    let personasUltimaMesa = personas % 6;
+
+    if (personas <= 2){
+        return {'largas' : 0, 'apoyos': 2}
+    }
+    else if (personas > 2 && personas <= 6){
+        return {'largas' : 1, 'apoyos': 0}
+    }
+    else if (personasUltimaMesa > 0 && personasUltimaMesa <= 2){
+        return {'largas' : Math.ceil(personas / 6) - 1, 'apoyos': 1}
+    }
+    else{
+        return {'largas' : Math.ceil(personas / 6), 'apoyos': 0}
+    }
+}
+
 function addObjectToCanvas(object){
     canvas.add(object);
     canvas.renderAll();
+    guardarDistribucion();
 }
 
 function changeTableType(table){
@@ -423,47 +454,36 @@ function changeTableType(table){
     else{
         addRectangleTable(mesaId, numero, personas, top, left);
     }
-
-    canvas.renderAll();
-    guardarDistribucion();
 }
 
 function loadCanvas(){
-    canvas.loadFromJSON(distribucion,canvas.renderAll.bind(canvas));
+    canvas.loadFromJSON(distribucion,function(){
+        canvas.renderAll.bind(canvas);
 
-    let objects = canvas.getObjects();
+        let objects = canvas.getObjects();
 
-    objects.forEach(function(object) {
-        object.setControlsVisibility({
-            tl: false,
-            tr: false,
-            br: false,
-            bl: false,
-            ml: false,
-            mt: false,
-            mr: false,
-            mb: false,
-            mtr: false
+        objects.forEach(function(object) {
+            object.setControlsVisibility({
+                tl: false,
+                tr: false,
+                br: false,
+                bl: false,
+                ml: false,
+                mt: false,
+                mr: false,
+                mb: false,
+                mtr: false
+            });
         });
     });
+    loadBackgroundImage();
 }
 
-function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(() => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
+function loadBackgroundImage(){
+    canvas.setBackgroundImage(null, function(){
+        fabric.Image.fromURL("./../images/" + sala + "Background.png", (img) => {
+            canvas.setBackgroundImage(img);
+            canvas.renderAll();
         });
     });
 }

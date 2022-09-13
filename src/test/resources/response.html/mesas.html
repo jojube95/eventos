@@ -41,7 +41,7 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td>Total:</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -53,12 +53,12 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <canvas id="canvas" width="1100" height="600" style="border: 1px solid rgb(204, 204, 204);"></canvas>
+                <canvas id="canvas" width="1040" height="920" style="border: 1px solid rgb(204, 204, 204);"></canvas>
             </div>
             <div class="row" style="margin-top: 10px">
-                <button class="btn btn-primary" type="submit" onclick="guardarClicked()">Guardar</button>
-                <button class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarDistribucionClicked()">Exportar Distribución</button>
-                <button class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarListadoClicked()">Exportar Listado</button>
+                <button id="guardarButton" class="btn btn-primary" type="submit" onclick="guardarClicked()">Guardar</button>
+                <button id="exportarDistribucionButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarDistribucionClicked()">Exportar Distribución</button>
+                <button id="exportarListadoButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarListadoClicked()">Exportar Listado</button>
             </div>
         </div>
     </div>

@@ -34,6 +34,7 @@ function eliminarClicked(empleadoId){
     $('#confirmarEliminarModal').modal('toggle');
 
     $('#modalEliminarButton').on('click', function(){
+        toggleLoadingSpinner($(this));
         $.ajax({
             type: "POST",
             url: "/eliminarEmpleado?empleadoId=" + empleadoId,

@@ -52,8 +52,20 @@ public class EventoController {
 
     @PostMapping("/updateEvento")
     public String updateEvento(@ModelAttribute Evento evento) throws IOException {
-        eventoService.update(evento);
-        return "redirect:/verEventos";
+        Evento eventoToUpdate = eventoService.getById(evento.getId());
+        eventoToUpdate.setFecha(evento.getFecha());
+        eventoToUpdate.setLocalidad(evento.getLocalidad());
+        eventoToUpdate.setTipo(evento.getTipo());
+        eventoToUpdate.setHorario(evento.getHorario());
+        eventoToUpdate.setTitulo(evento.getTitulo());
+        eventoToUpdate.setSala(evento.getSala());
+        eventoToUpdate.setPersonas(evento.getPersonas());
+        eventoToUpdate.setPrecioMenu(evento.getPrecioMenu());
+        eventoToUpdate.setNinyos(evento.getNinyos());
+        eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
+        eventoToUpdate.setConfirmado(evento.isConfirmado());
+        eventoService.update(eventoToUpdate);
+        return "redirect:/calendario";
     }
 
     @GetMapping("/verEvento")
@@ -73,14 +85,7 @@ public class EventoController {
     public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
-        return "redirect:/verEventos";
-    }
-
-    @GetMapping("/evento")
-    public String evento(@RequestParam("eventoId") String eventoId, Model model) {
-        Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(evento);
-        return "fragments/eventoModal :: modalContents";
+        return "redirect:/calendario";
     }
 
     @GetMapping("/evento/updateFecha")

@@ -25,9 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         eventos.map(function(eventEl) {
                             return {
                                 id: eventEl['id'],
-                                title: eventEl['titulo'],
+                                title: eventEl['titulo'] + " " + eventEl['personas'] + "p",
                                 start: new Date(eventEl['fecha']).toISOString().split('T')[0],
-                                color: tipoColor.get(eventEl.tipo)
+                                color: tipoColor.get(eventEl.tipo),
+                                eventDisplay: 'block'
                             }
                         })
                     )
@@ -37,13 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         eventClick: function(info) {
             let eventoId = info.event.id;
-            $.ajax({
-                url: "/evento?eventoId=" + eventoId,
-                success: function (data) {
-                    $("#eventDetailModalHolder").html(data);
-                    $("#eventDetailModal").modal("show");
-                }
-            })
+            location.href = "/verEvento?eventoId=" + eventoId;
         },
         eventDrop: function(info) {
             let eventoId = info.event.id;

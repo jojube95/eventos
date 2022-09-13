@@ -43,6 +43,7 @@ public class MesaController {
         model.addAttribute("isEventoIndividual", evento.isEventoIndividual());
         model.addAttribute("distribucion", evento.getDistribucion().getDistribucion());
         model.addAttribute("mesas", mesas);
+        model.addAttribute("sala", evento.getSala());
         return "mesas";
     }
 
