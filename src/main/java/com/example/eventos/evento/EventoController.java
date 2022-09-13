@@ -88,13 +88,6 @@ public class EventoController {
         return "redirect:/calendario";
     }
 
-    @GetMapping("/evento")
-    public String evento(@RequestParam("eventoId") String eventoId, Model model) {
-        Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(evento);
-        return "fragments/eventoModal :: modalContents";
-    }
-
     @GetMapping("/evento/updateFecha")
     public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) {
         Evento evento = eventoService.getById(id);

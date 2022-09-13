@@ -168,14 +168,17 @@ class EventoControllerTest {
     @WithMockUser(username="admin",roles={"ADMIN"})
     void postUpdateEventoTestAdmin() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoUpdated = new Evento("id", "Comunión2", "Comida2", 51, 16, "Olleria2", fecha, 81, 16, true, new ArrayList<>(), "Comunión-Comida2", "Sala2", new Distribucion("Distribucion"));
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
                 .with(csrf())
-                .flashAttr("evento", evento);
+                .flashAttr("evento", eventoUpdated);
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
-        verify(eventoService, times(1)).update(evento);
+        verify(eventoService, times(1)).update(eventoUpdated);
     }
 
     @Test
@@ -288,25 +291,6 @@ class EventoControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));
 
         verify(eventoService, times(1)).update(evento);
-    }
-
-    @Test
-    @WithMockUser(username="usuario",roles={"USUARIO"})
-    void getEventoModalTest() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoModal.html");
-
-        Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-
-        when(eventoService.getById("id")).thenReturn(evento);
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento")
-                .locale(new Locale("es", "ES"))
-                .param("eventoId", evento.getId());
-
-        String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        resultContent = processContent(resultContent);
-
-        assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
 
     @Test
