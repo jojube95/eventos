@@ -172,9 +172,9 @@ function addMesaAjax(mesaRowData, success, error){
         success: function (mesa) {
             success(mesa);
             $.ajax({
-                url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&personas=" + mesa.personas,
+                url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&personas=" + mesa.personas + "&ninyos=" + mesa.ninyos,
                 success: function (data) {
-                    anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.personas, 150, 100, data);
+                    anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.personas, mesa.ninyos, 150, 100, data);
                 }
             });
 
@@ -265,29 +265,30 @@ function updateMesaOnCanvas(mesa){
             let mesaId = object.mesaId;
             let numero = mesa.numero;
             let personas = mesa.personas;
+            let ninyos = mesa.ninyos;
             let top = object.top;
             let left = object.left;
             let tipo = object._objects[0].type;
 
             if(tipo === 'rect'){
                 canvas.remove(object);
-                addRectangleTable(mesaId, numero, personas, top, left);
+                addRectangleTable(mesaId, numero, personas, ninyos, top, left);
             }
             else{
                 if(personas > 4 && personas <= 11) {
                     canvas.remove(object);
-                    addCircleTable(mesaId, numero, personas, top, left);
+                    addCircleTable(mesaId, numero, personas, ninyos, top, left);
                 }
                 else{
                     canvas.remove(object);
-                    addRectangleTable(mesaId, numero, personas, top, left);
+                    addRectangleTable(mesaId, numero, personas, ninyos, top, left);
                 }
             }
         }
     });
 }
 
-function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
+function anyadirMesaToCanvas(mesaId, numero, personas, ninyos, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
 
     if (personas > 4 && personas <= 11) {
@@ -295,7 +296,7 @@ function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
         $(tipoMesaModal).modal("show");
     }
     else{
-        addRectangleTable(mesaId, numero, personas, top, left);
+        addRectangleTable(mesaId, numero, personas, ninyos, top, left);
     }
     $(tipoMesaModal).modal("hide");
 }
@@ -324,7 +325,7 @@ function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
 }
 
 function guardarDistribucion(){
-    let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
+    let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
 
     $.ajax({
         url: "/evento/distribucion/guardar?idEvento=" + idEvento,
@@ -341,7 +342,7 @@ function guardarClicked(){
     let guardarButton = $("#guardarButton");
     toggleLoadingSpinner(guardarButton);
 
-    let json = canvas.toJSON(['mesaId', 'numero', 'personas']);
+    let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
 
     $.ajax({
         url: "/evento/distribucion/guardar?idEvento=" + idEvento,
@@ -370,7 +371,7 @@ function exportarListadoClicked(){
     window.location = "/evento/mesas/generarListado?eventoId=" + idEvento;
 }
 
-function addCircleTable(mesaId, numero, personas, top, left) {
+function addCircleTable(mesaId, numero, personas, ninyos, top, left) {
     let circle = new fabric.Circle({
         radius: radioRedonda,
         fill : 'white',
@@ -380,10 +381,10 @@ function addCircleTable(mesaId, numero, personas, top, left) {
         originY: 'center'
     });
 
-    insertTextToObject(mesaId, numero, personas, top, left, circle);
+    insertTextToObject(mesaId, numero, personas, ninyos, top, left, circle);
 }
 
-function addRectangleTable(mesaId, numero, personas, top, left) {
+function addRectangleTable(mesaId, numero, personas, ninyos, top, left) {
     let tableLength = calcularLongitudMesaLarga(personas);
 
     let rect = new fabric.Rect({
@@ -396,15 +397,27 @@ function addRectangleTable(mesaId, numero, personas, top, left) {
         originY: 'center'
     });
 
-    insertTextToObject(mesaId, numero, personas, top, left, rect);
+    insertTextToObject(mesaId, numero, personas, ninyos, top, left, rect);
 }
 
-function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert){
-    let text = new fabric.Text("T-" + numero + "\n" + personas + "p", {
-        fontSize: 12,
-        originX: 'center',
-        originY: 'center'
-    });
+function insertTextToObject(mesaId, numero, personas, ninyos, top, left, objectToInsert){
+    let text;
+
+    if (ninyos > 0) {
+        text = new fabric.Text("T-" + numero + "\n" + personas + "p" + "\n" + ninyos + "x", {
+            fontSize: 12,
+            originX: 'center',
+            originY: 'center'
+        });
+    }
+    else{
+        text = new fabric.Text("T-" + numero + "\n" + personas + "p", {
+            fontSize: 12,
+            originX: 'center',
+            originY: 'center'
+        });
+    }
+
 
     let group = new fabric.Group([ objectToInsert, text ], {
         left: left,
@@ -427,6 +440,7 @@ function insertTextToObject(mesaId, numero, personas, top, left, objectToInsert)
     group['mesaId'] = mesaId;
     group['numero'] = numero;
     group['personas'] = personas;
+    group['ninyos'] = ninyos;
 
     addObjectToCanvas(group);
 }
@@ -464,16 +478,17 @@ function changeTableType(table){
     let mesaId = table.mesaId;
     let numero = table.numero;
     let personas = table.personas;
+    let ninyos = table.ninyos;
     let top = table.top;
     let left = table.left;
 
     canvas.remove(table);
 
     if(tableType === 'rect'){
-        addCircleTable(mesaId, numero, personas, top, left);
+        addCircleTable(mesaId, numero, personas, ninyos, top, left);
     }
     else{
-        addRectangleTable(mesaId, numero, personas, top, left);
+        addRectangleTable(mesaId, numero, personas, ninyos, top, left);
     }
 }
 
