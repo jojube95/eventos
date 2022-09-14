@@ -16,39 +16,44 @@ public class Mesa {
     private int personas;
     private int numero;
     private boolean pagado;
+    private String descripcion;
 
     public Mesa(){
 
     }
 
-    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado) {
+    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado, String descripcion) {
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
         this.numero = numero;
         this.pagado = pagado;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String idEvento, int personas, int numero) {
+    public Mesa(String idEvento, int personas, int numero, String descripcion) {
         this.idEvento = idEvento;
         this.personas = personas;
         this.numero = numero;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, int personas, int numero) {
+    public Mesa(String id, String idEvento, int personas, int numero, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.personas = personas;
         this.numero = numero;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, String representante, int personas, int numero, boolean pagado) {
+    public Mesa(String id, String idEvento, String representante, int personas, int numero, boolean pagado, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
         this.numero = numero;
         this.pagado = pagado;
+        this.descripcion = descripcion;
     }
 
     public String getId() {
@@ -99,14 +104,24 @@ public class Mesa {
         this.numero = numero;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Mesa{" +
-                "idEvento='" + idEvento + '\'' +
+                "id='" + id + '\'' +
+                ", idEvento='" + idEvento + '\'' +
                 ", representante='" + representante + '\'' +
                 ", personas=" + personas +
                 ", numero=" + numero +
                 ", pagado=" + pagado +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 
@@ -115,11 +130,11 @@ public class Mesa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
-        return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
+        return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, representante, personas, numero, pagado);
+        return Objects.hash(id, idEvento, representante, personas, numero, pagado, descripcion);
     }
 }

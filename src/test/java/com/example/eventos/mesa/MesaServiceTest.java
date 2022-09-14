@@ -22,7 +22,7 @@ class MesaServiceTest {
 
     @BeforeEach
     public void initEach(){
-        mesa = new Mesa("idEvento", "Antonio", 10, 1, true);
+        mesa = new Mesa("idEvento", "Antonio", 10, 1, true, "descripcion");
     }
 
     @Test

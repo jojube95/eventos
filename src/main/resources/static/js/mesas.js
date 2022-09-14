@@ -47,7 +47,11 @@ $(document).ready(function() {
                 if (data == null || !(data in pagadoOptions)) return null;
                 return pagadoOptions[data];
             }
-        }
+        },
+        {
+            data: "descripcion",
+            orderable: false
+        },
         ];
 
     mesasDt = $('#mesas').DataTable({

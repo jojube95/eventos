@@ -56,9 +56,9 @@ class MesaControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
         Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Mesa mesa1 = new Mesa("idEvento", "Pepe", 10, 1, true);
-        Mesa mesa2 = new Mesa("idEvento", "Antonio", 6, 2, false);
-        Mesa mesa3 = new Mesa("idEvento", "José", 7, 3, true);
+        Mesa mesa1 = new Mesa("idEvento", "Pepe", 10, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("idEvento", "Antonio", 6, 2, false, "descripcion");
+        Mesa mesa3 = new Mesa("idEvento", "José", 7, 3, true, "descripcion");
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
         mesas.add(mesa2);
@@ -80,7 +80,7 @@ class MesaControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void generarListadoTest() throws Exception {
-        Mesa mesa1 = new Mesa("idMesa", "idEvento", "Pepe", 10, 1, true);
+        Mesa mesa1 = new Mesa("idMesa", "idEvento", "Pepe", 10, 1, true, "descripcion");
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
 

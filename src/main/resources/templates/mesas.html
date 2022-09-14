@@ -48,6 +48,7 @@
                         <th th:text="#{mesa.representante}" scope="col"></th>
                         <th th:text="#{mesa.personas}" scope="col"></th>
                         <th th:text="#{mesa.pagado}" scope="col"></th>
+                        <th th:text="#{mesa.descripcion}" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,10 +59,12 @@
                         <td th:text="${mesa.representante}"></td>
                         <td th:text="${mesa.personas}"></td>
                         <td th:text="${mesa.pagado}"></td>
+                        <td th:text="${mesa.descripcion}"></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
