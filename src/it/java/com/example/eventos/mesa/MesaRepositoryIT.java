@@ -23,11 +23,11 @@ class MesaRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false, "descripcion");
-        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, "descripcion");
-        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 2, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 2, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 2, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, 2, false, "descripcion");
+        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, 1, "descripcion");
+        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 1, 2, "descripcion");
         mongoTemplate.insert(mesa0);
         mongoTemplate.insert(mesa1);
         mongoTemplate.insert(mesa2);
@@ -37,9 +37,9 @@ class MesaRepositoryIT {
 
     @Test
     void findByEventoTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
         List<Mesa> expectedMesas = new ArrayList<>();
         expectedMesas.add(mesa0);
         expectedMesas.add(mesa1);
@@ -50,9 +50,9 @@ class MesaRepositoryIT {
 
     @Test
     void findByEventoOrderByNumeroTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
         List<Mesa> expectedMesas = new ArrayList<>();
         expectedMesas.add(mesa1);
         expectedMesas.add(mesa2);
@@ -63,18 +63,18 @@ class MesaRepositoryIT {
 
     @Test
     void saveTest(){
-        Mesa mesaExpected = new Mesa("idEvento3", "Jose", 10, 1, true, "descripcion");
+        Mesa mesaExpected = new Mesa("idEvento3", "Jose", 10, 1, 1, true, "descripcion");
 
         assertEquals(mesaExpected, mesaRepository.save(mesaExpected));
     }
 
     @Test
     void deleteTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, false, "descripcion");
-        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, "descripcion");
-        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 2, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
+        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, 1, "descripcion");
+        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 1, 2, "descripcion");
 
         mesaRepository.delete(mesa4);
 
@@ -89,8 +89,8 @@ class MesaRepositoryIT {
 
     @Test
     void deleteByIdEventoTest(){
-        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, "descripcion");
-        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 2, "descripcion");
+        Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, 1, "descripcion");
+        Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 1, 2, "descripcion");
 
         mesaRepository.deleteByIdEvento("idEvento1");
 

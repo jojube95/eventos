@@ -22,7 +22,7 @@ class InvitadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        invitado = new Invitado("idEvento", "idMesa", "Pepe", "Descripcion");
+        invitado = new Invitado("idEvento", "idMesa", "Pepe", "Mayor", "Descripcion");
     }
 
     @Test

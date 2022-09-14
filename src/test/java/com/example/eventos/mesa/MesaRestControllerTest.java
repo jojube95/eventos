@@ -41,7 +41,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
@@ -52,15 +52,15 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
 
         verify(mesaService, times(0)).save(mesa);
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", ""));
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", ""));
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", ""));
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", "Mayor", ""));
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", "Mayor", ""));
+        verify(invitadoService, times(0)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", "Mayor", ""));
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
@@ -71,15 +71,15 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
         verify(mesaService, times(1)).save(mesa);
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", ""));
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", ""));
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", ""));
+        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", "Mayor", ""));
+        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", "Mayor", ""));
+        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", "Mayor", ""));
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -96,7 +96,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -113,7 +113,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTest() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())
@@ -129,7 +129,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())

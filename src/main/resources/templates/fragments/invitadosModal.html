@@ -19,6 +19,7 @@
                             <th th:text="#{invitado.idEvento}" scope="col"></th>
                             <th th:text="#{invitado.idMesa}" scope="col"></th>
                             <th th:text="#{invitado.nombre}" scope="col"></th>
+                            <th th:text="#{invitado.tipo}" scope="col"></th>
                             <th th:text="#{invitado.descripcion}" scope="col"></th>
                         </tr>
                         </thead>
@@ -28,12 +29,13 @@
                             <td th:text="${invitado.idEvento}"></td>
                             <td th:text="${invitado.idMesa}"></td>
                             <td th:text="${invitado.nombre}"></td>
+                            <td th:text="${invitado.tipo}"></td>
                             <td th:text="${invitado.descripcion}"></td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td th:text="#{total}" colspan="5" style="text-align:right"></td>
+                            <td th:text="#{total}" colspan="6" style="text-align:right"></td>
                         </tr>
                         </tfoot>
                     </table>

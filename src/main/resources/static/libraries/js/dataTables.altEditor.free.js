@@ -278,6 +278,12 @@
 
                                     },
                                     {
+                                        data: "tipo",
+                                        type: "select",
+                                        options: {"Mayor":"Mayor", "Niño":"Niño"}
+
+                                    },
+                                    {
                                         data: "descripcion"
 
                                     }
@@ -356,8 +362,15 @@
                                     }
                                 });
                                 $("#cerrarInvitados").click(function() {
-                                    let numeroInvitados = invitados.rows().count();
-                                    cerrarInvitadosClicked(numeroInvitados);
+                                    let invitadosMayores = invitados.column(4).data().filter(function(value){
+                                        return value === 'Mayor';
+                                    }).count();
+
+                                    let invitadosNinyos = invitados.column(4).data().filter(function(value){
+                                        return value === 'Niño';
+                                    }).count();
+
+                                    cerrarInvitadosClicked(invitadosMayores, invitadosNinyos);
                                 });
 
                                 $("#invitadosDetailModal").modal("show");

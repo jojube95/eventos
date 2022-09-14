@@ -12,10 +12,10 @@ class MesaTest {
 
     @BeforeEach
     public void initEach(){
-        mesa1 = new Mesa("idEvento", "representante",8, 2, false, "descripcion");
-        mesa2 = new Mesa("idEvento", 8, 2, "descripcion");
-        mesa3 = new Mesa("idMesa", "idEvento", 8, 2, "descripcion");
-        mesa4 = new Mesa("idMesa", "idEvento", "representante", 8, 2, true, "descripcion");
+        mesa1 = new Mesa("idEvento", "representante",8, 1, 2, false, "descripcion");
+        mesa2 = new Mesa("idEvento", 8, 1, 2, "descripcion");
+        mesa3 = new Mesa("idMesa", "idEvento", 8, 1, 2, "descripcion");
+        mesa4 = new Mesa("idMesa", "idEvento", "representante", 8, 1, 2, true, "descripcion");
     }
 
     @Test
@@ -54,13 +54,13 @@ class MesaTest {
 
     @Test
     void equalsTestTrue(){
-        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante", 8, 2, true, "descripcion");
+        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante", 8, 1, 2, true, "descripcion");
         assertEquals(mesa4, mesa5);
     }
 
     @Test
     void equalsTestFalse(){
-        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante", 9, 2, true, "descripcion");
+        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante", 9, 1, 2, true, "descripcion");
         assertNotEquals(mesa4, mesa5);
     }
 }

@@ -22,11 +22,11 @@ class InvitadoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Celiaco");
-        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "");
-        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
-        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
-        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");
+        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Mayor", "Pepe", "Celiaco");
+        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Mayor","Antonio", "");
+        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Mayor","Jose", "Vegano");
+        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Mayor","Antonia", "");
+        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Mayor","Antonia", "");
 
         mongoTemplate.insert(invitado1);
         mongoTemplate.insert(invitado2);
@@ -37,8 +37,8 @@ class InvitadoRepositoryIT {
 
     @Test
     void findByIdMesaTest(){
-        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
-        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");
+        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "Mayor","");
+        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "Mayor","");
         List<Invitado> expectedInvitados = new ArrayList<>();
         expectedInvitados.add(invitado4);
         expectedInvitados.add(invitado5);
@@ -48,18 +48,18 @@ class InvitadoRepositoryIT {
 
     @Test
     void saveTest(){
-        Invitado invitadoExpected = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
+        Invitado invitadoExpected = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "Mayor","");
 
         assertEquals(invitadoExpected, invitadoRepository.save(invitadoExpected));
     }
 
     @Test
     void deleteTest(){
-        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Celiaco");
-        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "");
-        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
-        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
-        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");
+        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Mayor","Celiaco");
+        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "Mayor","");
+        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Mayor","Vegano");
+        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "Mayor","");
+        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "Mayor","");
 
         invitadoRepository.delete(invitado4);
 
@@ -74,9 +74,9 @@ class InvitadoRepositoryIT {
 
     @Test
     void deleteByIdMesaTest(){
-        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Celiaco");
-        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "");
-        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
+        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Mayor","Celiaco");
+        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio", "Mayor","");
+        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Mayor","Vegano");
 
         invitadoRepository.deleteByIdMesa("idMesa4");
 
@@ -90,9 +90,9 @@ class InvitadoRepositoryIT {
 
     @Test
     void deleteByIdEventoTest(){
-        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Vegano");
-        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "");
-        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "");
+        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose", "Mayor","Vegano");
+        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia", "Mayor","");
+        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia", "Mayor","");
 
         invitadoRepository.deleteByIdEvento("idEvento1");
 

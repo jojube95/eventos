@@ -14,6 +14,7 @@ public class Mesa {
 
     private String representante;
     private int personas;
+    private int ninyos;
     private int numero;
     private boolean pagado;
     private String descripcion;
@@ -22,35 +23,39 @@ public class Mesa {
 
     }
 
-    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado, String descripcion) {
+    public Mesa(String idEvento, String representante, int personas, int ninyos, int numero, boolean pagado, String descripcion) {
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.pagado = pagado;
         this.descripcion = descripcion;
     }
 
-    public Mesa(String idEvento, int personas, int numero, String descripcion) {
+    public Mesa(String idEvento, int personas, int ninyos, int numero, String descripcion) {
         this.idEvento = idEvento;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, int personas, int numero, String descripcion) {
+    public Mesa(String id, String idEvento, int personas, int ninyos, int numero, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, String representante, int personas, int numero, boolean pagado, String descripcion) {
+    public Mesa(String id, String idEvento, String representante, int personas, int ninyos, int numero, boolean pagado, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.pagado = pagado;
         this.descripcion = descripcion;
@@ -88,6 +93,14 @@ public class Mesa {
         this.personas = personas;
     }
 
+    public int getNinyos() {
+        return ninyos;
+    }
+
+    public void setNinyos(int ninyos) {
+        this.ninyos = ninyos;
+    }
+
     public boolean isPagado() {
         return pagado;
     }
@@ -119,6 +132,7 @@ public class Mesa {
                 ", idEvento='" + idEvento + '\'' +
                 ", representante='" + representante + '\'' +
                 ", personas=" + personas +
+                ", ninyos=" + ninyos +
                 ", numero=" + numero +
                 ", pagado=" + pagado +
                 ", descripcion='" + descripcion + '\'' +
@@ -130,11 +144,11 @@ public class Mesa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
-        return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
+        return Objects.equals(id, mesa.id) && personas == mesa.personas && ninyos == mesa.ninyos && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, representante, personas, numero, pagado, descripcion);
+        return Objects.hash(id, idEvento, representante, personas, ninyos, numero, pagado, descripcion);
     }
 }

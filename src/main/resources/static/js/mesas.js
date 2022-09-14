@@ -37,6 +37,10 @@ $(document).ready(function() {
             orderable: false
         },
         {
+            data: "ninyos",
+            orderable: false
+        },
+        {
             data: "pagado",
             type: isEventoIndividual ? "select" : "hidden",
             visible: isEventoIndividual,
@@ -162,7 +166,7 @@ function addMesaAjax(mesaRowData, success, error){
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/evento/mesas/add",
+        url: "/evento/mesas/add?idEvento=" + idEvento,
         data: JSON.stringify(mesaRowData),
         dataType: 'json',
         success: function (mesa) {
@@ -231,6 +235,13 @@ function footerCallback(dataTableApi){
             return Number(a) + Number(b);
         }, 0);
 
+    let totalNinyos = api
+        .column(5, {search:'applied'})
+        .data()
+        .reduce(function (a, b) {
+            return Number(a) + Number(b);
+        }, 0);
+
     // Promedio
     let totalPagados  = api
         .column(5, {search:'applied'})
@@ -240,7 +251,12 @@ function footerCallback(dataTableApi){
         }, 0);
     // Update footer
     $(api.column(4).footer()).html(totalPersonas);
-    $(api.column(5).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
+    $(api.column(5).footer()).html(totalNinyos);
+
+    if (isEventoIndividual){
+        $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
+    }
+
 }
 
 function updateMesaOnCanvas(mesa){
@@ -284,9 +300,10 @@ function anyadirMesaToCanvas(mesaId, numero, personas, top, left, htmlModal){
     $(tipoMesaModal).modal("hide");
 }
 
-function cerrarInvitadosClicked(numeroInvitados){
+function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
     let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
-    mesaSeleccionada.personas = numeroInvitados.toString();
+    mesaSeleccionada.personas = invitadosMayores.toString();
+    mesaSeleccionada.ninyos = invitadosNinyos.toString();
 
     $.ajax({
         type: "POST",
