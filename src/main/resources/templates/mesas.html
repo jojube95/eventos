@@ -37,7 +37,7 @@
 
     <div class="container" style="margin-left: 30px; margin-right: 30px">
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 <table class="display compact" id="mesas">
                     <caption th:text="#{table.description.mesas}"></caption>
                     <thead>
@@ -50,6 +50,7 @@
                         <th th:text="#{mesa.ninyos}" scope="col"></th>
                         <th th:text="#{mesa.pagado}" scope="col"></th>
                         <th th:text="#{mesa.descripcion}" scope="col"></th>
+                        <th th:text="#{anyadir}" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,9 @@
                         <td th:text="${mesa.ninyos}"></td>
                         <td th:text="${mesa.pagado}"></td>
                         <td th:text="${mesa.descripcion}"></td>
+                        <td>
+                            <button th:text="#{anyadir}" type="button" class="btn btn-primary" th:mesaId="${mesa.id}" th:numero="${mesa.numero}" th:personas="${mesa.personas}" th:ninyos="${mesa.ninyos}" onclick="anyadirClicked(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'), this.getAttribute('ninyos')), this"></button>
+                        </td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -74,11 +78,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                     </tfoot>
                 </table>
             </div>
-            <div class="col-8">
+            <div class="col-7">
                 <div class="row">
                     <canvas id="canvas" width="1040" height="920" style="border: 1px solid rgb(204, 204, 204);"></canvas>
                 </div>
