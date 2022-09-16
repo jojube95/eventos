@@ -11,6 +11,8 @@ let imgReverse = document.createElement('img');
 imgDelete.src = deleteIcon;
 imgReverse.src = reverseIcon;
 
+let rowColorAdded = 'LightGreen';
+let rowColorNotAdded = 'LightYellow';
 
 // 40px - 1m
 let alturaLarga = 80;
@@ -64,10 +66,6 @@ $(document).ready(function() {
         },
         {
             data: "descripcion",
-            orderable: false
-        },
-        {
-            data: "anyadir",
             orderable: false
         }
         ];
@@ -146,6 +144,20 @@ $(document).ready(function() {
     onCanvasObjectDoubleClick();
 
     loadCanvas();
+
+    $('#mesas tbody').on('dblclick', 'tr', function () {
+        let mesa = mesasDt.row( this ).data();
+        anyadirClicked(mesa.id, mesa.numero, mesa.personas, mesa.ninyos, this)
+    } );
+
+    $('#mesas tbody').on('click', 'tr', function () {
+        let mesa = mesasDt.row( this ).data();
+        canvas.getObjects().forEach(function(object) {
+            if (object.mesaId === mesa.id){
+                canvas.setActiveObject(object).requestRenderAll();
+            }
+        });
+    } );
 });
 
 function onCanvasObjectClick(){
@@ -188,6 +200,7 @@ function onAddClicked(){
 }
 
 function onAddRow(datatable, rowdata, success, error){
+    console.log('addRow');
     toggleLoadingSpinner($("#addRowBtn"));
 
     rowdata.idEvento = idEvento;
@@ -217,13 +230,33 @@ function addMesaAjax(mesaRowData, success, error){
     });
 }
 
-function anyadirClicked(mesaId, numero, personas, ninyos, anyadirButton){
-    $.ajax({
-        url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&personas=" + personas + "&ninyos=" + ninyos,
-        success: function (data) {
-            anyadirMesaToCanvas(mesaId, numero, personas, ninyos, 150, 100, data);
+function anyadirClicked(mesaId, numero, personas, ninyos, row){
+    if (isMesaOnDistribucion(mesaId)) {
+        alert("La mesa ya se encuentra en la distribución.")
+    }
+    else{
+        $.ajax({
+            url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&personas=" + personas + "&ninyos=" + ninyos,
+            success: function (data) {
+                anyadirMesaToCanvas(mesaId, numero, personas, ninyos, 150, 100, data);
+            }
+        });
+    }
+
+}
+
+function changeRowColor(mesaId, color){
+    $('tr[mesaId="' + mesaId + '"]').css('background-color', color);
+}
+
+function isMesaOnDistribucion(mesaId){
+    let res = false;
+    canvas.getObjects().forEach(function(object) {
+        if (object.mesaId === mesaId){
+            res = true;
         }
     });
+    return res;
 }
 
 function onDeleteRow(datatable, rowdata, success, error){
@@ -512,7 +545,7 @@ function addObjectToCanvas(object){
     canvas.add(object);
     canvas.renderAll();
     guardarDistribucion();
-    disableAnyadirButton(object.mesaId, true);
+    changeRowColor(object.mesaId, rowColorAdded);
 }
 
 function changeTableType(table){
@@ -542,7 +575,7 @@ function loadCanvas(){
 
         objects.forEach(function(object) {
 
-            disableAnyadirButton(object.mesaId, true);
+            changeRowColor(object.mesaId, rowColorAdded);
 
             object.setControlsVisibility({
                 tl: false,
@@ -558,6 +591,8 @@ function loadCanvas(){
         });
     });
     loadBackgroundImage();
+
+    $('tbody > tr').not('[style]').css('background-color', rowColorNotAdded);
 }
 
 function clickDeleteIcon(eventData, transform) {
@@ -571,19 +606,20 @@ function clickReverseIcon(eventData, transform){
 
     let height = object.height;
     let width = object.width;
+
     let height1 = object._objects[0].height;
     let width1 = object._objects[0].width;
+
     let tipo = object._objects[0].type;
 
-    console.log(object);
-
     if(tipo === 'rect'){
-        object._objects[0].width = height1;
-        object._objects[0].height = width1;
-        object.width = height;
-        object.height = width;
+        object.set('height', width);
+        object.set('width', height);
 
-        console.log(object)
+        object._objects[0].set('height', width1);
+        object._objects[0].set('width', height1);
+
+        console.log(object);
         canvas.renderAll();
     }
 }
@@ -592,7 +628,7 @@ function deleteObject(object){
     canvas.remove(object);
     canvas.renderAll();
     guardarDistribucion();
-    disableAnyadirButton(object.mesaId, false);
+    changeRowColor(object.mesaId, rowColorNotAdded);
 }
 
 function renderIconDelete(ctx, left, top, styleOverride, fabricObject) {
@@ -620,8 +656,4 @@ function loadBackgroundImage(){
             canvas.renderAll();
         });
     });
-}
-
-function disableAnyadirButton(mesaId, disable){
-    $("table > tbody > tr > td:nth-child(5) > button[mesaId='" + mesaId + "']").prop("disabled", disable);
 }

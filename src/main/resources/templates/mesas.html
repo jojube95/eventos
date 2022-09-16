@@ -50,7 +50,6 @@
                         <th th:text="#{mesa.ninyos}" scope="col"></th>
                         <th th:text="#{mesa.pagado}" scope="col"></th>
                         <th th:text="#{mesa.descripcion}" scope="col"></th>
-                        <th th:text="#{anyadir}" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,14 +62,10 @@
                         <td th:text="${mesa.ninyos}"></td>
                         <td th:text="${mesa.pagado}"></td>
                         <td th:text="${mesa.descripcion}"></td>
-                        <td>
-                            <button th:text="#{anyadir}" type="button" class="btn btn-primary" th:mesaId="${mesa.id}" th:numero="${mesa.numero}" th:personas="${mesa.personas}" th:ninyos="${mesa.ninyos}" onclick="anyadirClicked(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'), this.getAttribute('ninyos')), this"></button>
-                        </td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
