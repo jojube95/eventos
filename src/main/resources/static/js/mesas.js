@@ -318,7 +318,7 @@ function footerCallback(dataTableApi){
 
     // Promedio
     let totalPagados  = api
-        .column(5, {search:'applied'})
+        .column(6, {search:'applied'})
         .data()
         .reduce(function (a, b) {
             return Number(a) + (b === 'true' ? 1: 0);
