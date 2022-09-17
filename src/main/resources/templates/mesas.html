@@ -86,6 +86,13 @@
                     <button th:text="#{guardar}" id="guardarButton" class="btn btn-primary" type="submit" onclick="guardarClicked()"></button>
                     <button th:text="#{exportarDistribucion}" id="exportarDistribucionButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarDistribucionClicked()"></button>
                     <button th:text="#{exportarListado}" id="exportarListadoButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarListadoClicked()"></button>
+
+                    <form id="file-upload-form">
+                        <label for="file-upload-input">Select file to upload</label>
+                        <input type="file" id="file-upload-input" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <button th:text="#{importarListado}" id="importarDistribucionButton" class="btn btn-primary" type="submit">Start Upload</button>
+                    </form>
+
                 </div>
             </div>
     </div>

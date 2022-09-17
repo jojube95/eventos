@@ -158,6 +158,33 @@ $(document).ready(function() {
             }
         });
     } );
+
+
+
+    $("#file-upload-form").on("submit", function (e) {
+        toggleLoadingSpinner($("#importarDistribucionButton"));
+
+        // cancel the default behavior
+        e.preventDefault();
+
+        // use $.ajax() to upload file
+        $.ajax({
+            url: "/evento/mesas/uploadExcel?idEvento=" + idEvento,
+            type: "POST",
+            data: new FormData(this),
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function () {
+                toggleLoadingSpinner($("#importarDistribucionButton"));
+                location.reload();
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    });
 });
 
 function onCanvasObjectClick(){
@@ -200,7 +227,6 @@ function onAddClicked(){
 }
 
 function onAddRow(datatable, rowdata, success, error){
-    console.log('addRow');
     toggleLoadingSpinner($("#addRowBtn"));
 
     rowdata.idEvento = idEvento;
@@ -619,8 +645,8 @@ function clickReverseIcon(eventData, transform){
         object._objects[0].set('height', width1);
         object._objects[0].set('width', height1);
 
-        console.log(object);
         canvas.renderAll();
+        guardarDistribucion();
     }
 }
 
