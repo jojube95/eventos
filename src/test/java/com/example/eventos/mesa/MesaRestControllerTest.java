@@ -13,17 +13,21 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -156,5 +160,29 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
         verify(mesaService, times(1)).save(mesa);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void importarMesaInvitadosFromExcelTest() throws Exception {
+        Evento evento = new Evento("idEvento", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        evento.setDistribucion(new Distribucion(""));
+
+        FileInputStream fis = new FileInputStream("src/test/resources/files/listadoTest.xlsx");
+        MockMultipartFile multipartFile = new MockMultipartFile("listadoTest.xlsx", fis);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.multipart("/evento/mesas/uploadExcel")
+                .file(multipartFile)
+                .with(csrf())
+                .param("idEvento", evento.getId());
+
+
+        mockMvc.perform(mockRequest).andExpect(status().isOk());
+
+        verify(eventoService, times(1)).update(evento);
+        verify(mesaService, times(1)).deleteMesas(evento.getId());
     }
 }

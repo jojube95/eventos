@@ -9,6 +9,9 @@ class MesaTest {
     Mesa mesa2;
     Mesa mesa3;
     Mesa mesa4;
+    Mesa mesaExcel1;
+    Mesa mesaExcel2;
+    Mesa mesaExcel3;
 
     @BeforeEach
     public void initEach(){
@@ -16,6 +19,9 @@ class MesaTest {
         mesa2 = new Mesa("idEvento", 8, 1, 2, "descripcion");
         mesa3 = new Mesa("idMesa", "idEvento", 8, 1, 2, "descripcion");
         mesa4 = new Mesa("idMesa", "idEvento", "representante", 8, 1, 2, true, "descripcion");
+        mesaExcel1 = new Mesa("Taula 1-Botellas", "idEvento", 8, 2);
+        mesaExcel2 = new Mesa("Mesa 3 - Licores ", "idEvento", 8, 2);
+        mesaExcel3 = new Mesa("Mesa 7  ", "idEvento", 8, 2);
     }
 
     @Test
@@ -50,6 +56,33 @@ class MesaTest {
         assertEquals(8, mesa4.getPersonas());
         assertEquals(2, mesa4.getNumero());
         assertTrue(mesa4.isPagado());
+    }
+
+    @Test
+    void constructorExcel1Test(){
+        assertEquals("idEvento", mesaExcel1.getIdEvento());
+        assertEquals(1, mesaExcel1.getNumero());
+        assertEquals(8, mesaExcel1.getPersonas());
+        assertEquals(2, mesaExcel1.getNinyos());
+        assertEquals("Botellas", mesaExcel1.getDescripcion());
+    }
+
+    @Test
+    void constructorExcel2Test(){
+        assertEquals("idEvento", mesaExcel2.getIdEvento());
+        assertEquals(3, mesaExcel2.getNumero());
+        assertEquals(8, mesaExcel2.getPersonas());
+        assertEquals(2, mesaExcel2.getNinyos());
+        assertEquals("Licores", mesaExcel2.getDescripcion());
+    }
+
+    @Test
+    void constructorExcel3Test(){
+        assertEquals("idEvento", mesaExcel3.getIdEvento());
+        assertEquals(7, mesaExcel3.getNumero());
+        assertEquals(8, mesaExcel3.getPersonas());
+        assertEquals(2, mesaExcel3.getNinyos());
+        assertEquals("", mesaExcel3.getDescripcion());
     }
 
     @Test

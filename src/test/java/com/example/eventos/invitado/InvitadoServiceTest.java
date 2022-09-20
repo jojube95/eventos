@@ -7,6 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -35,6 +38,15 @@ class InvitadoServiceTest {
     void saveTest(){
         invitadoService.save(invitado);
         verify(invitadoRepository, times(1)).save(invitado);
+    }
+
+    @Test
+    void saveManyTest(){
+        List<Invitado> invitados = new ArrayList<>();
+        invitados.add(invitado);
+
+        invitadoService.saveMany(invitados);
+        verify(invitadoRepository, times(1)).saveAll(invitados);
     }
 
     @Test

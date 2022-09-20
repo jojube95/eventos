@@ -61,7 +61,7 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/uploadExcel")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException {
+    public ResponseEntity<?> importarMesaInvitadosFromExcel(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException {
         Evento evento =  eventoService.getById(idEvento);
         evento.setDistribucion(new Distribucion(""));
         eventoService.update(evento);
