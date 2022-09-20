@@ -38,6 +38,35 @@ public class Invitado {
         this.descripcion = descripcion;
     }
 
+    public Invitado(String textoExcel, String idEvento) {
+        String[] myData = textoExcel.split("-");
+        String nombre = "";
+        String tipo = "";
+        String descripcion = "";
+
+        for (int i = 0; i < myData.length; i++) {
+            if (i == 0) {
+                nombre = myData[0].trim();
+            }
+            else{
+                if (myData[i].trim().equals("x")) {
+                    tipo = "Niño";
+                }
+                else{
+                    descripcion = myData[i].trim();
+                }
+            }
+        }
+        if(tipo.isEmpty()){
+            tipo = "Mayor";
+        }
+
+        this.idEvento = idEvento;
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+    }
+
     public String getNombre() {
         return nombre;
     }

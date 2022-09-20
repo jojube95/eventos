@@ -19,6 +19,10 @@ public class InvitadoService {
         invitadoRepository.save(invitado);
     }
 
+    public void saveMany(List<Invitado> invitados){
+        invitadoRepository.saveAll(invitados);
+    }
+
     public void delete(Invitado invitado){
         invitadoRepository.delete(invitado);
     }
