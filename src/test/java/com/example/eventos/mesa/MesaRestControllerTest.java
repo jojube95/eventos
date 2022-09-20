@@ -1,5 +1,8 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.evento.Evento;
+import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.security.SecurityConfiguration;
@@ -14,8 +17,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +44,9 @@ class MesaRestControllerTest {
 
     @MockBean
     private InvitadoService invitadoService;
+
+    @MockBean
+    private EventoService eventoService;
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
@@ -60,10 +70,15 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
+        Evento evento = new Evento("idEvento", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
         Mesa mesa = new Mesa("idEvento", "Pepe", 3, 1, 2, true, "descripcion");
+
+        when(eventoService.getById(mesa.getIdEvento())).thenReturn(evento);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
+                .param("idEvento", mesa.getIdEvento())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(mesa));
@@ -74,6 +89,7 @@ class MesaRestControllerTest {
         verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado1", "Mayor", ""));
         verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado2", "Mayor", ""));
         verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado3", "Mayor", ""));
+        verify(invitadoService, times(1)).save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Niño1", "Ninyo", ""));
     }
 
     @Test

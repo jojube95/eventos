@@ -11,7 +11,7 @@ let imgReverse = document.createElement('img');
 imgDelete.src = deleteIcon;
 imgReverse.src = reverseIcon;
 
-let rowColorAdded = 'LightGreen';
+let rowColorAdded = 'greenyellow';
 let rowColorNotAdded = 'LightYellow';
 
 // 40px - 1m

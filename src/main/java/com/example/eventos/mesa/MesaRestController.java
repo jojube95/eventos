@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/uploadExcel")
-    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException, ParseException {
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException {
         Evento evento =  eventoService.getById(idEvento);
         evento.setDistribucion(new Distribucion(""));
         eventoService.update(evento);

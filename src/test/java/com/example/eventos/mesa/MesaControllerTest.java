@@ -101,6 +101,6 @@ class MesaControllerTest {
 
         byte[] resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray();
 
-        assertEquals(1206, resultContent.length);
+        assertEquals(1226, resultContent.length);
     }
 }

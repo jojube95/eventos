@@ -37,9 +37,9 @@ class MesaRepositoryIT {
 
     @Test
     void findByEventoTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 2, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 2, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, 2, false, "descripcion");
         List<Mesa> expectedMesas = new ArrayList<>();
         expectedMesas.add(mesa0);
         expectedMesas.add(mesa1);
@@ -50,9 +50,9 @@ class MesaRepositoryIT {
 
     @Test
     void findByEventoOrderByNumeroTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 2, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 2, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, 2, false, "descripcion");
         List<Mesa> expectedMesas = new ArrayList<>();
         expectedMesas.add(mesa1);
         expectedMesas.add(mesa2);
@@ -70,9 +70,9 @@ class MesaRepositoryIT {
 
     @Test
     void deleteTest(){
-        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 1, 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 1, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 1, 2, false, "descripcion");
+        Mesa mesa0 = new Mesa("id0", "idEvento1", "Pepe", 10, 2, 3, true, "descripcion");
+        Mesa mesa1 = new Mesa("id1", "idEvento1", "Pepe", 10, 2, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id2", "idEvento1", "Antonio", 8, 2, 2, false, "descripcion");
         Mesa mesa3 = new Mesa("id3", "idEvento2", 6, 1, 1, "descripcion");
         Mesa mesa4 = new Mesa("id123", "idEvento2", 4, 1, 2, "descripcion");
 

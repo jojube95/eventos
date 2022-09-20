@@ -22,11 +22,11 @@ class InvitadoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Mayor", "Pepe", "Celiaco");
-        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Mayor","Antonio", "");
-        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Mayor","Jose", "Vegano");
-        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Mayor","Antonia", "");
-        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Mayor","Antonia", "");
+        Invitado invitado1 = new Invitado("id1", "idEvento1", "idMesa1", "Pepe", "Mayor", "Celiaco");
+        Invitado invitado2 = new Invitado("id2", "idEvento1", "idMesa2", "Antonio","Mayor", "");
+        Invitado invitado3 = new Invitado("id3", "idEvento2", "idMesa3", "Jose","Mayor", "Vegano");
+        Invitado invitado4 = new Invitado("id123", "idEvento2", "idMesa4", "Antonia","Mayor", "");
+        Invitado invitado5 = new Invitado("id4", "idEvento2", "idMesa4", "Antonia","Mayor", "");
 
         mongoTemplate.insert(invitado1);
         mongoTemplate.insert(invitado2);
