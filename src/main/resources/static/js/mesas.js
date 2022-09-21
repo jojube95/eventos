@@ -390,8 +390,9 @@ function updateMesaOnCanvas(mesa){
 
 function anyadirMesaToCanvas(mesaId, numero, personas, ninyos, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
+    let totalPersonas =  Number(personas) + Number(ninyos);
 
-    if (personas > 4 && personas <= 11) {
+    if (totalPersonas > 4 && totalPersonas <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
     }
@@ -485,7 +486,7 @@ function addCircleTable(mesaId, numero, personas, ninyos, top, left) {
 }
 
 function addRectangleTable(mesaId, numero, personas, ninyos, top, left) {
-    let tableLength = calcularLongitudMesaLarga(personas);
+    let tableLength = calcularLongitudMesaLarga(Number(personas) + Number(ninyos));
 
     let rect = new fabric.Rect({
         width : anchuraLarga,

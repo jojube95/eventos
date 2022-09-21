@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DistribucionController {
 
-    public DistribucionController() {
-
-    }
-
     @GetMapping("/evento/distribucion/tipoMesaModal")
     public String modalTipoMesa(@RequestParam("mesaId") String mesaId, @RequestParam("numero") String numero, @RequestParam("personas") String personas, @RequestParam("ninyos") String ninyos, Model model){
         model.addAttribute("mesaId", mesaId);

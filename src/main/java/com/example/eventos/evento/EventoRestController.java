@@ -3,7 +3,6 @@ package com.example.eventos.evento;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.IOException;
 
 @RestController
 public class EventoRestController {
@@ -15,7 +14,7 @@ public class EventoRestController {
     }
 
     @PostMapping("/evento/updatePersonas")
-    public Evento update(@RequestParam("eventoId") String eventoId, @RequestParam("personas") int personas, @RequestParam("ninyos") int ninyos) throws IOException {
+    public Evento update(@RequestParam("eventoId") String eventoId, @RequestParam("personas") int personas, @RequestParam("ninyos") int ninyos) {
         Evento evento = eventoService.getById(eventoId);
         evento.setPersonas(personas);
         evento.setNinyos(ninyos);
