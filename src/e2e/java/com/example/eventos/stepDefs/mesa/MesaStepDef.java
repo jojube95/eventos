@@ -41,18 +41,27 @@ public class MesaStepDef {
         assertEquals(4, mesas.size());
 
         assertEquals("1", mesa1.get(0).getText());
-        assertEquals("6", mesa1.get(1).getText());
+        assertEquals("0", mesa1.get(1).getText());
+        assertEquals("6", mesa1.get(2).getText());
+        assertEquals("Licores", mesa1.get(3).getText());
 
         assertEquals("2", mesa2.get(0).getText());
         assertEquals("11", mesa2.get(1).getText());
+        assertEquals("0", mesa2.get(2).getText());
+        assertEquals("Botellas", mesa2.get(3).getText());
 
         assertEquals("3", mesa3.get(0).getText());
         assertEquals("8", mesa3.get(1).getText());
+        assertEquals("1", mesa3.get(2).getText());
+        assertEquals("", mesa3.get(3).getText());
 
         assertEquals("4", mesa4.get(0).getText());
         assertEquals("16", mesa4.get(1).getText());
+        assertEquals("0", mesa4.get(2).getText());
+        assertEquals("", mesa4.get(3).getText());
 
-        assertEquals("41", footer.get(1).getText());
+        assertEquals("35", footer.get(1).getText());
+        assertEquals("7", footer.get(2).getText());
     }
 
     @When("^User click first mesa$")
@@ -88,8 +97,13 @@ public class MesaStepDef {
     @When("^User fill add mesa form$")
     public void user_fill_add_mesa_form(){
         WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
+        WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
+
 
         personasInput.sendKeys("9");
+        ninyosInput.sendKeys("2");
+        descripcionInput.sendKeys("Botella");
     }
 
     @When("^User fill edit mesa form$")
@@ -99,12 +113,18 @@ public class MesaStepDef {
 
         WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
         WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
+        WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
 
         numeroInput.sendKeys(Keys.BACK_SPACE);
         personasInput.sendKeys(Keys.BACK_SPACE);
+        ninyosInput.sendKeys(Keys.BACK_SPACE);
 
         numeroInput.sendKeys("5");
         personasInput.sendKeys("9");
+        ninyosInput.sendKeys("4");
+        descripcionInput.sendKeys("Buenas");
+
     }
 
     @When("^User click delete mesa confirm button$")
@@ -142,25 +162,25 @@ public class MesaStepDef {
 
     @Then("^Add modal mesa should hide$")
     public void add_modal_mesa_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("addRowBtn")));
     }
 
     @Then("^Edit modal mesa should display$")
     public void edit_modal_mesa_should_display(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @Then("^Edit modal mesa should hide")
     public void edit_modal_mesa_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
     @Then("^Delete modal mesa should hide")
     public void delete_modal_mesa_should_hide(){
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("modal-dialog")));
     }
 
@@ -206,21 +226,32 @@ public class MesaStepDef {
         assertEquals(5, mesas.size());
 
         assertEquals("1", mesa1.get(0).getText());
-        assertEquals("6", mesa1.get(1).getText());
+        assertEquals("0", mesa1.get(1).getText());
+        assertEquals("6", mesa1.get(2).getText());
+        assertEquals("Licores", mesa1.get(3).getText());
 
         assertEquals("2", mesa2.get(0).getText());
         assertEquals("11", mesa2.get(1).getText());
+        assertEquals("0", mesa2.get(2).getText());
+        assertEquals("Botellas", mesa2.get(3).getText());
 
         assertEquals("3", mesa3.get(0).getText());
         assertEquals("8", mesa3.get(1).getText());
+        assertEquals("1", mesa3.get(2).getText());
+        assertEquals("", mesa3.get(3).getText());
 
         assertEquals("4", mesa4.get(0).getText());
         assertEquals("16", mesa4.get(1).getText());
+        assertEquals("0", mesa4.get(2).getText());
+        assertEquals("", mesa4.get(3).getText());
 
         assertEquals("5", mesa5.get(0).getText());
         assertEquals("9", mesa5.get(1).getText());
+        assertEquals("2", mesa5.get(2).getText());
+        assertEquals("Botella", mesa5.get(3).getText());
 
-        assertEquals("50", footer.get(1).getText());
+        assertEquals("44", footer.get(1).getText());
+        assertEquals("9", footer.get(2).getText());
     }
 
     @And("^Edited mesa display on table$")
@@ -243,17 +274,26 @@ public class MesaStepDef {
 
         assertEquals("5", mesa1.get(0).getText());
         assertEquals("9", mesa1.get(1).getText());
+        assertEquals("4", mesa1.get(2).getText());
+        assertEquals("LicoresBuenas", mesa1.get(3).getText());
 
         assertEquals("2", mesa2.get(0).getText());
         assertEquals("11", mesa2.get(1).getText());
+        assertEquals("0", mesa2.get(2).getText());
+        assertEquals("Botellas", mesa2.get(3).getText());
 
         assertEquals("3", mesa3.get(0).getText());
         assertEquals("8", mesa3.get(1).getText());
+        assertEquals("1", mesa3.get(2).getText());
+        assertEquals("", mesa3.get(3).getText());
 
         assertEquals("4", mesa4.get(0).getText());
         assertEquals("16", mesa4.get(1).getText());
+        assertEquals("0", mesa4.get(2).getText());
+        assertEquals("", mesa4.get(3).getText());
 
         assertEquals("44", footer.get(1).getText());
+        assertEquals("5", footer.get(2).getText());
     }
 
     @And("^First mesa should be deleted$")
@@ -273,13 +313,20 @@ public class MesaStepDef {
 
         assertEquals("2", mesa2.get(0).getText());
         assertEquals("11", mesa2.get(1).getText());
+        assertEquals("0", mesa2.get(2).getText());
+        assertEquals("Botellas", mesa2.get(3).getText());
 
         assertEquals("3", mesa3.get(0).getText());
         assertEquals("8", mesa3.get(1).getText());
+        assertEquals("1", mesa3.get(2).getText());
+        assertEquals("", mesa3.get(3).getText());
 
         assertEquals("4", mesa4.get(0).getText());
         assertEquals("16", mesa4.get(1).getText());
+        assertEquals("0", mesa4.get(2).getText());
+        assertEquals("", mesa4.get(3).getText());
 
         assertEquals("35", footer.get(1).getText());
+        assertEquals("1", footer.get(2).getText());
     }
 }

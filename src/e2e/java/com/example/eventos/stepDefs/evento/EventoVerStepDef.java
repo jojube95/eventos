@@ -138,12 +138,14 @@ public class EventoVerStepDef {
         WebElement modal_personas_header = connector.getDriver().findElement(By.xpath("(//div[@class='modal-header']//h5)[1]"));
         WebElement modal_personas_content1 = connector.getDriver().findElement(By.xpath("//div[@id='confirmPersonasModal']/div[1]/div[1]/div[2]/div[1]/div[1]/span[1]"));
         WebElement modal_personas_content2 = connector.getDriver().findElement(By.xpath("//div[@id='confirmPersonasModal']/div[1]/div[1]/div[2]/div[1]/div[2]/span[1]"));
+        WebElement modal_personas_content3 = connector.getDriver().findElement(By.xpath("//div[@id='confirmPersonasModal']/div[1]/div[1]/div[2]/div[1]/div[3]/span[1]"));
         WebElement modal_personas_button_aceptar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[1]"));
         WebElement modal_personas_button_cancelar = connector.getDriver().findElement(By.xpath("(//div[@class='modal-footer']//button)[2]"));
 
         assertEquals("Resultado", modal_personas_header.getText());
-        assertEquals("Personas calculadas: 148", modal_personas_content1.getText());
-        assertEquals("¿Quiere actualizar el evento con estas personas?", modal_personas_content2.getText());
+        assertEquals("Personas calculadas: 142", modal_personas_content1.getText());
+        assertEquals("Niños calculados: 10", modal_personas_content2.getText());
+        assertEquals("¿Quiere actualizar el evento con estas personas?", modal_personas_content3.getText());
         assertEquals("Aceptar", modal_personas_button_aceptar.getText());
         assertEquals("Cancelar", modal_personas_button_cancelar.getText());
     }
@@ -220,9 +222,12 @@ public class EventoVerStepDef {
     @And("^Personas is asigned$")
     public void event_personas_is_recalculated(){
         WebElement personas = connector.getDriver().findElement(By.id("eventoPersonas"));
+        WebElement ninyos = connector.getDriver().findElement(By.id("eventoNinyos"));
 
-        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.textToBePresentInElement(personas, "148"));
+        WebDriverWait wait1 = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait2 = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
+        wait1.until(ExpectedConditions.textToBePresentInElement(personas, "142"));
+        wait2.until(ExpectedConditions.textToBePresentInElement(ninyos, "10"));
     }
 
     @And("^Personas still same$")

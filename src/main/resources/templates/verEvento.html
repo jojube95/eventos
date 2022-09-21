@@ -179,12 +179,13 @@
     })
   }
 
-  function confirmarClicked(eventoId, personas){
+  function confirmarClicked(eventoId, personas, ninyos){
     $.ajax({
       type: "POST",
-      url: "/evento/updatePersonas?eventoId=" + eventoId + "&personas=" + personas,
+      url: "/evento/updatePersonas?eventoId=" + eventoId + "&personas=" + personas + "&ninyos=" + ninyos,
       success: function () {
         $('#eventoPersonas').text(personas);
+        $('#eventoNinyos').text(ninyos);
       },
       error: function (er) {
         if(er.status === 405){
