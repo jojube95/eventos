@@ -18,16 +18,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -166,13 +163,39 @@ class MesaRestControllerTest {
     @WithMockUser(username="admin",roles={"ADMIN"})
     void importarMesaInvitadosFromExcelTest() throws Exception {
         Evento evento = new Evento("idEvento", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Mesa mesaExcel1 = new Mesa("idEvento", 2, 1, 1, "Botellas");
+        Mesa mesaExcel2 = new Mesa("idEvento", 1, 1, 2, "");
+        Mesa mesaExcel3 = new Mesa("idEvento", 1, 1, 3, "Licores");
+        Mesa mesa1 = new Mesa("idMesa1", "idEvento", "", 2, 1, 1, true, "Botellas");
+        Mesa mesa2 = new Mesa("idMesa2", "idEvento", "", 1, 1, 2, true, "");
+        Mesa mesa3 = new Mesa("idMesa3", "idEvento", "", 1, 1, 3, true, "Licores");
+        List<Invitado> invitados1 = new ArrayList<>();
+        List<Invitado> invitados2 = new ArrayList<>();
+        List<Invitado> invitados3 = new ArrayList<>();
+        Invitado invitado1 = new Invitado("idEvento", "idMesa1", "Antonio", "Mayor", "");
+        Invitado invitado2 = new Invitado("idEvento", "idMesa1", "Pepe", "Mayor", "Intolerant");
+        Invitado invitado3 = new Invitado("idEvento", "idMesa1", "Amaia", "Niño", "Celiaca");
+        invitados1.add(invitado1);
+        invitados1.add(invitado2);
+        invitados1.add(invitado3);
+        Invitado invitado4 = new Invitado("idEvento", "idMesa2", "Amaia", "Mayor", "");
+        Invitado invitado5 = new Invitado("idEvento", "idMesa2", "Pepe", "Niño", "Celiaco");
+        invitados2.add(invitado4);
+        invitados2.add(invitado5);
+        Invitado invitado6 = new Invitado("idEvento", "idMesa3", "Jose", "Mayor", "");
+        Invitado invitado7 = new Invitado("idEvento", "idMesa3", "Pepa", "Niño", "");
+        invitados3.add(invitado6);
+        invitados3.add(invitado7);
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
+        when(mesaService.save(mesaExcel1)).thenReturn(mesa1);
+        when(mesaService.save(mesaExcel2)).thenReturn(mesa2);
+        when(mesaService.save(mesaExcel3)).thenReturn(mesa3);
 
         evento.setDistribucion(new Distribucion(""));
 
         FileInputStream fis = new FileInputStream("src/test/resources/files/listadoTest.xlsx");
-        MockMultipartFile multipartFile = new MockMultipartFile("listadoTest.xlsx", fis);
+        MockMultipartFile multipartFile = new MockMultipartFile("file", fis);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.multipart("/evento/mesas/uploadExcel")
                 .file(multipartFile)
@@ -184,5 +207,11 @@ class MesaRestControllerTest {
 
         verify(eventoService, times(1)).update(evento);
         verify(mesaService, times(1)).deleteMesas(evento.getId());
+        verify(mesaService, times(1)).save(mesaExcel1);
+        verify(mesaService, times(1)).save(mesaExcel2);
+        verify(mesaService, times(1)).save(mesaExcel3);
+        verify(invitadoService, times(1)).saveMany(invitados1);
+        verify(invitadoService, times(1)).saveMany(invitados2);
+        verify(invitadoService, times(1)).saveMany(invitados3);
     }
 }
