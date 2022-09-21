@@ -300,13 +300,13 @@ class EventoControllerTest {
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         List<Mesa> mesas = new ArrayList<>();
-        Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, true);
-        Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, true);
+        Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, 1, true, "descripcion");
         mesas.add(mesa1);
         mesas.add(mesa2);
         List<Invitado> invitados = new ArrayList<>();
-        Invitado invitado1 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
-        Invitado invitado2 = new Invitado("id", "idMesa", "Pepe", "Descripcion");
+        Invitado invitado1 = new Invitado("id", "idMesa", "Pepe", "Mayor", "Descripcion");
+        Invitado invitado2 = new Invitado("id", "idMesa", "Pepe", "Mayor", "Descripcion");
         invitados.add(invitado1);
         invitados.add(invitado2);
         when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);

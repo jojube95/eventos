@@ -37,23 +37,29 @@ public class InvitadoStepDef {
 
         assertEquals(6, invitados.size());
 
-        assertEquals("Invitado1", invitados1.get(0).getText());
-        assertEquals("Vegetariano", invitados1.get(1).getText());
+        assertEquals("Niño1", invitados1.get(0).getText());
+        assertEquals("Niño", invitados1.get(1).getText());
+        assertEquals("Vegetariano", invitados1.get(2).getText());
 
-        assertEquals("Invitado2", invitados2.get(0).getText());
-        assertEquals("", invitados2.get(1).getText());
+        assertEquals("Niño2", invitados2.get(0).getText());
+        assertEquals("Niño", invitados2.get(1).getText());
+        assertEquals("", invitados2.get(2).getText());
 
-        assertEquals("Invitado3", invitados3.get(0).getText());
-        assertEquals("Celiaco", invitados3.get(1).getText());
+        assertEquals("Niño3", invitados3.get(0).getText());
+        assertEquals("Niño", invitados3.get(1).getText());
+        assertEquals("Celiaco", invitados3.get(2).getText());
 
-        assertEquals("Invitado4", invitados4.get(0).getText());
-        assertEquals("", invitados4.get(1).getText());
+        assertEquals("Niño4", invitados4.get(0).getText());
+        assertEquals("Niño", invitados4.get(1).getText());
+        assertEquals("", invitados4.get(2).getText());
 
-        assertEquals("Invitado5", invitados5.get(0).getText());
-        assertEquals("", invitados5.get(1).getText());
+        assertEquals("Niño5", invitados5.get(0).getText());
+        assertEquals("Niño", invitados5.get(1).getText());
+        assertEquals("", invitados5.get(2).getText());
 
-        assertEquals("Invitado6", invitados6.get(0).getText());
-        assertEquals("", invitados6.get(1).getText());
+        assertEquals("Niño6", invitados6.get(0).getText());
+        assertEquals("Niño", invitados6.get(1).getText());
+        assertEquals("", invitados6.get(2).getText());
 
         assertEquals("Personas: 6", footer.get(0).getText());
     }
@@ -177,26 +183,33 @@ public class InvitadoStepDef {
 
         assertEquals(7, invitados.size());
 
-        assertEquals("Invitado1", invitados1.get(0).getText());
-        assertEquals("Vegetariano", invitados1.get(1).getText());
+        assertEquals("Niño1", invitados1.get(0).getText());
+        assertEquals("Niño", invitados1.get(1).getText());
+        assertEquals("Vegetariano", invitados1.get(2).getText());
 
-        assertEquals("Invitado2", invitados2.get(0).getText());
-        assertEquals("", invitados2.get(1).getText());
+        assertEquals("Niño2", invitados2.get(0).getText());
+        assertEquals("Niño", invitados2.get(1).getText());
+        assertEquals("", invitados2.get(2).getText());
 
-        assertEquals("Invitado3", invitados3.get(0).getText());
-        assertEquals("Celiaco", invitados3.get(1).getText());
+        assertEquals("Niño3", invitados3.get(0).getText());
+        assertEquals("Niño", invitados3.get(1).getText());
+        assertEquals("Celiaco", invitados3.get(2).getText());
 
-        assertEquals("Invitado4", invitados4.get(0).getText());
-        assertEquals("", invitados4.get(1).getText());
+        assertEquals("Niño4", invitados4.get(0).getText());
+        assertEquals("Niño", invitados4.get(1).getText());
+        assertEquals("", invitados4.get(2).getText());
 
-        assertEquals("Invitado5", invitados5.get(0).getText());
-        assertEquals("", invitados5.get(1).getText());
+        assertEquals("Niño5", invitados5.get(0).getText());
+        assertEquals("Niño", invitados5.get(1).getText());
+        assertEquals("", invitados5.get(2).getText());
 
-        assertEquals("Invitado6", invitados6.get(0).getText());
-        assertEquals("", invitados6.get(1).getText());
+        assertEquals("Niño6", invitados6.get(0).getText());
+        assertEquals("Niño", invitados6.get(1).getText());
+        assertEquals("", invitados6.get(2).getText());
 
         assertEquals("Antonio", invitados7.get(0).getText());
-        assertEquals("Alergico", invitados7.get(1).getText());
+        assertEquals("Mayor", invitados7.get(1).getText());
+        assertEquals("Alergico", invitados7.get(2).getText());
 
         assertEquals("Personas: 7", footer.get(0).getText());
     }
@@ -216,23 +229,29 @@ public class InvitadoStepDef {
 
         assertEquals(6, invitados.size());
 
-        assertEquals("Invitado20", invitados1.get(0).getText());
-        assertEquals("VegetarianoCeliaco", invitados1.get(1).getText());
+        assertEquals("Niño20", invitados1.get(0).getText());
+        assertEquals("Niño", invitados1.get(1).getText());
+        assertEquals("VegetarianoCeliaco", invitados1.get(2).getText());
 
-        assertEquals("Invitado2", invitados2.get(0).getText());
-        assertEquals("", invitados2.get(1).getText());
+        assertEquals("Niño2", invitados2.get(0).getText());
+        assertEquals("Niño", invitados2.get(1).getText());
+        assertEquals("", invitados2.get(2).getText());
 
-        assertEquals("Invitado3", invitados3.get(0).getText());
-        assertEquals("Celiaco", invitados3.get(1).getText());
+        assertEquals("Niño3", invitados3.get(0).getText());
+        assertEquals("Niño", invitados3.get(1).getText());
+        assertEquals("Celiaco", invitados3.get(2).getText());
 
-        assertEquals("Invitado4", invitados4.get(0).getText());
-        assertEquals("", invitados4.get(1).getText());
+        assertEquals("Niño4", invitados4.get(0).getText());
+        assertEquals("Niño", invitados4.get(1).getText());
+        assertEquals("", invitados4.get(2).getText());
 
-        assertEquals("Invitado5", invitados5.get(0).getText());
-        assertEquals("", invitados5.get(1).getText());
+        assertEquals("Niño5", invitados5.get(0).getText());
+        assertEquals("Niño", invitados5.get(1).getText());
+        assertEquals("", invitados5.get(2).getText());
 
-        assertEquals("Invitado6", invitados6.get(0).getText());
-        assertEquals("", invitados6.get(1).getText());
+        assertEquals("Niño6", invitados6.get(0).getText());
+        assertEquals("Niño", invitados6.get(1).getText());
+        assertEquals("", invitados6.get(2).getText());
 
         assertEquals("Personas: 6", footer.get(0).getText());
     }
@@ -251,20 +270,25 @@ public class InvitadoStepDef {
 
         assertEquals(5, invitados.size());
 
-        assertEquals("Invitado2", invitados2.get(0).getText());
-        assertEquals("", invitados2.get(1).getText());
+        assertEquals("Niño2", invitados2.get(0).getText());
+        assertEquals("Niño", invitados2.get(1).getText());
+        assertEquals("", invitados2.get(2).getText());
 
-        assertEquals("Invitado3", invitados3.get(0).getText());
-        assertEquals("Celiaco", invitados3.get(1).getText());
+        assertEquals("Niño3", invitados3.get(0).getText());
+        assertEquals("Niño", invitados3.get(1).getText());
+        assertEquals("Celiaco", invitados3.get(2).getText());
 
-        assertEquals("Invitado4", invitados4.get(0).getText());
-        assertEquals("", invitados4.get(1).getText());
+        assertEquals("Niño4", invitados4.get(0).getText());
+        assertEquals("Niño", invitados4.get(1).getText());
+        assertEquals("", invitados4.get(2).getText());
 
-        assertEquals("Invitado5", invitados5.get(0).getText());
-        assertEquals("", invitados5.get(1).getText());
+        assertEquals("Niño5", invitados5.get(0).getText());
+        assertEquals("Niño", invitados5.get(1).getText());
+        assertEquals("", invitados5.get(2).getText());
 
-        assertEquals("Invitado6", invitados6.get(0).getText());
-        assertEquals("", invitados6.get(1).getText());
+        assertEquals("Niño6", invitados6.get(0).getText());
+        assertEquals("Niño", invitados6.get(1).getText());
+        assertEquals("", invitados6.get(2).getText());
 
         assertEquals("Personas: 5", footer.get(0).getText());
     }

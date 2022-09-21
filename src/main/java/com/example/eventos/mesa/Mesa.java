@@ -14,41 +14,71 @@ public class Mesa {
 
     private String representante;
     private int personas;
+    private int ninyos;
     private int numero;
     private boolean pagado;
+    private String descripcion;
 
     public Mesa(){
 
     }
 
-    public Mesa(String idEvento, String representante, int personas, int numero, boolean pagado) {
+    public Mesa(String idEvento, String representante, int personas, int ninyos, int numero, boolean pagado, String descripcion) {
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.pagado = pagado;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String idEvento, int personas, int numero) {
+    public Mesa(String idEvento, int personas, int ninyos, int numero, String descripcion) {
         this.idEvento = idEvento;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, int personas, int numero) {
+    public Mesa(String id, String idEvento, int personas, int ninyos, int numero, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
+        this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, String representante, int personas, int numero, boolean pagado) {
+    public Mesa(String id, String idEvento, String representante, int personas, int ninyos, int numero, boolean pagado, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.representante = representante;
         this.personas = personas;
+        this.ninyos = ninyos;
         this.numero = numero;
         this.pagado = pagado;
+        this.descripcion = descripcion;
+    }
+
+    public Mesa(String textoExcel, String idEvento, int personas, int ninyos){
+        String[] valoresMesa = textoExcel.split("-");
+        int numero = 0;
+        String descripcion = "";
+
+        for (int i = 0; i < valoresMesa.length; i++) {
+            if (i == 0) {
+                numero = Integer.parseInt(valoresMesa[0].replaceAll("[^0-9]", ""));
+            }
+            else{
+                descripcion = valoresMesa[i].trim();
+            }
+        }
+        this.idEvento = idEvento;
+        this.numero = numero;
+        this.personas = personas;
+        this.ninyos = ninyos;
+        this.descripcion = descripcion;
     }
 
     public String getId() {
@@ -83,6 +113,14 @@ public class Mesa {
         this.personas = personas;
     }
 
+    public int getNinyos() {
+        return ninyos;
+    }
+
+    public void setNinyos(int ninyos) {
+        this.ninyos = ninyos;
+    }
+
     public boolean isPagado() {
         return pagado;
     }
@@ -99,14 +137,25 @@ public class Mesa {
         this.numero = numero;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Mesa{" +
-                "idEvento='" + idEvento + '\'' +
+                "id='" + id + '\'' +
+                ", idEvento='" + idEvento + '\'' +
                 ", representante='" + representante + '\'' +
                 ", personas=" + personas +
+                ", ninyos=" + ninyos +
                 ", numero=" + numero +
                 ", pagado=" + pagado +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 
@@ -115,11 +164,11 @@ public class Mesa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
-        return Objects.equals(id, mesa.id) && personas == mesa.personas && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante);
+        return Objects.equals(id, mesa.id) && personas == mesa.personas && ninyos == mesa.ninyos && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento) && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, representante, personas, numero, pagado);
+        return Objects.hash(id, idEvento, representante, personas, ninyos, numero, pagado, descripcion);
     }
 }

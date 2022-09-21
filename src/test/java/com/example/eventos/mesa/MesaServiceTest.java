@@ -1,5 +1,7 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +17,9 @@ class MesaServiceTest {
     @Mock
     MesaRepository mesaRepository;
 
+    @Mock
+    InvitadoRepository invitadoRepository;
+
     @InjectMocks
     MesaService mesaService;
 
@@ -22,7 +27,7 @@ class MesaServiceTest {
 
     @BeforeEach
     public void initEach(){
-        mesa = new Mesa("idEvento", "Antonio", 10, 1, true);
+        mesa = new Mesa("idEvento", "Antonio", 10, 1, 1, true, "descripcion");
     }
 
     @Test
@@ -47,11 +52,13 @@ class MesaServiceTest {
     void deleteTest(){
         mesaService.delete(mesa);
         verify(mesaRepository, times(1)).delete(mesa);
+        verify(invitadoRepository, times(1)).deleteByIdMesa(mesa.getId());
     }
 
     @Test
     void deleteMesasTest(){
         mesaService.deleteMesas(mesa.getIdEvento());
         verify(mesaRepository, times(1)).deleteByIdEvento(mesa.getIdEvento());
+        verify(invitadoRepository, times(1)).deleteByIdEvento(mesa.getIdEvento());
     }
 }

@@ -23,6 +23,7 @@ public class EventoController {
     private static final String EVENTOS_ATTRIBUTE = "eventos";
     private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
     private static final String PERSONAS_ATTRIBUTE = "personas";
+    private static final String NINYOS_ATTRIBUTE = "ninyos";
 
     public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
         this.eventoService = eventoService;
@@ -100,12 +101,21 @@ public class EventoController {
     public String calcularPersonas(@RequestParam("eventoId") String eventoId, Model model){
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         int personas = 0;
+        int ninyos = 0;
         for (Mesa mesa : mesas) {
             List<Invitado> invitados = invitadoService.findByMesa(mesa.getId());
-            personas += invitados.size();
+            for (Invitado invitado: invitados) {
+                if("Niño".equals(invitado.getTipo())){
+                    ninyos++;
+                }
+                else{
+                    personas++;
+                }
+            }
         }
         model.addAttribute(EVENTO_ID_ATTRIBUTE, eventoId);
         model.addAttribute(PERSONAS_ATTRIBUTE, personas);
+        model.addAttribute(NINYOS_ATTRIBUTE, ninyos);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

@@ -37,7 +37,7 @@
 
     <div class="container" style="margin-left: 30px; margin-right: 30px">
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 <table class="display compact" id="mesas">
                     <caption th:text="#{table.description.mesas}"></caption>
                     <thead>
@@ -47,7 +47,9 @@
                         <th th:text="#{mesa.numero}" scope="col"></th>
                         <th th:text="#{mesa.representante}" scope="col"></th>
                         <th th:text="#{mesa.personas}" scope="col"></th>
+                        <th th:text="#{mesa.ninyos}" scope="col"></th>
                         <th th:text="#{mesa.pagado}" scope="col"></th>
+                        <th th:text="#{mesa.descripcion}" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +59,9 @@
                         <td th:text="${mesa.numero}"></td>
                         <td th:text="${mesa.representante}"></td>
                         <td th:text="${mesa.personas}"></td>
+                        <td th:text="${mesa.ninyos}"></td>
                         <td th:text="${mesa.pagado}"></td>
+                        <td th:text="${mesa.descripcion}"></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -68,11 +72,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     </tfoot>
                 </table>
             </div>
-            <div class="col-8">
+            <div class="col-7">
                 <div class="row">
                     <canvas id="canvas" width="1040" height="920" style="border: 1px solid rgb(204, 204, 204);"></canvas>
                 </div>
@@ -80,6 +86,13 @@
                     <button th:text="#{guardar}" id="guardarButton" class="btn btn-primary" type="submit" onclick="guardarClicked()"></button>
                     <button th:text="#{exportarDistribucion}" id="exportarDistribucionButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarDistribucionClicked()"></button>
                     <button th:text="#{exportarListado}" id="exportarListadoButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarListadoClicked()"></button>
+
+                    <form id="file-upload-form">
+                        <label for="file-upload-input">Select file to upload</label>
+                        <input type="file" id="file-upload-input" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <button th:text="#{importarListado}" id="importarDistribucionButton" class="btn btn-primary" type="submit">Start Upload</button>
+                    </form>
+
                 </div>
             </div>
     </div>

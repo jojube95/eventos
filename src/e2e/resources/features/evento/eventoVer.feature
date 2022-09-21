@@ -34,20 +34,14 @@ Feature: Ver evento page should display event data and correct button actions
     And User click empleados action
     Then Page should redirect to empelados page with currect evento
 
-  Scenario: Click on calcular personas button should show modal with the correct personas
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
-    When User click action button
-    And User click calcular personas action
-    Then Calcular personas modal should display
-    And Calcular personas modal should display correct data
-
   @modifyDatabase
   Scenario: Click on modal calcular personas modal dialog aceptar should change event personas
     Given Open Chrome and logIn as admin
     And Visit verEvento page
     When User click action button
     And User click calcular personas action
+    Then Calcular personas modal should display
+    And Calcular personas modal should display correct data
     When User click aceptar
     Then Modal calcular personas should hide
     And Personas is asigned
@@ -58,18 +52,11 @@ Feature: Ver evento page should display event data and correct button actions
     And Visit verEvento page
     When User click action button
     And User click calcular personas action
+    Then Calcular personas modal should display
+    And Calcular personas modal should display correct data
     And User click cancelar
     Then Modal calcular personas should hide
     And Personas still same
-
-  Scenario: Click on eliminar should show eliminar modal dialog
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
-    When User click action button
-    And User click eliminar action
-    Then Eliminar evento modal should display
-    And Eliminar evento modal content should be correct
-
 
   @modifyDatabase
   Scenario: Click on eliminar modal dialog aceptar should delete event
@@ -78,6 +65,7 @@ Feature: Ver evento page should display event data and correct button actions
     When User click action button
     And User click eliminar action
     Then Eliminar evento modal should display
+    And Eliminar evento modal content should be correct
     When User click eliminar confirm
     Then Redirect to calendar page
 
@@ -87,5 +75,6 @@ Feature: Ver evento page should display event data and correct button actions
     When User click action button
     And User click eliminar action
     Then Eliminar evento modal should display
+    And Eliminar evento modal content should be correct
     When User click cerrar confirm
     Then Eliminar modal should hide

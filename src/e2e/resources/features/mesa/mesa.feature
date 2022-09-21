@@ -5,19 +5,13 @@ Feature: Mesa page should show eventos mesas that can be added, edited and delet
     And Visit mesas page
     Then Table display all mesas
 
-  Scenario: Click add should display add modal
-    Given Open Chrome and logIn as admin
-    And Visit mesas page
-    When User click add mesa button
-    Then Add modal mesa should display
-    And Add modal mesa content should have max table number
-
   @modifyDatabase
   Scenario: Add mesa should display on table
     Given Open Chrome and logIn as admin
     And Visit mesas page
     When User click add mesa button
     Then Add modal mesa should display
+    And Add modal mesa content should have max table number
     When User fill add mesa form
     And User click add mesa
     Then Add modal mesa should hide

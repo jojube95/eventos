@@ -14,24 +14,56 @@ public class Invitado {
     private String idMesa;
 
     private String nombre;
+    private String tipo;
     private String descripcion;
 
     public Invitado(){
 
     }
 
-    public Invitado(String id, String idEvento, String idMesa, String nombre, String descripcion) {
+    public Invitado(String id, String idEvento, String idMesa, String nombre, String tipo, String descripcion) {
         this.id = id;
         this.idEvento = idEvento;
         this.idMesa = idMesa;
         this.nombre = nombre;
+        this.tipo = tipo;
         this.descripcion = descripcion;
     }
 
-    public Invitado(String idEvento, String idMesa, String nombre, String descripcion) {
+    public Invitado(String idEvento, String idMesa, String nombre, String tipo, String descripcion) {
         this.idEvento = idEvento;
         this.idMesa = idMesa;
         this.nombre = nombre;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+    }
+
+    public Invitado(String textoExcel, String idEvento) {
+        String[] myData = textoExcel.split("-");
+        String nombre = "";
+        String tipo = "";
+        String descripcion = "";
+
+        for (int i = 0; i < myData.length; i++) {
+            if (i == 0) {
+                nombre = myData[0].trim();
+            }
+            else{
+                if (myData[i].trim().equals("x")) {
+                    tipo = "Niño";
+                }
+                else{
+                    descripcion = myData[i].trim();
+                }
+            }
+        }
+        if(tipo.isEmpty()){
+            tipo = "Mayor";
+        }
+
+        this.idEvento = idEvento;
+        this.nombre = nombre;
+        this.tipo = tipo;
         this.descripcion = descripcion;
     }
 
@@ -41,6 +73,14 @@ public class Invitado {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getDescripcion() {
@@ -81,6 +121,7 @@ public class Invitado {
                 "idEvento='" + idEvento + '\'' +
                 ", idMesa='" + idMesa + '\'' +
                 ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }
@@ -90,11 +131,11 @@ public class Invitado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invitado invitado = (Invitado) o;
-        return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa) && Objects.equals(nombre, invitado.nombre) && Objects.equals(descripcion, invitado.descripcion);
+        return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa) && Objects.equals(nombre, invitado.nombre) && Objects.equals(tipo, invitado.tipo) && Objects.equals(descripcion, invitado.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, idMesa, nombre, descripcion);
+        return Objects.hash(id, idEvento, idMesa, nombre, tipo, descripcion);
     }
 }
