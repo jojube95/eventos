@@ -13,12 +13,15 @@
             <span>Personas calculadas: 4</span>
           </div>
           <div class="row">
+            <span>Niños calculados: 0</span>
+          </div>
+          <div class="row">
             <span>¿Quiere actualizar el evento con estas personas?</span>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button id="modalConfirmarPersonasAceptarButton" type="button" class="btn btn-primary" data-dismiss="modal" eventoId="id" personas="4" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('personas'))">Aceptar</button>
+        <button id="modalConfirmarPersonasAceptarButton" type="button" class="btn btn-primary" data-dismiss="modal" eventoId="id" personas="4" ninyos="0" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('personas'), this.getAttribute('ninyos'))">Aceptar</button>
         <button id="modalConfirmarPersonasCancelarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
