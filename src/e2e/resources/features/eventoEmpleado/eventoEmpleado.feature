@@ -1,15 +1,12 @@
 Feature: Evento empleado page should list all evento empleados, add, delete and update evento empleado.
-  Scenario: Evento empleado page should list correct empleado data
-    Given Open Chrome and logIn as admin
-    And Visit evento empleado page
-    Then Evento empleado data should be correct
-    And Evento empleado select list should be correct
-    And Progressbar should be correct
 
   @modifyDatabase
   Scenario: Add evento empleado should add to list and update progressbar
     Given Open Chrome and logIn as admin
     And Visit evento empleado page
+    Then Evento empleado data should be correct
+    And Evento empleado select list should be correct
+    And Progressbar should be correct
     When User select empleado
     And User click anyadir event empleado
     Then Evento empleado is added to list

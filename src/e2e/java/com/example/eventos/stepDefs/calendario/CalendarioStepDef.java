@@ -62,6 +62,7 @@ public class CalendarioStepDef {
   public void user_click_last_month() {
     WebElement nextMonthButton = connector.getDriver().findElement(By.xpath("(//div[@class='fc-button-group']//button)[1]"));
     nextMonthButton.click();
+    nextMonthButton.click();
   }
 
   @When("^User click next month$")
@@ -119,6 +120,7 @@ public class CalendarioStepDef {
   public void should_redirect_to_calendar_page() {
     WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
     wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+    ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
   }
 
   @And("^First event title should be Boda-Cena$")
