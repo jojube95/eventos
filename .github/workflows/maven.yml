@@ -38,7 +38,3 @@ jobs:
         run: mvn --batch-mode clean verify
       - name: Sonar scan
         run: mvn --batch-mode sonar:sonar "-Dsonar.login=${{ secrets.SONAR_LOGIN }}"
-      - name: Deploy
-        uses: bervProject/railway-deploy@main
-        with:
-          railway_token: ${{ secrets.RAILWAY_TOKEN }}
