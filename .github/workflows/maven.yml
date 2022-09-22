@@ -38,13 +38,11 @@ jobs:
         run: mvn --batch-mode clean verify
       - name: Sonar scan
         run: mvn --batch-mode sonar:sonar "-Dsonar.login=${{ secrets.SONAR_LOGIN }}"
-
-      if: contains(github.ref, "main")
       - name: Install Railway
+        if: contains(github.ref, "main")
         run: npm i -g @railway/cli
-
-      if: contains(github.ref, "main")
       - name: Deploy
+        if: contains(github.ref, "main")
         run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
