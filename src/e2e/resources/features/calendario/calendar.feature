@@ -26,8 +26,8 @@ Feature: Calendar page that shows all events
     Then Date should be junio de 2022
     And 2 events is shown
 
-  Scenario: Click on event redirects to verEvento page
+  Scenario: Click on event redirects to eventoVer page
     Given Open Chrome and logIn as admin
     And Visit calendar page
     When User click evento
-    Then Redirect to verEvento page
+    Then Redirect to eventoVer page

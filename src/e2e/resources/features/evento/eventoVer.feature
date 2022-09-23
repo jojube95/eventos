@@ -1,8 +1,8 @@
 Feature: Ver evento page should display event data and correct button actions
 
-  Scenario: Click on modificar button should redirect to updateEvento page with current evento id
+  Scenario: Click on modificar button should redirect to eventoUpdate page with current evento id
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     When User click action button
     And User click modificar action
     Then Page should redirect to modificar page with currect evento
@@ -10,15 +10,15 @@ Feature: Ver evento page should display event data and correct button actions
 
   Scenario: Click on mesas button should redirect to mesas page. Click on protagonistas button should redirect to protagonistas page. Click on empleados button should redirect to mesas page.
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     When User click action button
     And User click mesas action
     Then Page should redirect to mesas page with currect evento
-    Given Visit verEvento page
+    Given Visit eventoVer page
     When User click action button
     And User click protagonistas action
     Then Page should redirect to protagonistas page with currect evento
-    Given Visit verEvento page
+    Given Visit eventoVer page
     When User click action button
     And User click empleados action
     Then Page should redirect to empelados page with currect evento
@@ -26,7 +26,7 @@ Feature: Ver evento page should display event data and correct button actions
   @modifyDatabase
   Scenario: Click on modal calcular personas modal dialog aceptar should change event personas
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     When User click action button
     And User click calcular personas action
     Then Calcular personas modal should display
@@ -38,7 +38,7 @@ Feature: Ver evento page should display event data and correct button actions
 
   Scenario: Click on modal calcular personas modal dialog cancelar dont change event personas
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     When User click action button
     And User click calcular personas action
     Then Calcular personas modal should display
@@ -50,7 +50,7 @@ Feature: Ver evento page should display event data and correct button actions
   @modifyDatabase
   Scenario: Click on eliminar modal dialog aceptar should delete event
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     Then Event should display correct data
     When User click action button
     And User click eliminar action
@@ -61,7 +61,7 @@ Feature: Ver evento page should display event data and correct button actions
 
   Scenario: Click on eliminar modal dialog cerrar dont delete event
     Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    And Visit eventoVer page
     When User click action button
     And User click eliminar action
     Then Eliminar evento modal should display

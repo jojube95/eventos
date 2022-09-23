@@ -110,10 +110,10 @@ public class CalendarioStepDef {
     assertEquals("agosto de 2022", fechaText);
   }
 
-  @Then("^Redirect to verEvento page$")
+  @Then("^Redirect to eventoVer page$")
   public void redirect_to_verEvento() {
     String url = connector.getDriver().getCurrentUrl();
-    assertThat(url, CoreMatchers.containsString("/verEvento?eventoId=62dc2a63ec628818203950b9"));
+    assertThat(url, CoreMatchers.containsString("/eventoVer?eventoId=62dc2a63ec628818203950b9"));
   }
 
   @Then("^Page should redirect to calendar page$")

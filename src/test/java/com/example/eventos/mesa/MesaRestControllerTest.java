@@ -79,7 +79,7 @@ class MesaRestControllerTest {
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
-                .param("idEvento", mesa.getIdEvento())
+                .param("eventoId", mesa.getIdEvento())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(mesa));
@@ -200,7 +200,7 @@ class MesaRestControllerTest {
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.multipart("/evento/mesas/uploadExcel")
                 .file(multipartFile)
                 .with(csrf())
-                .param("idEvento", evento.getId());
+                .param("eventoId", evento.getId());
 
 
         mockMvc.perform(mockRequest).andExpect(status().isOk());

@@ -21,7 +21,7 @@ public class EmpleadoModificarStepDef {
     @Given("^Visit modificar empleado page$")
     public void visit_modificar_empleado_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/updateEmpleado?empleadoId=6310ca5942c98257fb6f349d");
+        connector.getDriver().get("http://localhost:8081/empleadoUpdate?empleadoId=6310ca5942c98257fb6f349d");
     }
 
     @When("^User click modificar empleado button$")

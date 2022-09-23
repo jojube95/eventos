@@ -88,7 +88,7 @@ class EmpleadoControllerTest {
     void postUpdateAnyadirEmpleadoTestUsuario() throws Exception {
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 
@@ -102,7 +102,7 @@ class EmpleadoControllerTest {
     void postUpdateAnyadirEmpleadoTestAdmin() throws Exception {
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 

@@ -44,7 +44,7 @@ class DistribucionRestControllerTest {
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/distribucion/guardar")
                 .with(csrf())
-                .param("idEvento", evento.getId())
+                .param("eventoId", evento.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content("distribucionJson");

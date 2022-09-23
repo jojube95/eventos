@@ -22,10 +22,10 @@ public class EventoModificarStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit updateEvento page$")
+    @Given("^Visit eventoUpdate page$")
     public void visit_update_evento_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/updateEvento?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get("http://localhost:8081/eventoUpdate?eventoId=62dc2a63ec628818203950b9");
     }
 
     @When("^User click modificar evento$")
@@ -154,11 +154,11 @@ public class EventoModificarStepDef {
         assertEquals("Boda-Comida", tituloInput.getAttribute("value"));
     }
 
-    @And("^Keep on updateEvento page$")
+    @And("^Keep on eventoUpdate page$")
     public void keep_on_updateEvento_page() {
         connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         String url = connector.getDriver().getCurrentUrl();
-        assertThat(url, CoreMatchers.containsString("/updateEvento?eventoId=62dc2a63ec628818203950b9"));
+        assertThat(url, CoreMatchers.containsString("/eventoUpdate?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Titulo fill with selected horario Sopar nadal-Cena$")

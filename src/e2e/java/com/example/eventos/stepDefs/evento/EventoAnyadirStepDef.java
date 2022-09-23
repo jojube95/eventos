@@ -24,10 +24,10 @@ public class EventoAnyadirStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit anyadirEvento page$")
+    @Given("^Visit eventoAnyadir page$")
     public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/anyadirEvento");
+        connector.getDriver().get("http://localhost:8081/eventoAnyadir");
     }
 
     @When("^User fill all fields$")
@@ -251,11 +251,11 @@ public class EventoAnyadirStepDef {
         assertEquals("Lu", firstDay.getText());
     }
 
-    @And("^Keep on anyadirEvento page$")
+    @And("^Keep on eventoAnyadir page$")
     public void keep_on_anyadirEvento_page() {
         connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         String url = connector.getDriver().getCurrentUrl();
-        assertThat(url, CoreMatchers.containsString("/anyadirEvento"));
+        assertThat(url, CoreMatchers.containsString("/eventoAnyadir"));
     }
 
     @And("^Titulo should be readonly$")

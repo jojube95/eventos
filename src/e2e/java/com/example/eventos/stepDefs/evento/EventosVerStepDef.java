@@ -26,10 +26,10 @@ public class EventosVerStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit verEventos page$")
+    @Given("^Visit eventosVer page$")
     public void visit_ver_eventos_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/verEventos");
+        connector.getDriver().get("http://localhost:8081/eventosVer");
     }
 
     @Given("^Set dates to avoid future test fails$")
@@ -480,10 +480,10 @@ public class EventosVerStepDef {
         assertEquals("787€", footer.get(6).getText());
     }
 
-    @Then("^Redirect to verEvento page with currect evento$")
+    @Then("^Redirect to eventoVer page with currect evento$")
     public void redirect_to_ver_evento(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/verEvento?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/eventoVer?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @And("^Fecha max is void$")

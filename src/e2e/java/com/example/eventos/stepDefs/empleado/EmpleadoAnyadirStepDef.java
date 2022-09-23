@@ -20,10 +20,10 @@ public class EmpleadoAnyadirStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit anyadirEmpleado page$")
+    @Given("^Visit empleadoAnyadir page$")
     public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/anyadirEmpleado");
+        connector.getDriver().get("http://localhost:8081/empleadoAnyadir");
     }
 
     @When("^User fill all empleado fields$")

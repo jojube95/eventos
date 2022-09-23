@@ -20,17 +20,17 @@ public class EmpleadoHistorialStepDef {
     @Given("^Visit empleado historial page$")
     public void visit_empleado_historial_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/historialEmpleado?empleadoId=6310ca5942c98257fb6f349d");
+        connector.getDriver().get("http://localhost:8081/empleadoHistorial?empleadoId=6310ca5942c98257fb6f349d");
     }
 
     @Then("^Historial data should be correct$")
     public void historial_data_is_shown() {
-        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='historialEmpleado']/tbody/tr"));
+        List<WebElement> eventos = connector.getDriver().findElements(By.xpath("//table[@id='empleadoHistorial']/tbody/tr"));
 
-        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='historialEmpleado']/tbody/tr[1]/td"));
-        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='historialEmpleado']/tbody/tr[2]/td"));
+        List<WebElement> evento1 = connector.getDriver().findElements(By.xpath("//table[@id='empleadoHistorial']/tbody/tr[1]/td"));
+        List<WebElement> evento2 = connector.getDriver().findElements(By.xpath("//table[@id='empleadoHistorial']/tbody/tr[2]/td"));
 
-        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='historialEmpleado']/tfoot/tr/td"));
+        List<WebElement> footer = connector.getDriver().findElements(By.xpath("//table[@id='empleadoHistorial']/tfoot/tr/td"));
 
         assertEquals(2, eventos.size());
 

@@ -285,7 +285,7 @@ class EventoControllerTest {
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/updateFecha")
-                .param("id", evento.getId())
+                .param("eventoId", evento.getId())
                 .param("fecha", new GregorianCalendar(2022, Calendar.JULY, 10).getTime().toString());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/calendario"));

@@ -229,7 +229,7 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    rowdata.idEvento = idEvento;
+    rowdata.idEvento = eventoId;
     delete rowdata.id;
 
     addMesaAjax(rowdata, success, error);

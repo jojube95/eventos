@@ -46,9 +46,9 @@ class InvitadoControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/invitadosModal.html");
 
         Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Invitado invitado1 = new Invitado(evento.getId(), "idMesa", "Pepe", "Mayor",  "");
-        Invitado invitado2 = new Invitado(evento.getId(), "idMesa", "Antonio", "Mayor", "Vegano");
-        Invitado invitado3 = new Invitado(evento.getId(), "idMesa", "José", "Mayor", "");
+        Invitado invitado1 = new Invitado(evento.getId(), "mesaId", "Pepe", "Mayor",  "");
+        Invitado invitado2 = new Invitado(evento.getId(), "mesaId", "Antonio", "Mayor", "Vegano");
+        Invitado invitado3 = new Invitado(evento.getId(), "mesaId", "José", "Mayor", "");
         List<Invitado> invitados = new ArrayList<>();
         invitados.add(invitado1);
         invitados.add(invitado2);
@@ -58,8 +58,8 @@ class InvitadoControllerTest {
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/invitados")
                 .locale(new Locale("es", "ES"))
-                .param("idEvento", evento.getId())
-                .param("idMesa", "idMesa");
+                .param("eventoId", evento.getId())
+                .param("mesaId", "mesaId");
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);
