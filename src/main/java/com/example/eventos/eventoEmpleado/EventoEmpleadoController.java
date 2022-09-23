@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
+import static com.example.eventos.config.Constants.*;
 
 @Controller
 public class EventoEmpleadoController {
@@ -23,28 +24,28 @@ public class EventoEmpleadoController {
     }
 
     @GetMapping("/evento/empleados")
-    public String eventoEmpleados(@RequestParam("eventoId") String eventoId, Model model) {
+    public String eventoEmpleados(@RequestParam(EVENTO_EMPELADO_EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo("Camarero/a", true);
         List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo("Camarero/a", false);
         List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByIdEvento(eventoId);
 
-        long camarerosRecomendados = Math.round(evento.getPersonas() / 17.0);
+        long camarerosRecomendados = Math.round(evento.getPersonas() / DIVISOR_CAMAREROS_BODA);
         if("Boda".equals(evento.getTipo())){
             camarerosRecomendados++;
         }
 
-        model.addAttribute("eventoEmpleados", eventoEmpleados);
+        model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
         model.addAttribute("empleadosFijos", empleadosFijos);
         model.addAttribute("empleadosNoFijos", empleadosNoFijos);
-        model.addAttribute("idEvento", eventoId);
-        model.addAttribute("personas", evento.getPersonas());
+        model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
+        model.addAttribute(EVENTO_PERSONAS, evento.getPersonas());
         model.addAttribute("camarerosRecomendados", camarerosRecomendados);
-        return "eventoEmpleados";
+        return EVENTO_EMPELADOS_PAGE;
     }
 
     @GetMapping("/evento/empleados/modificar")
-    public String modificarVer(@RequestParam("eventoEmpleadoId") String eventoEmpleadoId, Model model) {
+    public String modificarVer(@RequestParam(EVENTO_EMPELADO_ID) String eventoEmpleadoId, Model model) {
         EventoEmpleado eventoEmpleado = eventoEmpleadoService.getById(eventoEmpleadoId);
         model.addAttribute(eventoEmpleado);
         return "fragments/eventoEmpleadoModificarModal :: modalContents";

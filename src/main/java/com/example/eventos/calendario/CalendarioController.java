@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
+import static com.example.eventos.config.Constants.CALENDARIO_PAGE;
 
 @Controller
 public class CalendarioController {
@@ -20,7 +21,7 @@ public class CalendarioController {
 
     @GetMapping("/")
     public String redirectCalendario() {
-        return "redirect:/calendario";
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/calendario")
@@ -33,7 +34,7 @@ public class CalendarioController {
 
         model.addAttribute("eventosJson", eventosJson);
 
-        return "calendario";
+        return CALENDARIO_PAGE;
     }
 
 }

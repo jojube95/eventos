@@ -254,7 +254,7 @@
                         let mesaSeleccionada = dt.rows({ selected: true }).data()[0];
 
                         $.ajax({
-                            url: "/evento/mesas/invitados?idEvento=" + idEvento + "&idMesa=" + mesaSeleccionada.id,
+                            url: "/evento/mesas/invitados?eventoId=" + idEvento + "&mesaId=" + mesaSeleccionada.id,
                             success: function (data) {
                                 $("#invitadosModalHolder").html(data);
                                 let columnDefs = [

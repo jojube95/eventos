@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import static com.example.eventos.config.Constants.*;
 
 @Controller
 public class EventoController {
@@ -18,13 +19,6 @@ public class EventoController {
     private final MesaService mesaService;
 
     private final InvitadoService invitadoService;
-
-    private static final String EVENTO_ATTRIBUTE = "evento";
-    private static final String EVENTOS_ATTRIBUTE = "eventos";
-    private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
-    private static final String PERSONAS_ATTRIBUTE = "personas";
-    private static final String NINYOS_ATTRIBUTE = "ninyos";
-    private static final String REDIRECT_CALENDARIO = "redirect:/calendario";
 
     public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
         this.eventoService = eventoService;
@@ -35,21 +29,21 @@ public class EventoController {
     @GetMapping("/verEventos")
     public String verEventos(Model model) {
         List<Evento> eventos = eventoService.getEventos();
-        model.addAttribute(EVENTOS_ATTRIBUTE, eventos);
-        return "verEventos";
+        model.addAttribute(EVENTOS, eventos);
+        return EVENTOS_VER_PAGE;
     }
 
     @GetMapping("/anyadirEvento")
     public String anyadirEvento(Model model) {
-        model.addAttribute(EVENTO_ATTRIBUTE, new Evento());
-        return "anyadirEvento";
+        model.addAttribute(EVENTO, new Evento());
+        return EVENTO_ANYADIR_PAGE;
     }
 
     @GetMapping("/updateEvento")
-    public String updateEvento(@RequestParam("eventoId") String eventoId, Model model) {
+    public String updateEvento(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(EVENTO_ATTRIBUTE, evento);
-        return "updateEvento";
+        model.addAttribute(EVENTO, evento);
+        return EVENTO_UPDATE_PAGE;
     }
 
     @PostMapping("/updateEvento")
@@ -67,39 +61,39 @@ public class EventoController {
         eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
         eventoToUpdate.setConfirmado(evento.isConfirmado());
         eventoService.update(eventoToUpdate);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/verEvento")
-    public String verEvento(@RequestParam("eventoId") String eventoId, Model model) {
+    public String verEvento(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(EVENTO_ATTRIBUTE, evento);
-        return "verEvento";
+        model.addAttribute(EVENTO, evento);
+        return EVENTO_VER_PAGE;
     }
 
     @PostMapping("/anyadirEvento")
     public String save(@ModelAttribute Evento evento) throws IOException {
         eventoService.save(evento);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/eliminarEvento")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
+    public String eliminarEvento(@RequestParam(EVENTO_ID) String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/evento/updateFecha")
-    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) {
-        Evento evento = eventoService.getById(id);
+    public String updateFecha(@RequestParam(EVENTO_ID) String eventoId, @RequestParam(EVENTO_FECHA) Date fecha) {
+        Evento evento = eventoService.getById(eventoId);
         evento.setFecha(fecha);
         eventoService.update(evento);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/evento/calcularPersonas")
-    public String calcularPersonas(@RequestParam("eventoId") String eventoId, Model model){
+    public String calcularPersonas(@RequestParam(EVENTO_ID) String eventoId, Model model){
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         int personas = 0;
         int ninyos = 0;
@@ -114,9 +108,9 @@ public class EventoController {
                 }
             }
         }
-        model.addAttribute(EVENTO_ID_ATTRIBUTE, eventoId);
-        model.addAttribute(PERSONAS_ATTRIBUTE, personas);
-        model.addAttribute(NINYOS_ATTRIBUTE, ninyos);
+        model.addAttribute(EVENTO_ID, eventoId);
+        model.addAttribute(EVENTO_PERSONAS, personas);
+        model.addAttribute(EVENTO_NINYOS, ninyos);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

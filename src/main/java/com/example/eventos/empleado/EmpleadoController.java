@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.ArrayList;
 import java.util.List;
+import static com.example.eventos.config.Constants.*;
 
 @Controller
 public class EmpleadoController {
@@ -29,37 +29,37 @@ public class EmpleadoController {
     @GetMapping("/empleados")
     public String empleados(Model model) {
         List<Empleado> empleados = empleadoService.getEmpleados();
-        model.addAttribute("empleados", empleados);
-        return "empleados";
+        model.addAttribute(EMPLEADOS, empleados);
+        return EMPLEADOS_PAGE;
     }
 
     @GetMapping("/anyadirEmpleado")
     public String anyadirEmpleado(Model model) {
-        model.addAttribute("empleado", new Empleado());
-        return "anyadirEmpleado";
+        model.addAttribute(EMPLEADO, new Empleado());
+        return EMPLEADO_ANYADIR_PAGE;
     }
 
     @PostMapping("/anyadirUpdateEmpleado")
     public String save(@ModelAttribute Empleado empleado) {
         empleadoService.save(empleado);
-        return "redirect:/empleados";
+        return "redirect:/" + EMPLEADOS_PAGE;
     }
 
     @GetMapping("/updateEmpleado")
-    public String updateEmpleado(@RequestParam("empleadoId") String empleadoId, Model model) {
+    public String updateEmpleado(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         Empleado empleado = empleadoService.getById(empleadoId);
-        model.addAttribute("empleado", empleado);
-        return "updateEmpleado";
+        model.addAttribute(EMPLEADO, empleado);
+        return EMPLEADO_UPDATE_PAGE;
     }
 
     @GetMapping("/historialEmpleado")
-    public String historialEmpleado(@RequestParam("empleadoId") String empleadoId, Model model) {
+    public String historialEmpleado(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         List<EventoEmpleado> eventosEmpleado = eventoEmpleadoService.getByIdEmpleado(empleadoId);
         List<Evento> eventos = new ArrayList<>();
         for (EventoEmpleado eventoEmpleado: eventosEmpleado) {
             eventos.add(eventoService.getById(eventoEmpleado.getIdEvento()));
         }
-        model.addAttribute("eventos", eventos);
-        return "historialEmpleado";
+        model.addAttribute(EVENTOS, eventos);
+        return EMPLEADO_HISTORIAL_PAGE;
     }
 }

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let nuevaFecha = info.event.start.toDateString();
 
             $.ajax({
-                url: "/evento/updateFecha?id=" + eventoId + "&fecha=" + nuevaFecha,
+                url: "/evento/updateFecha?eventoId=" + eventoId + "&fecha=" + nuevaFecha,
                 success: function () {
                     $("#confirmModal").modal("show");
                 }

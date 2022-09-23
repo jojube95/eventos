@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+
+import static com.example.eventos.config.Constants.*;
 import static com.example.eventos.pdf.PdfCreator.*;
 
 @Controller
@@ -36,19 +38,19 @@ public class MesaController {
     }
 
     @GetMapping("/evento/mesas")
-    public String getMesas(@RequestParam("eventoId") String eventoId, Model model) {
+    public String getMesas(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute("idEvento", eventoId);
+        model.addAttribute(EVENTO_ID, eventoId);
         model.addAttribute("isEventoIndividual", evento.isEventoIndividual());
-        model.addAttribute("distribucion", evento.getDistribucion().getDistribucion());
-        model.addAttribute("mesas", mesas);
-        model.addAttribute("sala", evento.getSala());
-        return "mesas";
+        model.addAttribute(DISTRIBUCION, evento.getDistribucion().getDistribucion());
+        model.addAttribute(MESAS, mesas);
+        model.addAttribute(EVENTO_SALA, evento.getSala());
+        return MESAS_PAGE;
     }
 
     @GetMapping("/evento/mesas/generarListado")
-    public ResponseEntity<byte[]> generarListado(@RequestParam("eventoId") String eventoId) {
+    public ResponseEntity<byte[]> generarListado(@RequestParam(EVENTO_ID) String eventoId) {
         List<Mesa> mesas = mesaService.findByEventoOrderByNumero(eventoId);
 
         byte[] contents = listadoPdfGenerator(mesas);

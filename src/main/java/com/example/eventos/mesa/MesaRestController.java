@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import static com.example.eventos.config.Constants.EVENTO_ID;
 
 @RestController
 public class MesaRestController {
@@ -31,8 +32,8 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/add")
-    public Mesa add(@RequestBody Mesa mesa, @RequestParam("idEvento") String idEvento){
-        Evento evento = eventoService.getById(idEvento);
+    public Mesa add(@RequestBody Mesa mesa, @RequestParam(EVENTO_ID) String eventoId){
+        Evento evento = eventoService.getById(eventoId);
 
         mesaService.save(mesa);
 
@@ -61,11 +62,11 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/uploadExcel")
-    public ResponseEntity<String> importarMesaInvitadosFromExcel(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException {
-        Evento evento =  eventoService.getById(idEvento);
+    public ResponseEntity<String> importarMesaInvitadosFromExcel(@RequestParam("file") MultipartFile file, @RequestParam(EVENTO_ID) String eventoId ) throws IOException {
+        Evento evento =  eventoService.getById(eventoId);
         evento.setDistribucion(new Distribucion(""));
         eventoService.update(evento);
-        mesaService.deleteMesas(idEvento);
+        mesaService.deleteMesas(eventoId);
 
         InputStream inputStream = file.getInputStream();
 
@@ -84,7 +85,7 @@ public class MesaRestController {
             for (int j = 1; sheet.getRow(j) != null; j++){
                 if(sheet.getRow(j).getCell(i) != null) {
                     //Create Invitado
-                    Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), idEvento);
+                    Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
                     invitados.add(invitado);
                     if("Niño".equals(invitado.getTipo())){
                         ninyos++;
@@ -100,7 +101,7 @@ public class MesaRestController {
 
             String textoMesa = sheet.getRow(0).getCell(i).getStringCellValue();
 
-            Mesa mesa = mesaService.save(new Mesa(textoMesa, idEvento, personas, ninyos));
+            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, personas, ninyos));
 
             for (Invitado invitado: invitados) {
                 invitado.setIdMesa(mesa.getId());

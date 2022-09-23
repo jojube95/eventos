@@ -169,7 +169,7 @@ $(document).ready(function() {
 
         // use $.ajax() to upload file
         $.ajax({
-            url: "/evento/mesas/uploadExcel?idEvento=" + idEvento,
+            url: "/evento/mesas/uploadExcel?eventoId=" + eventoId,
             type: "POST",
             data: new FormData(this),
             enctype: 'multipart/form-data',
@@ -239,7 +239,7 @@ function addMesaAjax(mesaRowData, success, error){
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/evento/mesas/add?idEvento=" + idEvento,
+        url: "/evento/mesas/add?eventoId=" + eventoId,
         data: JSON.stringify(mesaRowData),
         dataType: 'json',
         success: function (mesa) {
@@ -429,7 +429,7 @@ function guardarDistribucion(){
     let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
 
     $.ajax({
-        url: "/evento/distribucion/guardar?idEvento=" + idEvento,
+        url: "/evento/distribucion/guardar?eventoId=" + eventoId,
         type: "POST",
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
@@ -446,7 +446,7 @@ function guardarClicked(){
     let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
 
     $.ajax({
-        url: "/evento/distribucion/guardar?idEvento=" + idEvento,
+        url: "/evento/distribucion/guardar?eventoId=" + eventoId,
         type: "POST",
         data: JSON.stringify(json),
         contentType: "application/json; charset=utf-8",
@@ -469,7 +469,7 @@ function exportarDistribucionClicked(){
 }
 
 function exportarListadoClicked(){
-    window.location = "/evento/mesas/generarListado?eventoId=" + idEvento;
+    window.location = "/evento/mesas/generarListado?eventoId=" + eventoId;
 }
 
 function addCircleTable(mesaId, numero, personas, ninyos, top, left) {
