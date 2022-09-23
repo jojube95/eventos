@@ -132,3 +132,7 @@ $( document ).ready(function() {
         table.draw();
     });
 });
+
+function rowClicked(eventoId){
+    location.href = "/eventoVer?eventoId=" + eventoId;
+}
