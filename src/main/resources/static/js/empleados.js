@@ -23,11 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function modificarClicked(empleadoId){
     console.log(empleadoId);
-    location.href = "/updateEmpleado?empleadoId=" + empleadoId;
+    location.href = "/empleadoUpdate?empleadoId=" + empleadoId;
 }
 
 function historialClicked(empleadoId){
-    location.href = "/historialEmpleado?empleadoId=" + empleadoId;
+    location.href = "/empleadoHistorial?empleadoId=" + empleadoId;
 }
 
 function eliminarClicked(empleadoId){

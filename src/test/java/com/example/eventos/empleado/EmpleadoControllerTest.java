@@ -64,7 +64,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getAnyadirEmpleadoTestUsuario() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEmpleado");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoAnyadir");
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
     }
@@ -72,9 +72,9 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getAnyadirEmpleadoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEmpleado.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/empleadoAnyadir.html");
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoAnyadir")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -118,7 +118,7 @@ class EmpleadoControllerTest {
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoUpdate")
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
@@ -127,13 +127,13 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getUpdateEmpleadoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEmpleado.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/empleadoUpdate.html");
 
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoUpdate")
                 .locale(new Locale("es", "ES"))
                 .param("empleadoId", empleado.getId());;
 
@@ -150,7 +150,7 @@ class EmpleadoControllerTest {
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/historialEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoHistorial")
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));

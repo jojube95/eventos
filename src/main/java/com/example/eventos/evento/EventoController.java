@@ -26,28 +26,28 @@ public class EventoController {
         this.invitadoService = invitadoService;
     }
 
-    @GetMapping("/verEventos")
-    public String verEventos(Model model) {
+    @GetMapping("/eventosVer")
+    public String eventosVer(Model model) {
         List<Evento> eventos = eventoService.getEventos();
         model.addAttribute(EVENTOS, eventos);
         return EVENTOS_VER_PAGE;
     }
 
-    @GetMapping("/anyadirEvento")
-    public String anyadirEvento(Model model) {
+    @GetMapping("/eventoAnyadir")
+    public String eventoAnyadir(Model model) {
         model.addAttribute(EVENTO, new Evento());
         return EVENTO_ANYADIR_PAGE;
     }
 
-    @GetMapping("/updateEvento")
-    public String updateEvento(@RequestParam(EVENTO_ID) String eventoId, Model model) {
+    @GetMapping("/eventoUpdate")
+    public String eventoUpdate(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
         return EVENTO_UPDATE_PAGE;
     }
 
-    @PostMapping("/updateEvento")
-    public String updateEvento(@ModelAttribute Evento evento) throws IOException {
+    @PostMapping("/eventoUpdate")
+    public String eventoUpdate(@ModelAttribute Evento evento) throws IOException {
         Evento eventoToUpdate = eventoService.getById(evento.getId());
         eventoToUpdate.setFecha(evento.getFecha());
         eventoToUpdate.setLocalidad(evento.getLocalidad());
@@ -64,14 +64,14 @@ public class EventoController {
         return "redirect:/" + CALENDARIO_PAGE;
     }
 
-    @GetMapping("/verEvento")
-    public String verEvento(@RequestParam(EVENTO_ID) String eventoId, Model model) {
+    @GetMapping("/eventoVer")
+    public String eventoVer(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
         return EVENTO_VER_PAGE;
     }
 
-    @PostMapping("/anyadirEvento")
+    @PostMapping("/eventoAnyadir")
     public String save(@ModelAttribute Evento evento) throws IOException {
         eventoService.save(evento);
         return "redirect:/" + CALENDARIO_PAGE;

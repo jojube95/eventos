@@ -52,7 +52,7 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void getVerEventosTestUsuario() throws Exception {
+    void getverEventosTestUsuario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosUsuario.html");
 
         Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -64,7 +64,7 @@ class EventoControllerTest {
 
         when(eventoService.getEventos()).thenReturn(eventos);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEventos")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventosVer")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -75,7 +75,7 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void getVerEventosTestAdmin() throws Exception {
+    void getverEventosTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosAdmin.html");
 
         Evento evento1 = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -87,7 +87,7 @@ class EventoControllerTest {
 
         when(eventoService.getEventos()).thenReturn(eventos);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEventos")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventosVer")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -98,18 +98,18 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void getAnyadirEventoTestUsuario() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEvento");
+    void getEventoAnyadirTestUsuario() throws Exception {
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoAnyadir");
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void getAnyadirEventoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEvento.html");
+    void getEventoAnyadirTestAdmin() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoAnyadir.html");
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoAnyadir")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -120,12 +120,12 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void getUpdateEventoTest() throws Exception {
+    void geteventoUpdateTest() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoUpdate")
                 .param("eventoId", evento.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
@@ -133,14 +133,14 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void getUpdateEventoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEvento.html");
+    void geteventoUpdateTestAdmin() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoUpdate.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoUpdate")
                 .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
@@ -152,10 +152,10 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void postUpdateEventoTestUsuario() throws Exception {
+    void posteventoUpdateTestUsuario() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eventoUpdate")
                 .with(csrf())
                 .flashAttr("evento", evento);
 
@@ -166,13 +166,13 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void postUpdateEventoTestAdmin() throws Exception {
+    void posteventoUpdateTestAdmin() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Evento eventoUpdated = new Evento("id", "Comunión2", "Comida2", 51, 16, "Olleria2", fecha, 81, 16, true, new ArrayList<>(), "Comunión-Comida2", "Sala2", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/updateEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eventoUpdate")
                 .with(csrf())
                 .flashAttr("evento", eventoUpdated);
 
@@ -183,14 +183,14 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void getVerEventoTestUsuario() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoUsuario.html");
+    void geteventoVerTestUsuario() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoVerUsuario.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoVer")
                 .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
@@ -202,14 +202,14 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void getVerEventoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventoAdmin.html");
+    void geteventoVerTestAdmin() throws Exception {
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoVerAdmin.html");
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/verEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoVer")
                 .locale(new Locale("es", "ES"))
                 .param("eventoId", evento.getId());
 
@@ -221,10 +221,10 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void postAnyadirEventoTestUsuario() throws Exception {
+    void postEventoAnyadirTestUsuario() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eventoAnyadir")
                 .with(csrf())
                 .flashAttr("evento", evento);
 
@@ -235,10 +235,10 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void postAnyadirEventoTestAdmin() throws Exception {
+    void postEventoAnyadirTestAdmin() throws Exception {
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirEvento")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eventoAnyadir")
                 .with(csrf())
                 .flashAttr("evento", evento);
 

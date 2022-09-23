@@ -5,15 +5,15 @@
 
     <th:block th:include="fragments/head :: head"/>
 
-    <script th:src="@{/js/anyadirUpdateEmpleado.js}" type="text/javascript"></script>
+    <script th:src="@{/js/empleadoAnyadirUpdate.js}" type="text/javascript"></script>
 
-    <link th:href="@{/css/anyadirUpdateEmpleado.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/empleadoAnyadirUpdate.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-        <form action="#" th:action="@{/anyadirUpdateEmpleado}" th:object="${empleado}" method="post">
+        <form action="#" th:action="@{/empleadoAnyadirUpdate}" th:object="${empleado}" method="post">
             <div th:replace="fragments/empleadoForm :: tipo"></div>
             <div th:replace="fragments/empleadoForm :: nombreTelefono"></div>
             <div th:replace="fragments/empleadoForm :: fijo"></div>

@@ -6,29 +6,15 @@
     <th:block th:include="fragments/head :: head"/>
     <th:block th:include="fragments/headDatePicker :: head"/>
 
-    <script th:src="@{/js/anyadirUpdateEvento.js}" type="text/javascript"></script>
+    <script th:src="@{/js/eventoAnyadirUpdate.js}" type="text/javascript"></script>
 
-    <link th:href="@{/css/updateEvento.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/eventoAnyadir.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-        <form action="#" th:action="@{/updateEvento}" th:object="${evento}" method="post">
-            <div class="form-row" hidden>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="id">Id</label>
-                        <input type="text" th:field="*{id}" class="form-control" id="id" placeholder="id" required>
-                    </div>
-                </div>
-                <div class="col">
-
-                </div>
-                <div class="col">
-
-                </div>
-            </div>
+        <form action="#" th:action="@{/eventoAnyadir}" th:object="${evento}" method="post">
             <div th:replace="fragments/eventoForm :: fecha"></div>
             <div th:replace="fragments/eventoForm :: localidad"></div>
             <div th:replace="fragments/eventoForm :: tipoHorarioTitulo"></div>
@@ -36,8 +22,7 @@
             <div th:replace="fragments/eventoForm :: personas"></div>
             <div th:replace="fragments/eventoForm :: ninyos"></div>
             <div th:replace="fragments/eventoForm :: confirmado"></div>
-
-            <button id="buttonModificar" th:text="#{modificar}" class="btn btn-primary" type="submit"></button>
+            <button id="buttonAnyadir" th:text="#{anyadir}" class="btn btn-primary" type="submit"></button>
         </form>
     </div>
 </body>

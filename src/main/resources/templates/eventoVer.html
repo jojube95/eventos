@@ -5,7 +5,7 @@
 
   <th:block th:include="fragments/head :: head"/>
 
-  <link th:href="@{/css/verEvento.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/css/eventoVer.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
@@ -150,7 +150,7 @@
 </body>
 <script>
   function modificarClicked(eventoId){
-    location.href = "/updateEvento?eventoId=" + eventoId;
+    location.href = "/eventoUpdate?eventoId=" + eventoId;
   }
 
   function protagonistasClicked(eventoId){

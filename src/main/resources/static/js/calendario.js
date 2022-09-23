@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         eventClick: function(info) {
             let eventoId = info.event.id;
-            location.href = "/verEvento?eventoId=" + eventoId;
+            location.href = "/eventoVer?eventoId=" + eventoId;
         },
         eventDrop: function(info) {
             let eventoId = info.event.id;
@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function verClicked(eventoId){
-    location.href = "/verEvento?eventoId=" + eventoId;
+    location.href = "/eventoVer?eventoId=" + eventoId;
 }
 
 function modificarClicked(eventoId){
-    location.href = "/updateEvento?eventoId=" + eventoId;
+    location.href = "/eventoUpdate?eventoId=" + eventoId;
 }
 
 function goToDate(date){

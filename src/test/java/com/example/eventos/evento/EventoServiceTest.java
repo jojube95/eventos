@@ -101,7 +101,7 @@ class EventoServiceTest {
     }
 
     @Test
-    void updateEventoTest() {
+    void eventoUpdateTest() {
         eventoService.update(evento);
         verify(eventoRepository, times(1)).save(evento);
         verify(googleCalendarService, times(1)).update(evento);

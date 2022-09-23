@@ -39,7 +39,7 @@ public class ProtagonistaController {
     }
 
     @GetMapping("/evento/protagonistas/anyadir")
-    public String anyadirEvento(@RequestParam(EVENTO_ID) String eventoId, Model model) {
+    public String eventoAnyadir(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
         model.addAttribute(PROTAGONISTA, new Protagonista());

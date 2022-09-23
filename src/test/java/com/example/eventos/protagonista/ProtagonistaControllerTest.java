@@ -46,7 +46,7 @@ class ProtagonistaControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getProtagonistasTest() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verProtagonistas.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/protagonistasVer.html");
 
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
@@ -93,7 +93,7 @@ class ProtagonistaControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getAnyadirProtagonistaTest() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirProtagonista.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/protagonistaAnyadir.html");
 
         Evento evento = new Evento("eventoId", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 

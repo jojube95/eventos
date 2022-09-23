@@ -33,27 +33,27 @@ public class EmpleadoController {
         return EMPLEADOS_PAGE;
     }
 
-    @GetMapping("/anyadirEmpleado")
-    public String anyadirEmpleado(Model model) {
+    @GetMapping("/empleadoAnyadir")
+    public String empleadoAnyadir(Model model) {
         model.addAttribute(EMPLEADO, new Empleado());
         return EMPLEADO_ANYADIR_PAGE;
     }
 
-    @PostMapping("/anyadirUpdateEmpleado")
+    @PostMapping("/empleadoAnyadirUpdate")
     public String save(@ModelAttribute Empleado empleado) {
         empleadoService.save(empleado);
         return "redirect:/" + EMPLEADOS_PAGE;
     }
 
-    @GetMapping("/updateEmpleado")
-    public String updateEmpleado(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
+    @GetMapping("/empleadoUpdate")
+    public String empleadoUpdate(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute(EMPLEADO, empleado);
         return EMPLEADO_UPDATE_PAGE;
     }
 
-    @GetMapping("/historialEmpleado")
-    public String historialEmpleado(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
+    @GetMapping("/empleadoHistorial")
+    public String empleadoHistorial(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         List<EventoEmpleado> eventosEmpleado = eventoEmpleadoService.getByIdEmpleado(empleadoId);
         List<Evento> eventos = new ArrayList<>();
         for (EventoEmpleado eventoEmpleado: eventosEmpleado) {

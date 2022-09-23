@@ -19,7 +19,7 @@ $( document ).ready(function() {
         }
     );
 
-    let table = $('#historialEmpleado').DataTable({
+    let table = $('#empleadoHistorial').DataTable({
         order: [0, 'asc'],
         columnDefs: [
             { orderable: false, targets: [1, 2, 3, 4, 5] },

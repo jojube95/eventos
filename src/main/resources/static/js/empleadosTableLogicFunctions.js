@@ -38,3 +38,7 @@ function addSelectHeaderTo(table, columns){
                 });
         });
 }
+
+function rowClicked(eventoId){
+    location.href = "/eventoVer?eventoId=" + eventoId;
+}

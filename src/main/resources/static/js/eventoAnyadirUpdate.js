@@ -14,7 +14,7 @@ $( document ).ready(function() {
         rellenarPrecioNinyos($(this).val());
     });
 
-    if(window.location.href.includes("anyadirEvento")){
+    if(window.location.href.includes("eventoAnyadir")){
         rellenarPrecioNinyos(tipoSelect.val());
     }
 });
