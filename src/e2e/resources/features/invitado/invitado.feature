@@ -1,11 +1,4 @@
 Feature: Invitados modal should show invitados table with correct information and add, edit, delete them
-  Scenario: Invitados modal should show correct invitados
-    Given Open Chrome and logIn as admin
-    And Visit mesas page
-    And User click first mesa
-    And User click invitados mesa button
-    And Invitados modal mesa should display
-    Then Invitados content should be correct
 
   @modifyDatabase
   Scenario: Add invitado should add to the table
@@ -14,6 +7,7 @@ Feature: Invitados modal should show invitados table with correct information an
     And User click first mesa
     And User click invitados mesa button
     And Invitados modal mesa should display
+    Then Invitados content should be correct
     When User click add invitado button
     Then Add invitado modal should display
     When User fill add invitado form

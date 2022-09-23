@@ -80,6 +80,7 @@ public class Evento {
         this.protagonistas = protagonistas;
         this.sala = sala;
         this.titulo = titulo;
+        this.distribucion = distribucion;
     }
 
     public String getId() {

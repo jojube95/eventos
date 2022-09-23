@@ -1,14 +1,10 @@
 Feature: Mesa page should show eventos mesas that can be added, edited and deleted, and show mesa invitados
 
-  Scenario: Visit mesas page should display table with mesas and personas
-    Given Open Chrome and logIn as admin
-    And Visit mesas page
-    Then Table display all mesas
-
   @modifyDatabase
   Scenario: Add mesa should display on table
     Given Open Chrome and logIn as admin
     And Visit mesas page
+    Then Table display all mesas
     When User click add mesa button
     Then Add modal mesa should display
     And Add modal mesa content should have max table number

@@ -24,6 +24,7 @@ public class EventoController {
     private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
     private static final String PERSONAS_ATTRIBUTE = "personas";
     private static final String NINYOS_ATTRIBUTE = "ninyos";
+    private static final String REDIRECT_CALENDARIO = "redirect:/calendario";
 
     public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
         this.eventoService = eventoService;
@@ -66,7 +67,7 @@ public class EventoController {
         eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
         eventoToUpdate.setConfirmado(evento.isConfirmado());
         eventoService.update(eventoToUpdate);
-        return "redirect:/calendario";
+        return REDIRECT_CALENDARIO;
     }
 
     @GetMapping("/verEvento")
@@ -79,14 +80,14 @@ public class EventoController {
     @PostMapping("/anyadirEvento")
     public String save(@ModelAttribute Evento evento) throws IOException {
         eventoService.save(evento);
-        return "redirect:/calendario";
+        return REDIRECT_CALENDARIO;
     }
 
     @GetMapping("/eliminarEvento")
     public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
-        return "redirect:/calendario";
+        return REDIRECT_CALENDARIO;
     }
 
     @GetMapping("/evento/updateFecha")
@@ -94,7 +95,7 @@ public class EventoController {
         Evento evento = eventoService.getById(id);
         evento.setFecha(fecha);
         eventoService.update(evento);
-        return "redirect:/calendario";
+        return REDIRECT_CALENDARIO;
     }
 
     @GetMapping("/evento/calcularPersonas")

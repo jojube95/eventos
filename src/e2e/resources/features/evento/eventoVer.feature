@@ -1,10 +1,5 @@
 Feature: Ver evento page should display event data and correct button actions
 
-  Scenario: Visit verEvento page should display correct event data
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
-    Then Event should display correct data
-
   Scenario: Click on modificar button should redirect to updateEvento page with current evento id
     Given Open Chrome and logIn as admin
     And Visit verEvento page
@@ -13,23 +8,17 @@ Feature: Ver evento page should display event data and correct button actions
     Then Page should redirect to modificar page with currect evento
 
 
-  Scenario: Click on mesas button should redirect to mesas page with currect evento id
+  Scenario: Click on mesas button should redirect to mesas page. Click on protagonistas button should redirect to protagonistas page. Click on empleados button should redirect to mesas page.
     Given Open Chrome and logIn as admin
     And Visit verEvento page
     When User click action button
     And User click mesas action
     Then Page should redirect to mesas page with currect evento
-
-  Scenario: Click on protagonistas button should redirect to protagonistas page with currect evento id
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    Given Visit verEvento page
     When User click action button
     And User click protagonistas action
     Then Page should redirect to protagonistas page with currect evento
-
-  Scenario: Click on empleados button should redirect to mesas page with currect evento id
-    Given Open Chrome and logIn as admin
-    And Visit verEvento page
+    Given Visit verEvento page
     When User click action button
     And User click empleados action
     Then Page should redirect to empelados page with currect evento
@@ -62,6 +51,7 @@ Feature: Ver evento page should display event data and correct button actions
   Scenario: Click on eliminar modal dialog aceptar should delete event
     Given Open Chrome and logIn as admin
     And Visit verEvento page
+    Then Event should display correct data
     When User click action button
     And User click eliminar action
     Then Eliminar evento modal should display

@@ -62,23 +62,22 @@ public class Mesa {
     }
 
     public Mesa(String textoExcel, String idEvento, int personas, int ninyos){
+        this.idEvento = idEvento;
+        this.personas = personas;
+        this.ninyos = ninyos;
+
         String[] valoresMesa = textoExcel.split("-");
-        int numero = 0;
-        String descripcion = "";
+        this.numero = 0;
+        this.descripcion = "";
 
         for (int i = 0; i < valoresMesa.length; i++) {
             if (i == 0) {
-                numero = Integer.parseInt(valoresMesa[0].replaceAll("[^0-9]", ""));
+                this.numero = Integer.parseInt(valoresMesa[0].replaceAll("\\D", ""));
             }
             else{
-                descripcion = valoresMesa[i].trim();
+                this.descripcion = valoresMesa[i].trim();
             }
         }
-        this.idEvento = idEvento;
-        this.numero = numero;
-        this.personas = personas;
-        this.ninyos = ninyos;
-        this.descripcion = descripcion;
     }
 
     public String getId() {
