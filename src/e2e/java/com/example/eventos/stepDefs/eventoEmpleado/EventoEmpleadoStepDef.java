@@ -71,8 +71,12 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: yellow;"));
+        assertEquals("rgba(0, 128, 0, 1)", progresbarConfirmados.getCssValue("background-color"));
+
+        assertEquals("rgba(255, 255, 0, 1)", progresbarNoConfirmados.getCssValue("background-color"));
+
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%;"));
     }
 
     @And("^Progressbar should update new empleado$")
@@ -80,8 +84,12 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%; background-color: yellow;"));
+        assertEquals("rgba(0, 128, 0, 1)", progresbarConfirmados.getCssValue("background-color"));
+
+        assertEquals("rgba(255, 255, 0, 1)", progresbarNoConfirmados.getCssValue("background-color"));
+
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%;"));
     }
 
     @And("^Progressbar should update updated empleado$")
@@ -89,8 +97,12 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%; background-color: green;"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%; background-color: yellow;"));
+        assertEquals("rgba(0, 128, 0, 1)", progresbarConfirmados.getCssValue("background-color"));
+
+        assertEquals("rgba(255, 255, 0, 1)", progresbarNoConfirmados.getCssValue("background-color"));
+
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 20%;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%;"));
     }
 
     @And("^Progressbar should update with deleted empleado$")
@@ -98,8 +110,12 @@ public class EventoEmpleadoStepDef {
         WebElement progresbarConfirmados = connector.getDriver().findElement(By.id("progressbarConfirmados"));
         WebElement progresbarNoConfirmados = connector.getDriver().findElement(By.id("progressbarNoConfirmados"));
 
-        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%; background-color: green;"));
-        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%; background-color: yellow;"));
+        assertEquals("rgba(0, 128, 0, 1)", progresbarConfirmados.getCssValue("background-color"));
+
+        assertEquals("rgba(255, 255, 0, 1)", progresbarNoConfirmados.getCssValue("background-color"));
+
+        assertThat(progresbarConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 10%;"));
+        assertThat(progresbarNoConfirmados.getAttribute("style"), CoreMatchers.containsString("width: 0%;"));
     }
 
     @When("^User select empleado$")

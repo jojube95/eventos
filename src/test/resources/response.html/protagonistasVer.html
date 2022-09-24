@@ -1,5 +1,5 @@
 <div class="container">
-    <button type="button" class="btn btn-primary" style="margin-bottom: 10px" id="botonAnyadir" eventoId="eventoId" onclick="anyadirClicked(this.getAttribute('eventoId'))">Añadir</button>
+    <button type="button" class="btn btn-primary" id="botonAnyadir" eventoId="eventoId" onclick="anyadirClicked(this.getAttribute('eventoId'))">Añadir</button>
 
     <table class="display compact" id="protagonistas">
         <caption>Tabla con los protagonistas del evento</caption>
@@ -13,7 +13,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+        <tr onclick="rowClicked(this.getAttribute('eventoId'))">
             <td>
 
 
@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-danger" protagonistaIndex="0" eventoId="eventoId" onclick="eliminarClicked(this.getAttribute('eventoId'), this.getAttribute('protagonistaIndex'))">Eliminar</button>
             </td>
         </tr>
-        <tr style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+        <tr onclick="rowClicked(this.getAttribute('eventoId'))">
             <td>
 
 
