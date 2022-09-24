@@ -2,3 +2,19 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
     padding: 4px;
 }
 
+.container {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+canvas {
+    border: 1px solid rgb(204, 204, 204);
+}
+
+button {
+    margin-right: 10px;
+}
+
+.col-7 div.row:nth-child(2) {
+    margin-top: 10px;
+}

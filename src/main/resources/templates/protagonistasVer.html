@@ -7,12 +7,13 @@
     <script th:src="@{/libraries/js/jquery.dataTables.min.js}" type="text/javascript"></script>
     <script th:src="@{/js/protagonistasVer.js}" type="text/javascript"></script>
 
+    <link th:href="@{/css/protagonistasVer.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/libraries/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <button th:text="#{anyadir}" type="button" class="btn btn-primary" style="margin-bottom: 10px" id="botonAnyadir" th:eventoId="${evento.id}" onclick="anyadirClicked(this.getAttribute('eventoId'))"></button>
+        <button th:text="#{anyadir}" type="button" class="btn btn-primary" id="botonAnyadir" th:eventoId="${evento.id}" onclick="anyadirClicked(this.getAttribute('eventoId'))"></button>
 
         <table class="display compact" id="protagonistas">
             <caption th:text="#{table.description.protagonistas}"></caption>
@@ -26,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="protagonista, iter: ${evento.protagonistas}" style="cursor: pointer" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <tr th:each="protagonista, iter: ${evento.protagonistas}" onclick="rowClicked(this.getAttribute('eventoId'))">
                 <td th:switch="${protagonista.tipo}">
                     <span th:case="'novioNovia'" th:text="#{novioNovia}"></span>
                     <span th:case="'comunianteComunianta'" th:text="#{comunianteComunianta}"></span>

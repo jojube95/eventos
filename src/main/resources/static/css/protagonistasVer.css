@@ -1,0 +1,7 @@
+tbody tr {
+    cursor: pointer;
+}
+
+.container .btn-primary {
+    margin-bottom: 10px;
+}

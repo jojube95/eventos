@@ -19,13 +19,13 @@
       <div class="dropdown">
         <button th:text="#{accion}" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
         <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a th:text="#{modificar}" id="modificarButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{mesas}" id="mesasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{calcularPersonas}" id="calcularPersonasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{protagonistas}" id="protagonistasButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
-          <a th:text="#{empleados}" id="empleadosButton" class="dropdown-item" style="cursor: pointer" th:eventoId="${evento.id}" onclick="empleadosClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{modificar}" id="modificarButton" class="dropdown-item" th:eventoId="${evento.id}" onclick="modificarClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{mesas}" id="mesasButton" class="dropdown-item" th:eventoId="${evento.id}" onclick="mesasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{calcularPersonas}" id="calcularPersonasButton" class="dropdown-item" th:eventoId="${evento.id}" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{protagonistas}" id="protagonistasButton" class="dropdown-item" th:eventoId="${evento.id}" onclick="protagonistasClicked(this.getAttribute('eventoId'))"></a>
+          <a th:text="#{empleados}" id="empleadosButton" class="dropdown-item" th:eventoId="${evento.id}" onclick="empleadosClicked(this.getAttribute('eventoId'))"></a>
           <div role="separator" class="dropdown-divider"></div>
-          <a th:text="#{eliminar}" id="eliminarButton" class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#confirmarEliminarModal"></a>
+          <a th:text="#{eliminar}" id="eliminarButton" class="dropdown-item" data-toggle="modal" data-target="#confirmarEliminarModal"></a>
         </div>
       </div>
     </div>
