@@ -28,13 +28,18 @@ function calcularPersonasClicked(eventoId){
     })
 }
 
-function confirmarClicked(eventoId, personas, ninyos){
+function confirmarClicked(eventoId, mayores, ninyos){
+    let personas = {mayores: mayores, ninyos: ninyos};
+
     $.ajax({
         type: "POST",
-        url: "/evento/updatePersonas?eventoId=" + eventoId + "&personas=" + personas + "&ninyos=" + ninyos,
+        contentType: "application/json",
+        url: "/evento/updatePersonas?eventoId=" + eventoId,
+        data: JSON.stringify(personas),
+        dataType: 'json',
         success: function () {
-            $('#eventoPersonas').text(personas);
-            $('#eventoNinyos').text(ninyos);
+            $('#eventoPersonas').text(personas.mayores);
+            $('#eventoNinyos').text(personas.ninyos);
         },
         error: function (er) {
             if(er.status === 405){

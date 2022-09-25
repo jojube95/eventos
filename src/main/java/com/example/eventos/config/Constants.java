@@ -47,5 +47,7 @@ public final class Constants {
 
     public static final double DIVISOR_CAMAREROS_BODA = 17.0;
 
+    public static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
+
 
 }

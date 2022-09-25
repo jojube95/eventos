@@ -4,6 +4,8 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaService;
+import com.example.eventos.personas.Personas;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import static com.example.eventos.config.Constants.*;
+import static com.example.eventos.json.JsonUtils.toJson;
 
 @Controller
 public class EventoController {
@@ -93,24 +96,11 @@ public class EventoController {
     }
 
     @GetMapping("/evento/calcularPersonas")
-    public String calcularPersonas(@RequestParam(EVENTO_ID) String eventoId, Model model){
-        List<Mesa> mesas = mesaService.findByEvento(eventoId);
-        int personas = 0;
-        int ninyos = 0;
-        for (Mesa mesa : mesas) {
-            List<Invitado> invitados = invitadoService.findByMesa(mesa.getId());
-            for (Invitado invitado: invitados) {
-                if("Niño".equals(invitado.getTipo())){
-                    ninyos++;
-                }
-                else{
-                    personas++;
-                }
-            }
-        }
+    public String calcularPersonas(@RequestParam(EVENTO_ID) String eventoId, Model model) {
+        Personas personas = eventoService.calcularPersonas(eventoId);
+
         model.addAttribute(EVENTO_ID, eventoId);
         model.addAttribute(EVENTO_PERSONAS, personas);
-        model.addAttribute(EVENTO_NINYOS, ninyos);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

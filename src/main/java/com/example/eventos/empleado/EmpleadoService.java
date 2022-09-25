@@ -19,10 +19,6 @@ public class EmpleadoService {
         return empleadoRepository.findEmpleadoById(id);
     }
 
-    public List<Empleado> getByTipo(String tipo) {
-        return empleadoRepository.findEmpleadoByTipo(tipo);
-    }
-
     public List<Empleado> getByTipoAndFijo(String tipo, boolean fijo) {
         return empleadoRepository.findEmpleadoByTipoAndFijo(tipo, fijo);
     }

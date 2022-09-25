@@ -30,17 +30,12 @@ public class EventoEmpleadoController {
         List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo("Camarero/a", false);
         List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByIdEvento(eventoId);
 
-        long camarerosRecomendados = Math.round(evento.getPersonas() / DIVISOR_CAMAREROS_BODA);
-        if("Boda".equals(evento.getTipo())){
-            camarerosRecomendados++;
-        }
-
         model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
         model.addAttribute("empleadosFijos", empleadosFijos);
         model.addAttribute("empleadosNoFijos", empleadosNoFijos);
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(EVENTO_PERSONAS, evento.getPersonas());
-        model.addAttribute("camarerosRecomendados", camarerosRecomendados);
+        model.addAttribute("camarerosRecomendados", evento.getCamarerosRecomendados());
         return EVENTO_EMPELADOS_PAGE;
     }
 

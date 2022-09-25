@@ -9,14 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import static com.example.eventos.config.Constants.ATTRIBUTE_ERROR_DETAIL;
 
 @Controller
 public class ErrorHandlerController implements ErrorController {
 
     @Autowired
     private MessageSource messageSource;
-
-    private static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
 
     @GetMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {

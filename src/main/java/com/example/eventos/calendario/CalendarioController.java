@@ -3,12 +3,12 @@ package com.example.eventos.calendario;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import static com.example.eventos.config.Constants.CALENDARIO_PAGE;
+import static com.example.eventos.json.JsonUtils.toJson;
 
 @Controller
 public class CalendarioController {
@@ -28,11 +28,7 @@ public class CalendarioController {
     public String calendario(Model model) throws JsonProcessingException {
         List<Evento> eventos = eventoService.getEventos();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        String eventosJson = objectMapper.writeValueAsString(eventos);
-
-        model.addAttribute("eventosJson", eventosJson);
+        model.addAttribute("eventosJson", toJson(eventos));
 
         return CALENDARIO_PAGE;
     }

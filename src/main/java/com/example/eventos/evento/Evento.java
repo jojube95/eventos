@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import static com.example.eventos.config.Constants.DIVISOR_CAMAREROS_BODA;
 
 @Document("evento")
 public class Evento {
@@ -208,6 +209,16 @@ public class Evento {
 
     public boolean isEventoIndividual(){
         return "Evento individual".equals(this.tipo);
+    }
+
+    public int getCamarerosRecomendados(){
+        int camareros = (int) Math.round(this.personas / DIVISOR_CAMAREROS_BODA);
+
+        if("Boda".equals(this.tipo)){
+            camareros++;
+        }
+
+        return camareros;
     }
 
     @Override

@@ -10,10 +10,10 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <span th:text="#{personasCalculadas} + ': ' + ${personas}"></span>
+                        <span th:text="#{personasCalculadas} + ': ' + ${personas.mayores}"></span>
                     </div>
                     <div class="row">
-                        <span th:text="#{ninyosCalculados} + ': ' + ${ninyos}"></span>
+                        <span th:text="#{ninyosCalculados} + ': ' + ${personas.ninyos}"></span>
                     </div>
                     <div class="row">
                         <span th:text="#{preguntaGuardarPersonas}"></span>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button th:text="#{aceptar}" id="modalConfirmarPersonasAceptarButton" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${eventoId}" th:personas="${personas}" th:ninyos="${ninyos}" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('personas'), this.getAttribute('ninyos'))"></button>
+                <button th:text="#{aceptar}" id="modalConfirmarPersonasAceptarButton" type="button" class="btn btn-primary" data-dismiss="modal" th:eventoId="${eventoId}" th:mayores="${personas.mayores}" th:ninyos="${personas.ninyos}" onclick="confirmarClicked(this.getAttribute('eventoId'), this.getAttribute('mayores'), this.getAttribute('ninyos'))"></button>
                 <button th:text="#{cancelar}" id="modalConfirmarPersonasCancelarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
             </div>
         </div>

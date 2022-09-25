@@ -41,11 +41,9 @@ public class MesaController {
     public String getMesas(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(EVENTO_ID, eventoId);
+        model.addAttribute(EVENTO, evento);
         model.addAttribute("isEventoIndividual", evento.isEventoIndividual());
-        model.addAttribute(DISTRIBUCION, evento.getDistribucion().getDistribucion());
         model.addAttribute(MESAS, mesas);
-        model.addAttribute(EVENTO_SALA, evento.getSala());
         return MESAS_PAGE;
     }
 

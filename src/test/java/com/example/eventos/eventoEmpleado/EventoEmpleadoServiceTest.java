@@ -31,12 +31,6 @@ class EventoEmpleadoServiceTest {
     }
 
     @Test
-    void getByIdEmpleadoTest() {
-        eventoEmpleadoService.getByIdEmpleado(eventoEmpleado.getIdEmpleado());
-        verify(eventoEmpleadoRepository, times(1)).findByIdEmpleado(eventoEmpleado.getIdEmpleado());
-    }
-
-    @Test
     void getByIdTest() {
         eventoEmpleadoService.getById(eventoEmpleado.getId());
         verify(eventoEmpleadoRepository, times(1)).findEventoEmpleadoById(eventoEmpleado.getId());

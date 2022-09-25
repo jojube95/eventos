@@ -37,12 +37,6 @@ class EmpleadoServiceTest {
     }
 
     @Test
-    void getByIdTtipo() {
-        empleadoService.getByTipo(empleado.getTipo());
-        verify(empleadoRepository, times(1)).findEmpleadoByTipo(empleado.getTipo());
-    }
-
-    @Test
     void getByIdTtipoAndFijoTest() {
         empleadoService.getByTipoAndFijo("Camarero/a", true);
         verify(empleadoRepository, times(1)).findEmpleadoByTipoAndFijo("Camarero/a", true);
