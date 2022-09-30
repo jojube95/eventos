@@ -1,5 +1,6 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -35,5 +36,14 @@ public class MesaService {
     public void deleteMesas(String idEvento){
         invitadoRepository.deleteByIdEvento(idEvento);
         mesaRepository.deleteByIdEvento(idEvento);
+    }
+
+    public void generateInvitados(Mesa mesa) {
+        for (int i = 1; i <= mesa.getPersonas().getMayores(); i++) {
+            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, "Mayor", ""));
+        }
+        for (int i = 1; i <= mesa.getPersonas().getNinyos(); i++) {
+            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Niño" + i, "Ninyo", ""));
+        }
     }
 }

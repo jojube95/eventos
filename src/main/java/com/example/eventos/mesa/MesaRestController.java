@@ -5,6 +5,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.personas.Personas;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -38,13 +39,9 @@ public class MesaRestController {
         mesaService.save(mesa);
 
         if (!evento.getTipo().equals("Evento individual")) {
-            for (int i = 1; i <= mesa.getPersonas(); i++) {
-                invitadoService.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, "Mayor", ""));
-            }
-            for (int i = 1; i <= mesa.getNinyos(); i++) {
-                invitadoService.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Niño" + i, "Ninyo", ""));
-            }
+            mesaService.generateInvitados(mesa);
         }
+
         return mesa;
     }
 
@@ -101,7 +98,7 @@ public class MesaRestController {
 
             String textoMesa = sheet.getRow(0).getCell(i).getStringCellValue();
 
-            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, personas, ninyos));
+            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, new Personas(personas, ninyos)));
 
             for (Invitado invitado: invitados) {
                 invitado.setIdMesa(mesa.getId());

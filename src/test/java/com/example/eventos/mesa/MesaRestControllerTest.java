@@ -5,6 +5,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(3, 1), 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
@@ -73,7 +74,7 @@ class MesaRestControllerTest {
     void addTestAdmin() throws Exception {
         Evento evento = new Evento("idEvento", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        Mesa mesa = new Mesa("idEvento", "Pepe", 3, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(3, 1), 2, true, "descripcion");
 
         when(eventoService.getById(mesa.getIdEvento())).thenReturn(evento);
 
@@ -96,7 +97,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(10, 1), 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -113,7 +114,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(10, 1), 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -130,7 +131,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTest() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(10, 1), 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())
@@ -146,7 +147,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("idEvento", "Pepe", 10, 1, 2, true, "descripcion");
+        Mesa mesa = new Mesa("idEvento", "Pepe", new Personas(10, 1), 2, true, "descripcion");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())
@@ -163,12 +164,12 @@ class MesaRestControllerTest {
     @WithMockUser(username="admin",roles={"ADMIN"})
     void importarMesaInvitadosFromExcelTest() throws Exception {
         Evento evento = new Evento("idEvento", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Mesa mesaExcel1 = new Mesa("idEvento", 2, 1, 1, "Botellas");
-        Mesa mesaExcel2 = new Mesa("idEvento", 1, 1, 2, "");
-        Mesa mesaExcel3 = new Mesa("idEvento", 1, 1, 3, "Licores");
-        Mesa mesa1 = new Mesa("idMesa1", "idEvento", "", 2, 1, 1, true, "Botellas");
-        Mesa mesa2 = new Mesa("idMesa2", "idEvento", "", 1, 1, 2, true, "");
-        Mesa mesa3 = new Mesa("idMesa3", "idEvento", "", 1, 1, 3, true, "Licores");
+        Mesa mesaExcel1 = new Mesa("idEvento", new Personas(2, 1), 1, "Botellas");
+        Mesa mesaExcel2 = new Mesa("idEvento", new Personas(1, 1), 2, "");
+        Mesa mesaExcel3 = new Mesa("idEvento", new Personas(1, 1), 3, "Licores");
+        Mesa mesa1 = new Mesa("idMesa1", "idEvento", "", new Personas(2, 1), 1, true, "Botellas");
+        Mesa mesa2 = new Mesa("idMesa2", "idEvento", "", new Personas(1, 1), 2, true, "");
+        Mesa mesa3 = new Mesa("idMesa3", "idEvento", "", new Personas(1, 1), 3, true, "Licores");
         List<Invitado> invitados1 = new ArrayList<>();
         List<Invitado> invitados2 = new ArrayList<>();
         List<Invitado> invitados3 = new ArrayList<>();

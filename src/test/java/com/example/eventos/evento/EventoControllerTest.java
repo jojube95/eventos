@@ -5,6 +5,7 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaService;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
@@ -300,8 +301,8 @@ class EventoControllerTest {
 
         Evento evento = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         List<Mesa> mesas = new ArrayList<>();
-        Mesa mesa1 = new Mesa("id", "Antonio", 10, 1, 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id", "Antonio", 10, 1, 1, true, "descripcion");
+        Mesa mesa1 = new Mesa("id", "Antonio", new Personas(10, 1), 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("id", "Antonio", new Personas(10, 1), 1, true, "descripcion");
         mesas.add(mesa1);
         mesas.add(mesa2);
         List<Invitado> invitados = new ArrayList<>();

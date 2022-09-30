@@ -1,14 +1,13 @@
 package com.example.eventos.mesa;
 
-import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoRepository;
+import com.example.eventos.personas.Personas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +26,7 @@ class MesaServiceTest {
 
     @BeforeEach
     public void initEach(){
-        mesa = new Mesa("idEvento", "Antonio", 10, 1, 1, true, "descripcion");
+        mesa = new Mesa("idEvento", "Antonio", new Personas(10, 1), 1, true, "descripcion");
     }
 
     @Test
