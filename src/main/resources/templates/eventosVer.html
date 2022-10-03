@@ -39,9 +39,9 @@
                     <th th:text="#{evento.horario}" scope="col"></th>
                     <th th:text="#{evento.sala}" scope="col"></th>
                     <th th:text="#{evento.localidad}" scope="col"></th>
-                    <th th:text="#{evento.personas}" scope="col"></th>
+                    <th th:text="#{evento.personas.mayores}" scope="col"></th>
                     <th th:text="#{evento.precioMenu}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
-                    <th th:text="#{evento.ninyos}" scope="col"></th>
+                    <th th:text="#{evento.personas.ninyos}" scope="col"></th>
                     <th th:text="#{evento.precioMenuNinyos}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
                     <th th:text="#{evento.confirmado}" scope="col"></th>
                     <th th:text="#{evento.neto}" scope="col" sec:authorize="hasRole('ADMIN')"></th>
@@ -55,9 +55,9 @@
                     <td th:text="${evento.horario}"></td>
                     <td th:text="${evento.sala}"></td>
                     <td th:text="${evento.localidad}"></td>
-                    <td th:text="${evento.personas}"></td>
+                    <td th:text="${evento.personas.mayores}"></td>
                     <td th:text="${evento.precioMenu}" sec:authorize="hasRole('ADMIN')"></td>
-                    <td th:text="${evento.ninyos}"></td>
+                    <td th:text="${evento.personas.ninyos}"></td>
                     <td th:text="${evento.precioMenuNinyos}" sec:authorize="hasRole('ADMIN')"></td>
                     <td>
                         <div class="custom-control custom-checkbox">

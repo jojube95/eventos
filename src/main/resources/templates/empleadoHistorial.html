@@ -39,8 +39,8 @@
                 <th th:text="#{evento.horario}" scope="col"></th>
                 <th th:text="#{evento.sala}" scope="col"></th>
                 <th th:text="#{evento.localidad}" scope="col"></th>
-                <th th:text="#{evento.personas}" scope="col"></th>
-                <th th:text="#{evento.ninyos}" scope="col"></th>
+                <th th:text="#{evento.personas.mayores}" scope="col"></th>
+                <th th:text="#{evento.personas.ninyos}" scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -51,8 +51,8 @@
                 <td th:text="${evento.horario}"></td>
                 <td th:text="${evento.sala}"></td>
                 <td th:text="${evento.localidad}"></td>
-                <td th:text="${evento.personas}"></td>
-                <td th:text="${evento.ninyos}"></td>
+                <td th:text="${evento.personas.mayores}"></td>
+                <td th:text="${evento.personas.ninyos}"></td>
             </tr>
             </tbody>
             <tfoot>

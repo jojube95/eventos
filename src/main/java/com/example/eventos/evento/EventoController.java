@@ -1,11 +1,6 @@
 package com.example.eventos.evento;
 
-import com.example.eventos.invitado.Invitado;
-import com.example.eventos.invitado.InvitadoService;
-import com.example.eventos.mesa.Mesa;
-import com.example.eventos.mesa.MesaService;
 import com.example.eventos.personas.Personas;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +8,13 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import static com.example.eventos.config.Constants.*;
-import static com.example.eventos.json.JsonUtils.toJson;
 
 @Controller
 public class EventoController {
     private final EventoService eventoService;
 
-    private final MesaService mesaService;
-
-    private final InvitadoService invitadoService;
-
-    public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
+    public EventoController(EventoService eventoService) {
         this.eventoService = eventoService;
-        this.mesaService = mesaService;
-        this.invitadoService = invitadoService;
     }
 
     @GetMapping("/eventosVer")
@@ -60,7 +48,6 @@ public class EventoController {
         eventoToUpdate.setSala(evento.getSala());
         eventoToUpdate.setPersonas(evento.getPersonas());
         eventoToUpdate.setPrecioMenu(evento.getPrecioMenu());
-        eventoToUpdate.setNinyos(evento.getNinyos());
         eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
         eventoToUpdate.setConfirmado(evento.isConfirmado());
         eventoService.update(eventoToUpdate);

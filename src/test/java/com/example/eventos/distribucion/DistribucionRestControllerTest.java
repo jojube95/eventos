@@ -2,6 +2,7 @@ package com.example.eventos.distribucion;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ class DistribucionRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void saveTest() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", "Comunion", "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 

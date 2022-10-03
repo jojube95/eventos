@@ -1,6 +1,7 @@
 package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,14 +28,14 @@ class EventoRepositoryIT {
     public void setUp(){
         fecha = new GregorianCalendar(2014, Calendar.JANUARY, 11).getTime();
 
-        Evento evento1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
+        Evento evento1 = new Evento("id1", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("id2", "Comunión", "Cena", new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
-        Evento eventoProtagonistas = new Evento("id123", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoProtagonistas = new Evento("id123", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
@@ -49,9 +50,9 @@ class EventoRepositoryIT {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento eventoExpected1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento eventoExpected2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
-        Evento eventoExpected3 = new Evento("id123", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected1 = new Evento("id1", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento eventoExpected2 = new Evento("id2", "Comunión", "Cena", new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
+        Evento eventoExpected3 = new Evento("id123", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected1);
@@ -69,7 +70,7 @@ class EventoRepositoryIT {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento eventoExpected = new Evento("id123", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected = new Evento("id123", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         assertEquals(eventoExpected, eventoRepository.findEventoById("id123"));
     }
@@ -83,8 +84,8 @@ class EventoRepositoryIT {
 
         Date fechaBefore = new GregorianCalendar(2022, Calendar.JULY, 3).getTime();
 
-        Evento evento1 = new Evento("id3", "Boda", "Cena", 150, 10, "Aielo de Malferit", fechaEvento1, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("id4", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fechaEvento2, "Comunión-Cena", "Sala1");
+        Evento evento1 = new Evento("id3", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fechaEvento1, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("id4", "Comunión", "Cena", new Personas(100, 10), "Aielo de Malferit", fechaEvento2, "Comunión-Cena", "Sala1");
 
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
@@ -103,21 +104,21 @@ class EventoRepositoryIT {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento eventoExpected = new Evento("id123", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected = new Evento("id123", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         assertEquals(eventoExpected, eventoRepository.save(eventoExpected));
     }
 
     @Test
     void deleteTest(){
-        Evento evento1 = new Evento("id1", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("id2", "Comunión", "Cena", 100, 10, "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
+        Evento evento1 = new Evento("id1", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento("id2", "Comunión", "Cena", new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
         List<Protagonista> protagonistas = new ArrayList<>();
         Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
-        Evento eventoProtagonistas = new Evento("id123", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoProtagonistas = new Evento("id123", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         eventoRepository.delete(eventoProtagonistas);
 

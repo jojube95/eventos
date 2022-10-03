@@ -16,8 +16,7 @@ public class EventoRestController {
     @PostMapping("/evento/updatePersonas")
     public Evento update(@RequestBody Personas personas, @RequestParam(EVENTO_ID) String eventoId) {
         Evento evento = eventoService.getById(eventoId);
-        evento.setPersonas(personas.getMayores());
-        evento.setNinyos(personas.getNinyos());
+        evento.setPersonas(personas);
         eventoService.update(evento);
         return evento;
     }

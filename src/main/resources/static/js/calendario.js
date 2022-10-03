@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     successCallback(
                         eventos.map(function(eventEl) {
                             return {
-                                id: eventEl['id'],
-                                title: eventEl['titulo'] + " " + eventEl['personas'] + "p",
-                                start: new Date(eventEl['fecha']).toISOString().split('T')[0],
+                                id: eventEl.id,
+                                title: eventEl.titulo + " " + eventEl.personas.mayores + "p",
+                                start: new Date(eventEl.fecha).toISOString().split('T')[0],
                                 color: tipoColor.get(eventEl.tipo),
                                 eventDisplay: 'block'
                             }

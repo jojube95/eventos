@@ -1,6 +1,7 @@
 package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,8 +19,7 @@ public class Evento {
 
     private String tipo;
     private String horario;
-    private int personas;
-    private int ninyos;
+    private Personas personas;
     private String localidad;
     private float precioMenu;
     private float precioMenuNinyos;
@@ -38,12 +38,11 @@ public class Evento {
 
     }
 
-    public Evento(String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(String tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
-        this.ninyos = ninyos;
         this.localidad = localidad;
         this.fecha = fecha;
         this.titulo = titulo;
@@ -51,13 +50,12 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
-        this.ninyos = ninyos;
         this.localidad = localidad;
         this.fecha = fecha;
         this.titulo = titulo;
@@ -65,14 +63,13 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, int personas, int ninyos, String localidad, Date fecha, float precioMenu,
+    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu,
                   float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         super();
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
-        this.ninyos = ninyos;
         this.localidad = localidad;
         this.fecha = fecha;
         this.precioMenu = precioMenu;
@@ -108,11 +105,11 @@ public class Evento {
         this.horario = horario;
     }
 
-    public int getPersonas() {
+    public Personas getPersonas() {
         return personas;
     }
 
-    public void setPersonas(int personas) {
+    public void setPersonas(Personas personas) {
         this.personas = personas;
     }
 
@@ -122,14 +119,6 @@ public class Evento {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public int getNinyos() {
-        return ninyos;
-    }
-
-    public void setNinyos(int ninyos) {
-        this.ninyos = ninyos;
     }
 
     public String getLocalidad() {
@@ -212,7 +201,7 @@ public class Evento {
     }
 
     public int getCamarerosRecomendados(){
-        int camareros = (int) Math.round(this.personas / DIVISOR_CAMAREROS_BODA);
+        int camareros = (int) Math.round(this.personas.getMayores() / DIVISOR_CAMAREROS_BODA);
 
         if("Boda".equals(this.tipo)){
             camareros++;
@@ -226,18 +215,18 @@ public class Evento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
-        return Objects.equals(id, evento.id) && personas == evento.personas && ninyos == evento.ninyos && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
+        return Objects.equals(id, evento.id) && personas.getMayores() == evento.personas.getMayores() && personas.getNinyos() == evento.personas.getNinyos() && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
     }
 
     @Override
     public String toString() {
-        return "Personas: " + personas + "\n" +
+        return "Personas: " + personas.getMayores() + "\n" +
                 "Localidad: " + localidad + "\n" +
                 "Confirmada: " + (confirmado ? "Sí" : "No");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipo, horario, personas, ninyos, localidad, precioMenu, precioMenuNinyos, confirmado, titulo, fecha, protagonistas);
+        return Objects.hash(id, tipo, horario, personas, localidad, precioMenu, precioMenuNinyos, confirmado, titulo, fecha, protagonistas);
     }
 }

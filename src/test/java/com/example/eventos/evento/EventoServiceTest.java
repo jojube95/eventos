@@ -3,6 +3,7 @@ package com.example.eventos.evento;
 import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.AuthenticationConfiguration;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.usuario.Usuario;
@@ -52,7 +53,7 @@ class EventoServiceTest {
     @BeforeEach
     public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        evento = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento = new Evento("Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
     }
 
     @Test
