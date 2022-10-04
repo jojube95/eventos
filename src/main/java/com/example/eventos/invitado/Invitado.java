@@ -113,13 +113,17 @@ public class Invitado {
 
     @Override
     public String toString() {
-        return "Invitado{" +
-                "idEvento='" + idEvento + '\'' +
-                ", idMesa='" + idMesa + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        String res = nombre;
+
+        if ("Niño".equals(tipo)) {
+            res += "-x";
+        }
+
+        if (!descripcion.isEmpty()) {
+            res += "(" + descripcion + ")";
+        }
+
+        return res;
     }
 
     @Override

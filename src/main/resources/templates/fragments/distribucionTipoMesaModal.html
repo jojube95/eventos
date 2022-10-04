@@ -9,8 +9,8 @@
       </div>
       <div th:text="#{guardado}" class="modal-body"></div>
       <div class="modal-footer">
-        <button th:text="#{redonda}" id="buttonRedonda" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:personas="${personas}" th:ninyos="${ninyos}" onclick="addCircleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'), this.getAttribute('ninyos'), 100, 100)"></button>
-        <button th:text="#{larga}" id="buttonLarga" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:personas="${personas}" th:ninyos="${ninyos}" onclick="addRectangleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('personas'), this.getAttribute('ninyos'), 100, 100)"></button>
+        <button th:text="#{redonda}" id="buttonRedonda" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:mayores="${mayores}" th:ninyos="${ninyos}" onclick="addCircleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('mayores'), this.getAttribute('ninyos'), 100, 100)"></button>
+        <button th:text="#{larga}" id="buttonLarga" type="button" class="btn btn-primary" data-dismiss="modal" th:mesaId="${mesaId}" th:numero="${numero}" th:mayores="${mayores}" th:ninyos="${ninyos}" onclick="addRectangleTable(this.getAttribute('mesaId'), this.getAttribute('numero'), this.getAttribute('mayores'), this.getAttribute('ninyos'), 100, 100)"></button>
       </div>
     </div>
   </div>

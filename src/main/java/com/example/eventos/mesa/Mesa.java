@@ -130,16 +130,13 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa{" +
-                "id='" + id + '\'' +
-                ", idEvento='" + idEvento + '\'' +
-                ", representante='" + representante + '\'' +
-                ", mayores=" + personas.getMayores() +
-                ", ninyos=" + personas.getNinyos() +
-                ", numero=" + numero +
-                ", pagado=" + pagado +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        String res = "Mesa " + numero + ". " + personas.toString();
+
+        if (!descripcion.isEmpty()) {
+            res += ". Descripción: " + descripcion;
+        }
+
+        return res;
     }
 
     @Override

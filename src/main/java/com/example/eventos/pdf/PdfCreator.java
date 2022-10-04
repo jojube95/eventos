@@ -41,10 +41,10 @@ public class PdfCreator {
         PdfPCell c1;
 
         if(mesa.getDescripcion().isEmpty()){
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas().toString(), subtitleFont));
+            c1 = new PdfPCell(new Phrase(mesa.toString(), subtitleFont));
         }
         else{
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas().toString() + ". Descripción: " + mesa.getDescripcion(), subtitleRedFont));
+            c1 = new PdfPCell(new Phrase(mesa.toString(), subtitleRedFont));
         }
 
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -56,10 +56,10 @@ public class PdfCreator {
 
         for (Invitado invitado : invitados) {
             if (invitado.getDescripcion().isEmpty()){
-                table.addCell(new PdfPCell(new Phrase(invitado.getNombre(), paragraphFont))).setBorder(Rectangle.NO_BORDER);
+                table.addCell(new PdfPCell(new Phrase(invitado.toString(), paragraphFont))).setBorder(Rectangle.NO_BORDER);
             }
             else{
-                table.addCell(new PdfPCell(new Phrase(invitado.getNombre() + "(" + invitado.getDescripcion() + ")", paragraphRedFont))).setBorder(Rectangle.NO_BORDER);
+                table.addCell(new PdfPCell(new Phrase(invitado.toString(), paragraphRedFont))).setBorder(Rectangle.NO_BORDER);
             }
         }
 
