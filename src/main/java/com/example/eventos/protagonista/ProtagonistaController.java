@@ -30,7 +30,8 @@ public class ProtagonistaController {
     }
 
     @GetMapping("/evento/protagonistas/eliminar")
-    public String eliminarEvento(@RequestParam(EVENTO_ID) String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex, RedirectAttributes redirectAttributes) {
+    public String eliminarEvento(@RequestParam(EVENTO_ID) String eventoId, @RequestParam("protagonistaIndex") int protagonistaIndex,
+                                 RedirectAttributes redirectAttributes) {
         Evento evento = eventoService.getById(eventoId);
         evento.getProtagonistas().remove(protagonistaIndex);
         eventoService.update(evento);
@@ -47,7 +48,8 @@ public class ProtagonistaController {
     }
 
     @PostMapping("/evento/protagonistas/anyadir")
-    public String save(@ModelAttribute Protagonista protagonista, @RequestParam(EVENTO_ID) String eventoId, RedirectAttributes redirectAttributes) throws IOException {
+    public String save(@ModelAttribute Protagonista protagonista, @RequestParam(EVENTO_ID) String eventoId,
+                       RedirectAttributes redirectAttributes) throws IOException {
         Evento evento = eventoService.getById(eventoId);
         List<Protagonista> protagonistas = evento.getProtagonistas();
         protagonistas.add(protagonista);

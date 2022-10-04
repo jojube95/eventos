@@ -89,7 +89,8 @@ public class Empleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
-        return fijo == empleado.fijo && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo) && Objects.equals(nombre, empleado.nombre) && Objects.equals(telefono, empleado.telefono);
+        return fijo == empleado.fijo && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo)
+                && Objects.equals(nombre, empleado.nombre) && Objects.equals(telefono, empleado.telefono);
     }
 
     @Override

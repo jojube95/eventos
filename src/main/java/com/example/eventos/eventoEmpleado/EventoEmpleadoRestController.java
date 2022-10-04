@@ -21,7 +21,11 @@ public class EventoEmpleadoRestController {
     @PostMapping("/evento/empleados/anyadir")
     public EventoEmpleado add(@RequestParam(EVENTO_ID) String eventoId, @RequestParam(EMPLEADO_ID) String empleadoId) {
         Empleado empleado = empleadoService.getById(empleadoId);
-        return eventoEmpleadoService.save(new EventoEmpleado(eventoId, empleadoId, empleado.getTipo(), empleado.getNombre(), empleado.isFijo(), false, 0.0F));
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(eventoId, empleadoId, empleado.getTipo(), empleado.getNombre(), empleado.isFijo(),
+                false, 0.0F);
+
+        return eventoEmpleadoService.save(eventoEmpleado);
     }
 
     @PostMapping("/evento/empleados/eliminar")
@@ -31,7 +35,9 @@ public class EventoEmpleadoRestController {
         return eventoEmpleado;
     }
     @PostMapping("/evento/empleados/modificar")
-    public EventoEmpleado modificarEventoEmpleado(@RequestParam(EVENTO_EMPELADO_ID) String eventoEmpleadoId, @RequestParam(EVENTO_EMPELADO_CONFIRMADO) boolean confirmado, @RequestParam(EVENTO_EMPELADO_HORAS_EXTRA) float horasExtras) {
+    public EventoEmpleado modificarEventoEmpleado(@RequestParam(EVENTO_EMPELADO_ID) String eventoEmpleadoId,
+                                                  @RequestParam(EVENTO_EMPELADO_CONFIRMADO) boolean confirmado,
+                                                  @RequestParam(EVENTO_EMPELADO_HORAS_EXTRA) float horasExtras) {
         EventoEmpleado eventoEmpleado = eventoEmpleadoService.getById(eventoEmpleadoId);
         eventoEmpleado.setConfirmado(confirmado);
         eventoEmpleado.setHorasExtras(horasExtras);

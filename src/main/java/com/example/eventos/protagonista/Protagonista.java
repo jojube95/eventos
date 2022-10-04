@@ -56,7 +56,8 @@ public class Protagonista {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Protagonista that = (Protagonista) o;
-        return Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo);
+        return Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre) && Objects.equals(telefono, that.telefono)
+                && Objects.equals(correo, that.correo);
     }
 
     @Override

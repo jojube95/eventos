@@ -21,7 +21,8 @@ public class EventoEmpleado {
 
     }
 
-    public EventoEmpleado(String id, String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
+    public EventoEmpleado(String id, String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado,
+                          float horasExtras) {
         this.id = id;
         this.idEvento = idEvento;
         this.idEmpleado = idEmpleado;
@@ -125,7 +126,9 @@ public class EventoEmpleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EventoEmpleado that = (EventoEmpleado) o;
-        return fijo == that.fijo && confirmado == that.confirmado && Float.compare(that.horasExtras, horasExtras) == 0 && Objects.equals(id, that.id) && Objects.equals(idEvento, that.idEvento) && Objects.equals(idEmpleado, that.idEmpleado) && Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre);
+        return fijo == that.fijo && confirmado == that.confirmado && Float.compare(that.horasExtras, horasExtras) == 0 && Objects.equals(id, that.id)
+                && Objects.equals(idEvento, that.idEvento) && Objects.equals(idEmpleado, that.idEmpleado) && Objects.equals(tipo, that.tipo)
+                && Objects.equals(nombre, that.nombre);
     }
 
     @Override

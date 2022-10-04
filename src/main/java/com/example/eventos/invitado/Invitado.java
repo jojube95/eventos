@@ -131,7 +131,9 @@ public class Invitado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invitado invitado = (Invitado) o;
-        return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa) && Objects.equals(nombre, invitado.nombre) && Objects.equals(tipo, invitado.tipo) && Objects.equals(descripcion, invitado.descripcion);
+        return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa)
+                && Objects.equals(nombre, invitado.nombre) && Objects.equals(tipo, invitado.tipo)
+                && Objects.equals(descripcion, invitado.descripcion);
     }
 
     @Override

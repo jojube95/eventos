@@ -28,13 +28,16 @@ public class ErrorHandlerController implements ErrorController {
         if (e == null) {
             switch (statusCode){
                 case "404":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("paginaNoExiste", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("paginaNoExiste", null,
+                            LocaleContextHolder.getLocale()));
                     break;
                 case "403":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("noTienePermisos", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("noTienePermisos", null,
+                            LocaleContextHolder.getLocale()));
                     break;
                 default:
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("haHabidoError", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("haHabidoError", null,
+                            LocaleContextHolder.getLocale()));
                     break;
             }
         }

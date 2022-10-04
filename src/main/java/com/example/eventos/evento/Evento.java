@@ -63,8 +63,8 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu,
-                  float precioMenuNinyos, boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
+    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+                  boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -215,7 +215,12 @@ public class Evento {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Evento evento = (Evento) o;
-        return Objects.equals(id, evento.id) && personas.getMayores() == evento.personas.getMayores() && personas.getNinyos() == evento.personas.getNinyos() && Float.compare(evento.precioMenu, precioMenu) == 0 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad) && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime()) && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
+        return Objects.equals(id, evento.id) && personas.getMayores() == evento.personas.getMayores()
+                && personas.getNinyos() == evento.personas.getNinyos() && Float.compare(evento.precioMenu, precioMenu) == 0
+                && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado
+                && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad)
+                && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime())
+                && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
     }
 
     @Override

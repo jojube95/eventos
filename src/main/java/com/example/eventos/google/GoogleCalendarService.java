@@ -41,7 +41,8 @@ public class GoogleCalendarService {
         this.calendarId = calendarId;
 
         try {
-            GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH)).createScoped(Collections.singleton(CalendarScopes.CALENDAR));
+            GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
+                    .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
             // Build a new authorized API client service.
             final NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();

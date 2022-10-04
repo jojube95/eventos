@@ -40,8 +40,6 @@ public final class Constants {
 
     public static final String INVITADOS = "invitados";
 
-    public static final String DISTRIBUCION = "distribucion";
-
     public static final String PROTAGONISTA = "protagonista";
 
     public static final double DIVISOR_CAMAREROS_BODA = 17.0;
