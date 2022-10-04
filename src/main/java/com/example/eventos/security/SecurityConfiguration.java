@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                 .antMatchers("/evento/empleados/modificar").hasRole(ROLE_ADMIN)
                 .antMatchers("/evento/empleados/anyadir").hasRole(ROLE_ADMIN)
                 .antMatchers("/evento/empleados/eliminar").hasRole(ROLE_ADMIN)
+                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/webjars/**", "/libraries/**", "/favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/calendario"))
@@ -42,12 +43,5 @@ public class SecurityConfiguration {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web
-                .ignoring()
-                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/webjars/**", "/libraries/**", "/favicon.ico");
     }
 }
