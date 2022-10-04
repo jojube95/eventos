@@ -15,9 +15,6 @@ public final class Constants {
     public static final String EVENTOS = "eventos";
     public static final String EVENTO_ID = "eventoId";
     public static final String EVENTO_FECHA = "fecha";
-    public static final String EVENTO_PERSONAS = "personas";
-    public static final String EVENTO_NINYOS = "ninyos";
-    public static final String EVENTO_SALA = "sala";
     public static final String EVENTO_VER_PAGE = "eventoVer";
     public static final String EVENTO_ANYADIR_PAGE = "eventoAnyadir";
     public static final String EVENTO_UPDATE_PAGE = "eventoUpdate";
@@ -36,8 +33,10 @@ public final class Constants {
     public static final String MESAS = "mesas";
     public static final String MESA_ID = "mesaId";
     public static final String MESA_NUMERO = "numero";
-    public static final String MESA_PERSONAS = "personas";
-    public static final String MESA_NINYOS = "ninyos";
+
+    public static final String PERSONAS = "personas";
+    public static final String PERSONAS_MAYORES = "mayores";
+    public static final String PERSONAS_NINYOS = "ninyos";
 
     public static final String INVITADOS = "invitados";
 

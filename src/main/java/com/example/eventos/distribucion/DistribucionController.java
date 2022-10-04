@@ -12,11 +12,11 @@ public class DistribucionController {
 
     @GetMapping("/evento/distribucion/tipoMesaModal")
     public String modalTipoMesa(@RequestParam(MESA_ID) String mesaId, @RequestParam(MESA_NUMERO) String numero,
-                                @RequestParam(MESA_PERSONAS) String personas, @RequestParam(MESA_NINYOS) String ninyos, Model model){
+                                @RequestParam(PERSONAS_MAYORES) String mayores, @RequestParam(PERSONAS_NINYOS) String ninyos, Model model){
         model.addAttribute(MESA_ID, mesaId);
         model.addAttribute(MESA_NUMERO, numero);
-        model.addAttribute(MESA_PERSONAS, personas);
-        model.addAttribute(MESA_NINYOS, ninyos);
+        model.addAttribute(PERSONAS_MAYORES, mayores);
+        model.addAttribute(PERSONAS_NINYOS, ninyos);
         return "fragments/distribucionTipoMesaModal :: modalContents";
     }
 }

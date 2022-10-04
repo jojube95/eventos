@@ -46,9 +46,11 @@ public class Personas {
 
     @Override
     public String toString() {
-        return "Personas{" +
-                "mayores=" + mayores +
-                ", ninyos=" + ninyos +
-                '}';
+        if (ninyos > 0) {
+            return mayores + "p, " + ninyos + "x";
+        }
+        else{
+            return mayores + "p";
+        }
     }
 }

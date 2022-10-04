@@ -41,10 +41,10 @@ public class PdfCreator {
         PdfPCell c1;
 
         if(mesa.getDescripcion().isEmpty()){
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas() + "p", subtitleFont));
+            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas().toString(), subtitleFont));
         }
         else{
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas() + "p. Descripción: " + mesa.getDescripcion(), subtitleRedFont));
+            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas().toString() + ". Descripción: " + mesa.getDescripcion(), subtitleRedFont));
         }
 
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);

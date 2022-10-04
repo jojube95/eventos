@@ -87,7 +87,7 @@ public class EventoController {
         Personas personas = eventoService.calcularPersonas(eventoId);
 
         model.addAttribute(EVENTO_ID, eventoId);
-        model.addAttribute(EVENTO_PERSONAS, personas);
+        model.addAttribute(PERSONAS, personas);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

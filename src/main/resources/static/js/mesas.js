@@ -45,7 +45,7 @@ $(document).ready(function() {
             orderable: false
         },
         {
-            data: "personas",
+            data: "mayores",
             orderable: false
         },
         {
@@ -147,7 +147,7 @@ $(document).ready(function() {
 
     $('#mesas tbody').on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
-        anyadirClicked(mesa.id, mesa.numero, mesa.personas, mesa.ninyos, this)
+        anyadirClicked(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, this)
     } );
 
     $('#mesas tbody').on('click', 'tr', function () {
@@ -240,14 +240,14 @@ function addMesaAjax(mesaRowData, success, error){
         type: "POST",
         contentType: "application/json",
         url: "/evento/mesas/add?eventoId=" + eventoId,
-        data: JSON.stringify(mesaRowData),
+        data: JSON.stringify(insertPersonas(mesaRowData)),
         dataType: 'json',
         success: function (mesa) {
-            success(mesa);
+            success(extractPersonas(mesa));
             $.ajax({
-                url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&personas=" + mesa.personas + "&ninyos=" + mesa.ninyos,
+                url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&mayores=" + mesa.mayores + "&ninyos=" + mesa.ninyos,
                 success: function (data) {
-                    anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.personas, mesa.ninyos, 150, 100, data);
+                    anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, 150, 100, data);
                 }
             });
 
@@ -256,15 +256,15 @@ function addMesaAjax(mesaRowData, success, error){
     });
 }
 
-function anyadirClicked(mesaId, numero, personas, ninyos, row){
+function anyadirClicked(mesaId, numero, mayores, ninyos, row){
     if (isMesaOnDistribucion(mesaId)) {
         alert("La mesa ya se encuentra en la distribución.")
     }
     else{
         $.ajax({
-            url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&personas=" + personas + "&ninyos=" + ninyos,
+            url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&mayores=" + mayores + "&ninyos=" + ninyos,
             success: function (data) {
-                anyadirMesaToCanvas(mesaId, numero, personas, ninyos, 150, 100, data);
+                anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, 150, 100, data);
             }
         });
     }
@@ -292,10 +292,10 @@ function onDeleteRow(datatable, rowdata, success, error){
         type: "POST",
         contentType: "application/json",
         url: "/evento/mesas/delete",
-        data: JSON.stringify(rowdata[0]),
+        data: JSON.stringify(insertPersonas(rowdata[0])),
         dataType: 'json',
         success: function (mesa){
-            success(mesa);
+            success(extractPersonas(mesa));
 
             canvas.getObjects().forEach(function(object) {
                 if (object.mesaId === mesa.id){
@@ -314,10 +314,10 @@ function onEditRow(datatable, rowdata, success, error){
         type: "POST",
         contentType: "application/json",
         url: "/evento/mesas/update",
-        data: JSON.stringify(rowdata),
+        data: JSON.stringify(insertPersonas(rowdata)),
         dataType: 'json',
         success: function (mesa){
-            success(mesa);
+            success(extractPersonas(mesa));
             updateMesaOnCanvas(mesa);
         },
         error: error
@@ -328,7 +328,7 @@ function footerCallback(dataTableApi){
     let api = dataTableApi.api();
     let rows = api.rows({search:'applied'}).count();
 
-    let totalPersonas = api
+    let totalMayores = api
         .column(4, {search:'applied'})
         .data()
         .reduce(function (a, b) {
@@ -350,7 +350,7 @@ function footerCallback(dataTableApi){
             return Number(a) + (b === 'true' ? 1: 0);
         }, 0);
     // Update footer
-    $(api.column(4).footer()).html(totalPersonas);
+    $(api.column(4).footer()).html(totalMayores);
     $(api.column(5).footer()).html(totalNinyos);
 
     if (isEventoIndividual){
@@ -364,7 +364,7 @@ function updateMesaOnCanvas(mesa){
         if (object.mesaId === mesa.id){
             let mesaId = object.mesaId;
             let numero = mesa.numero;
-            let personas = mesa.personas;
+            let mayores = mesa.mayores;
             let ninyos = mesa.ninyos;
             let top = object.top;
             let left = object.left;
@@ -372,52 +372,52 @@ function updateMesaOnCanvas(mesa){
 
             if(tipo === 'rect'){
                 canvas.remove(object);
-                addRectangleTable(mesaId, numero, personas, ninyos, top, left);
+                addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
             }
             else{
-                if(personas > 4 && personas <= 11) {
+                if(mayores > 4 && mayores <= 11) {
                     canvas.remove(object);
-                    addCircleTable(mesaId, numero, personas, ninyos, top, left);
+                    addCircleTable(mesaId, numero, mayores, ninyos, top, left);
                 }
                 else{
                     canvas.remove(object);
-                    addRectangleTable(mesaId, numero, personas, ninyos, top, left);
+                    addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
                 }
             }
         }
     });
 }
 
-function anyadirMesaToCanvas(mesaId, numero, personas, ninyos, top, left, htmlModal){
+function anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
-    let totalPersonas =  Number(personas) + Number(ninyos);
+    let totalMayores =  Number(mayores) + Number(ninyos);
 
-    if (totalPersonas > 4 && totalPersonas <= 11) {
+    if (totalMayores > 4 && totalMayores <= 11) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
     }
     else{
-        addRectangleTable(mesaId, numero, personas, ninyos, top, left);
+        addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
     }
     $(tipoMesaModal).modal("hide");
 }
 
 function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
     let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
-    mesaSeleccionada.personas = invitadosMayores.toString();
+    mesaSeleccionada.mayores = invitadosMayores.toString();
     mesaSeleccionada.ninyos = invitadosNinyos.toString();
 
     $.ajax({
         type: "POST",
         contentType: "application/json",
         url: "/evento/mesas/update",
-        data: JSON.stringify(mesaSeleccionada),
+        data: JSON.stringify(insertPersonas(mesaSeleccionada)),
         dataType: 'json',
         error: function (e) {
             alert(e);
         },
         success: function () {
-            mesasDt.row({ selected: true }).data(mesaSeleccionada);
+            mesasDt.row({ selected: true }).data(extractPersonas(mesaSeleccionada));
             mesasDt.draw();
 
             updateMesaOnCanvas(mesaSeleccionada);
@@ -426,7 +426,7 @@ function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
 }
 
 function guardarDistribucion(){
-    let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
+    let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
     $.ajax({
         url: "/evento/distribucion/guardar?eventoId=" + eventoId,
@@ -443,7 +443,7 @@ function guardarClicked(){
     let guardarButton = $("#guardarButton");
     toggleLoadingSpinner(guardarButton);
 
-    let json = canvas.toJSON(['mesaId', 'numero', 'personas', 'ninyos']);
+    let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
     $.ajax({
         url: "/evento/distribucion/guardar?eventoId=" + eventoId,
@@ -472,7 +472,7 @@ function exportarListadoClicked(){
     window.location = "/evento/mesas/generarListado?eventoId=" + eventoId;
 }
 
-function addCircleTable(mesaId, numero, personas, ninyos, top, left) {
+function addCircleTable(mesaId, numero, mayores, ninyos, top, left) {
     let circle = new fabric.Circle({
         radius: radioRedonda,
         fill : 'white',
@@ -482,11 +482,11 @@ function addCircleTable(mesaId, numero, personas, ninyos, top, left) {
         originY: 'center'
     });
 
-    insertTextToObject(mesaId, numero, personas, ninyos, top, left, circle);
+    insertTextToObject(mesaId, numero, mayores, ninyos, top, left, circle);
 }
 
-function addRectangleTable(mesaId, numero, personas, ninyos, top, left) {
-    let tableLength = calcularLongitudMesaLarga(Number(personas) + Number(ninyos));
+function addRectangleTable(mesaId, numero, mayores, ninyos, top, left) {
+    let tableLength = calcularLongitudMesaLarga(Number(mayores) + Number(ninyos));
 
     let rect = new fabric.Rect({
         width : anchuraLarga,
@@ -498,21 +498,21 @@ function addRectangleTable(mesaId, numero, personas, ninyos, top, left) {
         originY: 'center'
     });
 
-    insertTextToObject(mesaId, numero, personas, ninyos, top, left, rect);
+    insertTextToObject(mesaId, numero, mayores, ninyos, top, left, rect);
 }
 
-function insertTextToObject(mesaId, numero, personas, ninyos, top, left, objectToInsert){
+function insertTextToObject(mesaId, numero, mayores, ninyos, top, left, objectToInsert){
     let text;
 
     if (ninyos > 0) {
-        text = new fabric.Text("T-" + numero + "\n" + personas + "p" + "\n" + ninyos + "x", {
+        text = new fabric.Text("T-" + numero + "\n" + mayores + "p" + "\n" + ninyos + "x", {
             fontSize: 12,
             originX: 'center',
             originY: 'center'
         });
     }
     else{
-        text = new fabric.Text("T-" + numero + "\n" + personas + "p", {
+        text = new fabric.Text("T-" + numero + "\n" + mayores + "p", {
             fontSize: 12,
             originX: 'center',
             originY: 'center'
@@ -540,31 +540,31 @@ function insertTextToObject(mesaId, numero, personas, ninyos, top, left, objectT
 
     group['mesaId'] = mesaId;
     group['numero'] = numero;
-    group['personas'] = personas;
+    group['mayores'] = mayores;
     group['ninyos'] = ninyos;
 
     addObjectToCanvas(group);
 }
 
-function calcularLongitudMesaLarga(personas){
-    let mesas = calcularLargasApoyos(personas);
+function calcularLongitudMesaLarga(mayores){
+    let mesas = calcularLargasApoyos(mayores);
     return (mesas.largas * alturaLarga) + (mesas.apoyos * alturaApoyo)
 }
 
-function calcularLargasApoyos(personas){
-    let personasUltimaMesa = personas % 6;
+function calcularLargasApoyos(mayores){
+    let mayoresUltimaMesa = mayores % 6;
 
-    if (personas <= 2){
+    if (mayores <= 2){
         return {'largas' : 0, 'apoyos': 2}
     }
-    else if (personas > 2 && personas <= 6){
+    else if (mayores > 2 && mayores <= 6){
         return {'largas' : 1, 'apoyos': 0}
     }
-    else if (personasUltimaMesa > 0 && personasUltimaMesa <= 2){
-        return {'largas' : Math.ceil(personas / 6) - 1, 'apoyos': 1}
+    else if (mayoresUltimaMesa > 0 && mayoresUltimaMesa <= 2){
+        return {'largas' : Math.ceil(mayores / 6) - 1, 'apoyos': 1}
     }
     else{
-        return {'largas' : Math.ceil(personas / 6), 'apoyos': 0}
+        return {'largas' : Math.ceil(mayores / 6), 'apoyos': 0}
     }
 }
 
@@ -579,7 +579,7 @@ function changeTableType(table){
     let tableType = table._objects[0].type;
     let mesaId = table.mesaId;
     let numero = table.numero;
-    let personas = table.personas;
+    let mayores = table.mayores;
     let ninyos = table.ninyos;
     let top = table.top;
     let left = table.left;
@@ -587,10 +587,10 @@ function changeTableType(table){
     canvas.remove(table);
 
     if(tableType === 'rect'){
-        addCircleTable(mesaId, numero, personas, ninyos, top, left);
+        addCircleTable(mesaId, numero, mayores, ninyos, top, left);
     }
     else{
-        addRectangleTable(mesaId, numero, personas, ninyos, top, left);
+        addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
     }
 }
 
@@ -683,4 +683,21 @@ function loadBackgroundImage(){
             canvas.renderAll();
         });
     });
+}
+
+function extractPersonas(mesa) {
+    mesa.mayores = mesa.personas.mayores;
+    mesa.ninyos = mesa.personas.ninyos;
+    delete mesa.personas;
+
+    return mesa;
+}
+
+function insertPersonas(mesa) {
+    let personas = {'mayores': mesa.mayores, 'ninyos': mesa.ninyos}
+    delete mesa.personas;
+    delete mesa.ninyos;
+    mesa.personas = personas;
+
+    return mesa;
 }
