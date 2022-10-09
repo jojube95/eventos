@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
+import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
+import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
+
 @Document("invitado")
 public class Invitado {
     @Id
@@ -51,7 +54,7 @@ public class Invitado {
             }
             else{
                 if (myData[i].trim().equals("x")) {
-                    this.tipo = "Niño";
+                    this.tipo = INVITADO_TIPO_NINYO;
                 }
                 else{
                     this.descripcion = myData[i].trim();
@@ -59,7 +62,7 @@ public class Invitado {
             }
         }
         if(this.tipo.isEmpty()){
-            this.tipo = "Mayor";
+            this.tipo = INVITADO_TIPO_MAYOR;
         }
     }
 
@@ -115,7 +118,7 @@ public class Invitado {
     public String toString() {
         String res = nombre;
 
-        if ("Niño".equals(tipo)) {
+        if (INVITADO_TIPO_NINYO.equals(tipo)) {
             res += "-x";
         }
 

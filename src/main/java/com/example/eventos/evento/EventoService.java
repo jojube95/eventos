@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
+
 @Service
 public class EventoService {
 
@@ -74,7 +76,7 @@ public class EventoService {
         for (Mesa mesa : mesas) {
             List<Invitado> invitados = invitadoRepository.findByIdMesa(mesa.getId());
             for (Invitado invitado: invitados) {
-                if("Niño".equals(invitado.getTipo())){
+                if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
                     ninyos++;
                 }
                 else{

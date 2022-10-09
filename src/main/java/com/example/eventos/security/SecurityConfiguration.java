@@ -6,10 +6,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static com.example.eventos.config.Constants.ROLE_ADMIN;
+
 @EnableWebSecurity
 public class SecurityConfiguration {
-    private static final String ROLE_ADMIN = "ADMIN";
-    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()

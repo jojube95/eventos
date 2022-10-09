@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import static com.example.eventos.config.Constants.DIVISOR_CAMAREROS_BODA;
+import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
 
 @Document("evento")
 public class Evento {
@@ -27,7 +28,7 @@ public class Evento {
     private String titulo;
     private String sala;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = EVENTO_FECHA_FORMAT)
     private Date fecha;
 
     private List<Protagonista> protagonistas;

@@ -26,8 +26,8 @@ public class EventoEmpleadoController {
     @GetMapping("/evento/empleados")
     public String eventoEmpleados(@RequestParam(EVENTO_EMPELADO_EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo("Camarero/a", true);
-        List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo("Camarero/a", false);
+        List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, true);
+        List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, false);
         List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByIdEvento(eventoId);
 
         model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);

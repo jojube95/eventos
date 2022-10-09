@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
 import static com.example.eventos.pdf.PdfCreator.*;
+import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
 
 @Service
 public class MesaService {
@@ -54,10 +56,10 @@ public class MesaService {
 
     public void generateInvitados(Mesa mesa) {
         for (int i = 1; i <= mesa.getPersonas().getMayores(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, "Mayor", ""));
+            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, ""));
         }
         for (int i = 1; i <= mesa.getPersonas().getNinyos(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Niño" + i, "Ninyo", ""));
+            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), INVITADO_TIPO_NINYO + i, INVITADO_TIPO_NINYO, ""));
         }
     }
 

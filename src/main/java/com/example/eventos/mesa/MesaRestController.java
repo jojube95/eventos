@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import static com.example.eventos.config.Constants.EVENTO_ID;
+
+import static com.example.eventos.config.Constants.*;
 
 @RestController
 public class MesaRestController {
@@ -38,7 +39,7 @@ public class MesaRestController {
 
         mesaService.save(mesa);
 
-        if (!evento.getTipo().equals("Evento individual")) {
+        if (!evento.getTipo().equals(EVENTO_TIPO_INDIVIDUAL)) {
             mesaService.generateInvitados(mesa);
         }
 
@@ -85,7 +86,7 @@ public class MesaRestController {
                     //Create Invitado
                     Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
                     invitados.add(invitado);
-                    if("Niño".equals(invitado.getTipo())){
+                    if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
                         ninyos++;
                     }
                     else{
