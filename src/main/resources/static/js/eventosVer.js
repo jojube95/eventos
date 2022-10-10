@@ -1,39 +1,63 @@
+const ratioBeneficios = 0.325;
+const moneda = '€';
+
 $( document ).ready(function() {
     let userIsAdmin = $('#userRole').text() === "[ROLE_ADMIN]";
+
+    initEventDateFilterFields($('#fechaMin'), $('#fechaMax'));
+
+    let table = initEventosTable(userIsAdmin);
+
+    $('#fechaMin, #fechaMax').on('change', function () {
+        table.draw();
+    });
+});
+
+function initEventDateFilterFields(minDateField, maxDateField) {
     let minInitDate = new Date();
     let maxInitDate = new Date();
     minInitDate.setMonth(minInitDate.getMonth() - 1);
     maxInitDate.setMonth(maxInitDate.getMonth() + 1);
 
-    let minDate = $('#fechaMin').datepicker({
-        format: "yyyy-mm-dd",
-        language: "es",
-        orientation: "bottom auto",
-        autoclose: true
-    }).datepicker("setDate", minInitDate);
+    let minDate = initDatepicker(minDateField, minInitDate);
 
-    let maxDate = $('#fechaMax').datepicker({
-        format: "yyyy-mm-dd",
-        language: "es",
-        orientation: "bottom auto",
-        autoclose: true
-    }).datepicker("setDate", maxInitDate);
+    let maxDate = initDatepicker(maxDateField, maxInitDate);
 
     $.fn.dataTable.ext.search.push(
         function( settings, data ) {
             return filterDate(settings, data, minDate, maxDate);
         }
     );
+}
 
-    let table = $('#eventos').DataTable({
+function initDatepicker(field, initDate) {
+    return field.datepicker({
+        format: "yyyy-mm-dd",
+        language: "es",
+        orientation: "bottom auto",
+        autoclose: true
+    }).datepicker("setDate", initDate);
+}
+
+function initEventosTable(userIsAdmin) {
+    if (userIsAdmin) {
+        return initEventosAdminTable();
+    }
+    else{
+        return initEventosUserTable();
+    }
+}
+
+function initEventosAdminTable() {
+    return $('#eventos').DataTable({
         order: [0, 'asc'],
         columnDefs: [
-            { orderable: false, targets: (userIsAdmin? [1, 2, 3, 4, 5, 10] : [1, 2, 3, 4, 5, 8]) },
-            { className: "dt-right", targets: (userIsAdmin? [6, 7, 8, 9, 11] : [6, 7]) },
+            {orderable: false, targets: [1, 2, 3, 4, 5, 10]},
+            {className: "dt-right", targets: [6, 7, 8, 9, 11]},
             {
-                targets: (userIsAdmin? [11] : []),
+                targets: (11),
                 render: function (data, type, row) {
-                    return Math.round(((row[6] * row[7]) + (row[8] * row[9])) * 0.325) + "€";
+                    return getEventoNeto(row, 6, 7, 8, 9) + moneda;
                 }
             }
         ],
@@ -41,97 +65,87 @@ $( document ).ready(function() {
             [10, 25, 50, -1],
             [10, 25, 50, 'All'],
         ],
-         initComplete: function () {
+        initComplete: function () {
             addSelectHeaderTo(this, [2, 3, 4, 5]);
-
-            let column = userIsAdmin ? this.api().column([10]) : this.api().column([8]);
-            let select = $('<select class="filtro-select"><option value=""></option></select>')
-                .appendTo($(column.header()))
-                .on('change', function () {
-                    let val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column.search(val, false, false).draw();
-                });
-
-            select.append('<option value="si">Sí</option>');
-            select.append('<option value="no">No</option>');
+            addSelectHeaderToCheckBox(this.api(), 10);
         },
         footerCallback: function () {
             let api = this.api();
-            let rows = api.rows({search:'applied'}).count();
+            let rows = api.rows({search: 'applied'}).count();
 
-            // Total over all pages
-            let totalPersonas = api
-                .column(6, {search:'applied'})
-                .data()
-                .reduce(function (a, b) {
-                    return Number(a) + Number(b);
-                }, 0);
-
-            let totalNinyos;
-            if (userIsAdmin) {
-                totalNinyos = api
-                    .column(8, {search:'applied'})
-                    .data()
-                    .reduce(function (a, b) {
-                        return Number(a) + Number(b);
-                    }, 0);
-            }
-            else{
-                totalNinyos = api
-                    .column(7, {search:'applied'})
-                    .data()
-                    .reduce(function (a, b) {
-                        return Number(a) + Number(b);
-                    }, 0);
-            }
-
-            let promedioPrecioPersonas;
-            let promedioPrecioNinyos;
-            if (userIsAdmin) {
-                // Promedio
-                promedioPrecioPersonas = api
-                    .column(7, {search:'applied'})
-                    .data()
-                    .reduce(function (a, b) {
-                        return Number(a) + Number(b);
-                    }, 0);
-                promedioPrecioNinyos = api
-                    .column(9, {search:'applied'})
-                    .data()
-                    .reduce(function (a, b) {
-                        return Number(a) + Number(b);
-                    }, 0);
-            }
-
-            // Update footer
-            if (userIsAdmin) {
-                // Total
-                let total = api
-                    .rows({search:'applied'})
-                    .data()
-                    .reduce(function (a, b) {
-                        return a + (Number(b[6]) * Number(b[7])) + (Number(b[8]) * Number(b[9]))
-                    }, 0);
-
-                $(api.column(6).footer()).html(totalPersonas);
-                $(api.column(7).footer()).html((promedioPrecioPersonas / rows).toFixed(2));
-                $(api.column(9).footer()).html((promedioPrecioNinyos / rows).toFixed(2));
-                $(api.column(8).footer()).html(totalNinyos);
-                $(api.column(11).footer()).html(Math.round(total * 0.325) + '€');
-            }
-            else {
-                $(api.column(6).footer()).html(totalPersonas);
-                $(api.column(7).footer()).html(totalNinyos);
-            }
+            updateFooter(6, getSumByColumn(6, api), api);
+            updateFooter(7, Math.round(getSumByColumn(7, api) / rows), api);
+            updateFooter(8, getSumByColumn(8, api), api);
+            updateFooter(9, Math.round(getSumByColumn(9, api) / rows), api);
+            updateFooter(11, Math.round(getTotalNeto(api)) + moneda, api);
         }
     });
+}
 
-    // Refilter the table
-    $('#fechaMin, #fechaMax').on('change', function () {
-        table.draw();
+function initEventosUserTable() {
+    return $('#eventos').DataTable({
+        order: [0, 'asc'],
+        columnDefs: [
+            {orderable: false, targets: ([1, 2, 3, 4, 5, 8])},
+            {className: "dt-right", targets: ([6, 7])}
+        ],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, 'All'],
+        ],
+        initComplete: function () {
+            addSelectHeaderTo(this, [2, 3, 4, 5]);
+            addSelectHeaderToCheckBox(this.api(), 8);
+        },
+        footerCallback: function () {
+            let api = this.api();
+
+            updateFooter(6, getSumByColumn(6, api), api);
+            updateFooter(7, getSumByColumn(7, api), api);
+        }
     });
-});
+}
+
+function updateFooter(column, value, api) {
+    $(api.column(column).footer()).html(value);
+}
+
+function getSumByColumn(column, api) {
+    return api.column(column, {search: 'applied'}).data()
+        .reduce(function (a, b) {
+            return Number(a) + Number(b);
+        }, 0);
+}
+
+function getTotalNeto(api) {
+    return api.rows({search: 'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return a + getEventoBruto(b, 6, 7, 8, 9)
+            }, 0) * ratioBeneficios;
+}
+
+function getEventoNeto(filaEvento, columnaMayores, columnaPrecioMenu, columnaNinyos, columnaPrecioMenuNinyos) {
+    return Math.round((getEventoBruto(filaEvento, columnaMayores, columnaPrecioMenu, columnaNinyos, columnaPrecioMenuNinyos)) * ratioBeneficios);
+}
+
+function getEventoBruto(filaEvento, columnaMayores, columnaPrecioMenu, columnaNinyos, columnaPrecioMenuNinyos) {
+    return (filaEvento[columnaMayores] * filaEvento[columnaPrecioMenu]) + (filaEvento[columnaNinyos] * filaEvento[columnaPrecioMenuNinyos]);
+}
+
+function addSelectHeaderToCheckBox(api, column) {
+    let tableColumn = api.column([column]);
+    let select = $('<select class="filtro-select"><option value=""></option></select>')
+        .appendTo($(tableColumn.header()))
+        .on('change', function () {
+            let val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            tableColumn.search(val, false, false).draw();
+        });
+
+    select.append('<option value="si">Sí</option>');
+    select.append('<option value="no">No</option>');
+}
 
 function rowClicked(eventoId){
     location.href = "/eventoVer?eventoId=" + eventoId;

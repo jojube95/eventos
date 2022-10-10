@@ -8,10 +8,10 @@ imgDelete.src = deleteIcon;
 imgReverse.src = reverseIcon;
 
 // 40px - 1m
-let alturaLarga = 80;
-let anchuraLarga = 40;
-let alturaApoyo = 26;
-let radioRedonda = 36;
+const alturaLarga = 80;
+const anchuraLarga = 40;
+const alturaApoyo = 26;
+const radioRedonda = 36;
 
 let canvas;
 
