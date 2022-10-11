@@ -1,25 +1,16 @@
 $( document ).ready(function() {
-    let minDate = $('#fechaMin').datepicker({
-        format: "yyyy-mm-dd",
-        language: "es",
-        orientation: "bottom auto",
-        autoclose: true
-    });
+    let minDateField = $('#fechaMin');
+    let maxDateField = $('#fechaMax');
 
-    let maxDate = $('#fechaMax').datepicker({
-        format: "yyyy-mm-dd",
-        language: "es",
-        orientation: "bottom auto",
-        autoclose: true
-    });
+    initEventDateFilterFields(minDateField, maxDateField);
 
-    $.fn.dataTable.ext.search.push(
-        function( settings, data ) {
-            return filterDate(settings, data, minDate, maxDate);
-        }
-    );
+    let table = initEventosEmpleadoTable();
 
-    let table = $('#empleadoHistorial').DataTable({
+    initEventDateFilterOnChange(minDateField, maxDateField, table);
+});
+
+function initEventosEmpleadoTable() {
+    return $('#empleadoHistorial').DataTable({
         order: [0, 'asc'],
         columnDefs: [
             { orderable: false, targets: [1, 2, 3, 4, 5] },
@@ -36,12 +27,7 @@ $( document ).ready(function() {
             let api = this.api();
             let rows = api.rows({search:'applied'}).count();
 
-            $(api.column(1).footer()).html(rows);
+            updateFooter(1, rows, api);
         }
     });
-
-    // Refilter the table
-    $('#fechaMin, #fechaMax').on('change', function () {
-        table.draw();
-    });
-});
+}
