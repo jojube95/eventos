@@ -19,35 +19,23 @@ function empleadosClicked(eventoId){
 }
 
 function calcularPersonasClicked(eventoId){
-    $.ajax({
-        url: "/evento/calcularPersonas?eventoId=" + eventoId,
-        success: function (data) {
-            $("#confirmPersonasModalHolder").html(data);
-            $("#confirmPersonasModal").modal("show");
-        }
-    })
+    ajaxCall("GET", "/evento/calcularPersonas", {eventoId: eventoId}, {}, calcularPersonasClickedCallback);
+}
+
+function calcularPersonasClickedCallback (data) {
+    $("#confirmPersonasModalHolder").html(data);
+    $("#confirmPersonasModal").modal("show");
 }
 
 function confirmarClicked(eventoId, mayores, ninyos){
     let personas = {mayores: mayores, ninyos: ninyos};
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/evento/updatePersonas?eventoId=" + eventoId,
-        data: JSON.stringify(personas),
-        dataType: 'json',
-        success: function () {
-            $('#eventoPersonas').text(personas.mayores);
-            $('#eventoNinyos').text(personas.ninyos);
-        },
-        error: function (er) {
-            if(er.status === 405){
-                alert("No tiene permisos suficientes.")
-            }
-            else{
-                alert("Error al hacer la petición.")
-            }
-        }
-    })
+    ajaxCall("POST", "/evento/updatePersonas", {eventoId: eventoId}, JSON.stringify(personas), function () {
+        confirmarClickedCallback(personas)
+    });
+}
+
+function confirmarClickedCallback(personas) {
+    $('#eventoPersonas').text(personas.mayores);
+    $('#eventoNinyos').text(personas.ninyos);
 }

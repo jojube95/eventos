@@ -265,15 +265,7 @@ function exportarDistribucionClicked(){
 function guardarDistribucion(){
     let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
-    $.ajax({
-        url: "/evento/distribucion/guardar?eventoId=" + eventoId,
-        type: "POST",
-        data: JSON.stringify(json),
-        contentType: "application/json; charset=utf-8",
-        error: function (err) {
-            alert(err);
-        }
-    });
+    ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: eventoId}, JSON.stringify(json), null);
 }
 
 function guardarClicked(){
@@ -282,17 +274,8 @@ function guardarClicked(){
 
     let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
-    $.ajax({
-        url: "/evento/distribucion/guardar?eventoId=" + eventoId,
-        type: "POST",
-        data: JSON.stringify(json),
-        contentType: "application/json; charset=utf-8",
-        success: function () {
-            toggleLoadingSpinner(guardarButton);
-        },
-        error: function (err) {
-            alert(err);
-        }
+    ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: eventoId}, JSON.stringify(json), function () {
+        toggleLoadingSpinner(guardarButton);
     });
 }
 

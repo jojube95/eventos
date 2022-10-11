@@ -116,10 +116,8 @@ $(document).ready(function() {
     $("#file-upload-form").on("submit", function (e) {
         toggleLoadingSpinner($("#importarDistribucionButton"));
 
-        // cancel the default behavior
         e.preventDefault();
 
-        // use $.ajax() to upload file
         $.ajax({
             url: "/evento/mesas/uploadExcel?eventoId=" + eventoId,
             type: "POST",
@@ -169,32 +167,19 @@ function onAddRow(datatable, rowdata, success, error){
 }
 
 function addMesaAjax(mesaRowData, success, error){
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/evento/mesas/add?eventoId=" + eventoId,
-        data: JSON.stringify(insertPersonas(mesaRowData)),
-        dataType: 'json',
-        success: function (mesa) {
-            success(extractPersonas(mesa));
-            $.ajax({
-                url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesa.id + "&numero=" + mesa.numero + "&mayores=" + mesa.mayores + "&ninyos=" + mesa.ninyos,
-                success: function (data) {
-                    anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, 150, 100, data);
-                }
-            });
-
-        },
-        error: error
+    ajaxCall("POST", "/evento/mesas/add", {eventoId: eventoId}, JSON.stringify(insertPersonas(mesaRowData)), function (mesa) {
+        success(extractPersonas(mesa));
+        let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
+        ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
+            anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, 150, 100, data);
+        });
     });
 }
 
 function anyadirClicked(mesaId, numero, mayores, ninyos){
-    $.ajax({
-        url: "/evento/distribucion/tipoMesaModal?mesaId=" + mesaId + "&numero=" + numero + "&mayores=" + mayores + "&ninyos=" + ninyos,
-        success: function (data) {
-            anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, 150, 100, data);
-        }
+    let params = {mesaId: mesaId, numero: numero, mayores: mayores, ninyos: ninyos};
+    ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
+        anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, 150, 100, data);
     });
 }
 
@@ -205,34 +190,18 @@ function changeRowColor(mesaId, color){
 function onDeleteRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#deleteRowBtn"));
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/evento/mesas/delete",
-        data: JSON.stringify(insertPersonas(rowdata[0])),
-        dataType: 'json',
-        success: function (mesa){
-            success(extractPersonas(mesa));
-            deleteObject(getObjectFromCanvas(mesa));
-        },
-        error: error
+    ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(insertPersonas(rowdata[0])), function (mesa) {
+        success(extractPersonas(mesa));
+        deleteObject(getObjectFromCanvas(mesa));
     });
 }
 
 function onEditRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#editRowBtn"));
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/evento/mesas/update",
-        data: JSON.stringify(insertPersonas(rowdata)),
-        dataType: 'json',
-        success: function (mesa){
-            success(extractPersonas(mesa));
-            updateMesaOnCanvas(mesa);
-        },
-        error: error
+    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(insertPersonas(rowdata)), function (mesa) {
+        success(extractPersonas(mesa));
+        updateMesaOnCanvas(mesa);
     });
 }
 
@@ -276,21 +245,11 @@ function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
     mesaSeleccionada.mayores = invitadosMayores.toString();
     mesaSeleccionada.ninyos = invitadosNinyos.toString();
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        url: "/evento/mesas/update",
-        data: JSON.stringify(insertPersonas(mesaSeleccionada)),
-        dataType: 'json',
-        error: function (e) {
-            alert(e);
-        },
-        success: function () {
-            mesasDt.row({ selected: true }).data(extractPersonas(mesaSeleccionada));
-            mesasDt.draw();
+    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(insertPersonas(mesaSeleccionada)), function () {
+        mesasDt.row({ selected: true }).data(extractPersonas(mesaSeleccionada));
+        mesasDt.draw();
 
-            updateMesaOnCanvas(mesaSeleccionada);
-        },
+        updateMesaOnCanvas(mesaSeleccionada);
     });
 }
 
