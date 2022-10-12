@@ -4,6 +4,7 @@ import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.parametros.ParametrosService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +17,14 @@ public class EventoEmpleadoController {
     private final EventoEmpleadoService eventoEmpleadoService;
     private final EventoService eventoService;
     private final EmpleadoService empleadoService;
+    private final ParametrosService parametrosService;
 
-    public EventoEmpleadoController(EventoEmpleadoService eventoEmpleadoService, EventoService eventoService, EmpleadoService empleadoService) {
+    public EventoEmpleadoController(EventoEmpleadoService eventoEmpleadoService, EventoService eventoService, EmpleadoService empleadoService,
+                                    ParametrosService parametrosService) {
         this.eventoEmpleadoService = eventoEmpleadoService;
         this.eventoService = eventoService;
         this.empleadoService = empleadoService;
+        this.parametrosService = parametrosService;
     }
 
     @GetMapping("/evento/empleados")
@@ -35,7 +39,7 @@ public class EventoEmpleadoController {
         model.addAttribute("empleadosNoFijos", empleadosNoFijos);
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, evento.getPersonas());
-        model.addAttribute("camarerosRecomendados", evento.getCamarerosRecomendados());
+        model.addAttribute("camarerosRecomendados", parametrosService.get().getRatioCamarerosEvento());
         return EVENTO_EMPELADOS_PAGE;
     }
 

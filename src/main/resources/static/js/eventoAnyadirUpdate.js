@@ -47,9 +47,9 @@ function rellenarPrecioNinyos(selectedTipo){
     let precioMenuNinyosInput = $('#precioMenuNinyos');
 
     if(selectedTipo === "Boda" || selectedTipo === "Comunion"){
-        precioMenuNinyosInput.val("25.0");
+        precioMenuNinyosInput.val(precioNinyosBodaComunion);
     }
     else{
-        precioMenuNinyosInput.val("15.0");
+        precioMenuNinyosInput.val(precioNinyosOtros);
     }
 }

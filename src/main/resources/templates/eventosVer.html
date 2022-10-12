@@ -11,6 +11,9 @@
     <script th:src="@{/js/eventosVer.js}" type="text/javascript"></script>
     <link th:href="@{/libraries/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/css/eventosVer.css}" rel="stylesheet" type="text/css" />
+    <script th:inline="javascript">
+        let ratioBeneficios = JSON.parse([[${ratioBeneficios}]]);
+    </script>
 
 </head>
 <body>

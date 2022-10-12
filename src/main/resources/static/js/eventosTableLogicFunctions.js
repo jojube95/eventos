@@ -1,4 +1,3 @@
-const ratioBeneficios = 0.325;
 const moneda = '€';
 
 function initEventDateFilterFields(minDateField, maxDateField) {

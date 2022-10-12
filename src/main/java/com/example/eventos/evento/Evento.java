@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import static com.example.eventos.config.Constants.DIVISOR_CAMAREROS_BODA;
 import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
 
 @Document("evento")
@@ -201,8 +200,8 @@ public class Evento {
         return "Evento individual".equals(this.tipo);
     }
 
-    public int getCamarerosRecomendados(){
-        int camareros = (int) Math.round(this.personas.getMayores() / DIVISOR_CAMAREROS_BODA);
+    public int getCamarerosRecomendados(float ratioCamarerosEvento){
+        int camareros = (int) Math.round(this.personas.getMayores() / ratioCamarerosEvento);
 
         if("Boda".equals(this.tipo)){
             camareros++;

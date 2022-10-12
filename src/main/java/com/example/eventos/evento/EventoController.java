@@ -1,5 +1,6 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.personas.Personas;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,21 +13,26 @@ import static com.example.eventos.config.Constants.*;
 @Controller
 public class EventoController {
     private final EventoService eventoService;
+    private final ParametrosService parametrosService;
 
-    public EventoController(EventoService eventoService) {
+    public EventoController(EventoService eventoService, ParametrosService parametrosService) {
         this.eventoService = eventoService;
+        this.parametrosService = parametrosService;
     }
 
     @GetMapping("/eventosVer")
     public String eventosVer(Model model) {
         List<Evento> eventos = eventoService.getEventos();
         model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(ATTRIBUTE_RATIO_BENEFICIOS, parametrosService.get().getRatioBeneficios());
         return EVENTOS_VER_PAGE;
     }
 
     @GetMapping("/eventoAnyadir")
     public String eventoAnyadir(Model model) {
         model.addAttribute(EVENTO, new Evento());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_ANYADIR_PAGE;
     }
 
@@ -34,6 +40,8 @@ public class EventoController {
     public String eventoUpdate(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_UPDATE_PAGE;
     }
 
