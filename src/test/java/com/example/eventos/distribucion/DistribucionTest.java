@@ -28,7 +28,7 @@ class DistribucionTest {
 
     @Test
     void equalsTestTrue(){
-        distribucion2.setDistribucion("distribucion1");
+        distribucion2.setMapa("distribucion1");
         assertEquals(distribucion1, distribucion2);
     }
 }
