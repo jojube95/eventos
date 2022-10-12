@@ -47,9 +47,9 @@ $(document).ready(function() {
 
 function anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, top, left, htmlModal){
     let tipoMesaModal = "#distribucionTipoMesaModal";
-    let totalMayores =  Number(mayores) + Number(ninyos);
+    let totalPersonas =  Number(mayores) + Number(ninyos);
 
-    if (totalMayores > 4 && totalMayores <= 11) {
+    if (personasCabenEnRedonda(totalPersonas)) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
     }
@@ -75,7 +75,7 @@ function updateMesaOnCanvas(mesa){
                 addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
             }
             else{
-                if(mayores > 4 && mayores <= 11) {
+                if(personasCabenEnRedonda(mayores + ninyos)) {
                     canvas.remove(object);
                     addCircleTable(mesaId, numero, mayores, ninyos, top, left);
                 }
@@ -360,4 +360,8 @@ function renderIconReverse(ctx, left, top, styleOverride, fabricObject) {
     ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
     ctx.drawImage(imgReverse, -size/2, -size/2, size, size);
     ctx.restore();
+}
+
+function personasCabenEnRedonda(personas) {
+    return (personas > 4 && personas <= 11)
 }
