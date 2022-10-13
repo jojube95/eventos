@@ -5,7 +5,7 @@ import com.example.eventos.personas.Personas;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
+
 import java.util.Date;
 import java.util.List;
 import static com.example.eventos.config.Constants.*;

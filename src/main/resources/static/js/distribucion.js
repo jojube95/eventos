@@ -24,7 +24,9 @@ $(document).ready(function() {
         offsetY: 15,
         cursorStyle: 'pointer',
         mouseUpHandler: clickDeleteIcon,
-        render: renderIconDelete,
+        render: function (ctx, left, top, styleOverride, fabricObject) {
+            renderIcon(this, ctx, left, top, styleOverride, fabricObject, imgDelete);
+        },
         cornerSize: 24
     });
 
@@ -34,7 +36,9 @@ $(document).ready(function() {
         offsetY: 45,
         cursorStyle: 'pointer',
         mouseUpHandler: clickReverseIcon,
-        render: renderIconReverse,
+        render: function (ctx, left, top, styleOverride, fabricObject) {
+            renderIcon(this, ctx, left, top, styleOverride, fabricObject, imgReverse);
+        },
         cornerSize: 24
     });
 
@@ -262,19 +266,17 @@ function exportarDistribucionClicked(){
     pdf.save("distribució.pdf");
 }
 
-function guardarDistribucion(){
+function guardarDistribucion(success){
     let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
-    ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: eventoId}, JSON.stringify(json), null);
+    ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: eventoId}, JSON.stringify(json), success);
 }
 
 function guardarClicked(){
     let guardarButton = $("#guardarButton");
     toggleLoadingSpinner(guardarButton);
 
-    let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
-
-    ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: eventoId}, JSON.stringify(json), function () {
+    guardarDistribucion(function () {
         toggleLoadingSpinner(guardarButton);
     });
 }
@@ -344,21 +346,12 @@ function clickReverseIcon(eventData, transform){
     }
 }
 
-function renderIconDelete(ctx, left, top, styleOverride, fabricObject) {
-    let size = this.cornerSize;
+function renderIcon(object, ctx, left, top, styleOverride, fabricObject, image) {
+    let size = object.cornerSize;
     ctx.save();
     ctx.translate(left, top);
     ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-    ctx.drawImage(imgDelete, -size/2, -size/2, size, size);
-    ctx.restore();
-}
-
-function renderIconReverse(ctx, left, top, styleOverride, fabricObject) {
-    let size = this.cornerSize;
-    ctx.save();
-    ctx.translate(left, top);
-    ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-    ctx.drawImage(imgReverse, -size/2, -size/2, size, size);
+    ctx.drawImage(image, -size/2, -size/2, size, size);
     ctx.restore();
 }
 

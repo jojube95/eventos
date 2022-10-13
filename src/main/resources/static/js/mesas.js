@@ -101,14 +101,16 @@ $(document).ready(function() {
 
     onAddClicked();
 
-    $('#mesas tbody').on('dblclick', 'tr', function () {
+    let mesasTbody = $('#mesas tbody');
+
+    mesasTbody.on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
         if(getObjectFromCanvas(mesa) === undefined) {
             anyadirClicked(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, this);
         }
     } );
 
-    $('#mesas tbody').on('click', 'tr', function () {
+    mesasTbody.on('click', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
         setMesaActiveObject(mesa);
     } );
@@ -168,7 +170,7 @@ function onAddRow(datatable, rowdata, success, error){
     addMesaAjax(rowdata, success, error);
 }
 
-function addMesaAjax(mesaRowData, success, error){
+function addMesaAjax(mesaRowData, success){
     ajaxCall("POST", "/evento/mesas/add", {eventoId: eventoId}, JSON.stringify(insertPersonas(mesaRowData)), function (mesa) {
         success(extractPersonas(mesa));
         let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
@@ -189,7 +191,7 @@ function changeRowColor(mesaId, color){
     $('tr[mesaId="' + mesaId + '"]').css('background-color', color);
 }
 
-function onDeleteRow(datatable, rowdata, success, error){
+function onDeleteRow(datatable, rowdata, success){
     toggleLoadingSpinner($("#deleteRowBtn"));
 
     ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(insertPersonas(rowdata[0])), function (mesa) {
@@ -198,7 +200,7 @@ function onDeleteRow(datatable, rowdata, success, error){
     });
 }
 
-function onEditRow(datatable, rowdata, success, error){
+function onEditRow(datatable, rowdata, success){
     toggleLoadingSpinner($("#editRowBtn"));
 
     ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(insertPersonas(rowdata)), function (mesa) {
