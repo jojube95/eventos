@@ -103,7 +103,9 @@ $(document).ready(function() {
 
     $('#mesas tbody').on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
-        anyadirClicked(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, this)
+        if(getObjectFromCanvas(mesa) === undefined) {
+            anyadirClicked(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, this);
+        }
     } );
 
     $('#mesas tbody').on('click', 'tr', function () {
