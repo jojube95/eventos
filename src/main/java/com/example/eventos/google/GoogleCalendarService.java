@@ -36,7 +36,7 @@ public class GoogleCalendarService {
 
     private Calendar service;
 
-    Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
+    final Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
 
     @Autowired
     public GoogleCalendarService(@Value("${google.calenarId}") String calendarId) {

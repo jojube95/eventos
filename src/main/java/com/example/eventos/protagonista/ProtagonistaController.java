@@ -48,8 +48,7 @@ public class ProtagonistaController {
     }
 
     @PostMapping("/evento/protagonistas/anyadir")
-    public String save(@ModelAttribute Protagonista protagonista, @RequestParam(EVENTO_ID) String eventoId,
-                       RedirectAttributes redirectAttributes) throws IOException {
+    public String save(@ModelAttribute Protagonista protagonista, @RequestParam(EVENTO_ID) String eventoId, RedirectAttributes redirectAttributes) {
         Evento evento = eventoService.getById(eventoId);
         List<Protagonista> protagonistas = evento.getProtagonistas();
         protagonistas.add(protagonista);

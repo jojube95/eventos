@@ -46,7 +46,7 @@ public class EventoController {
     }
 
     @PostMapping("/eventoUpdate")
-    public String eventoUpdate(@ModelAttribute Evento evento) throws IOException {
+    public String eventoUpdate(@ModelAttribute Evento evento) {
         Evento eventoToUpdate = eventoService.getById(evento.getId());
         eventoToUpdate.setFecha(evento.getFecha());
         eventoToUpdate.setLocalidad(evento.getLocalidad());
@@ -70,7 +70,7 @@ public class EventoController {
     }
 
     @PostMapping("/eventoAnyadir")
-    public String save(@ModelAttribute Evento evento) throws IOException {
+    public String save(@ModelAttribute Evento evento) {
         eventoService.save(evento);
         return "redirect:/" + CALENDARIO_PAGE;
     }

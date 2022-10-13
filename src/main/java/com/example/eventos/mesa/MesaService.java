@@ -22,7 +22,7 @@ import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
 
 @Service
 public class MesaService {
-    Logger logger = LoggerFactory.getLogger(MesaService.class);
+    final Logger logger = LoggerFactory.getLogger(MesaService.class);
 
     private final MesaRepository mesaRepository;
     private final InvitadoRepository invitadoRepository;

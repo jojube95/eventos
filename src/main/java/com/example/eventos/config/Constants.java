@@ -32,7 +32,6 @@ public final class Constants {
 
     public static final String EMPLEADO = "empleado";
     public static final String EMPLEADO_TIPO_CAMARERO = "Camarero/a";
-    public static final String EMPLEADO_TIPO_COCINERO = "Camarero/a";
     public static final String EMPLEADOS = "empleados";
     public static final String EMPLEADO_ID = "empleadoId";
 
