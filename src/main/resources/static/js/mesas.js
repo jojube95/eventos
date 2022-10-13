@@ -12,7 +12,7 @@ $(document).ready(function() {
             visible: false
         },
         {
-            data: "idEvento",
+            data: "eventoId",
             type: "hidden",
             visible: false
         },
@@ -160,7 +160,7 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    rowdata.idEvento = eventoId;
+    rowdata.eventoId = eventoId;
     delete rowdata.id;
 
     addMesaAjax(rowdata, success, error);

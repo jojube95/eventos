@@ -32,7 +32,7 @@ public class EventoEmpleadoController {
         Evento evento = eventoService.getById(eventoId);
         List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, true);
         List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, false);
-        List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByIdEvento(eventoId);
+        List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByEventoId(eventoId);
 
         model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
         model.addAttribute("empleadosFijos", empleadosFijos);

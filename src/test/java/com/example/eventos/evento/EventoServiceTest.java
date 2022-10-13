@@ -112,8 +112,8 @@ class EventoServiceTest {
     void deleteEventoTest() {
         eventoService.delete(evento);
         verify(eventoRepository, times(1)).delete(evento);
-        verify(mesaRepository, times(1)).deleteByIdEvento(evento.getId());
-        verify(invitadoRepository, times(1)).deleteByIdEvento(evento.getId());
+        verify(mesaRepository, times(1)).deleteByEventoId(evento.getId());
+        verify(invitadoRepository, times(1)).deleteByEventoId(evento.getId());
         verify(googleCalendarService, times(1)).delete(evento);
     }
 

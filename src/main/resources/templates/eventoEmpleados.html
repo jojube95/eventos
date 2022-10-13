@@ -63,8 +63,8 @@
                 <thead>
                 <tr>
                     <th th:text="#{eventoEmpleado.id}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.idEvento}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.idEmpleado}" scope="col"></th>
+                    <th th:text="#{eventoEmpleado.eventoId}" scope="col"></th>
+                    <th th:text="#{eventoEmpleado.empleadoId}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.tipo}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
@@ -77,8 +77,8 @@
                 <tbody>
                 <tr th:each="eventoEmpleado: ${eventoEmpleados}">
                     <td th:text="${eventoEmpleado.id}"></td>
-                    <td th:text="${eventoEmpleado.idEvento}"></td>
-                    <td th:text="${eventoEmpleado.idEmpleado}"></td>
+                    <td th:text="${eventoEmpleado.eventoId}"></td>
+                    <td th:text="${eventoEmpleado.empleadoId}"></td>
                     <td th:text="${eventoEmpleado.tipo}"></td>
                     <td th:text="${eventoEmpleado.nombre}"></td>
                     <td>

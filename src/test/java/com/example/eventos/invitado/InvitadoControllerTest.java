@@ -46,7 +46,7 @@ class InvitadoControllerTest {
     void getInvitadosTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/invitadosModal.html");
 
-        Evento evento = new Evento("idEvento", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Invitado invitado1 = new Invitado(evento.getId(), "mesaId", "Pepe", "Mayor",  "");
         Invitado invitado2 = new Invitado(evento.getId(), "mesaId", "Antonio", "Mayor", "Vegano");
         Invitado invitado3 = new Invitado(evento.getId(), "mesaId", "José", "Mayor", "");
@@ -55,7 +55,7 @@ class InvitadoControllerTest {
         invitados.add(invitado2);
         invitados.add(invitado3);
 
-        when(invitadoService.findByMesa("idMesa")).thenReturn(invitados);
+        when(invitadoService.findByMesa("mesaId")).thenReturn(invitados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/invitados")
                 .locale(new Locale("es", "ES"))

@@ -67,8 +67,8 @@ function modificarModalClicked(eventoEmpleadoId){
 function addEventoEmpleadoRow(eventoEmpleado) {
     eventoEmpleadosDt.row.add( [
         eventoEmpleado.id,
-        eventoEmpleado.idEvento,
-        eventoEmpleado.idEmpleado,
+        eventoEmpleado.eventoId,
+        eventoEmpleado.empleadoId,
         eventoEmpleado.tipo,
         eventoEmpleado.nombre,
         '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.fijo ? 'Si' : 'No') + '</label></div>',

@@ -13,25 +13,25 @@ class InvitadoTest {
 
     @BeforeEach
     public void initEach(){
-        invitado = new Invitado("id", "idEvento", "idMesa", "nombre", "Mayor", "descripcion");
-        invitadoFromExcel1 = new Invitado("Pepe-Intolerant", "idEvento");
-        invitadoFromExcel2 = new Invitado("Amaia-x-Celiaca ", "idEvento");
-        invitadoFromExcel3 = new Invitado("Antonio -Celiaco- x ", "idEvento");
-        invitadoFromExcel4 = new Invitado("Pepe", "idEvento");
+        invitado = new Invitado("id", "eventoId", "mesaId", "nombre", "Mayor", "descripcion");
+        invitadoFromExcel1 = new Invitado("Pepe-Intolerant", "eventoId");
+        invitadoFromExcel2 = new Invitado("Amaia-x-Celiaca ", "eventoId");
+        invitadoFromExcel3 = new Invitado("Antonio -Celiaco- x ", "eventoId");
+        invitadoFromExcel4 = new Invitado("Pepe", "eventoId");
     }
 
     @Test
     void constructorTest(){
         assertEquals("id", invitado.getId());
-        assertEquals("idEvento", invitado.getIdEvento());
-        assertEquals("idMesa", invitado.getIdMesa());
+        assertEquals("eventoId", invitado.getEventoId());
+        assertEquals("mesaId", invitado.getMesaId());
         assertEquals("nombre", invitado.getNombre());
         assertEquals("descripcion", invitado.getDescripcion());
     }
 
     @Test
     void constructorFromExcel1Test(){
-        assertEquals("idEvento", invitadoFromExcel1.getIdEvento());
+        assertEquals("eventoId", invitadoFromExcel1.getEventoId());
         assertEquals("Pepe", invitadoFromExcel1.getNombre());
         assertEquals("Mayor", invitadoFromExcel1.getTipo());
         assertEquals("Intolerant", invitadoFromExcel1.getDescripcion());
@@ -39,7 +39,7 @@ class InvitadoTest {
 
     @Test
     void constructorFromExcel2Test(){
-        assertEquals("idEvento", invitadoFromExcel2.getIdEvento());
+        assertEquals("eventoId", invitadoFromExcel2.getEventoId());
         assertEquals("Amaia", invitadoFromExcel2.getNombre());
         assertEquals("Niño", invitadoFromExcel2.getTipo());
         assertEquals("Celiaca", invitadoFromExcel2.getDescripcion());
@@ -47,7 +47,7 @@ class InvitadoTest {
 
     @Test
     void constructorFromExcel3Test(){
-        assertEquals("idEvento", invitadoFromExcel3.getIdEvento());
+        assertEquals("eventoId", invitadoFromExcel3.getEventoId());
         assertEquals("Antonio", invitadoFromExcel3.getNombre());
         assertEquals("Niño", invitadoFromExcel3.getTipo());
         assertEquals("Celiaco", invitadoFromExcel3.getDescripcion());
@@ -55,7 +55,7 @@ class InvitadoTest {
 
     @Test
     void constructorFromExcel4Test(){
-        assertEquals("idEvento", invitadoFromExcel4.getIdEvento());
+        assertEquals("eventoId", invitadoFromExcel4.getEventoId());
         assertEquals("Pepe", invitadoFromExcel4.getNombre());
         assertEquals("Mayor", invitadoFromExcel4.getTipo());
         assertEquals("", invitadoFromExcel4.getDescripcion());

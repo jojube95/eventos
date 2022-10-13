@@ -9,8 +9,8 @@ import java.util.Objects;
 public class EventoEmpleado {
     @Id
     private String id;
-    private String idEvento;
-    private String idEmpleado;
+    private String eventoId;
+    private String empleadoId;
     private String tipo;
     private String nombre;
     private boolean fijo;
@@ -21,11 +21,11 @@ public class EventoEmpleado {
 
     }
 
-    public EventoEmpleado(String id, String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado,
+    public EventoEmpleado(String id, String eventoId, String empleadoId, String tipo, String nombre, boolean fijo, boolean confirmado,
                           float horasExtras) {
         this.id = id;
-        this.idEvento = idEvento;
-        this.idEmpleado = idEmpleado;
+        this.eventoId = eventoId;
+        this.empleadoId = empleadoId;
         this.tipo = tipo;
         this.nombre = nombre;
         this.fijo = fijo;
@@ -33,9 +33,9 @@ public class EventoEmpleado {
         this.horasExtras = horasExtras;
     }
 
-    public EventoEmpleado(String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
-        this.idEvento = idEvento;
-        this.idEmpleado = idEmpleado;
+    public EventoEmpleado(String eventoId, String empleadoId, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
+        this.eventoId = eventoId;
+        this.empleadoId = empleadoId;
         this.tipo = tipo;
         this.nombre = nombre;
         this.fijo = fijo;
@@ -51,20 +51,20 @@ public class EventoEmpleado {
         this.id = id;
     }
 
-    public String getIdEvento() {
-        return idEvento;
+    public String getEventoId() {
+        return eventoId;
     }
 
-    public void setIdEvento(String idEvento) {
-        this.idEvento = idEvento;
+    public void setEventoId(String eventoId) {
+        this.eventoId = eventoId;
     }
 
-    public String getIdEmpleado() {
-        return idEmpleado;
+    public String getEmpleadoId() {
+        return empleadoId;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setEmpleadoId(String empleadoId) {
+        this.empleadoId = empleadoId;
     }
 
     public String getTipo() {
@@ -111,8 +111,8 @@ public class EventoEmpleado {
     public String toString() {
         return "EventoEmpleado{" +
                 "id='" + id + '\'' +
-                ", idEvento='" + idEvento + '\'' +
-                ", idEmpleado='" + idEmpleado + '\'' +
+                ", eventoId='" + eventoId + '\'' +
+                ", empleadoId='" + empleadoId + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", fijo=" + fijo +
@@ -127,12 +127,12 @@ public class EventoEmpleado {
         if (o == null || getClass() != o.getClass()) return false;
         EventoEmpleado that = (EventoEmpleado) o;
         return fijo == that.fijo && confirmado == that.confirmado && Float.compare(that.horasExtras, horasExtras) == 0 && Objects.equals(id, that.id)
-                && Objects.equals(idEvento, that.idEvento) && Objects.equals(idEmpleado, that.idEmpleado) && Objects.equals(tipo, that.tipo)
+                && Objects.equals(eventoId, that.eventoId) && Objects.equals(empleadoId, that.empleadoId) && Objects.equals(tipo, that.tipo)
                 && Objects.equals(nombre, that.nombre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, idEmpleado, tipo, nombre, fijo, confirmado, horasExtras);
+        return Objects.hash(id, eventoId, empleadoId, tipo, nombre, fijo, confirmado, horasExtras);
     }
 }

@@ -32,12 +32,12 @@ public class MesaService {
         this.invitadoRepository = invitadoRepository;
     }
 
-    public List<Mesa> findByEvento(String idEvento){
-        return mesaRepository.findByIdEvento(idEvento);
+    public List<Mesa> findByEvento(String eventoId){
+        return mesaRepository.findByEventoId(eventoId);
     }
 
-    public List<Mesa> findByEventoOrderByNumero(String idEvento){
-        return mesaRepository.findByIdEventoOrderByNumeroAsc(idEvento);
+    public List<Mesa> findByEventoOrderByNumero(String eventoId){
+        return mesaRepository.findByEventoIdOrderByNumeroAsc(eventoId);
     }
 
     public Mesa save(Mesa mesa){
@@ -45,21 +45,21 @@ public class MesaService {
     }
 
     public void delete(Mesa mesa){
-        invitadoRepository.deleteByIdMesa(mesa.getId());
+        invitadoRepository.deleteByMesaId(mesa.getId());
         mesaRepository.delete(mesa);
     }
 
-    public void deleteMesas(String idEvento){
-        invitadoRepository.deleteByIdEvento(idEvento);
-        mesaRepository.deleteByIdEvento(idEvento);
+    public void deleteMesas(String eventoId){
+        invitadoRepository.deleteByEventoId(eventoId);
+        mesaRepository.deleteByEventoId(eventoId);
     }
 
     public void generateInvitados(Mesa mesa) {
         for (int i = 1; i <= mesa.getPersonas().getMayores(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, ""));
+            invitadoRepository.save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, ""));
         }
         for (int i = 1; i <= mesa.getPersonas().getNinyos(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getIdEvento(), mesa.getId(), INVITADO_TIPO_NINYO + i, INVITADO_TIPO_NINYO, ""));
+            invitadoRepository.save(new Invitado(mesa.getEventoId(), mesa.getId(), INVITADO_TIPO_NINYO + i, INVITADO_TIPO_NINYO, ""));
         }
     }
 
@@ -77,7 +77,7 @@ public class MesaService {
             addTitle(document);
 
             for (Mesa mesa : mesas) {
-                List<Invitado> invitados = invitadoRepository.findByIdMesa(mesa.getId());
+                List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
                 addTable(document, mesa, invitados);
             }
 

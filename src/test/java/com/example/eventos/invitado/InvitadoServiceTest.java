@@ -25,13 +25,13 @@ class InvitadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        invitado = new Invitado("idEvento", "idMesa", "Pepe", "Mayor", "Descripcion");
+        invitado = new Invitado("eventoId", "mesaId", "Pepe", "Mayor", "Descripcion");
     }
 
     @Test
     void findByMesaTest(){
-        invitadoService.findByMesa(invitado.getIdMesa());
-        verify(invitadoRepository, times(1)).findByIdMesa(invitado.getIdMesa());
+        invitadoService.findByMesa(invitado.getMesaId());
+        verify(invitadoRepository, times(1)).findByMesaId(invitado.getMesaId());
     }
 
     @Test
@@ -57,7 +57,7 @@ class InvitadoServiceTest {
 
     @Test
     void deleteInvitadosTest(){
-        invitadoService.deleteInvitados(invitado.getIdMesa());
-        verify(invitadoRepository, times(1)).deleteByIdMesa(invitado.getIdMesa());
+        invitadoService.deleteInvitados(invitado.getMesaId());
+        verify(invitadoRepository, times(1)).deleteByMesaId(invitado.getMesaId());
     }
 }

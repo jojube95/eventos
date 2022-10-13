@@ -56,10 +56,10 @@ class MesaControllerTest {
     void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
-        Evento evento = new Evento("idEvento", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Mesa mesa1 = new Mesa("idEvento", "Pepe", new Personas(10, 1), 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("idEvento", "Antonio", new Personas(6, 1), 2, false, "descripcion");
-        Mesa mesa3 = new Mesa("idEvento", "José", new Personas(7, 1), 3, true, "descripcion");
+        Evento evento = new Evento("eventoId", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Mesa mesa1 = new Mesa("eventoId", "Pepe", new Personas(10, 1), 1, true, "descripcion");
+        Mesa mesa2 = new Mesa("eventoId", "Antonio", new Personas(6, 1), 2, false, "descripcion");
+        Mesa mesa3 = new Mesa("eventoId", "José", new Personas(7, 1), 3, true, "descripcion");
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
         mesas.add(mesa2);
@@ -81,24 +81,24 @@ class MesaControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void generarListadoTest() throws Exception {
-        Mesa mesa1 = new Mesa("idMesa", "idEvento", "Pepe", new Personas(10, 1), 1, true, "descripcion");
+        Mesa mesa1 = new Mesa("mesaId", "eventoId", "Pepe", new Personas(10, 1), 1, true, "descripcion");
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
 
-        Invitado invitado1 = new Invitado("idEvento", "idMesa", "Pepe", "Mayor", "");
-        Invitado invitado2 = new Invitado("idEvento", "idMesa", "Antonio", "Mayor", "Vegano");
-        Invitado invitado3 = new Invitado("idEvento", "idMesa", "José", "Mayor", "");
+        Invitado invitado1 = new Invitado("eventoId", "mesaId", "Pepe", "Mayor", "");
+        Invitado invitado2 = new Invitado("eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
+        Invitado invitado3 = new Invitado("eventoId", "mesaId", "José", "Mayor", "");
         List<Invitado> invitados = new ArrayList<>();
         invitados.add(invitado1);
         invitados.add(invitado2);
         invitados.add(invitado3);
 
-        when(mesaService.findByEventoOrderByNumero("idEvento")).thenReturn(mesas);
-        when(invitadoService.findByMesa("idMesa")).thenReturn(invitados);
+        when(mesaService.findByEventoOrderByNumero("eventoId")).thenReturn(mesas);
+        when(invitadoService.findByMesa("mesaId")).thenReturn(invitados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/generarListado")
                 .locale(new Locale("es", "ES"))
-                .param("eventoId", "idEvento");
+                .param("eventoId", "eventoId");
 
         byte[] resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray();
 

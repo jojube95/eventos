@@ -85,7 +85,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -101,7 +101,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -117,7 +117,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void modificarEventoEmpleadoTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -138,7 +138,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void modificarEventoEmpleadoTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

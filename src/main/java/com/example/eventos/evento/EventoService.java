@@ -58,23 +58,23 @@ public class EventoService {
         return eventoRepository.findEventoById(id);
     }
 
-    public List<Evento> getByIdEmpleado(String empleadoId) {
-        List<EventoEmpleado> eventosEmpleado = eventoEmpleadoRepository.findByIdEmpleado(empleadoId);
+    public List<Evento> getByEmpleadoId(String empleadoId) {
+        List<EventoEmpleado> eventosEmpleado = eventoEmpleadoRepository.findByEmpleadoId(empleadoId);
 
         List<Evento> eventos = new ArrayList<>();
         for (EventoEmpleado eventoEmpleado: eventosEmpleado) {
-            eventos.add(eventoRepository.findEventoById(eventoEmpleado.getIdEvento()));
+            eventos.add(eventoRepository.findEventoById(eventoEmpleado.getEventoId()));
         }
 
         return eventos;
     }
 
     public Personas calcularPersonas(String eventoId) {
-        List<Mesa> mesas = mesaRepository.findByIdEventoOrderByNumeroAsc(eventoId);
+        List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(eventoId);
         int mayores = 0;
         int ninyos = 0;
         for (Mesa mesa : mesas) {
-            List<Invitado> invitados = invitadoRepository.findByIdMesa(mesa.getId());
+            List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
             for (Invitado invitado: invitados) {
                 if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
                     ninyos++;
@@ -100,8 +100,8 @@ public class EventoService {
 
     public void delete(Evento evento) {
         eventoRepository.delete(evento);
-        mesaRepository.deleteByIdEvento(evento.getId());
-        invitadoRepository.deleteByIdEvento(evento.getId());
+        mesaRepository.deleteByEventoId(evento.getId());
+        invitadoRepository.deleteByEventoId(evento.getId());
         googleCalendarService.delete(evento);
     }
 }

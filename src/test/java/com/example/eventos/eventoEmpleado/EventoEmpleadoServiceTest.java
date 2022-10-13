@@ -21,13 +21,13 @@ class EventoEmpleadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
     }
 
     @Test
-    void getByIdEventoTest() {
-        eventoEmpleadoService.getByIdEvento(eventoEmpleado.getIdEvento());
-        verify(eventoEmpleadoRepository, times(1)).findByIdEvento(eventoEmpleado.getIdEvento());
+    void getByEventoIdTest() {
+        eventoEmpleadoService.getByEventoId(eventoEmpleado.getEventoId());
+        verify(eventoEmpleadoRepository, times(1)).findByEventoId(eventoEmpleado.getEventoId());
     }
 
     @Test

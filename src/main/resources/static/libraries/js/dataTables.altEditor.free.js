@@ -264,12 +264,12 @@
                                         visible: false
                                     },
                                     {
-                                        data: "idEvento",
+                                        data: "eventoId",
                                         type: "hidden",
                                         visible: false
                                     },
                                     {
-                                        data: "idMesa",
+                                        data: "mesaId",
                                         type: "hidden",
                                         visible: false
                                     },
@@ -317,8 +317,8 @@
                                     onAddRow: function(datatable, rowdata, success, error) {
                                         toggleLoadingSpinner($('#addRowBtn'));
                                         delete rowdata.id;
-                                        rowdata.idEvento = $('#idEvento').val();
-                                        rowdata.idMesa = $('#idMesa').val();
+                                        rowdata.eventoId = $('#eventoId').val();
+                                        rowdata.mesaId = $('#mesaId').val();
                                         $.ajax({
                                             type: "POST",
                                             contentType: "application/json",

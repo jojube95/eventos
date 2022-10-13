@@ -79,15 +79,15 @@ class EventoEmpleadoControllerTest {
         empleadosNoFijos.add(empleadoNoFijo2);
 
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, false, 0.5F);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "idEvento2", "idEmpleado2", "tipo2", "nombre2", false, true, 1.5F);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "eventoId2", "empleadoId2", "tipo2", "nombre2", false, true, 1.5F);
         eventoEmpleados.add(eventoEmpleado1);
         eventoEmpleados.add(eventoEmpleado2);
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
         when(empleadoService.getByTipoAndFijo("Camarero/a", true)).thenReturn(empleadosFijos);
         when(empleadoService.getByTipoAndFijo("Camarero/a", false)).thenReturn(empleadosNoFijos);
-        when(eventoEmpleadoService.getByIdEvento(evento.getId())).thenReturn(eventoEmpleados);
+        when(eventoEmpleadoService.getByEventoId(evento.getId())).thenReturn(eventoEmpleados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados")
                 .locale(new Locale("es", "ES"))
@@ -102,7 +102,7 @@ class EventoEmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getModificarVerTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados/modificar")
                 .param("eventoEmpleadoId", eventoEmpleado.getId());
@@ -115,7 +115,7 @@ class EventoEmpleadoControllerTest {
     void getModificarVerTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleadosUpdateModal.html");
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

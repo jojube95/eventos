@@ -16,18 +16,18 @@ class MesaTest {
 
     @BeforeEach
     public void initEach(){
-        mesa1 = new Mesa("idEvento", "representante",new Personas(8, 1), 2, false, "descripcion");
-        mesa2 = new Mesa("idEvento", new Personas(8, 1), 2, "descripcion");
-        mesa3 = new Mesa("idMesa", "idEvento", new Personas(8, 1), 2, "descripcion");
-        mesa4 = new Mesa("idMesa", "idEvento", "representante", new Personas(8, 1), 2, true, "descripcion");
-        mesaExcel1 = new Mesa("Taula 1-Botellas", "idEvento", new Personas(8, 2));
-        mesaExcel2 = new Mesa("Mesa 3 - Licores ", "idEvento", new Personas(8, 2));
-        mesaExcel3 = new Mesa("Mesa 7  ", "idEvento", new Personas(8, 2));
+        mesa1 = new Mesa("eventoId", "representante",new Personas(8, 1), 2, false, "descripcion");
+        mesa2 = new Mesa("eventoId", new Personas(8, 1), 2, "descripcion");
+        mesa3 = new Mesa("mesaId", "eventoId", new Personas(8, 1), 2, "descripcion");
+        mesa4 = new Mesa("mesaId", "eventoId", "representante", new Personas(8, 1), 2, true, "descripcion");
+        mesaExcel1 = new Mesa("Taula 1-Botellas", "eventoId", new Personas(8, 2));
+        mesaExcel2 = new Mesa("Mesa 3 - Licores ", "eventoId", new Personas(8, 2));
+        mesaExcel3 = new Mesa("Mesa 7  ", "eventoId", new Personas(8, 2));
     }
 
     @Test
     void constructor1Test(){
-        assertEquals("idEvento", mesa1.getIdEvento());
+        assertEquals("eventoId", mesa1.getEventoId());
         assertEquals("representante", mesa1.getRepresentante());
         assertEquals(8, mesa1.getPersonas().getMayores());
         assertEquals(2, mesa1.getNumero());
@@ -36,23 +36,23 @@ class MesaTest {
 
     @Test
     void constructor2Test(){
-        assertEquals("idEvento", mesa2.getIdEvento());
+        assertEquals("eventoId", mesa2.getEventoId());
         assertEquals(8, mesa2.getPersonas().getMayores());
         assertEquals(2, mesa2.getNumero());
     }
 
     @Test
     void constructor3Test(){
-        assertEquals("idMesa", mesa3.getId());
-        assertEquals("idEvento", mesa3.getIdEvento());
+        assertEquals("mesaId", mesa3.getId());
+        assertEquals("eventoId", mesa3.getEventoId());
         assertEquals(8, mesa3.getPersonas().getMayores());
         assertEquals(2, mesa3.getNumero());
     }
 
     @Test
     void constructor4Test(){
-        assertEquals("idMesa", mesa4.getId());
-        assertEquals("idEvento", mesa4.getIdEvento());
+        assertEquals("mesaId", mesa4.getId());
+        assertEquals("eventoId", mesa4.getEventoId());
         assertEquals("representante", mesa4.getRepresentante());
         assertEquals(8, mesa4.getPersonas().getMayores());
         assertEquals(2, mesa4.getNumero());
@@ -61,7 +61,7 @@ class MesaTest {
 
     @Test
     void constructorExcel1Test(){
-        assertEquals("idEvento", mesaExcel1.getIdEvento());
+        assertEquals("eventoId", mesaExcel1.getEventoId());
         assertEquals(1, mesaExcel1.getNumero());
         assertEquals(8, mesaExcel1.getPersonas().getMayores());
         assertEquals(2, mesaExcel1.getPersonas().getNinyos());
@@ -70,7 +70,7 @@ class MesaTest {
 
     @Test
     void constructorExcel2Test(){
-        assertEquals("idEvento", mesaExcel2.getIdEvento());
+        assertEquals("eventoId", mesaExcel2.getEventoId());
         assertEquals(3, mesaExcel2.getNumero());
         assertEquals(8, mesaExcel2.getPersonas().getMayores());
         assertEquals(2, mesaExcel2.getPersonas().getNinyos());
@@ -79,7 +79,7 @@ class MesaTest {
 
     @Test
     void constructorExcel3Test(){
-        assertEquals("idEvento", mesaExcel3.getIdEvento());
+        assertEquals("eventoId", mesaExcel3.getEventoId());
         assertEquals(7, mesaExcel3.getNumero());
         assertEquals(8, mesaExcel3.getPersonas().getMayores());
         assertEquals(2, mesaExcel3.getPersonas().getNinyos());
@@ -88,13 +88,13 @@ class MesaTest {
 
     @Test
     void equalsTestTrue(){
-        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante", new Personas(8, 1), 2, true, "descripcion");
+        Mesa mesa5 = new Mesa("mesaId", "eventoId", "representante", new Personas(8, 1), 2, true, "descripcion");
         assertEquals(mesa4, mesa5);
     }
 
     @Test
     void equalsTestFalse(){
-        Mesa mesa5 = new Mesa("idMesa", "idEvento", "representante",new Personas(9, 1), 2, true, "descripcion");
+        Mesa mesa5 = new Mesa("mesaId", "eventoId", "representante",new Personas(9, 1), 2, true, "descripcion");
         assertNotEquals(mesa4, mesa5);
     }
 }

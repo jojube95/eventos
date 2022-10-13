@@ -103,7 +103,7 @@ public class MesaRestController {
             Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, new Personas(personas, ninyos)));
 
             for (Invitado invitado: invitados) {
-                invitado.setIdMesa(mesa.getId());
+                invitado.setMesaId(mesa.getId());
             }
 
             invitadoService.saveMany(invitados);

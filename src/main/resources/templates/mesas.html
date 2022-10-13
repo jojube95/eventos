@@ -44,7 +44,7 @@
                     <thead>
                     <tr>
                         <th th:text="#{mesa.id}" scope="col"></th>
-                        <th th:text="#{mesa.idEvento}" scope="col"></th>
+                        <th th:text="#{mesa.eventoId}" scope="col"></th>
                         <th th:text="#{mesa.numero}" scope="col"></th>
                         <th th:text="#{mesa.representante}" scope="col"></th>
                         <th th:text="#{mesa.personas.mayores}" scope="col"></th>
@@ -56,7 +56,7 @@
                     <tbody>
                     <tr th:each="mesa: ${mesas}" th:mesaId="${mesa.id}">
                         <td th:text="${mesa.id}"></td>
-                        <td th:text="${mesa.idEvento}"></td>
+                        <td th:text="${mesa.eventoId}"></td>
                         <td th:text="${mesa.numero}"></td>
                         <td th:text="${mesa.representante}"></td>
                         <td th:text="${mesa.personas.mayores}"></td>

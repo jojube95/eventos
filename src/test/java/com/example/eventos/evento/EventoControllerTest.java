@@ -306,8 +306,8 @@ class EventoControllerTest {
         mesas.add(mesa1);
         mesas.add(mesa2);
         List<Invitado> invitados = new ArrayList<>();
-        Invitado invitado1 = new Invitado("id", "idMesa", "Pepe", "Mayor", "Descripcion");
-        Invitado invitado2 = new Invitado("id", "idMesa", "Pepe", "Mayor", "Descripcion");
+        Invitado invitado1 = new Invitado("id", "mesaId", "Pepe", "Mayor", "Descripcion");
+        Invitado invitado2 = new Invitado("id", "mesaId", "Pepe", "Mayor", "Descripcion");
         invitados.add(invitado1);
         invitados.add(invitado2);
         when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);

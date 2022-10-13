@@ -9,15 +9,15 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <input type="hidden" id="idMesa" name="idMesa" th:value="${idMesa}">
-                    <input type="hidden" id="idEvento" name="idEvento" th:value="${idEvento}">
+                    <input type="hidden" id="mesaId" name="mesaId" th:value="${mesaId}">
+                    <input type="hidden" id="eventoId" name="eventoId" th:value="${eventoId}">
                     <table class="display compact" id="invitados" style="width: 100%">
                         <caption th:text="#{table.description.invitados}"></caption>
                         <thead>
                         <tr>
                             <th th:text="#{invitado.id}" scope="col"></th>
-                            <th th:text="#{invitado.idEvento}" scope="col"></th>
-                            <th th:text="#{invitado.idMesa}" scope="col"></th>
+                            <th th:text="#{invitado.eventoId}" scope="col"></th>
+                            <th th:text="#{invitado.mesaId}" scope="col"></th>
                             <th th:text="#{invitado.nombre}" scope="col"></th>
                             <th th:text="#{invitado.tipo}" scope="col"></th>
                             <th th:text="#{invitado.descripcion}" scope="col"></th>
@@ -26,8 +26,8 @@
                         <tbody>
                         <tr th:each="invitado: ${invitados}">
                             <td th:text="${invitado.id}"></td>
-                            <td th:text="${invitado.idEvento}"></td>
-                            <td th:text="${invitado.idMesa}"></td>
+                            <td th:text="${invitado.eventoId}"></td>
+                            <td th:text="${invitado.mesaId}"></td>
                             <td th:text="${invitado.nombre}"></td>
                             <td th:text="${invitado.tipo}"></td>
                             <td th:text="${invitado.descripcion}"></td>

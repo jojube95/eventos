@@ -22,35 +22,35 @@ class EventoEmpleadoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "idEvento2", "idEmpleado2", "tipo2", "nombre2", false, false, 1);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "eventoId2", "empleadoId2", "tipo2", "nombre2", false, false, 1);
 
         mongoTemplate.insert(eventoEmpleado1);
         mongoTemplate.insert(eventoEmpleado2);
     }
 
     @Test
-    void findByIdEventoTest(){
+    void findByEventoIdTest(){
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
-        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, true, 0);
+        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, true, 0);
         eventoEmpleadosExpected.add(eventoEmpleadoExpected);
 
-        assertEquals(eventoEmpleadosExpected, eventoEmpleadoRepository.findByIdEvento("idEvento1"));
+        assertEquals(eventoEmpleadosExpected, eventoEmpleadoRepository.findByEventoId("eventoId1"));
     }
 
     @Test
-    void findByIdEmpleadoTest(){
+    void findByEmpleadoIdTest(){
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
-        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id2", "idEvento2", "idEmpleado2", "tipo2", "nombre2", false, false, 1);
+        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id2", "eventoId2", "empleadoId2", "tipo2", "nombre2", false, false, 1);
 
         eventoEmpleadosExpected.add(eventoEmpleadoExpected);
 
-        assertEquals(eventoEmpleadosExpected, eventoEmpleadoRepository.findByIdEmpleado("idEmpleado2"));
+        assertEquals(eventoEmpleadosExpected, eventoEmpleadoRepository.findByEmpleadoId("empleadoId2"));
     }
 
     @Test
     void findEventoEmpleadoByIdTest(){
-        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id1", "idEvento1", "idEmpleado1", "tipo1", "nombre1", true, true, 0);
+        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, true, 0);
 
         assertEquals(eventoEmpleadoExpected, eventoEmpleadoRepository.findEventoEmpleadoById("id1"));
     }

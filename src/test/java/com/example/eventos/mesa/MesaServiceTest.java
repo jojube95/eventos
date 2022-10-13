@@ -26,19 +26,19 @@ class MesaServiceTest {
 
     @BeforeEach
     public void initEach(){
-        mesa = new Mesa("idEvento", "Antonio", new Personas(10, 1), 1, true, "descripcion");
+        mesa = new Mesa("eventoId", "Antonio", new Personas(10, 1), 1, true, "descripcion");
     }
 
     @Test
     void findByEventoTest(){
-        mesaService.findByEvento(mesa.getIdEvento());
-        verify(mesaRepository, times(1)).findByIdEvento(mesa.getIdEvento());
+        mesaService.findByEvento(mesa.getEventoId());
+        verify(mesaRepository, times(1)).findByEventoId(mesa.getEventoId());
     }
 
     @Test
     void findByEventoOrderByNumeroTest(){
-        mesaService.findByEventoOrderByNumero(mesa.getIdEvento());
-        verify(mesaRepository, times(1)).findByIdEventoOrderByNumeroAsc(mesa.getIdEvento());
+        mesaService.findByEventoOrderByNumero(mesa.getEventoId());
+        verify(mesaRepository, times(1)).findByEventoIdOrderByNumeroAsc(mesa.getEventoId());
     }
 
     @Test
@@ -51,13 +51,13 @@ class MesaServiceTest {
     void deleteTest(){
         mesaService.delete(mesa);
         verify(mesaRepository, times(1)).delete(mesa);
-        verify(invitadoRepository, times(1)).deleteByIdMesa(mesa.getId());
+        verify(invitadoRepository, times(1)).deleteByMesaId(mesa.getId());
     }
 
     @Test
     void deleteMesasTest(){
-        mesaService.deleteMesas(mesa.getIdEvento());
-        verify(mesaRepository, times(1)).deleteByIdEvento(mesa.getIdEvento());
-        verify(invitadoRepository, times(1)).deleteByIdEvento(mesa.getIdEvento());
+        mesaService.deleteMesas(mesa.getEventoId());
+        verify(mesaRepository, times(1)).deleteByEventoId(mesa.getEventoId());
+        verify(invitadoRepository, times(1)).deleteByEventoId(mesa.getEventoId());
     }
 }

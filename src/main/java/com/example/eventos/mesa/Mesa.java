@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Mesa {
     @Id
     private String id;
-    private String idEvento;
+    private String eventoId;
     private String representante;
     private Personas personas;
     private int numero;
@@ -20,8 +20,8 @@ public class Mesa {
 
     }
 
-    public Mesa(String idEvento, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
-        this.idEvento = idEvento;
+    public Mesa(String eventoId, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
+        this.eventoId = eventoId;
         this.representante = representante;
         this.personas = personas;
         this.numero = numero;
@@ -29,24 +29,24 @@ public class Mesa {
         this.descripcion = descripcion;
     }
 
-    public Mesa(String idEvento, Personas personas, int numero, String descripcion) {
-        this.idEvento = idEvento;
+    public Mesa(String eventoId, Personas personas, int numero, String descripcion) {
+        this.eventoId = eventoId;
         this.personas = personas;
         this.numero = numero;
         this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, Personas personas, int numero, String descripcion) {
+    public Mesa(String id, String eventoId, Personas personas, int numero, String descripcion) {
         this.id = id;
-        this.idEvento = idEvento;
+        this.eventoId = eventoId;
         this.personas = personas;
         this.numero = numero;
         this.descripcion = descripcion;
     }
 
-    public Mesa(String id, String idEvento, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
+    public Mesa(String id, String eventoId, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
         this.id = id;
-        this.idEvento = idEvento;
+        this.eventoId = eventoId;
         this.representante = representante;
         this.personas = personas;
         this.numero = numero;
@@ -54,8 +54,8 @@ public class Mesa {
         this.descripcion = descripcion;
     }
 
-    public Mesa(String textoExcel, String idEvento, Personas personas){
-        this.idEvento = idEvento;
+    public Mesa(String textoExcel, String eventoId, Personas personas){
+        this.eventoId = eventoId;
         this.personas = personas;
 
         String[] valoresMesa = textoExcel.split("-");
@@ -80,12 +80,12 @@ public class Mesa {
         this.id = id;
     }
 
-    public String getIdEvento() {
-        return idEvento;
+    public String getEventoId() {
+        return eventoId;
     }
 
-    public void setIdEvento(String idEvento) {
-        this.idEvento = idEvento;
+    public void setEventoId(String eventoId) {
+        this.eventoId = eventoId;
     }
 
     public String getRepresentante() {
@@ -145,12 +145,12 @@ public class Mesa {
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
         return Objects.equals(id, mesa.id) && personas.getMayores() == mesa.personas.getMayores() && personas.getNinyos() == mesa.personas.getNinyos()
-                && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(idEvento, mesa.idEvento)
+                && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(eventoId, mesa.eventoId)
                 && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, representante, personas, numero, pagado, descripcion);
+        return Objects.hash(id, eventoId, representante, personas, numero, pagado, descripcion);
     }
 }
