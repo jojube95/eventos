@@ -201,7 +201,7 @@ public class Evento {
     }
 
     public int getCamarerosRecomendados(float ratioCamarerosEvento){
-        int camareros = (int) Math.round(this.personas.getMayores() / ratioCamarerosEvento);
+        int camareros = Math.round(this.personas.getMayores() / ratioCamarerosEvento);
 
         if("Boda".equals(this.tipo)){
             camareros++;

@@ -39,7 +39,7 @@ public class EventoEmpleadoController {
         model.addAttribute("empleadosNoFijos", empleadosNoFijos);
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, evento.getPersonas());
-        model.addAttribute("camarerosRecomendados", parametrosService.get().getRatioCamarerosEvento());
+        model.addAttribute("camarerosRecomendados", evento.getCamarerosRecomendados(parametrosService.get().getRatioCamarerosEvento()));
         return EVENTO_EMPELADOS_PAGE;
     }
 

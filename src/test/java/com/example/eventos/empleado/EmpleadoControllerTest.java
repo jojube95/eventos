@@ -135,7 +135,7 @@ class EmpleadoControllerTest {
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoUpdate")
                 .locale(new Locale("es", "ES"))
-                .param("empleadoId", empleado.getId());;
+                .param("empleadoId", empleado.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);
