@@ -16,7 +16,7 @@ public final class Constants {
     public static final String EVENTO = "evento";
     public static final String EVENTOS = "eventos";
     public static final String EVENTO_ID = "eventoId";
-    public static final String EVENTO_TIPO_INDIVIDUAL = "Evento individual";
+    public static final String EVENTO_TIPO_INDIVIDUAL = "eventoIndividual";
     public static final String EVENTO_FECHA = "fecha";
     public static final String EVENTO_FECHA_FORMAT = "yyyy-MM-dd";
     public static final String EVENTO_VER_PAGE = "eventoVer";

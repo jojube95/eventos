@@ -198,13 +198,13 @@ public class Evento {
     }
 
     public boolean isEventoIndividual(){
-        return "Evento individual".equals(this.tipo.getValue());
+        return "eventoIndividual".equals(this.tipo.getValue());
     }
 
     public int getCamarerosRecomendados(float ratioCamarerosEvento){
         int camareros = Math.round(this.personas.getMayores() / ratioCamarerosEvento);
 
-        if("Boda".equals(this.tipo.getValue())){
+        if("boda".equals(this.tipo.getValue())){
             camareros++;
         }
 

@@ -25,7 +25,7 @@ function generarTitulo(){
     let selectedHorario = $('#horario').val();
 
     if(tituloInput){
-        if(selectedTipo === 'Evento comunal' || selectedTipo === 'Evento individual'){
+        if(selectedTipo === 'eventoComunal' || selectedTipo === 'eventoIndividual'){
             tituloInput.val('');
             tituloInput.prop('readonly', false);
         }
@@ -46,7 +46,7 @@ function anyadirHorario(){
 function rellenarPrecioNinyos(selectedTipo){
     let precioMenuNinyosInput = $('#precioMenuNinyos');
 
-    if(selectedTipo === "Boda" || selectedTipo === "Comunion"){
+    if(selectedTipo === "boda" || selectedTipo === "comunion"){
         precioMenuNinyosInput.val(precioNinyosBodaComunion);
     }
     else{

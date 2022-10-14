@@ -39,7 +39,7 @@ public class MesaRestController {
 
         mesaService.save(mesa);
 
-        if (!evento.getTipo().equals(EVENTO_TIPO_INDIVIDUAL)) {
+        if (!evento.getTipo().getValue().equals(EVENTO_TIPO_INDIVIDUAL)) {
             mesaService.generateInvitados(mesa);
         }
 
