@@ -7,6 +7,7 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +57,7 @@ class MesaControllerTest {
     void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
-        Evento evento = new Evento("eventoId", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Mesa mesa1 = new Mesa("eventoId", "Pepe", new Personas(10, 1), 1, true, "descripcion");
         Mesa mesa2 = new Mesa("eventoId", "Antonio", new Personas(6, 1), 2, false, "descripcion");
         Mesa mesa3 = new Mesa("eventoId", "José", new Personas(7, 1), 3, true, "descripcion");

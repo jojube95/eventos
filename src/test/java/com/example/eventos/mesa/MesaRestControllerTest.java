@@ -7,6 +7,7 @@ import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
-        Evento evento = new Evento("eventoId", "Comunion", "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(3, 1), 2, true, "descripcion");
 
@@ -163,7 +164,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void importarMesaInvitadosFromExcelTest() throws Exception {
-        Evento evento = new Evento("eventoId", "Comunion", "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Mesa mesaExcel1 = new Mesa("eventoId", new Personas(2, 1), 1, "Botellas");
         Mesa mesaExcel2 = new Mesa("eventoId", new Personas(1, 1), 2, "");
         Mesa mesaExcel3 = new Mesa("eventoId", new Personas(1, 1), 3, "Licores");

@@ -3,12 +3,12 @@ let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
     const tipoColor = new Map([
-        ['Boda', 'FireBrick'],
-        ['Comunion', 'DeepSkyBlue'],
-        ['Evento comunal', 'DarkSeaGreen'],
-        ['Evento individual', 'DarkGreen'],
-        ['Bautizo', 'DarkKhaki'],
-        ['Pruebas', 'DarkGrey']
+        ['boda', 'FireBrick'],
+        ['comunion', 'DeepSkyBlue'],
+        ['eventoComunal', 'DarkSeaGreen'],
+        ['eventoIndividual', 'DarkGreen'],
+        ['bautizo', 'DarkKhaki'],
+        ['pruebas', 'DarkGrey']
     ]);
 
     let calendarEl = document.getElementById('calendar');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 id: eventEl.id,
                                 title: eventEl.titulo + " " + eventEl.personas.mayores + "p",
                                 start: new Date(eventEl.fecha).toISOString().split('T')[0],
-                                color: tipoColor.get(eventEl.tipo),
+                                color: tipoColor.get(eventEl.tipo.value),
                                 eventDisplay: 'block'
                             }
                         })

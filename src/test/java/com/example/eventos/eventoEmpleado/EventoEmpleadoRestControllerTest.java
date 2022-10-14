@@ -5,6 +5,7 @@ import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
-        Evento evento = new Evento("id2", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento = new Evento("id2", new TipoEvento("boda"), "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
@@ -67,7 +68,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
-        Evento evento = new Evento("id2", "Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento = new Evento("id2", new TipoEvento("boda"), "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);

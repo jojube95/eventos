@@ -4,10 +4,8 @@ import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
 import com.example.eventos.personas.Personas;
-import com.example.eventos.security.AuthenticationConfiguration;
-import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.eventos.usuario.Usuario;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,19 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
-
 import java.util.*;
-
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,7 +42,7 @@ class EventoServiceTest {
     @BeforeEach
     public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        evento = new Evento("Boda", "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento = new Evento(new TipoEvento("boda"), "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
     }
 
     @Test

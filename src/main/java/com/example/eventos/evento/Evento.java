@@ -3,6 +3,7 @@ package com.example.eventos.evento;
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,7 +18,7 @@ public class Evento {
     @Id
     private String id;
 
-    private String tipo;
+    private TipoEvento tipo;
     private String horario;
     private Personas personas;
     private String localidad;
@@ -38,7 +39,7 @@ public class Evento {
 
     }
 
-    public Evento(String tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.tipo = tipo;
         this.horario = horario;
@@ -50,7 +51,7 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(String id, TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -63,7 +64,7 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, String tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+    public Evento(String id, TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
                   boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         super();
         this.id = id;
@@ -89,11 +90,11 @@ public class Evento {
         this.id = id;
     }
 
-    public String getTipo() {
+    public TipoEvento getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEvento tipo) {
         this.tipo = tipo;
     }
 
@@ -197,13 +198,13 @@ public class Evento {
     }
 
     public boolean isEventoIndividual(){
-        return "Evento individual".equals(this.tipo);
+        return "Evento individual".equals(this.tipo.getValue());
     }
 
     public int getCamarerosRecomendados(float ratioCamarerosEvento){
         int camareros = Math.round(this.personas.getMayores() / ratioCamarerosEvento);
 
-        if("Boda".equals(this.tipo)){
+        if("Boda".equals(this.tipo.getValue())){
             camareros++;
         }
 

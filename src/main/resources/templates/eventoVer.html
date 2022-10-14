@@ -64,7 +64,7 @@
   <div class="row">
     <div class="col">
       <p th:text="#{evento.tipo}" class="font-weight-bold"></p>
-      <p id="eventoTipo" th:text="${evento.tipo}" class="font-weight-normal"></p>
+      <p id="eventoTipo" th:text="#{|tipo.${evento.tipo.value}|}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.horario}" class="font-weight-bold"></p>

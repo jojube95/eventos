@@ -2,6 +2,7 @@ package com.example.eventos.evento;
 
 import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.personas.Personas;
+import com.example.eventos.tipoEvento.TipoEventoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ import static com.example.eventos.config.Constants.*;
 public class EventoController {
     private final EventoService eventoService;
     private final ParametrosService parametrosService;
+    private final TipoEventoService tipoEventoService;
 
-    public EventoController(EventoService eventoService, ParametrosService parametrosService) {
+    public EventoController(EventoService eventoService, ParametrosService parametrosService, TipoEventoService tipoEventoService) {
         this.eventoService = eventoService;
         this.parametrosService = parametrosService;
+        this.tipoEventoService = tipoEventoService;
     }
 
     @GetMapping("/eventosVer")
@@ -31,6 +34,7 @@ public class EventoController {
     @GetMapping("/eventoAnyadir")
     public String eventoAnyadir(Model model) {
         model.addAttribute(EVENTO, new Evento());
+        model.addAttribute("tipos", tipoEventoService.getTipoEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_ANYADIR_PAGE;
@@ -40,6 +44,7 @@ public class EventoController {
     public String eventoUpdate(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
+        model.addAttribute("tipos", tipoEventoService.getTipoEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_UPDATE_PAGE;

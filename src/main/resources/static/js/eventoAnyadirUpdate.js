@@ -21,7 +21,7 @@ $( document ).ready(function() {
 
 function generarTitulo(){
     let tituloInput = $('#titulo');
-    let selectedTipo = $('#tipo').val();
+    let selectedTipo = $("#tipo option:selected").text();
     let selectedHorario = $('#horario').val();
 
     if(tituloInput){

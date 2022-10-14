@@ -7,6 +7,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +53,7 @@ class EventoEmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEventoEmpleadosTestUsuario() throws Exception {
-        Evento evento = new Evento("id", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados")
                 .param("eventoId", evento.getId());
@@ -65,7 +66,7 @@ class EventoEmpleadoControllerTest {
     void getEventoEmpleadosTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleados.html");
 
-        Evento evento = new Evento("id", "Comunión", "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Empleado> empleadosFijos = new ArrayList<>();
         List<Empleado> empleadosNoFijos = new ArrayList<>();
