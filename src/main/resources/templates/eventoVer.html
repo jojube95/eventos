@@ -68,7 +68,7 @@
     </div>
     <div class="col">
       <p th:text="#{evento.horario}" class="font-weight-bold"></p>
-      <p id="eventoHorario" th:text="${evento.horario}" class="font-weight-normal"></p>
+      <p id="eventoHorario" th:text="#{|horario.${evento.horario.value}|}" class="font-weight-normal"></p>
     </div>
     <div class="col">
       <p th:text="#{evento.titulo}" class="font-weight-bold"></p>

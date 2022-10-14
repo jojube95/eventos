@@ -1,6 +1,7 @@
 package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -35,7 +36,7 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTestUsuario() throws Exception {
-        Evento evento = new Evento("id", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         int personas = 60;
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -53,7 +54,7 @@ class EventoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Evento evento = new Evento("id", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         int personas = 60;
         int ninyos = 20;
 

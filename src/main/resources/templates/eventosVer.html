@@ -55,7 +55,7 @@
                     <td th:text="${#dates.format(evento.fecha, 'yyyy-MM-dd')}"></td>
                     <td th:text="${evento.titulo}"></td>
                     <td th:text="#{|tipo.${evento.tipo.value}|}"></td>
-                    <td th:text="${evento.horario}"></td>
+                    <td th:text="#{|horario.${evento.horario.value}|}"></td>
                     <td th:text="${evento.sala}"></td>
                     <td th:text="${evento.localidad}"></td>
                     <td th:text="${evento.personas.mayores}"></td>

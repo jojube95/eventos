@@ -40,9 +40,8 @@
     <div class="col">
         <div class="form-group">
             <label th:text="#{evento.horario}" for="horario"></label>
-            <select th:field="*{horario}" class="form-control" id="horario" onchange="generarTitulo()">
-                <option id="optionComida" th:text="#{comida}" value="Comida"></option>
-                <option id="optionCena" th:text="#{cena}" value="Cena"></option>
+            <select th:field="*{horario.value}" class="form-control" id="horario" onchange="generarTitulo()">
+                <option th:each="horario: ${horarios}" th:value="${horario.value}" th:text="#{|horario.${horario.value}|}"></option>
             </select>
         </div>
     </div>

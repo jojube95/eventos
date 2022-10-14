@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"0bbce64d1e874828903afefaa2f38767","collectionName":"horarioEvento","type":"collection"}

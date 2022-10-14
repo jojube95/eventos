@@ -3,6 +3,7 @@ package com.example.eventos.protagonista;
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -56,7 +57,7 @@ class ProtagonistaControllerTest {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -79,7 +80,7 @@ class ProtagonistaControllerTest {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -97,7 +98,7 @@ class ProtagonistaControllerTest {
     void getAnyadirProtagonistaTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/protagonistaAnyadir.html");
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 
@@ -119,7 +120,7 @@ class ProtagonistaControllerTest {
         Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
         protagonistas.add(protagonista2);
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
 

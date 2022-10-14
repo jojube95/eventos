@@ -2,6 +2,7 @@ package com.example.eventos.invitado;
 
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
+import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -47,7 +48,7 @@ class InvitadoControllerTest {
     void getInvitadosTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/invitadosModal.html");
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), "Comida", new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Invitado invitado1 = new Invitado(evento.getId(), "mesaId", "Pepe", "Mayor",  "");
         Invitado invitado2 = new Invitado(evento.getId(), "mesaId", "Antonio", "Mayor", "Vegano");
         Invitado invitado3 = new Invitado(evento.getId(), "mesaId", "José", "Mayor", "");

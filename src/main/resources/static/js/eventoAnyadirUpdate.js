@@ -22,7 +22,7 @@ $( document ).ready(function() {
 function generarTitulo(){
     let tituloInput = $('#titulo');
     let selectedTipo = $("#tipo option:selected").text();
-    let selectedHorario = $('#horario').val();
+    let selectedHorario = $("#horario option:selected").text();
 
     if(tituloInput){
         if(selectedTipo === 'eventoComunal' || selectedTipo === 'eventoIndividual'){
@@ -38,7 +38,7 @@ function generarTitulo(){
 
 function anyadirHorario(){
     let tituloInput = $('#titulo');
-    let selectedHorario = $('#horario').val();
+    let selectedHorario = $("#horario option:selected").text();
 
     tituloInput.val(tituloInput.val() + '-' + selectedHorario);
 }

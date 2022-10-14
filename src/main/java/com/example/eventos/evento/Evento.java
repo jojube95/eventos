@@ -1,6 +1,7 @@
 package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -19,7 +20,7 @@ public class Evento {
     private String id;
 
     private TipoEvento tipo;
-    private String horario;
+    private HorarioEvento horario;
     private Personas personas;
     private String localidad;
     private float precioMenu;
@@ -39,7 +40,7 @@ public class Evento {
 
     }
 
-    public Evento(TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.tipo = tipo;
         this.horario = horario;
@@ -51,7 +52,7 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
         super();
         this.id = id;
         this.tipo = tipo;
@@ -64,7 +65,7 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, TipoEvento tipo, String horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+    public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
                   boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         super();
         this.id = id;
@@ -98,11 +99,11 @@ public class Evento {
         this.tipo = tipo;
     }
 
-    public String getHorario() {
+    public HorarioEvento getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(HorarioEvento horario) {
         this.horario = horario;
     }
 

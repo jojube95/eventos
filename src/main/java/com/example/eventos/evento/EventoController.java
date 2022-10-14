@@ -1,5 +1,6 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.horarioEvento.HorarioEventoService;
 import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEvento.TipoEventoService;
@@ -16,11 +17,13 @@ public class EventoController {
     private final EventoService eventoService;
     private final ParametrosService parametrosService;
     private final TipoEventoService tipoEventoService;
+    private final HorarioEventoService horarioEventoService;
 
-    public EventoController(EventoService eventoService, ParametrosService parametrosService, TipoEventoService tipoEventoService) {
+    public EventoController(EventoService eventoService, ParametrosService parametrosService, TipoEventoService tipoEventoService, HorarioEventoService horarioEventoService) {
         this.eventoService = eventoService;
         this.parametrosService = parametrosService;
         this.tipoEventoService = tipoEventoService;
+        this.horarioEventoService = horarioEventoService;
     }
 
     @GetMapping("/eventosVer")
@@ -35,6 +38,7 @@ public class EventoController {
     public String eventoAnyadir(Model model) {
         model.addAttribute(EVENTO, new Evento());
         model.addAttribute("tipos", tipoEventoService.getTipoEventos());
+        model.addAttribute("horarios", horarioEventoService.getHorarioEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_ANYADIR_PAGE;
@@ -45,6 +49,7 @@ public class EventoController {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
         model.addAttribute("tipos", tipoEventoService.getTipoEventos());
+        model.addAttribute("horarios", horarioEventoService.getHorarioEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_UPDATE_PAGE;

@@ -1,5 +1,6 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.invitado.InvitadoRepository;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
@@ -42,7 +43,7 @@ class EventoServiceTest {
     @BeforeEach
     public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        evento = new Evento(new TipoEvento("boda"), "Cena", new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
     }
 
     @Test
