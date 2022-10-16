@@ -1,5 +1,6 @@
 package com.example.eventos.empleado;
 
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +22,7 @@ class EmpleadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
     }
 
     @Test
@@ -38,8 +39,8 @@ class EmpleadoServiceTest {
 
     @Test
     void getByIdTtipoAndFijoTest() {
-        empleadoService.getByTipoAndFijo("Camarero/a", true);
-        verify(empleadoRepository, times(1)).findEmpleadoByTipoAndFijo("Camarero/a", true);
+        empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), true);
+        verify(empleadoRepository, times(1)).findEmpleadoByTipoAndFijo(new TipoEmpleado("camarero"), true);
     }
 
     @Test

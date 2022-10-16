@@ -1,5 +1,6 @@
 package com.example.eventos.empleado;
 
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class EmpleadoService {
         return empleadoRepository.findEmpleadoById(id);
     }
 
-    public List<Empleado> getByTipoAndFijo(String tipo, boolean fijo) {
+    public List<Empleado> getByTipoAndFijo(TipoEmpleado tipo, boolean fijo) {
         return empleadoRepository.findEmpleadoByTipoAndFijo(tipo, fijo);
     }
 

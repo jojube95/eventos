@@ -31,7 +31,7 @@ public final class Constants {
     public static final String EVENTO_EMPELADO_HORAS_EXTRA = "horasExtras";
 
     public static final String EMPLEADO = "empleado";
-    public static final String EMPLEADO_TIPO_CAMARERO = "Camarero/a";
+    public static final String EMPLEADO_TIPO_CAMARERO = "camarero";
     public static final String EMPLEADOS = "empleados";
     public static final String EMPLEADO_ID = "empleadoId";
 

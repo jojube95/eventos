@@ -1,5 +1,6 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +12,7 @@ public class EventoEmpleado {
     private String id;
     private String eventoId;
     private String empleadoId;
-    private String tipo;
+    private TipoEmpleado tipo;
     private String nombre;
     private boolean fijo;
     private boolean confirmado;
@@ -21,7 +22,7 @@ public class EventoEmpleado {
 
     }
 
-    public EventoEmpleado(String id, String eventoId, String empleadoId, String tipo, String nombre, boolean fijo, boolean confirmado,
+    public EventoEmpleado(String id, String eventoId, String empleadoId, TipoEmpleado tipo, String nombre, boolean fijo, boolean confirmado,
                           float horasExtras) {
         this.id = id;
         this.eventoId = eventoId;
@@ -33,7 +34,7 @@ public class EventoEmpleado {
         this.horasExtras = horasExtras;
     }
 
-    public EventoEmpleado(String eventoId, String empleadoId, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
+    public EventoEmpleado(String eventoId, String empleadoId, TipoEmpleado tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
         this.eventoId = eventoId;
         this.empleadoId = empleadoId;
         this.tipo = tipo;
@@ -67,11 +68,11 @@ public class EventoEmpleado {
         this.empleadoId = empleadoId;
     }
 
-    public String getTipo() {
+    public TipoEmpleado getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEmpleado tipo) {
         this.tipo = tipo;
     }
 

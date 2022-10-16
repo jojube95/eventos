@@ -8,6 +8,7 @@ import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
@@ -71,24 +72,24 @@ class EventoEmpleadoControllerTest {
 
         List<Empleado> empleadosFijos = new ArrayList<>();
         List<Empleado> empleadosNoFijos = new ArrayList<>();
-        Empleado empleadoFijo1 = new Empleado("id1", "tipo1", "nombre1", "telefono1", true);
-        Empleado empleadoFijo2 = new Empleado("id2", "tipo2", "nombre2", "telefono2", true);
-        Empleado empleadoNoFijo1 = new Empleado("id3", "tipo3", "nombre3", "telefono3", false);
-        Empleado empleadoNoFijo2 = new Empleado("id4", "tipo4", "nombre4", "telefono4", false);
+        Empleado empleadoFijo1 = new Empleado("id1", new TipoEmpleado("camarero"), "nombre1", "telefono1", true);
+        Empleado empleadoFijo2 = new Empleado("id2", new TipoEmpleado("cocinero"), "nombre2", "telefono2", true);
+        Empleado empleadoNoFijo1 = new Empleado("id3", new TipoEmpleado("camarero2"), "nombre3", "telefono3", false);
+        Empleado empleadoNoFijo2 = new Empleado("id4", new TipoEmpleado("cocinero2"), "nombre4", "telefono4", false);
         empleadosFijos.add(empleadoFijo1);
         empleadosFijos.add(empleadoFijo2);
         empleadosNoFijos.add(empleadoNoFijo1);
         empleadosNoFijos.add(empleadoNoFijo2);
 
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "eventoId2", "empleadoId2", "tipo2", "nombre2", false, true, 1.5F);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "eventoId2", "empleadoId2", new TipoEmpleado("cocinero"), "nombre2", false, true, 1.5F);
         eventoEmpleados.add(eventoEmpleado1);
         eventoEmpleados.add(eventoEmpleado2);
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
-        when(empleadoService.getByTipoAndFijo("Camarero/a", true)).thenReturn(empleadosFijos);
-        when(empleadoService.getByTipoAndFijo("Camarero/a", false)).thenReturn(empleadosNoFijos);
+        when(empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), true)).thenReturn(empleadosFijos);
+        when(empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), false)).thenReturn(empleadosNoFijos);
         when(eventoEmpleadoService.getByEventoId(evento.getId())).thenReturn(eventoEmpleados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados")
@@ -104,7 +105,7 @@ class EventoEmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getModificarVerTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados/modificar")
                 .param("eventoEmpleadoId", eventoEmpleado.getId());
@@ -117,7 +118,7 @@ class EventoEmpleadoControllerTest {
     void getModificarVerTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleadosUpdateModal.html");
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", "tipo1", "nombre1", true, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

@@ -1,5 +1,6 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +22,7 @@ class EventoEmpleadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
+        eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
     }
 
     @Test

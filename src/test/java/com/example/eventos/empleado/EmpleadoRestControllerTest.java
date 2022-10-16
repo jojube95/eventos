@@ -1,6 +1,7 @@
 package com.example.eventos.empleado;
 
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,7 +31,7 @@ class EmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -46,7 +47,7 @@ class EmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 

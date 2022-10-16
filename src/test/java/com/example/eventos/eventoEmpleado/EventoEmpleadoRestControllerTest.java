@@ -6,6 +6,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class EventoEmpleadoRestControllerTest {
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
         Evento evento = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -70,7 +71,7 @@ class EventoEmpleadoRestControllerTest {
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
         Evento evento = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -87,7 +88,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -103,7 +104,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -119,7 +120,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void modificarEventoEmpleadoTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -140,7 +141,7 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void modificarEventoEmpleadoTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", "tipo", "nombre", true, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

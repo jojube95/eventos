@@ -30,7 +30,7 @@
             <tbody>
             <tr th:each="empleado, iter: ${empleados}" onclick="rowClicked(this.getAttribute('eventoId'))">
                 <td th:text="${empleado.id}"></td>
-                <td th:text="${empleado.tipo}"></td>
+                <td th:text="#{|tipoEmpleado.${empleado.tipo.value}|}"></td>
                 <td th:text="${empleado.nombre}"></td>
                 <td th:text="${empleado.telefono}"></td>
                 <td>

@@ -1,11 +1,8 @@
 package com.example.eventos.empleado;
 
-import com.example.eventos.evento.Evento;
-import com.example.eventos.protagonista.Protagonista;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,13 +12,13 @@ class EmpleadoTest {
 
     @BeforeEach
     public void initEach(){
-        empleadoNoId = new Empleado("tipo", "nombre", "telefono", true);
-        empleadoWithId = new Empleado("id", "tipo", "nombre", "telefono", true);
+        empleadoNoId = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        empleadoWithId = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
     }
 
     @Test
     void constructorNoIdTest(){
-        assertEquals("tipo", empleadoNoId.getTipo());
+        assertEquals(new TipoEmpleado("camarero"), empleadoNoId.getTipo());
         assertEquals("nombre", empleadoNoId.getNombre());
         assertEquals("telefono", empleadoNoId.getTelefono());
         assertTrue(empleadoNoId.isFijo());
@@ -30,7 +27,7 @@ class EmpleadoTest {
     @Test
     void constructorTest(){
         assertEquals("id", empleadoWithId.getId());
-        assertEquals("tipo", empleadoWithId.getTipo());
+        assertEquals(new TipoEmpleado("camarero"), empleadoWithId.getTipo());
         assertEquals("nombre", empleadoWithId.getNombre());
         assertEquals("telefono", empleadoWithId.getTelefono());
         assertTrue(empleadoWithId.isFijo());
@@ -44,17 +41,17 @@ class EmpleadoTest {
 
     @Test
     void equalsTestFalseTipo(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
-        Empleado empleado2 = new Empleado("tipo", "nombre", "telefono", true);
-        empleado1.setTipo("tipo2");
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado2 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        empleado1.setTipo(new TipoEmpleado("cocinero"));
 
         assertNotEquals(empleado1, empleado2);
     }
 
     @Test
     void equalsTestFalseNombre(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
-        Empleado empleado2 = new Empleado("tipo", "nombre", "telefono", true);
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado2 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
         empleado1.setNombre("nombre2");
 
         assertNotEquals(empleado1, empleado2);
@@ -62,8 +59,8 @@ class EmpleadoTest {
 
     @Test
     void equalsTestFalseTelefono(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
-        Empleado empleado2 = new Empleado("tipo", "nombre", "telefono", true);
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado2 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
         empleado1.setTelefono("telefono2");
 
         assertNotEquals(empleado1, empleado2);
@@ -71,8 +68,8 @@ class EmpleadoTest {
 
     @Test
     void equalsTestFalseFijo(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
-        Empleado empleado2 = new Empleado("tipo", "nombre", "telefono", true);
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado2 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
         empleado1.setFijo(false);
 
         assertNotEquals(empleado1, empleado2);
@@ -81,15 +78,15 @@ class EmpleadoTest {
 
     @Test
     void equalsTestTrue(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
-        Empleado empleado2 = new Empleado("tipo", "nombre", "telefono", true);
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado2 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         assertEquals(empleado1, empleado2);
     }
 
     @Test
     void equalsTestNull(){
-        Empleado empleado1 = new Empleado("tipo", "nombre", "telefono", true);
+        Empleado empleado1 = new Empleado(new TipoEmpleado("camarero"), "nombre", "telefono", true);
 
         assertNotEquals(null, empleado1);
     }

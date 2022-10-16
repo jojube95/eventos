@@ -2,6 +2,7 @@ package com.example.eventos.empleado;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.tipoEmpleado.TipoEmpleadoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,12 @@ import static com.example.eventos.config.Constants.*;
 public class EmpleadoController {
     private final EmpleadoService empleadoService;
     private final EventoService eventoService;
+    private final TipoEmpleadoService tipoEmpleadoService;
 
-    public EmpleadoController(EmpleadoService empleadoService, EventoService eventoService) {
+    public EmpleadoController(EmpleadoService empleadoService, EventoService eventoService, TipoEmpleadoService tipoEmpleadoService) {
         this.empleadoService = empleadoService;
         this.eventoService = eventoService;
+        this.tipoEmpleadoService = tipoEmpleadoService;
     }
 
     @GetMapping("/empleados")
@@ -31,6 +34,7 @@ public class EmpleadoController {
     @GetMapping("/empleadoAnyadir")
     public String empleadoAnyadir(Model model) {
         model.addAttribute(EMPLEADO, new Empleado());
+        model.addAttribute("tipos", tipoEmpleadoService.getTipoEmpleados());
         return EMPLEADO_ANYADIR_PAGE;
     }
 
@@ -44,6 +48,7 @@ public class EmpleadoController {
     public String empleadoUpdate(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute(EMPLEADO, empleado);
+        model.addAttribute("tipos", tipoEmpleadoService.getTipoEmpleados());
         return EMPLEADO_UPDATE_PAGE;
     }
 

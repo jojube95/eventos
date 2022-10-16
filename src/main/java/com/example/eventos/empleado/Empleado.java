@@ -1,5 +1,6 @@
 package com.example.eventos.empleado;
 
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
@@ -9,7 +10,7 @@ public class Empleado {
     @Id
     private String id;
 
-    private String tipo;
+    private TipoEmpleado tipo;
     private String nombre;
     private String telefono;
     private boolean fijo;
@@ -18,7 +19,7 @@ public class Empleado {
 
     }
 
-    public Empleado(String id, String tipo, String nombre, String telefono, boolean fijo) {
+    public Empleado(String id, TipoEmpleado tipo, String nombre, String telefono, boolean fijo) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -26,7 +27,7 @@ public class Empleado {
         this.fijo = fijo;
     }
 
-    public Empleado(String tipo, String nombre, String telefono, boolean fijo) {
+    public Empleado(TipoEmpleado tipo, String nombre, String telefono, boolean fijo) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -41,11 +42,11 @@ public class Empleado {
         this.id = id;
     }
 
-    public String getTipo() {
+    public TipoEmpleado getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEmpleado tipo) {
         this.tipo = tipo;
     }
 

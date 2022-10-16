@@ -5,6 +5,7 @@ import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.parametros.ParametrosService;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +31,8 @@ public class EventoEmpleadoController {
     @GetMapping("/evento/empleados")
     public String eventoEmpleados(@RequestParam(EVENTO_EMPELADO_EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, true);
-        List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo(EMPLEADO_TIPO_CAMARERO, false);
+        List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), true);
+        List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), false);
         List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByEventoId(eventoId);
 
         model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
