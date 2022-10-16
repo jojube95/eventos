@@ -2,6 +2,8 @@ package com.example.eventos.eventoEmpleado;
 
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
+import com.example.eventos.evento.Evento;
+import com.example.eventos.evento.EventoService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,18 +14,20 @@ public class EventoEmpleadoRestController {
 
     private final EmpleadoService empleadoService;
     private final EventoEmpleadoService eventoEmpleadoService;
+    private final EventoService eventoService;
 
-    public EventoEmpleadoRestController(EmpleadoService empleadoService, EventoEmpleadoService eventoEmpleadoService) {
+    public EventoEmpleadoRestController(EmpleadoService empleadoService, EventoEmpleadoService eventoEmpleadoService, EventoService eventoService) {
         this.empleadoService = empleadoService;
         this.eventoEmpleadoService = eventoEmpleadoService;
+        this.eventoService = eventoService;
     }
 
     @PostMapping("/evento/empleados/anyadir")
     public EventoEmpleado add(@RequestParam(EVENTO_ID) String eventoId, @RequestParam(EMPLEADO_ID) String empleadoId) {
+        Evento evento = eventoService.getById(eventoId);
         Empleado empleado = empleadoService.getById(empleadoId);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(eventoId, empleadoId, empleado.getTipo(), empleado.getNombre(), empleado.isFijo(),
-                false, 0.0F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento, empleado, false, 0.0F);
 
         return eventoEmpleadoService.save(eventoEmpleado);
     }
@@ -37,7 +41,7 @@ public class EventoEmpleadoRestController {
     @PostMapping("/evento/empleados/modificar")
     public EventoEmpleado modificarEventoEmpleado(@RequestParam(EVENTO_EMPELADO_ID) String eventoEmpleadoId,
                                                   @RequestParam(EVENTO_EMPELADO_CONFIRMADO) boolean confirmado,
-                                                  @RequestParam(EVENTO_EMPELADO_HORAS_EXTRA) float horasExtras) {
+                                                  @RequestParam(EVENTO_EMPELADO_HORAS_EXTRA) double horasExtras) {
         EventoEmpleado eventoEmpleado = eventoEmpleadoService.getById(eventoEmpleadoId);
         eventoEmpleado.setConfirmado(confirmado);
         eventoEmpleado.setHorasExtras(horasExtras);

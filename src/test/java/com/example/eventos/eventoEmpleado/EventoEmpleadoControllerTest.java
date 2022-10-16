@@ -82,8 +82,13 @@ class EventoEmpleadoControllerTest {
         empleadosNoFijos.add(empleadoNoFijo2);
 
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("id2", "eventoId2", "empleadoId2", new TipoEmpleado("cocinero"), "nombre2", false, true, 1.5F);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), "nombre2", "666777999", false);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento1, empleado1, false, 0.5F);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento2, empleado2, true, 1.5F);
         eventoEmpleados.add(eventoEmpleado1);
         eventoEmpleados.add(eventoEmpleado2);
 
@@ -105,7 +110,10 @@ class EventoEmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getModificarVerTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados/modificar")
                 .param("eventoEmpleadoId", eventoEmpleado.getId());
@@ -118,7 +126,10 @@ class EventoEmpleadoControllerTest {
     void getModificarVerTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleadosUpdateModal.html");
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id1", "eventoId1", "empleadoId1", new TipoEmpleado("camarero"), "nombre1", true, false, 0.5F);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

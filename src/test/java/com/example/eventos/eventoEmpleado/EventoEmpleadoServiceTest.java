@@ -1,12 +1,24 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.empleado.Empleado;
+import com.example.eventos.evento.Evento;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,15 +32,22 @@ class EventoEmpleadoServiceTest {
 
     EventoEmpleado eventoEmpleado;
 
+    Date fecha;
+
     @BeforeEach
     public void initEach(){
-        eventoEmpleado = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
+
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre", "666777888", true);
+
+        eventoEmpleado = new EventoEmpleado(evento, empleado, true, 0);
     }
 
     @Test
     void getByEventoIdTest() {
-        eventoEmpleadoService.getByEventoId(eventoEmpleado.getEventoId());
-        verify(eventoEmpleadoRepository, times(1)).findByEventoId(eventoEmpleado.getEventoId());
+        eventoEmpleadoService.getByEventoId(eventoEmpleado.getEvento().getId());
+        verify(eventoEmpleadoRepository, times(1)).findByEventoId(eventoEmpleado.getEvento().getId());
     }
 
     @Test

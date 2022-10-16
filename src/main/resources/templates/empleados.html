@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="empleado, iter: ${empleados}" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <tr th:each="empleado, iter: ${empleados}">
                 <td th:text="${empleado.id}"></td>
                 <td th:text="#{|tipoEmpleado.${empleado.tipo.value}|}"></td>
                 <td th:text="${empleado.nombre}"></td>

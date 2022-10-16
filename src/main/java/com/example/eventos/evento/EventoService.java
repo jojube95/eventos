@@ -63,7 +63,7 @@ public class EventoService {
 
         List<Evento> eventos = new ArrayList<>();
         for (EventoEmpleado eventoEmpleado: eventosEmpleado) {
-            eventos.add(eventoRepository.findEventoById(eventoEmpleado.getEventoId()));
+            eventos.add(eventoRepository.findEventoById(eventoEmpleado.getEvento().getId()));
         }
 
         return eventos;

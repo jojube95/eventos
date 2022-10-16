@@ -1,39 +1,52 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.empleado.Empleado;
+import com.example.eventos.evento.Evento;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventoEmpleadoTest {
+    Evento evento;
+    Empleado empleado;
     EventoEmpleado eventoEmpleadoNoId;
     EventoEmpleado eventoEmpleadoWithId;
 
+    Date fecha;
+
     @BeforeEach
     public void initEach(){
-        eventoEmpleadoNoId = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleadoWithId = new EventoEmpleado("id", "eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
+
+        evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        eventoEmpleadoNoId = new EventoEmpleado(evento, empleado, true, 0);
+        eventoEmpleadoWithId = new EventoEmpleado("id", evento, empleado, true, 0);
     }
 
     @Test
     void constructorNoIdTest(){
-        assertEquals("eventoId", eventoEmpleadoNoId.getEventoId());
-        assertEquals("empleadoId", eventoEmpleadoNoId.getEmpleadoId());
-        assertEquals(new TipoEmpleado("camarero"), eventoEmpleadoNoId.getTipo());
-        assertEquals("nombre", eventoEmpleadoNoId.getNombre());
-        assertTrue(eventoEmpleadoNoId.isFijo());
-        assertTrue(eventoEmpleadoNoId.isConfirmado());
-        assertEquals(0, eventoEmpleadoNoId.getHorasExtras());
+        assertEquals(evento, eventoEmpleadoWithId.getEvento());
+        assertEquals(empleado, eventoEmpleadoWithId.getEmpleado());
+        assertTrue(eventoEmpleadoWithId.isConfirmado());
+        assertEquals(0, eventoEmpleadoWithId.getHorasExtras());
     }
 
     @Test
     void constructorTest(){
         assertEquals("id", eventoEmpleadoWithId.getId());
-        assertEquals("eventoId", eventoEmpleadoWithId.getEventoId());
-        assertEquals("empleadoId", eventoEmpleadoWithId.getEmpleadoId());
-        assertEquals(new TipoEmpleado("camarero"), eventoEmpleadoWithId.getTipo());
-        assertEquals("nombre", eventoEmpleadoWithId.getNombre());
-        assertTrue(eventoEmpleadoWithId.isFijo());
+        assertEquals(evento, eventoEmpleadoWithId.getEvento());
+        assertEquals(empleado, eventoEmpleadoWithId.getEmpleado());
         assertTrue(eventoEmpleadoWithId.isConfirmado());
         assertEquals(0, eventoEmpleadoWithId.getHorasExtras());
     }
@@ -45,54 +58,36 @@ class EventoEmpleadoTest {
     }
 
     @Test
-    void equalsTestFalseEventoId(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleado1.setEventoId("eventoId2");
+    void equalsTestFalseEvento(){
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, true, 0);
+        eventoEmpleado1.setEvento(new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion")));
 
         assertNotEquals(eventoEmpleado1, eventoEmpleado2);
     }
 
     @Test
-    void equalsTestFalseEmpleadoId(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleado1.setEmpleadoId("empleadoId2");
+    void equalsTestFalseEmpleado(){
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
 
-        assertNotEquals(eventoEmpleado1, eventoEmpleado2);
-    }
-
-    @Test
-    void equalsTestFalseTipo(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleado1.setTipo(new TipoEmpleado("cocinero"));
-
-        assertNotEquals(eventoEmpleado1, eventoEmpleado2);
-    }
-
-    @Test
-    void equalsTestFalseNombre(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleado1.setNombre("nombre2");
-
-        assertNotEquals(eventoEmpleado1, eventoEmpleado2);
-    }
-
-    @Test
-    void equalsTestFalseFijo(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        eventoEmpleado1.setFijo(false);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, true, 0);
+        eventoEmpleado1.setEmpleado(new Empleado("idEmpleado2", new TipoEmpleado("camarero"), "nombre1", "666777888", true));
 
         assertNotEquals(eventoEmpleado1, eventoEmpleado2);
     }
 
     @Test
     void equalsTestFalseConfirmado(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, true, 0);
         eventoEmpleado1.setConfirmado(false);
 
         assertNotEquals(eventoEmpleado1, eventoEmpleado2);
@@ -100,8 +95,11 @@ class EventoEmpleadoTest {
 
     @Test
     void equalsTestFalseHorasExtra(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, true, 0);
         eventoEmpleado1.setHorasExtras(1);
 
         assertNotEquals(eventoEmpleado1, eventoEmpleado2);
@@ -110,15 +108,21 @@ class EventoEmpleadoTest {
 
     @Test
     void equalsTestTrue(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, true, 0);
 
         assertEquals(eventoEmpleado1, eventoEmpleado2);
     }
 
     @Test
     void equalsTestNull(){
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("eventoId", "empleadoId", new TipoEmpleado("camarero"), "nombre", true, true, 0);
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, true, 0);
 
         assertNotEquals(null, eventoEmpleado1);
     }

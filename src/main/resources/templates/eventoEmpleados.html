@@ -77,14 +77,14 @@
                 <tbody>
                 <tr th:each="eventoEmpleado: ${eventoEmpleados}">
                     <td th:text="${eventoEmpleado.id}"></td>
-                    <td th:text="${eventoEmpleado.eventoId}"></td>
-                    <td th:text="${eventoEmpleado.empleadoId}"></td>
-                    <td th:text="${eventoEmpleado.tipo}"></td>
-                    <td th:text="${eventoEmpleado.nombre}"></td>
+                    <td th:text="${eventoEmpleado.evento.id}"></td>
+                    <td th:text="${eventoEmpleado.empleado.id}"></td>
+                    <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
+                    <td th:text="${eventoEmpleado.empleado.nombre}"></td>
                     <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.fijo}">
-                            <label class="custom-control-label" th:text="${eventoEmpleado.fijo} ? 'Si' : 'No'"></label>
+                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">
+                            <label class="custom-control-label" th:text="${eventoEmpleado.empleado.fijo} ? 'Si' : 'No'"></label>
                         </div>
                     </td>
                     <td>
