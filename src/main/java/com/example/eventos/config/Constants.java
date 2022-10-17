@@ -53,6 +53,15 @@ public final class Constants {
     public static final String ATTRIBUTE_RATIO_BENEFICIOS = "ratioBeneficios";
     public static final String ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION = "precioNinyosBodaComunion";
     public static final String ATTRIBUTE_PRECIO_NINYOS_OTROS = "precioNinyosOtros";
+    public static final String ATTRIBUTE_EVENTOS_JSON = "eventosJson";
+    public static final String ATTRIBUTE_STATUS_CODE = "statusCode";
+    public static final String ATTRIBUTE_IS_EVENTO_INDIVIDUAL = "isEventoIndividual";
+    public static final String ATTRIBUTE_TIPOS_EVENTO = "tipos";
+    public static final String ATTRIBUTE_HORARIOS_EVENTO = "horarios";
+    public static final String ATTRIBUTE_TIPOS_EMPLEADO = "tipos";
+    public static final String ATTRIBUTE_EMPLEADOS_FIJOS = "empleadosFijos";
+    public static final String ATTRIBUTE_EMPLEADOS_NO_FIJOS = "empleadosNoFijos";
+    public static final String ATTRIBUTE_CAMAREROS_RECOMENDADOS = "camarerosRecomendados";
 
 
 

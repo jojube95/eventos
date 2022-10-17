@@ -34,7 +34,7 @@ public class EmpleadoController {
     @GetMapping("/empleadoAnyadir")
     public String empleadoAnyadir(Model model) {
         model.addAttribute(EMPLEADO, new Empleado());
-        model.addAttribute("tipos", tipoEmpleadoService.getTipoEmpleados());
+        model.addAttribute(ATTRIBUTE_TIPOS_EMPLEADO, tipoEmpleadoService.getTipoEmpleados());
         return EMPLEADO_ANYADIR_PAGE;
     }
 
@@ -48,7 +48,7 @@ public class EmpleadoController {
     public String empleadoUpdate(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute(EMPLEADO, empleado);
-        model.addAttribute("tipos", tipoEmpleadoService.getTipoEmpleados());
+        model.addAttribute(ATTRIBUTE_TIPOS_EMPLEADO, tipoEmpleadoService.getTipoEmpleados());
         return EMPLEADO_UPDATE_PAGE;
     }
 

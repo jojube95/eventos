@@ -2,6 +2,7 @@ let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // TODO: Use Evento polyohormism
     const tipoColor = new Map([
         ['boda', 'FireBrick'],
         ['comunion', 'DeepSkyBlue'],

@@ -25,6 +25,7 @@ function generarTitulo(){
     let selectedHorario = $("#horario option:selected").text();
 
     if(tituloInput){
+        // TODO: Use TipoEvento polyohormism
         if(selectedTipo === 'eventoComunal' || selectedTipo === 'eventoIndividual'){
             tituloInput.val('');
             tituloInput.prop('readonly', false);
@@ -46,6 +47,7 @@ function anyadirHorario(){
 function rellenarPrecioNinyos(selectedTipo){
     let precioMenuNinyosInput = $('#precioMenuNinyos');
 
+    // TODO: Use Evento polyohormism
     if(selectedTipo === "boda" || selectedTipo === "comunion"){
         precioMenuNinyosInput.val(precioNinyosBodaComunion);
     }

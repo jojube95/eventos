@@ -37,8 +37,8 @@ public class EventoController {
     @GetMapping("/eventoAnyadir")
     public String eventoAnyadir(Model model) {
         model.addAttribute(EVENTO, new Evento());
-        model.addAttribute("tipos", tipoEventoService.getTipoEventos());
-        model.addAttribute("horarios", horarioEventoService.getHorarioEventos());
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTO, tipoEventoService.getTipoEventos());
+        model.addAttribute(ATTRIBUTE_HORARIOS_EVENTO, horarioEventoService.getHorarioEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_ANYADIR_PAGE;
@@ -48,8 +48,8 @@ public class EventoController {
     public String eventoUpdate(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
-        model.addAttribute("tipos", tipoEventoService.getTipoEventos());
-        model.addAttribute("horarios", horarioEventoService.getHorarioEventos());
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTO, tipoEventoService.getTipoEventos());
+        model.addAttribute(ATTRIBUTE_HORARIOS_EVENTO, horarioEventoService.getHorarioEventos());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
         model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
         return EVENTO_UPDATE_PAGE;

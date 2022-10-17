@@ -40,6 +40,7 @@ public class PdfCreator {
 
         PdfPCell c1;
 
+        // TODO: Move to Mesa class method
         if(mesa.getDescripcion().isEmpty()){
             c1 = new PdfPCell(new Phrase(mesa.toString(), subtitleFont));
         }
@@ -55,6 +56,7 @@ public class PdfCreator {
         table.setHeaderRows(1);
 
         for (Invitado invitado : invitados) {
+            // TODO: Move to Invitado class method
             if (invitado.getDescripcion().isEmpty()){
                 table.addCell(new PdfPCell(new Phrase(invitado.toString(), paragraphFont))).setBorder(Rectangle.NO_BORDER);
             }

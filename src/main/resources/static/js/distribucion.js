@@ -50,14 +50,17 @@ $(document).ready(function() {
 });
 
 function anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, top, left, htmlModal){
+    // TODO: Add Mesa(mesaId, numero, mayores, ninyos, top, left) -> MesaLarga, MesaRedonda classes
     let tipoMesaModal = "#distribucionTipoMesaModal";
     let totalPersonas =  Number(mayores) + Number(ninyos);
 
+    // TODO: this if, else to mesaFactory
     if (personasCabenEnRedonda(totalPersonas)) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
         $(tipoMesaModal).modal("show");
     }
     else{
+        // TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
         addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
     }
     $(tipoMesaModal).modal("hide");
@@ -74,6 +77,7 @@ function updateMesaOnCanvas(mesa){
             let left = object.left;
             let tipo = object._objects[0].type;
 
+            // TODO: this if, else to mesaFactory
             if(tipo === 'rect'){
                 canvas.remove(object);
                 addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
@@ -81,6 +85,7 @@ function updateMesaOnCanvas(mesa){
             else{
                 if(personasCabenEnRedonda(mayores + ninyos)) {
                     canvas.remove(object);
+                    // TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
                     addCircleTable(mesaId, numero, mayores, ninyos, top, left);
                 }
                 else{
@@ -92,6 +97,7 @@ function updateMesaOnCanvas(mesa){
     });
 }
 
+// TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
 function addCircleTable(mesaId, numero, mayores, ninyos, top, left) {
     let circle = new fabric.Circle({
         radius: radioRedonda,
@@ -105,7 +111,9 @@ function addCircleTable(mesaId, numero, mayores, ninyos, top, left) {
     insertTextToObject(mesaId, numero, mayores, ninyos, top, left, circle);
 }
 
+// TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
 function addRectangleTable(mesaId, numero, mayores, ninyos, top, left) {
+    // TODO: Move to calcularLongitudMesaLarga on Mesa class
     let tableLength = calcularLongitudMesaLarga(Number(mayores) + Number(ninyos));
 
     let rect = new fabric.Rect({
@@ -118,9 +126,11 @@ function addRectangleTable(mesaId, numero, mayores, ninyos, top, left) {
         originY: 'center'
     });
 
+    // TODO: Move to insertTextToObject on Mesa class
     insertTextToObject(mesaId, numero, mayores, ninyos, top, left, rect);
 }
 
+// TODO: Move to insertTextToObject on Mesa class
 function insertTextToObject(mesaId, numero, mayores, ninyos, top, left, objectToInsert){
     let text;
 
@@ -166,11 +176,13 @@ function insertTextToObject(mesaId, numero, mayores, ninyos, top, left, objectTo
     addObjectToCanvas(group);
 }
 
+// TODO: Move to calcularLongitudMesaLarga on MesaLarga class
 function calcularLongitudMesaLarga(mayores){
     let mesas = calcularLargasApoyos(mayores);
     return (mesas.largas * alturaLarga) + (mesas.apoyos * alturaApoyo)
 }
 
+// TODO: Move to calcularLongitudMesaLarga on MesaLarga class
 function calcularLargasApoyos(mayores){
     let mayoresUltimaMesa = mayores % 6;
 
@@ -188,6 +200,7 @@ function calcularLargasApoyos(mayores){
     }
 }
 
+// TODO: Move to addObjectToCanvas on Mesa class
 function addObjectToCanvas(object){
     canvas.add(object);
     canvas.renderAll();
@@ -195,6 +208,7 @@ function addObjectToCanvas(object){
     changeRowColor(object.mesaId, rowColorAdded);
 }
 
+// TODO: Move to changeTableType on Mesa class
 function changeTableType(table){
     let tableType = table._objects[0].type;
     let mesaId = table.mesaId;
@@ -242,6 +256,7 @@ function loadCanvas(){
     $('tbody > tr').not('[style]').css('background-color', rowColorNotAdded);
 }
 
+// TODO: Move to deleteObject on Mesa class
 function deleteObject(object){
     canvas.remove(object);
     canvas.renderAll();
@@ -281,11 +296,13 @@ function guardarClicked(){
     });
 }
 
+// TODO: Move to setMesaActiveObject on Mesa class
 function setMesaActiveObject(mesa) {
     let object = getObjectFromCanvas(mesa);
     canvas.setActiveObject(object).requestRenderAll();
 }
 
+// TODO: Move to getObjectFromCanvas on Mesa class
 function getObjectFromCanvas(mesa) {
     let res;
     canvas.getObjects().forEach(function(object) {
@@ -306,6 +323,7 @@ function onCanvasObjectClick(){
     });
 }
 
+// TODO: Move to selectRow on Mesa class
 function selectRow(mesaId) {
     let index = $('tr[mesaId="' + mesaId + '"]').index();
     mesasDt.row(':eq(' + index + ')').select();
@@ -334,6 +352,7 @@ function clickReverseIcon(eventData, transform){
 
     let tipo = object._objects[0].type;
 
+    // TODO: Move to Mesa class
     if(tipo === 'rect'){
         object.set('height', width);
         object.set('width', height);
@@ -355,6 +374,7 @@ function renderIcon(object, ctx, left, top, styleOverride, fabricObject, image) 
     ctx.restore();
 }
 
+// TODO: Move to Mesa class
 function personasCabenEnRedonda(personas) {
     return (personas > 4 && personas <= 11)
 }

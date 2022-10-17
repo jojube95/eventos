@@ -55,6 +55,7 @@ public class MesaService {
     }
 
     public void generateInvitados(Mesa mesa) {
+        // TODO: Move this logic to PersonasService
         for (int i = 1; i <= mesa.getPersonas().getMayores(); i++) {
             invitadoRepository.save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, ""));
         }

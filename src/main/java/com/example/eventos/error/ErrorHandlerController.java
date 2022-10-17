@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import static com.example.eventos.config.Constants.ATTRIBUTE_ERROR_DETAIL;
+import static com.example.eventos.config.Constants.ATTRIBUTE_STATUS_CODE;
 
 @Controller
 public class ErrorHandlerController implements ErrorController {
@@ -23,7 +24,7 @@ public class ErrorHandlerController implements ErrorController {
 
         String statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE).toString();
 
-        model.addAttribute("statusCode", statusCode);
+        model.addAttribute(ATTRIBUTE_STATUS_CODE, statusCode);
 
         if (e == null) {
             switch (statusCode){

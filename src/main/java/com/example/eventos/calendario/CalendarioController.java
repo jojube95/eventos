@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
+
+import static com.example.eventos.config.Constants.ATTRIBUTE_EVENTOS_JSON;
 import static com.example.eventos.config.Constants.CALENDARIO_PAGE;
 import static com.example.eventos.json.JsonUtils.toJson;
 
@@ -28,7 +30,7 @@ public class CalendarioController {
     public String calendario(Model model) throws JsonProcessingException {
         List<Evento> eventos = eventoService.getEventos();
 
-        model.addAttribute("eventosJson", toJson(eventos));
+        model.addAttribute(ATTRIBUTE_EVENTOS_JSON, toJson(eventos));
 
         return CALENDARIO_PAGE;
     }

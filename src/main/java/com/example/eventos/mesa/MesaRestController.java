@@ -39,6 +39,7 @@ public class MesaRestController {
 
         mesaService.save(mesa);
 
+        // TODO: Add polyphormism with Mesa -> MesaReserva and MesaService -> MesaReservaService
         if (!evento.getTipo().getValue().equals(EVENTO_TIPO_INDIVIDUAL)) {
             mesaService.generateInvitados(mesa);
         }
@@ -86,6 +87,7 @@ public class MesaRestController {
                     //Create Invitado
                     Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
                     invitados.add(invitado);
+                    // TODO: Add polyphormism InvitadoMayor, InvitadoNinyo and implements sumPersonas(Personas personas)
                     if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
                         ninyos++;
                     }

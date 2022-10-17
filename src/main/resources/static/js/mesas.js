@@ -238,6 +238,7 @@ function footerCallback(dataTableApi){
     $(api.column(4).footer()).html(totalMayores);
     $(api.column(5).footer()).html(totalNinyos);
 
+    // TODO: Use Evento polyohormism
     if (isEventoIndividual){
         $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
     }

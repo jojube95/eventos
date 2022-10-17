@@ -36,11 +36,11 @@ public class EventoEmpleadoController {
         List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByEventoId(eventoId);
 
         model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
-        model.addAttribute("empleadosFijos", empleadosFijos);
-        model.addAttribute("empleadosNoFijos", empleadosNoFijos);
+        model.addAttribute(ATTRIBUTE_EMPLEADOS_FIJOS, empleadosFijos);
+        model.addAttribute(ATTRIBUTE_EMPLEADOS_NO_FIJOS, empleadosNoFijos);
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, evento.getPersonas());
-        model.addAttribute("camarerosRecomendados", evento.getCamarerosRecomendados(parametrosService.get().getRatioCamarerosEvento()));
+        model.addAttribute(ATTRIBUTE_CAMAREROS_RECOMENDADOS, evento.getCamarerosRecomendados(parametrosService.get().getRatioCamarerosEvento()));
         return EVENTO_EMPELADOS_PAGE;
     }
 
