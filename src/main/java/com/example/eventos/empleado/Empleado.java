@@ -2,10 +2,12 @@ package com.example.eventos.empleado;
 
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document("empleado")
+@TypeAlias("Empleado")
 public class Empleado {
     @Id
     private String id;

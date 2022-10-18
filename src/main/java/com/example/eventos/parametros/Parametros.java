@@ -1,8 +1,10 @@
 package com.example.eventos.parametros;
 
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("parametros")
+@TypeAlias("Parametros")
 public class Parametros {
     private float precioNinyosBodaComunion;
     private float precioNinyosOtros;

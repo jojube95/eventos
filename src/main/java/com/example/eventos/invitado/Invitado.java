@@ -1,6 +1,7 @@
 package com.example.eventos.invitado;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
@@ -9,6 +10,7 @@ import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
 import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
 
 @Document("invitado")
+@TypeAlias("Invitado")
 public class Invitado {
     @Id
     private String id;

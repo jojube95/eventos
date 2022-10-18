@@ -1,8 +1,10 @@
 package com.example.eventos.tipoEvento;
 
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("tipoEvento")
+@TypeAlias("TipoEvento")
 public class TipoEvento {
     private String value;
 

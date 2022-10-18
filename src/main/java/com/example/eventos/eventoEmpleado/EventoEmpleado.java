@@ -3,11 +3,13 @@ package com.example.eventos.eventoEmpleado;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.evento.Evento;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document("eventoEmpleado")
+@TypeAlias("EventoEmpleado")
 public class EventoEmpleado {
     @Id
     private String id;

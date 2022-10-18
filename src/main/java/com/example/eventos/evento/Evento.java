@@ -6,6 +6,7 @@ import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.tipoEvento.TipoEvento;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Objects;
 import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
 
 @Document("evento")
+@TypeAlias("Evento")
 public class Evento {
     @Id
     private String id;

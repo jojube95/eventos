@@ -2,10 +2,12 @@ package com.example.eventos.mesa;
 
 import com.example.eventos.personas.Personas;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document("mesa")
+@TypeAlias("Mesa")
 public class Mesa {
     @Id
     private String id;
