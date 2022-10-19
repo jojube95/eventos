@@ -4,6 +4,7 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -78,22 +79,15 @@ public class MesaRestController {
         //Iterate over columns
         for (int i = 0 ; i < columns ; i++){
             List<Invitado> invitados = new ArrayList<>();
-            int personas = 0;
-            int ninyos = 0;
+            Personas personas = new Personas(0, 0);
 
             //Iterate over column rows
             for (int j = 1; sheet.getRow(j) != null; j++){
                 if(sheet.getRow(j).getCell(i) != null) {
                     //Create Invitado
-                    Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
+                    Invitado invitado = InvitadoFactory.crearInvitadoFromTextExcel(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
                     invitados.add(invitado);
-                    // TODO: Add polyphormism InvitadoMayor, InvitadoNinyo and implements sumPersonas(Personas personas)
-                    if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
-                        ninyos++;
-                    }
-                    else{
-                        personas++;
-                    }
+                    personas = invitado.incrementPersonas(personas);
                 }
                 else{
                     break;
@@ -102,7 +96,7 @@ public class MesaRestController {
 
             String textoMesa = sheet.getRow(0).getCell(i).getStringCellValue();
 
-            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, new Personas(personas, ninyos)));
+            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, personas));
 
             for (Invitado invitado: invitados) {
                 invitado.setMesaId(mesa.getId());

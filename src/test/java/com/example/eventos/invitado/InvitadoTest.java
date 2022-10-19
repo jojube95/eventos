@@ -13,11 +13,11 @@ class InvitadoTest {
 
     @BeforeEach
     public void initEach(){
-        invitado = new Invitado("id", "eventoId", "mesaId", "nombre", "Mayor", "descripcion");
-        invitadoFromExcel1 = new Invitado("Pepe-Intolerant", "eventoId");
-        invitadoFromExcel2 = new Invitado("Amaia-x-Celiaca ", "eventoId");
-        invitadoFromExcel3 = new Invitado("Antonio -Celiaco- x ", "eventoId");
-        invitadoFromExcel4 = new Invitado("Pepe", "eventoId");
+        invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "nombre", "Mayor", "descripcion");
+        invitadoFromExcel1 = InvitadoFactory.crearInvitadoFromTextExcel("Pepe-Intolerant", "eventoId");
+        invitadoFromExcel2 = InvitadoFactory.crearInvitadoFromTextExcel("Amaia-x-Celiaca ", "eventoId");
+        invitadoFromExcel3 = InvitadoFactory.crearInvitadoFromTextExcel("Antonio -Celiaco- x ", "eventoId");
+        invitadoFromExcel4 = InvitadoFactory.crearInvitadoFromTextExcel("Pepe", "eventoId");
     }
 
     @Test

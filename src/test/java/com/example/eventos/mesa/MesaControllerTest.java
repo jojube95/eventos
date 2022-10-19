@@ -5,6 +5,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
@@ -87,9 +88,9 @@ class MesaControllerTest {
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
 
-        Invitado invitado1 = new Invitado("eventoId", "mesaId", "Pepe", "Mayor", "");
-        Invitado invitado2 = new Invitado("eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
-        Invitado invitado3 = new Invitado("eventoId", "mesaId", "José", "Mayor", "");
+        Invitado invitado1 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Pepe", "Mayor", "");
+        Invitado invitado2 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
+        Invitado invitado3 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "José", "Mayor", "");
         List<Invitado> invitados = new ArrayList<>();
         invitados.add(invitado1);
         invitados.add(invitado2);

@@ -33,7 +33,7 @@ public class PdfCreator {
         PdfPTable table = new PdfPTable(1);
         table.setKeepTogether(true);
 
-        PdfPCell c1 = new PdfPCell(mesa.getPhrase());
+        PdfPCell c1 = new PdfPCell(mesa.generatePhrase());
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setBorder(Rectangle.NO_BORDER);
 
@@ -42,7 +42,7 @@ public class PdfCreator {
         table.setHeaderRows(1);
 
         for (Invitado invitado : invitados) {
-            table.addCell(new PdfPCell(invitado.getPhrase())).setBorder(Rectangle.NO_BORDER);
+            table.addCell(new PdfPCell(invitado.generatePhrase())).setBorder(Rectangle.NO_BORDER);
         }
 
         preface.add(table);

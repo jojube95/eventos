@@ -3,6 +3,7 @@ package com.example.eventos.evento;
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaService;
@@ -308,8 +309,8 @@ class EventoControllerTest {
         mesas.add(mesa1);
         mesas.add(mesa2);
         List<Invitado> invitados = new ArrayList<>();
-        Invitado invitado1 = new Invitado("id", "mesaId", "Pepe", "Mayor", "Descripcion");
-        Invitado invitado2 = new Invitado("id", "mesaId", "Pepe", "Mayor", "Descripcion");
+        Invitado invitado1 = InvitadoFactory.crearInvitado("idInvitado", "id", "mesaId", "Pepe", "Mayor", "Descripcion");
+        Invitado invitado2 = InvitadoFactory.crearInvitado("idInvitado", "id", "mesaId", "Pepe", "Mayor", "Descripcion");
         invitados.add(invitado1);
         invitados.add(invitado2);
         when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);

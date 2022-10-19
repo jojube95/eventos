@@ -1,6 +1,7 @@
 package com.example.eventos.mesa;
 
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoRepository;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -12,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.io.ByteArrayOutputStream;
 import java.util.List;
-
 import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
 import static com.example.eventos.pdf.PdfCreator.*;
 import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
@@ -56,10 +55,12 @@ public class MesaService {
 
     public void generateInvitados(Mesa mesa) {
         for (int i = 1; i <= mesa.getPersonas().getMayores(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, ""));
+            Invitado invitado = InvitadoFactory.crearInvitado(null, mesa.getEventoId(), mesa.getId(), "Invitado" + i, INVITADO_TIPO_MAYOR, "");
+            invitadoRepository.save(invitado);
         }
         for (int i = 1; i <= mesa.getPersonas().getNinyos(); i++) {
-            invitadoRepository.save(new Invitado(mesa.getEventoId(), mesa.getId(), INVITADO_TIPO_NINYO + i, INVITADO_TIPO_NINYO, ""));
+            Invitado invitado = InvitadoFactory.crearInvitado(null, mesa.getEventoId(), mesa.getId(), INVITADO_TIPO_NINYO + i, INVITADO_TIPO_NINYO, "");
+            invitadoRepository.save(invitado);
         }
     }
 

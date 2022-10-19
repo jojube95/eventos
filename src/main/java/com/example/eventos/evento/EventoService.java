@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
-
 @Service
 public class EventoService {
 
@@ -71,22 +69,14 @@ public class EventoService {
 
     public Personas calcularPersonas(String eventoId) {
         List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(eventoId);
-        int mayores = 0;
-        int ninyos = 0;
+        Personas personas = new Personas(0, 0);
         for (Mesa mesa : mesas) {
             List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
             for (Invitado invitado: invitados) {
-                // TODO: Add polyphormism InvitadoMayor, InvitadoNinyo and implements sumPersonas(Personas personas)
-                if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
-                    ninyos++;
-                }
-                else{
-                    mayores++;
-                }
+                personas = invitado.incrementPersonas(personas);
             }
         }
-
-        return new Personas(mayores, ninyos);
+        return personas;
     }
 
     public void save(Evento evento) {

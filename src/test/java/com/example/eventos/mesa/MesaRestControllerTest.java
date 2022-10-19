@@ -5,6 +5,7 @@ import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
@@ -66,9 +67,9 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
 
         verify(mesaService, times(0)).save(mesa);
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado1", "Mayor", ""));
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado2", "Mayor", ""));
-        verify(invitadoService, times(0)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado3", "Mayor", ""));
+        verify(invitadoService, times(0)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado1", "Mayor", ""));
+        verify(invitadoService, times(0)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado2", "Mayor", ""));
+        verify(invitadoService, times(0)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado3", "Mayor", ""));
     }
 
     @Test
@@ -90,10 +91,10 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
         verify(mesaService, times(1)).save(mesa);
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado1", "Mayor", ""));
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado2", "Mayor", ""));
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Invitado3", "Mayor", ""));
-        verify(invitadoService, times(1)).save(new Invitado(mesa.getEventoId(), mesa.getId(), "Niño1", "Ninyo", ""));
+        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado1", "Mayor", ""));
+        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado2", "Mayor", ""));
+        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado3", "Mayor", ""));
+        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Niño1", "Ninyo", ""));
     }
 
     @Test
@@ -175,18 +176,18 @@ class MesaRestControllerTest {
         List<Invitado> invitados1 = new ArrayList<>();
         List<Invitado> invitados2 = new ArrayList<>();
         List<Invitado> invitados3 = new ArrayList<>();
-        Invitado invitado1 = new Invitado("eventoId", "mesaId1", "Antonio", "Mayor", "");
-        Invitado invitado2 = new Invitado("eventoId", "mesaId1", "Pepe", "Mayor", "Intolerant");
-        Invitado invitado3 = new Invitado("eventoId", "mesaId1", "Amaia", "Niño", "Celiaca");
+        Invitado invitado1 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Antonio", "Mayor", "");
+        Invitado invitado2 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Pepe", "Mayor", "Intolerant");
+        Invitado invitado3 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Amaia", "Niño", "Celiaca");
         invitados1.add(invitado1);
         invitados1.add(invitado2);
         invitados1.add(invitado3);
-        Invitado invitado4 = new Invitado("eventoId", "mesaId2", "Amaia", "Mayor", "");
-        Invitado invitado5 = new Invitado("eventoId", "mesaId2", "Pepe", "Niño", "Celiaco");
+        Invitado invitado4 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId2", "Amaia", "Mayor", "");
+        Invitado invitado5 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId2", "Pepe", "Niño", "Celiaco");
         invitados2.add(invitado4);
         invitados2.add(invitado5);
-        Invitado invitado6 = new Invitado("eventoId", "mesaId3", "Jose", "Mayor", "");
-        Invitado invitado7 = new Invitado("eventoId", "mesaId3", "Pepa", "Niño", "");
+        Invitado invitado6 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId3", "Jose", "Mayor", "");
+        Invitado invitado7 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId3", "Pepa", "Niño", "");
         invitados3.add(invitado6);
         invitados3.add(invitado7);
 

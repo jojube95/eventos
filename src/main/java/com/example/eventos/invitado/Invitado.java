@@ -1,12 +1,15 @@
 package com.example.eventos.invitado;
 
+import com.example.eventos.personas.Personas;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Objects;
 
 import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
@@ -14,16 +17,24 @@ import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
 
 @Document("invitado")
 @TypeAlias("Invitado")
-public class Invitado {
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "tipo",
+        visible = true)
+@JsonSubTypes({
+        @Type(value = InvitadoMayor.class, name = INVITADO_TIPO_MAYOR),
+        @Type(value = InvitadoNinyo.class, name =INVITADO_TIPO_NINYO)
+})
+abstract public class Invitado {
     @Id
     private String id;
 
     private String eventoId;
     private String mesaId;
 
-    private String nombre;
-    private String tipo;
-    private String descripcion;
+    protected String nombre;
+    protected String tipo;
+    protected String descripcion;
 
     public Invitado(){
 
@@ -44,31 +55,6 @@ public class Invitado {
         this.nombre = nombre;
         this.tipo = tipo;
         this.descripcion = descripcion;
-    }
-
-    public Invitado(String textoExcel, String eventoId) {
-        this.eventoId = eventoId;
-        String[] myData = textoExcel.split("-");
-        this.nombre = "";
-        this.tipo = "";
-        this.descripcion = "";
-
-        for (int i = 0; i < myData.length; i++) {
-            if (i == 0) {
-                this.nombre = myData[0].trim();
-            }
-            else{
-                if (myData[i].trim().equals("x")) {
-                    this.tipo = INVITADO_TIPO_NINYO;
-                }
-                else{
-                    this.descripcion = myData[i].trim();
-                }
-            }
-        }
-        if(this.tipo.isEmpty()){
-            this.tipo = INVITADO_TIPO_MAYOR;
-        }
     }
 
     public String getNombre() {
@@ -119,29 +105,29 @@ public class Invitado {
         this.eventoId = eventoId;
     }
 
-    public Phrase getPhrase() {
+    public Phrase generatePhrase() {
         if(this.descripcion.isEmpty()){
-            return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL));
+            return new Phrase(generateTextoListado(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL));
         }
         else{
-            return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED));
+            return new Phrase(generateTextoListado() + "(" + this.descripcion + ")", new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED));
         }
     }
 
+    abstract public String generateTextoListado();
+
+    abstract public Personas incrementPersonas(Personas personas);
+
     @Override
     public String toString() {
-        String res = nombre;
-
-        // TODO: Add polyformism
-        if (INVITADO_TIPO_NINYO.equals(tipo)) {
-            res += "-x";
-        }
-
-        if (!descripcion.isEmpty()) {
-            res += "(" + descripcion + ")";
-        }
-
-        return res;
+        return "Invitado{" +
+                "id='" + id + '\'' +
+                ", eventoId='" + eventoId + '\'' +
+                ", mesaId='" + mesaId + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 
     @Override

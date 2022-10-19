@@ -25,7 +25,7 @@ class InvitadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        invitado = new Invitado("eventoId", "mesaId", "Pepe", "Mayor", "Descripcion");
+        invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Pepe", "Mayor", "Descripcion");
     }
 
     @Test

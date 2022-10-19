@@ -4,7 +4,6 @@ import com.example.eventos.personas.Personas;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -134,7 +133,7 @@ public class Mesa {
         this.descripcion = descripcion;
     }
 
-    public Phrase getPhrase() {
+    public Phrase generatePhrase() {
         if(this.descripcion.isEmpty()){
             return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
         }
