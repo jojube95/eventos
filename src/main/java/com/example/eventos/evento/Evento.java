@@ -23,7 +23,7 @@ public class Evento {
 
     private TipoEvento tipo;
     private HorarioEvento horario;
-    private Personas personas;
+    protected Personas personas;
     private String localidad;
     private float precioMenu;
     private float precioMenuNinyos;
@@ -43,7 +43,6 @@ public class Evento {
     }
 
     public Evento(TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
-        super();
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
@@ -55,7 +54,6 @@ public class Evento {
     }
 
     public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String titulo, String sala) {
-        super();
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
@@ -67,9 +65,21 @@ public class Evento {
         this.confirmado = false;
     }
 
+    public Evento(TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
+        this.tipo = tipo;
+        this.horario = horario;
+        this.personas = personas;
+        this.precioMenu = precioMenu;
+        this.precioMenuNinyos = precioMenuNinyos;
+        this.localidad = localidad;
+        this.fecha = fecha;
+        this.titulo = titulo;
+        this.sala = sala;
+        this.confirmado = false;
+    }
+
     public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
                   boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
-        super();
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
@@ -201,17 +211,11 @@ public class Evento {
     }
 
     public boolean isEventoIndividual(){
-        return "eventoIndividual".equals(this.tipo.getValue());
+        return false;
     }
 
     public int getCamarerosRecomendados(float ratioCamarerosEvento){
-        int camareros = Math.round(this.personas.getMayores() / ratioCamarerosEvento);
-
-        if("boda".equals(this.tipo.getValue())){
-            camareros++;
-        }
-
-        return camareros;
+        return Math.round(this.personas.getMayores() / ratioCamarerosEvento);
     }
 
     @Override

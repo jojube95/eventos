@@ -76,6 +76,7 @@ public class EventoService {
         for (Mesa mesa : mesas) {
             List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
             for (Invitado invitado: invitados) {
+                // TODO: Add polyphormism InvitadoMayor, InvitadoNinyo and implements sumPersonas(Personas personas)
                 if(INVITADO_TIPO_NINYO.equals(invitado.getTipo())){
                     ninyos++;
                 }

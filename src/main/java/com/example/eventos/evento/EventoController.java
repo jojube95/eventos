@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.Date;
 import java.util.List;
 import static com.example.eventos.config.Constants.*;
@@ -81,7 +82,8 @@ public class EventoController {
 
     @PostMapping("/eventoAnyadir")
     public String save(@ModelAttribute Evento evento) {
-        eventoService.save(evento);
+        Evento eventoCreated = EventoFactory.crearEvento(evento);
+        eventoService.save(eventoCreated);
         return "redirect:/" + CALENDARIO_PAGE;
     }
 

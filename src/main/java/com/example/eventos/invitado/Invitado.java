@@ -120,6 +120,7 @@ public class Invitado {
     public String toString() {
         String res = nombre;
 
+        // TODO: Add polyformism
         if (INVITADO_TIPO_NINYO.equals(tipo)) {
             res += "-x";
         }
