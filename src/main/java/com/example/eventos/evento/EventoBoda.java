@@ -10,8 +10,8 @@ import java.util.Date;
 @Document("evento")
 @TypeAlias("EventoBoda")
 public class EventoBoda extends Evento{
-    public EventoBoda(TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
-        super(tipo, horario, personas, precioMenu, precioMenuNinyos, localidad, fecha, titulo, sala);
+    public EventoBoda(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
+        super(id, tipo, horario, personas, precioMenu, precioMenuNinyos, localidad, fecha, titulo, sala);
     }
 
     @Override

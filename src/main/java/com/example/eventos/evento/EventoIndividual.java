@@ -11,8 +11,8 @@ import java.util.Date;
 @Document("evento")
 @TypeAlias("EventoIndividual")
 public class EventoIndividual extends Evento{
-    public EventoIndividual(TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
-        super(tipo, horario, personas, precioMenu, precioMenuNinyos, localidad, fecha, titulo, sala);
+    public EventoIndividual(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
+        super(id, tipo, horario, personas, precioMenu, precioMenuNinyos, localidad, fecha, titulo, sala);
     }
 
     // TODO: Probably should be part of javascript OOP

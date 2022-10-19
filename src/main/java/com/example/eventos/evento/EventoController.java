@@ -69,7 +69,8 @@ public class EventoController {
         eventoToUpdate.setPrecioMenu(evento.getPrecioMenu());
         eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
         eventoToUpdate.setConfirmado(evento.isConfirmado());
-        eventoService.update(eventoToUpdate);
+        Evento eventoUpdated = EventoFactory.crearEvento(eventoToUpdate);
+        eventoService.update(eventoUpdated);
         return "redirect:/" + CALENDARIO_PAGE;
     }
 

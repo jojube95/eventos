@@ -65,7 +65,8 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
+    public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
+        this.id = id;
         this.tipo = tipo;
         this.horario = horario;
         this.personas = personas;
