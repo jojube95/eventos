@@ -1,5 +1,8 @@
 package com.example.eventos.invitado;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -114,6 +117,15 @@ public class Invitado {
 
     public void setEventoId(String eventoId) {
         this.eventoId = eventoId;
+    }
+
+    public Phrase getPhrase() {
+        if(this.descripcion.isEmpty()){
+            return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL));
+        }
+        else{
+            return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED));
+        }
     }
 
     @Override
