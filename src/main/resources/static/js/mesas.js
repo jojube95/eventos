@@ -5,99 +5,7 @@ let rowColorAdded = 'greenyellow';
 let rowColorNotAdded = 'LightYellow';
 
 $(document).ready(function() {
-    let columnDefs = [
-        {
-            data: "id",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "eventoId",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "numero",
-            orderable: false,
-            unique: true
-
-        },
-        {
-            data: "representante",
-            visible: isEventoIndividual,
-            type: isEventoIndividual ? "" : "hidden",
-            orderable: false
-        },
-        {
-            data: "mayores",
-            orderable: false
-        },
-        {
-            data: "ninyos",
-            orderable: false
-        },
-        {
-            data: "pagado",
-            type: isEventoIndividual ? "select" : "hidden",
-            visible: isEventoIndividual,
-            options : pagadoOptions,
-            orderable: false,
-            select2 : { width: "100%"},
-            render: function (data) {
-                if (data == null || !(data in pagadoOptions)) return null;
-                return pagadoOptions[data];
-            }
-        },
-        {
-            data: "descripcion",
-            orderable: false
-        }
-        ];
-
-    mesasDt = $('#mesas').DataTable({
-        "sPaginationType": "full_numbers",
-        columns: columnDefs,
-        order: [1, 'asc'],
-        dom: 'Bfrtip',
-        select: 'single',
-        responsive: true,
-        paging: false,
-        info: false,
-        altEditor: true,
-        buttons: [
-            {
-                text: 'Add',
-                name: 'add'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Edit',
-                name: 'edit'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Delete',
-                name: 'delete'      // do not change name
-            },
-            ...(isEventoIndividual ? [] : [{
-                extend: 'selected',
-                text: 'Invitados',
-                name: 'invitados'
-            }])
-        ],
-        onAddRow: function(datatable, rowdata, success, error) {
-            onAddRow(datatable, rowdata, success, error);
-        },
-        onDeleteRow: function(datatable, rowdata, success, error) {
-            onDeleteRow(datatable, rowdata, success, error);
-        },
-        onEditRow: function(datatable, rowdata, success, error) {
-            onEditRow(datatable, rowdata, success, error);
-        },
-        footerCallback: function () {
-            footerCallback(this);
-        }
-    });
+    initMesasTable(isEventoIndividual);
 
     onAddClicked();
 
@@ -140,6 +48,181 @@ $(document).ready(function() {
         });
     });
 });
+
+// TODO: Mesa Polyphormism
+function initMesasTable(isEventoIndividual) {
+    if (isEventoIndividual) {
+        return initMesasReservaTable();
+    }
+    else{
+        return initMesasNormalesTable();
+    }
+}
+
+function initMesasReservaTable() {
+    let columnDefs = [
+        {
+            data: "id",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "eventoId",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "numero",
+            orderable: false,
+            unique: true
+
+        },
+        {
+            data: "representante",
+            orderable: false
+        },
+        {
+            data: "mayores",
+            orderable: false
+        },
+        {
+            data: "ninyos",
+            orderable: false
+        },
+        {
+            data: "pagado",
+            options : pagadoOptions,
+            orderable: false,
+            select2 : { width: "100%"},
+            render: function (data) {
+                if (data == null || !(data in pagadoOptions)) return null;
+                return pagadoOptions[data];
+            }
+        },
+        {
+            data: "descripcion",
+            orderable: false
+        }
+    ];
+
+    mesasDt = $('#mesas').DataTable({
+        "sPaginationType": "full_numbers",
+        columns: columnDefs,
+        order: [1, 'asc'],
+        dom: 'Bfrtip',
+        select: 'single',
+        responsive: true,
+        paging: false,
+        info: false,
+        altEditor: true,
+        buttons: [
+            {
+                text: 'Add',
+                name: 'add'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Edit',
+                name: 'edit'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Delete',
+                name: 'delete'      // do not change name
+            }
+        ],
+        onAddRow: function(datatable, rowdata, success, error) {
+            onAddRow(datatable, rowdata, success, error);
+        },
+        onDeleteRow: function(datatable, rowdata, success, error) {
+            onDeleteRow(datatable, rowdata, success, error);
+        },
+        onEditRow: function(datatable, rowdata, success, error) {
+            onEditRow(datatable, rowdata, success, error);
+        },
+        footerCallback: function () {
+            footerCallback(this);
+        }
+    });
+}
+
+function initMesasNormalesTable() {
+    let columnDefs = [
+        {
+            data: "id",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "eventoId",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "numero",
+            orderable: false,
+            unique: true
+
+        },
+        {
+            data: "mayores",
+            orderable: false
+        },
+        {
+            data: "ninyos",
+            orderable: false
+        },
+        {
+            data: "descripcion",
+            orderable: false
+        }
+    ];
+
+    mesasDt = $('#mesas').DataTable({
+        "sPaginationType": "full_numbers",
+        columns: columnDefs,
+        order: [1, 'asc'],
+        dom: 'Bfrtip',
+        select: 'single',
+        responsive: true,
+        paging: false,
+        info: false,
+        altEditor: true,
+        buttons: [
+            {
+                text: 'Add',
+                name: 'add'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Edit',
+                name: 'edit'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Delete',
+                name: 'delete'      // do not change name
+            },
+            {
+                extend: 'selected',
+                text: 'Invitados',
+                name: 'invitados'
+            }
+        ],
+        onAddRow: function(datatable, rowdata, success, error) {
+            onAddRow(datatable, rowdata, success, error);
+        },
+        onDeleteRow: function(datatable, rowdata, success, error) {
+            onDeleteRow(datatable, rowdata, success, error);
+        },
+        onEditRow: function(datatable, rowdata, success, error) {
+            onEditRow(datatable, rowdata, success, error);
+        },
+        footerCallback: function () {
+            footerCallback(this);
+        }
+    });
+}
 
 function onAddClicked(){
     $('.dt-buttons > button:first-child').on( "click", function() {

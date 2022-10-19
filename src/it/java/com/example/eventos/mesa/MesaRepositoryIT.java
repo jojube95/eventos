@@ -22,11 +22,12 @@ class MesaRepositoryIT {
     @Autowired
     private MesaRepository mesaRepository;
 
+    /*
     @BeforeEach
     public void setUp(){
-        Mesa mesa0 = new Mesa("id0", "eventoId1", "Pepe", new Personas(10, 2), 3, true, "descripcion");
-        Mesa mesa1 = new Mesa("id1", "eventoId1", "Pepe", new Personas(10, 2), 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id2", "eventoId1", "Antonio", new Personas(8, 2), 2, false, "descripcion");
+        Mesa mesa0 = new MesaReserva("id0", "eventoId1", new Personas(10, 2), 3, "descripcion", "Pepe", true);
+        Mesa mesa1 = new MesaReserva("id1", "eventoId1", new Personas(10, 2), 1, "descripcion", "Pepe", true);
+        Mesa mesa2 = new MesaReserva("id2", "eventoId1", "Antonio", new Personas(8, 2), 2, false, "descripcion");
         Mesa mesa3 = new Mesa("id3", "eventoId2", new Personas(6, 1), 1, "descripcion");
         Mesa mesa4 = new Mesa("id123", "eventoId2", new Personas(4, 1), 2, "descripcion");
         mongoTemplate.insert(mesa0);
@@ -106,4 +107,6 @@ class MesaRepositoryIT {
     public void cleanUpDatabase(){
         mongoTemplate.getDb().drop();
     }
+
+     */
 }

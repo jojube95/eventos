@@ -13,25 +13,14 @@ import java.util.Objects;
 @TypeAlias("Mesa")
 public class Mesa {
     @Id
-    private String id;
-    private String eventoId;
-    private String representante;
-    private Personas personas;
-    private int numero;
-    private boolean pagado;
-    private String descripcion;
+    protected String id;
+    protected String eventoId;
+    protected Personas personas;
+    protected int numero;
+    protected String descripcion;
 
     public Mesa(){
 
-    }
-
-    public Mesa(String eventoId, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
-        this.eventoId = eventoId;
-        this.representante = representante;
-        this.personas = personas;
-        this.numero = numero;
-        this.pagado = pagado;
-        this.descripcion = descripcion;
     }
 
     public Mesa(String eventoId, Personas personas, int numero, String descripcion) {
@@ -46,16 +35,6 @@ public class Mesa {
         this.eventoId = eventoId;
         this.personas = personas;
         this.numero = numero;
-        this.descripcion = descripcion;
-    }
-
-    public Mesa(String id, String eventoId, String representante, Personas personas, int numero, boolean pagado, String descripcion) {
-        this.id = id;
-        this.eventoId = eventoId;
-        this.representante = representante;
-        this.personas = personas;
-        this.numero = numero;
-        this.pagado = pagado;
         this.descripcion = descripcion;
     }
 
@@ -93,28 +72,12 @@ public class Mesa {
         this.eventoId = eventoId;
     }
 
-    public String getRepresentante() {
-        return representante;
-    }
-
-    public void setRepresentante(String representante) {
-        this.representante = representante;
-    }
-
     public Personas getPersonas() {
         return personas;
     }
 
     public void setPersonas(Personas personas) {
         this.personas = personas;
-    }
-
-    public boolean isPagado() {
-        return pagado;
-    }
-
-    public void setPagado(boolean pagado) {
-        this.pagado = pagado;
     }
 
     public int getNumero() {
@@ -159,12 +122,12 @@ public class Mesa {
         if (o == null || getClass() != o.getClass()) return false;
         Mesa mesa = (Mesa) o;
         return Objects.equals(id, mesa.id) && personas.getMayores() == mesa.personas.getMayores() && personas.getNinyos() == mesa.personas.getNinyos()
-                && numero == mesa.numero && pagado == mesa.pagado && Objects.equals(eventoId, mesa.eventoId)
-                && Objects.equals(representante, mesa.representante) && Objects.equals(descripcion, mesa.descripcion);
+                && numero == mesa.numero && Objects.equals(eventoId, mesa.eventoId)
+                && Objects.equals(descripcion, mesa.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, eventoId, representante, personas, numero, pagado, descripcion);
+        return Objects.hash(id, eventoId, personas, numero, descripcion);
     }
 }

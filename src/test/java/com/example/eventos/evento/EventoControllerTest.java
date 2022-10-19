@@ -297,6 +297,7 @@ class EventoControllerTest {
         verify(eventoService, times(1)).update(evento);
     }
 
+    /*
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getCalcularPersonasTest() throws Exception {
@@ -325,4 +326,5 @@ class EventoControllerTest {
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
     }
+    */
 }
