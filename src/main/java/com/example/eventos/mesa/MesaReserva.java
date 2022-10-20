@@ -13,8 +13,6 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.DEDUCTION;
 
 @Document("mesa")
 @TypeAlias("MesaReserva")
-@JsonTypeInfo(use = DEDUCTION)
-@JsonSubTypes( {@Type(Mesa.class), @Type(MesaReserva.class)})
 public class MesaReserva extends Mesa{
     private String representante;
     private boolean pagado;

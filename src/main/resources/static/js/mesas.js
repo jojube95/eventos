@@ -91,6 +91,7 @@ function initMesasReservaTable() {
         },
         {
             data: "pagado",
+            type: "select",
             options : pagadoOptions,
             orderable: false,
             select2 : { width: "100%"},
@@ -296,36 +297,55 @@ function footerCallback(dataTableApi){
     let api = dataTableApi.api();
     let rows = api.rows({search:'applied'}).count();
 
-    let totalMayores = api
-        .column(4, {search:'applied'})
-        .data()
-        .reduce(function (a, b) {
-            return Number(a) + Number(b);
-        }, 0);
-
-    let totalNinyos = api
-        .column(5, {search:'applied'})
-        .data()
-        .reduce(function (a, b) {
-            return Number(a) + Number(b);
-        }, 0);
-
-    // Promedio
-    let totalPagados  = api
-        .column(6, {search:'applied'})
-        .data()
-        .reduce(function (a, b) {
-            return Number(a) + (b === 'true' ? 1: 0);
-        }, 0);
-    // Update footer
-    $(api.column(4).footer()).html(totalMayores);
-    $(api.column(5).footer()).html(totalNinyos);
-
     // TODO: Use Evento polyohormism
     if (isEventoIndividual){
+        let totalMayores = api
+            .column(4, {search:'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return Number(a) + Number(b);
+            }, 0);
+
+        let totalNinyos = api
+            .column(5, {search:'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return Number(a) + Number(b);
+            }, 0);
+
+        // Update footer
+        $(api.column(4).footer()).html(totalMayores);
+        $(api.column(5).footer()).html(totalNinyos);
+
+        // Promedio
+        let totalPagados  = api
+            .column(6, {search:'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return Number(a) + (b === 'true' ? 1: 0);
+            }, 0);
+
         $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
     }
+    else{
+        let totalMayores = api
+            .column(3, {search:'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return Number(a) + Number(b);
+            }, 0);
 
+        let totalNinyos = api
+            .column(4, {search:'applied'})
+            .data()
+            .reduce(function (a, b) {
+                return Number(a) + Number(b);
+            }, 0);
+
+        // Update footer
+        $(api.column(3).footer()).html(totalMayores);
+        $(api.column(4).footer()).html(totalNinyos);
+    }
 }
 
 function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){

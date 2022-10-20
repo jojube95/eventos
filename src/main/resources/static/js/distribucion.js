@@ -64,6 +64,11 @@ function anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, top, left, htmlMod
         addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
     }
     $(tipoMesaModal).modal("hide");
+    setAddedColorToMesaAdded();
+}
+
+function setAddedColorToMesaAdded() {
+    $('#mesas tbody tr:last').css('background-color', rowColorAdded);
 }
 
 function updateMesaOnCanvas(mesa){
