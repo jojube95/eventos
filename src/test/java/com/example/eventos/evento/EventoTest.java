@@ -2,6 +2,7 @@ package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -24,7 +25,7 @@ class EventoTest {
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         protagonistas = new ArrayList<>();
-        protagonista = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
+        protagonista = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
         protagonistas.add(protagonista);
         eventoSimple = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         eventoNoProtagonistas = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");

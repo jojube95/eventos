@@ -4,6 +4,7 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -39,7 +40,7 @@ class EventoEmpleadoServiceTest {
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre", "666777888", true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre", "666777888", "correo"), true);
 
         eventoEmpleado = new EventoEmpleado(evento, empleado, true, 0);
     }

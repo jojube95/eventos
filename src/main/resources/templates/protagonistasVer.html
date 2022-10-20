@@ -27,15 +27,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="protagonista, iter: ${evento.protagonistas}" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <tr th:each="protagonista, iter: ${evento.protagonistas}">
                 <td th:switch="${protagonista.tipo}">
                     <span th:case="'novioNovia'" th:text="#{novioNovia}"></span>
                     <span th:case="'comunianteComunianta'" th:text="#{comunianteComunianta}"></span>
                     <span th:case="'padreMadre'" th:text="#{padreMadre}"></span>
                 </td>
-                <td th:text="${protagonista.nombre}"></td>
-                <td th:text="${protagonista.telefono}"></td>
-                <td th:text="${protagonista.correo}"></td>
+                <td th:text="${protagonista.persona.nombre}"></td>
+                <td th:text="${protagonista.persona.telefono}"></td>
+                <td th:text="${protagonista.persona.correo}"></td>
                 <td>
                     <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:protagonistaIndex="${iter.index}" th:eventoId="${evento.id}" onclick="eliminarClicked(this.getAttribute('eventoId'), this.getAttribute('protagonistaIndex'))"></button>
                 </td>

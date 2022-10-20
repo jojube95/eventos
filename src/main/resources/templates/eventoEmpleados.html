@@ -48,11 +48,11 @@
             <select class="form-control" id="empleado">
                 <option disabled th:text="#{fijos}"></option>
 
-                <option th:each="empleadoFijo: ${empleadosFijos}" th:text="${empleadoFijo.nombre}" th:value="${empleadoFijo.id}"></option>
+                <option th:each="empleadoFijo: ${empleadosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
 
                 <option disabled th:text="#{noFijos}"></option>
 
-                <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.nombre}" th:value="${empleadoNoFijo.id}"></option>
+                <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
             </select>
             <button th:text="#{anyadir}" id="buttonAnyadir" type="button" class="btn btn-primary" onclick="anyadirClicked()"></button>
         </div>
@@ -80,7 +80,7 @@
                     <td th:text="${eventoEmpleado.evento.id}"></td>
                     <td th:text="${eventoEmpleado.empleado.id}"></td>
                     <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
-                    <td th:text="${eventoEmpleado.empleado.nombre}"></td>
+                    <td th:text="${eventoEmpleado.empleado.persona.nombre}"></td>
                     <td>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">

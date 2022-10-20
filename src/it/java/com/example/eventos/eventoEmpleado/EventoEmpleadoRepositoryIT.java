@@ -4,6 +4,7 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -21,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataMongoTest
 class EventoEmpleadoRepositoryIT {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -35,8 +35,8 @@ class EventoEmpleadoRepositoryIT {
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
         Evento evento = new Evento("idEvento", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), "nombre2", "666777999", false);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado1, true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado2, false, 1);
 
@@ -48,7 +48,7 @@ class EventoEmpleadoRepositoryIT {
     void findByEventoIdTest(){
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
         Evento evento = new Evento("idEvento", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
         EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado(evento, empleado1, true, 0);
         eventoEmpleadosExpected.add(eventoEmpleadoExpected);
 
@@ -59,7 +59,7 @@ class EventoEmpleadoRepositoryIT {
     void findByEmpleadoIdTest(){
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
         Evento evento = new Evento("idEvento", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), "nombre2", "666777999", false);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
 
         EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado(evento, empleado2, false, 1);
 
@@ -71,7 +71,7 @@ class EventoEmpleadoRepositoryIT {
     @Test
     void findEventoEmpleadoByIdTest(){
         Evento evento = new Evento("idEvento", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
         EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado(evento, empleado1, true, 0);
 
         assertEquals(eventoEmpleadoExpected, eventoEmpleadoRepository.findEventoEmpleadoById("idEmpleado1"));

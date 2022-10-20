@@ -34,7 +34,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @WebMvcTest(EventoController.class)
 @Import(SecurityConfiguration.class)
 class EventoControllerTest {
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 

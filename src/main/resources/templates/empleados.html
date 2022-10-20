@@ -31,8 +31,8 @@
             <tr th:each="empleado, iter: ${empleados}">
                 <td th:text="${empleado.id}"></td>
                 <td th:text="#{|tipoEmpleado.${empleado.tipo.value}|}"></td>
-                <td th:text="${empleado.nombre}"></td>
-                <td th:text="${empleado.telefono}"></td>
+                <td th:text="${empleado.persona.nombre}"></td>
+                <td th:text="${empleado.persona.telefono}"></td>
                 <td>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" th:checked="${empleado.fijo}">
@@ -46,7 +46,8 @@
                     <button th:text="#{historial}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="historialClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
                 <td>
-                    <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="eliminarClicked(this.getAttribute('empleadoId'))"></button>
+                    <!-- TODO: Disable empleado. If empleado is deleted, it brokes eventoEmpleados view -->
+                    <button th:text="#{eliminar}" disabled type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="eliminarClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
             </tr>
             </tbody>

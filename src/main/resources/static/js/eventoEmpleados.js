@@ -70,7 +70,7 @@ function addEventoEmpleadoRow(eventoEmpleado) {
         eventoEmpleado.evento.id,
         eventoEmpleado.empleado.id,
         eventoEmpleado.empleado.tipo.value,
-        eventoEmpleado.empleado.nombre,
+        eventoEmpleado.empleado.persona.nombre,
         '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.empleado.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.empleado.fijo ? 'Si' : 'No') + '</label></div>',
         '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.confirmado ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.confirmado ? 'Si' : 'No') + '</label></div>',
         eventoEmpleado.horasExtras,

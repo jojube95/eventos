@@ -1,5 +1,6 @@
 package com.example.eventos.empleado;
 
+import com.example.eventos.persona.Persona;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(EmpleadoRestController.class)
 @Import(SecurityConfiguration.class)
 class EmpleadoRestControllerTest {
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -31,7 +30,7 @@ class EmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -47,7 +46,7 @@ class EmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 

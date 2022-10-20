@@ -365,6 +365,7 @@ function exportarListadoClicked(){
     window.location = "/evento/mesas/generarListado?eventoId=" + eventoId;
 }
 
+// TODO: Solved with object Mesa
 function extractPersonas(mesa) {
     mesa.mayores = mesa.personas.mayores;
     mesa.ninyos = mesa.personas.ninyos;
@@ -373,6 +374,7 @@ function extractPersonas(mesa) {
     return mesa;
 }
 
+// TODO: Solved with object Mesa
 function insertPersonas(mesa) {
     let personas = {'mayores': mesa.mayores, 'ninyos': mesa.ninyos}
     delete mesa.personas;

@@ -6,6 +6,7 @@ import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
@@ -32,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(EventoEmpleadoController.class)
 @Import(SecurityConfiguration.class)
 class EventoEmpleadoControllerTest {
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -72,10 +72,10 @@ class EventoEmpleadoControllerTest {
 
         List<Empleado> empleadosFijos = new ArrayList<>();
         List<Empleado> empleadosNoFijos = new ArrayList<>();
-        Empleado empleadoFijo1 = new Empleado("id1", new TipoEmpleado("camarero"), "nombre1", "telefono1", true);
-        Empleado empleadoFijo2 = new Empleado("id2", new TipoEmpleado("cocinero"), "nombre2", "telefono2", true);
-        Empleado empleadoNoFijo1 = new Empleado("id3", new TipoEmpleado("camarero2"), "nombre3", "telefono3", false);
-        Empleado empleadoNoFijo2 = new Empleado("id4", new TipoEmpleado("cocinero2"), "nombre4", "telefono4", false);
+        Empleado empleadoFijo1 = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true);
+        Empleado empleadoFijo2 = new Empleado("id2", new TipoEmpleado("cocinero"), new Persona("nombre2", "telefono2", "correo2"), true);
+        Empleado empleadoNoFijo1 = new Empleado("id3", new TipoEmpleado("camarero2"), new Persona("nombre3", "telefono3", "correo3"), false);
+        Empleado empleadoNoFijo2 = new Empleado("id4", new TipoEmpleado("cocinero2"), new Persona("nombre4", "telefono4", "correo4"), false);
         empleadosFijos.add(empleadoFijo1);
         empleadosFijos.add(empleadoFijo2);
         empleadosNoFijos.add(empleadoNoFijo1);
@@ -84,8 +84,8 @@ class EventoEmpleadoControllerTest {
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), "nombre2", "666777999", false);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento1, empleado1, false, 0.5F);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento2, empleado2, true, 1.5F);
@@ -111,7 +111,7 @@ class EventoEmpleadoControllerTest {
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getModificarVerTestUsuario() throws Exception {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
 
@@ -127,7 +127,7 @@ class EventoEmpleadoControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleadosUpdateModal.html");
 
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), "nombre1", "666777888", true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
 

@@ -4,6 +4,7 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -31,8 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProtagonistaController.class)
 @Import(SecurityConfiguration.class)
 class ProtagonistaControllerTest {
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -52,8 +51,8 @@ class ProtagonistaControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/protagonistasVer.html");
 
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
-        Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
+        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
@@ -75,8 +74,8 @@ class ProtagonistaControllerTest {
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getEliminarProtagonistaTest() throws Exception {
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
-        Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
+        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
@@ -116,8 +115,8 @@ class ProtagonistaControllerTest {
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void postSaveProtagonistaTest() throws Exception {
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
-        Protagonista protagonista2 = new Protagonista("Novio/a", "Antonio", "666777999", "antonio@correo.es");
+        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista2);
 
         Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
