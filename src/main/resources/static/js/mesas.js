@@ -1,11 +1,20 @@
-let pagadoOptions = { "true" : "Sí", "false" : "No" };
+import {EventoFactory} from "./factories/eventoFactory.js";
+import {
+    anyadirMesaToCanvas,
+    deleteObject,
+    getObjectFromCanvas,
+    setMesaActiveObject,
+    updateMesaOnCanvas
+} from "./distribucion.js";
+
+export let rowColorAdded = 'greenyellow';
+export let rowColorNotAdded = 'LightYellow';
 let mesasDt;
 
-let rowColorAdded = 'greenyellow';
-let rowColorNotAdded = 'LightYellow';
-
 $(document).ready(function() {
-    initMesasTable(isEventoIndividual);
+    let eventoObject = EventoFactory.crearEvento(evento.id, evento.tipo, evento.titulo, evento.personas, evento.fecha);
+
+    mesasDt = eventoObject.initMesasTable($('#mesas'), onAddRow, onEditRow, onDeleteRow);
 
     onAddClicked();
 
@@ -31,7 +40,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         $.ajax({
-            url: "/evento/mesas/uploadExcel?eventoId=" + eventoId,
+            url: "/evento/mesas/uploadExcel?eventoId=" + evento.id,
             type: "POST",
             data: new FormData(this),
             enctype: 'multipart/form-data',
@@ -48,182 +57,6 @@ $(document).ready(function() {
         });
     });
 });
-
-// TODO: Mesa Polyphormism
-function initMesasTable(isEventoIndividual) {
-    if (isEventoIndividual) {
-        return initMesasReservaTable();
-    }
-    else{
-        return initMesasNormalesTable();
-    }
-}
-
-function initMesasReservaTable() {
-    let columnDefs = [
-        {
-            data: "id",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "eventoId",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "numero",
-            orderable: false,
-            unique: true
-
-        },
-        {
-            data: "representante",
-            orderable: false
-        },
-        {
-            data: "mayores",
-            orderable: false
-        },
-        {
-            data: "ninyos",
-            orderable: false
-        },
-        {
-            data: "pagado",
-            type: "select",
-            options : pagadoOptions,
-            orderable: false,
-            select2 : { width: "100%"},
-            render: function (data) {
-                if (data == null || !(data in pagadoOptions)) return null;
-                return pagadoOptions[data];
-            }
-        },
-        {
-            data: "descripcion",
-            orderable: false
-        }
-    ];
-
-    mesasDt = $('#mesas').DataTable({
-        "sPaginationType": "full_numbers",
-        columns: columnDefs,
-        order: [1, 'asc'],
-        dom: 'Bfrtip',
-        select: 'single',
-        responsive: true,
-        paging: false,
-        info: false,
-        altEditor: true,
-        buttons: [
-            {
-                text: 'Add',
-                name: 'add'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Edit',
-                name: 'edit'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Delete',
-                name: 'delete'      // do not change name
-            }
-        ],
-        onAddRow: function(datatable, rowdata, success, error) {
-            onAddRow(datatable, rowdata, success, error);
-        },
-        onDeleteRow: function(datatable, rowdata, success, error) {
-            onDeleteRow(datatable, rowdata, success, error);
-        },
-        onEditRow: function(datatable, rowdata, success, error) {
-            onEditRow(datatable, rowdata, success, error);
-        },
-        footerCallback: function () {
-            footerCallback(this);
-        }
-    });
-}
-
-function initMesasNormalesTable() {
-    let columnDefs = [
-        {
-            data: "id",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "eventoId",
-            type: "hidden",
-            visible: false
-        },
-        {
-            data: "numero",
-            orderable: false,
-            unique: true
-
-        },
-        {
-            data: "mayores",
-            orderable: false
-        },
-        {
-            data: "ninyos",
-            orderable: false
-        },
-        {
-            data: "descripcion",
-            orderable: false
-        }
-    ];
-
-    mesasDt = $('#mesas').DataTable({
-        "sPaginationType": "full_numbers",
-        columns: columnDefs,
-        order: [1, 'asc'],
-        dom: 'Bfrtip',
-        select: 'single',
-        responsive: true,
-        paging: false,
-        info: false,
-        altEditor: true,
-        buttons: [
-            {
-                text: 'Add',
-                name: 'add'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Edit',
-                name: 'edit'        // do not change name
-            },
-            {
-                extend: 'selected', // Bind to Selected row
-                text: 'Delete',
-                name: 'delete'      // do not change name
-            },
-            {
-                extend: 'selected',
-                text: 'Invitados',
-                name: 'invitados'
-            }
-        ],
-        onAddRow: function(datatable, rowdata, success, error) {
-            onAddRow(datatable, rowdata, success, error);
-        },
-        onDeleteRow: function(datatable, rowdata, success, error) {
-            onDeleteRow(datatable, rowdata, success, error);
-        },
-        onEditRow: function(datatable, rowdata, success, error) {
-            onEditRow(datatable, rowdata, success, error);
-        },
-        footerCallback: function () {
-            footerCallback(this);
-        }
-    });
-}
 
 function onAddClicked(){
     $('.dt-buttons > button:first-child').on( "click", function() {
@@ -248,14 +81,14 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    rowdata.eventoId = eventoId;
+    rowdata.eventoId = evento.id;
     delete rowdata.id;
 
     addMesaAjax(rowdata, success, error);
 }
 
 function addMesaAjax(mesaRowData, success){
-    ajaxCall("POST", "/evento/mesas/add", {eventoId: eventoId}, JSON.stringify(insertPersonas(mesaRowData)), function (mesa) {
+    ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(insertPersonas(mesaRowData)), function (mesa) {
         success(extractPersonas(mesa));
         let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
         ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
@@ -271,7 +104,7 @@ function anyadirClicked(mesaId, numero, mayores, ninyos){
     });
 }
 
-function changeRowColor(mesaId, color){
+export function changeRowColor(mesaId, color){
     $('tr[mesaId="' + mesaId + '"]').css('background-color', color);
 }
 
@@ -293,62 +126,7 @@ function onEditRow(datatable, rowdata, success){
     });
 }
 
-function footerCallback(dataTableApi){
-    let api = dataTableApi.api();
-    let rows = api.rows({search:'applied'}).count();
-
-    // TODO: Use Evento polyohormism
-    if (isEventoIndividual){
-        let totalMayores = api
-            .column(4, {search:'applied'})
-            .data()
-            .reduce(function (a, b) {
-                return Number(a) + Number(b);
-            }, 0);
-
-        let totalNinyos = api
-            .column(5, {search:'applied'})
-            .data()
-            .reduce(function (a, b) {
-                return Number(a) + Number(b);
-            }, 0);
-
-        // Update footer
-        $(api.column(4).footer()).html(totalMayores);
-        $(api.column(5).footer()).html(totalNinyos);
-
-        // Promedio
-        let totalPagados  = api
-            .column(6, {search:'applied'})
-            .data()
-            .reduce(function (a, b) {
-                return Number(a) + (b === 'true' ? 1: 0);
-            }, 0);
-
-        $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
-    }
-    else{
-        let totalMayores = api
-            .column(3, {search:'applied'})
-            .data()
-            .reduce(function (a, b) {
-                return Number(a) + Number(b);
-            }, 0);
-
-        let totalNinyos = api
-            .column(4, {search:'applied'})
-            .data()
-            .reduce(function (a, b) {
-                return Number(a) + Number(b);
-            }, 0);
-
-        // Update footer
-        $(api.column(3).footer()).html(totalMayores);
-        $(api.column(4).footer()).html(totalNinyos);
-    }
-}
-
-function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
+export function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
     let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
     mesaSeleccionada.mayores = invitadosMayores.toString();
     mesaSeleccionada.ninyos = invitadosNinyos.toString();
@@ -362,7 +140,7 @@ function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
 }
 
 function exportarListadoClicked(){
-    window.location = "/evento/mesas/generarListado?eventoId=" + eventoId;
+    window.location = "/evento/mesas/generarListado?eventoId=" + evento.id;
 }
 
 // TODO: Solved with object Mesa

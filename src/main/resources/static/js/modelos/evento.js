@@ -1,0 +1,307 @@
+export class Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        this.id = id;
+        this.tipo = tipo;
+        this.titulo = titulo;
+        this.personas = personas;
+        this.fecha = fecha;
+    }
+
+    getCalendarioTitulo() {
+        return this.titulo + " " + this.personas.mayores + "p";
+    }
+
+    getCalendarioColor() {
+        throw new Error('Method "getCalendarioColor()" must be implemented.');
+    }
+
+    initMesasTable(table, onAddRow, onEditRow, onDeleteRow) {
+        let columnDefs = [
+            {
+                data: "id",
+                type: "hidden",
+                visible: false
+            },
+            {
+                data: "eventoId",
+                type: "hidden",
+                visible: false
+            },
+            {
+                data: "numero",
+                orderable: false,
+                unique: true
+
+            },
+            {
+                data: "mayores",
+                orderable: false
+            },
+            {
+                data: "ninyos",
+                orderable: false
+            },
+            {
+                data: "descripcion",
+                orderable: false
+            }
+        ];
+
+        return table.DataTable({
+            "sPaginationType": "full_numbers",
+            columns: columnDefs,
+            order: [1, 'asc'],
+            dom: 'Bfrtip',
+            select: 'single',
+            responsive: true,
+            paging: false,
+            info: false,
+            altEditor: true,
+            buttons: [
+                {
+                    text: 'Add',
+                    name: 'add'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Edit',
+                    name: 'edit'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Delete',
+                    name: 'delete'      // do not change name
+                },
+                {
+                    extend: 'selected',
+                    text: 'Invitados',
+                    name: 'invitados'
+                }
+            ],
+            onAddRow: function(datatable, rowdata, success, error) {
+                onAddRow(datatable, rowdata, success, error);
+            },
+            onDeleteRow: function(datatable, rowdata, success, error) {
+                onDeleteRow(datatable, rowdata, success, error);
+            },
+            onEditRow: function(datatable, rowdata, success, error) {
+                onEditRow(datatable, rowdata, success, error);
+            },
+            footerCallback: function () {
+                let api = this.api();
+
+                let totalMayores = api
+                    .column(3, {search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return Number(a) + Number(b);
+                    }, 0);
+
+                let totalNinyos = api
+                    .column(4, {search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return Number(a) + Number(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(3).footer()).html(totalMayores);
+                $(api.column(4).footer()).html(totalNinyos);
+            }
+        });
+    }
+
+    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
+        tituloInput.val(selectedTipo + '-' + selectedHorario);
+        tituloInput.prop('readonly', true);
+    }
+}
+
+export class EventoBoda extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'FireBrick';
+    }
+}
+
+export class EventoComunion extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'DeepSkyBlue';
+    }
+}
+
+export class EventoComunal extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'DarkSeaGreen';
+    }
+
+    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
+        tituloInput.val('');
+        tituloInput.prop('readonly', false);
+    }
+}
+
+export class EventoIndividual extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'DarkGreen';
+    }
+
+    initMesasTable(table, onAddRow, onEditRow, onDeleteRow) {
+        let pagadoOptions = { "true" : "Sí", "false" : "No" };
+
+        let columnDefs = [
+            {
+                data: "id",
+                type: "hidden",
+                visible: false
+            },
+            {
+                data: "eventoId",
+                type: "hidden",
+                visible: false
+            },
+            {
+                data: "numero",
+                orderable: false,
+                unique: true
+
+            },
+            {
+                data: "representante",
+                orderable: false
+            },
+            {
+                data: "mayores",
+                orderable: false
+            },
+            {
+                data: "ninyos",
+                orderable: false
+            },
+            {
+                data: "pagado",
+                type: "select",
+                options : pagadoOptions,
+                orderable: false,
+                select2 : { width: "100%"},
+                render: function (data) {
+                    if (data == null || !(data in pagadoOptions)) return null;
+                    return pagadoOptions[data];
+                }
+            },
+            {
+                data: "descripcion",
+                orderable: false
+            }
+        ];
+
+        return table.DataTable({
+            "sPaginationType": "full_numbers",
+            columns: columnDefs,
+            order: [1, 'asc'],
+            dom: 'Bfrtip',
+            select: 'single',
+            responsive: true,
+            paging: false,
+            info: false,
+            altEditor: true,
+            buttons: [
+                {
+                    text: 'Add',
+                    name: 'add'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Edit',
+                    name: 'edit'        // do not change name
+                },
+                {
+                    extend: 'selected', // Bind to Selected row
+                    text: 'Delete',
+                    name: 'delete'      // do not change name
+                }
+            ],
+            onAddRow: function(datatable, rowdata, success, error) {
+                onAddRow(datatable, rowdata, success, error);
+            },
+            onDeleteRow: function(datatable, rowdata, success, error) {
+                onDeleteRow(datatable, rowdata, success, error);
+            },
+            onEditRow: function(datatable, rowdata, success, error) {
+                onEditRow(datatable, rowdata, success, error);
+            },
+            footerCallback: function () {
+                let api = this.api();
+                let rows = api.rows({search:'applied'}).count();
+
+                let totalMayores = api
+                    .column(4, {search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return Number(a) + Number(b);
+                    }, 0);
+
+                let totalNinyos = api
+                    .column(5, {search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return Number(a) + Number(b);
+                    }, 0);
+
+                // Update footer
+                $(api.column(4).footer()).html(totalMayores);
+                $(api.column(5).footer()).html(totalNinyos);
+
+                // Promedio
+                let totalPagados  = api
+                    .column(6, {search:'applied'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return Number(a) + (b === 'true' ? 1: 0);
+                    }, 0);
+
+                $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
+            }
+        });
+    }
+
+    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
+        tituloInput.val('');
+        tituloInput.prop('readonly', false);
+    }
+}
+
+export class EventoBautizo extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'DarkKhaki';
+    }
+}
+
+export class EventoPruebas extends Evento {
+    constructor(id, tipo, titulo, personas, fecha) {
+        super(id, tipo, titulo, personas, fecha);
+    }
+
+    getCalendarioColor() {
+        return 'DarkGrey';
+    }
+}

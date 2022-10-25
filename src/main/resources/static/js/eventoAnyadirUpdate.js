@@ -1,3 +1,7 @@
+import {EventoFactory} from "./factories/eventoFactory.js";
+
+let evento;
+
 $( document ).ready(function() {
     $('#fecha').datepicker({
         format: "yyyy-mm-dd",
@@ -6,12 +10,20 @@ $( document ).ready(function() {
         autoclose: true
     });
 
-    generarTitulo();
-
     let tipoSelect = $("#tipo");
 
-    tipoSelect.change(function() {
-        rellenarPrecioNinyos($(this).val());
+    evento = EventoFactory.crearEvento('', {value: tipoSelect.val()}, '', '', '');
+
+    generarTitulo(evento);
+
+    $("#tipo, #horario").change(function() {
+        evento = EventoFactory.crearEvento('', {value: tipoSelect.val()}, '', '', '');
+        generarTitulo(evento);
+        rellenarPrecioNinyos(tipoSelect.val());
+    });
+
+    $("#titulo").change(function() {
+        anyadirHorario();
     });
 
     if(window.location.href.includes("eventoAnyadir")){
@@ -19,22 +31,12 @@ $( document ).ready(function() {
     }
 });
 
-function generarTitulo(){
+function generarTitulo(evento){
     let tituloInput = $('#titulo');
     let selectedTipo = $("#tipo option:selected").text();
     let selectedHorario = $("#horario option:selected").text();
 
-    if(tituloInput){
-        // TODO: Use TipoEvento polyohormism
-        if(selectedTipo === 'eventoComunal' || selectedTipo === 'eventoIndividual'){
-            tituloInput.val('');
-            tituloInput.prop('readonly', false);
-        }
-        else{
-            tituloInput.val(selectedTipo + '-' + selectedHorario);
-            tituloInput.prop('readonly', true);
-        }
-    }
+    evento.generarTitulo(tituloInput, selectedTipo, selectedHorario);
 }
 
 function anyadirHorario(){
@@ -47,7 +49,6 @@ function anyadirHorario(){
 function rellenarPrecioNinyos(selectedTipo){
     let precioMenuNinyosInput = $('#precioMenuNinyos');
 
-    // TODO: Use Evento polyohormism
     if(selectedTipo === "boda" || selectedTipo === "comunion"){
         precioMenuNinyosInput.val(precioNinyosBodaComunion);
     }

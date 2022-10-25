@@ -1,17 +1,9 @@
+import {EventoFactory} from "./factories/eventoFactory.js";
+
 let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // TODO: Use Evento polyohormism
-    const tipoColor = new Map([
-        ['boda', 'FireBrick'],
-        ['comunion', 'DeepSkyBlue'],
-        ['eventoComunal', 'DarkSeaGreen'],
-        ['eventoIndividual', 'DarkGreen'],
-        ['bautizo', 'DarkKhaki'],
-        ['pruebas', 'DarkGrey']
-    ]);
-
     let calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -24,11 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 events: function(fetchInfo, successCallback) {
                     successCallback(
                         eventos.map(function(eventEl) {
+                            let evento = EventoFactory.crearEvento(eventEl.id, eventEl.tipo, eventEl.titulo, eventEl.personas, eventEl.fecha);
                             return {
-                                id: eventEl.id,
-                                title: eventEl.titulo + " " + eventEl.personas.mayores + "p",
-                                start: new Date(eventEl.fecha).toISOString().split('T')[0],
-                                color: tipoColor.get(eventEl.tipo.value),
+                                id: evento.id,
+                                title: evento.getCalendarioTitulo(),
+                                start: new Date(evento.fecha).toISOString().split('T')[0],
+                                color: evento.getCalendarioColor(),
                                 eventDisplay: 'block'
                             }
                         })
