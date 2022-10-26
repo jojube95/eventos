@@ -1,4 +1,4 @@
-import {EventoFactory} from "./factories/eventoFactory.js";
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
 
 let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';

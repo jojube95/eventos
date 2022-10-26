@@ -1,4 +1,5 @@
-import {EventoFactory} from "./factories/eventoFactory.js";
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
+import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
     anyadirMesaToCanvas,
     deleteObject,
@@ -92,9 +93,12 @@ function onAddRow(datatable, rowdata, success, error){
 }
 
 function addMesaAjax(mesaRowData, success){
-    ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(insertPersonas(mesaRowData)), function (mesa) {
-        success(extractPersonas(mesa));
+    let mesaObject = MesaFactory.crearMesa(mesaRowData.id, mesaRowData.eventoId, mesaRowData.numero, {mayores: mesaRowData.mayores, ninyos: mesaRowData.ninyos}, mesaRowData.descripcion);
+
+    ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(mesaObject), function (mesa) {
+        success(mesaObject.getDataTableRowData());
         let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
+
         ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
             anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, 150, 100, data);
         });
@@ -115,8 +119,10 @@ export function changeRowColor(mesaId, color){
 function onDeleteRow(datatable, rowdata, success){
     toggleLoadingSpinner($("#deleteRowBtn"));
 
-    ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(insertPersonas(rowdata[0])), function (mesa) {
-        success(extractPersonas(mesa));
+    let mesaObject = MesaFactory.crearMesa(rowdata[0].id, rowdata[0].eventoId, rowdata[0].numero, {mayores: rowdata[0].mayores, ninyos: rowdata[0].ninyos}, rowdata[0].descripcion);
+
+    ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(mesaObject), function (mesa) {
+        success(mesaObject.getDataTableRowData());
         deleteObject(getObjectFromCanvas(mesa));
     });
 }
@@ -124,44 +130,27 @@ function onDeleteRow(datatable, rowdata, success){
 function onEditRow(datatable, rowdata, success){
     toggleLoadingSpinner($("#editRowBtn"));
 
-    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(insertPersonas(rowdata)), function (mesa) {
-        success(extractPersonas(mesa));
+    let mesaObject = MesaFactory.crearMesa(rowdata.id, rowdata.eventoId, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion);
+
+    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(mesaObject), function (mesa) {
+        success(mesaObject.getDataTableRowData());
         updateMesaOnCanvas(mesa);
     });
 }
 
 export function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
     let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
-    mesaSeleccionada.mayores = invitadosMayores.toString();
-    mesaSeleccionada.ninyos = invitadosNinyos.toString();
 
-    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(insertPersonas(mesaSeleccionada)), function () {
-        mesasDt.row({ selected: true }).data(extractPersonas(mesaSeleccionada));
+    let mesaObject = MesaFactory.crearMesa(mesaSeleccionada.id, mesaSeleccionada.eventoId, mesaSeleccionada.numero, {mayores: invitadosMayores, ninyos: invitadosNinyos}, mesaSeleccionada.descripcion);
+
+    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(mesaObject), function () {
+        mesasDt.row({ selected: true }).data(mesaObject.getDataTableRowData());
         mesasDt.draw();
 
-        updateMesaOnCanvas(mesaSeleccionada);
+        updateMesaOnCanvas(mesaObject);
     });
 }
 
 function exportarListadoClicked(){
     window.location = "/evento/mesas/generarListado?eventoId=" + evento.id;
-}
-
-// TODO: Solved with object Mesa
-function extractPersonas(mesa) {
-    mesa.mayores = mesa.personas.mayores;
-    mesa.ninyos = mesa.personas.ninyos;
-    delete mesa.personas;
-
-    return mesa;
-}
-
-// TODO: Solved with object Mesa
-function insertPersonas(mesa) {
-    let personas = {'mayores': mesa.mayores, 'ninyos': mesa.ninyos}
-    delete mesa.personas;
-    delete mesa.ninyos;
-    mesa.personas = personas;
-
-    return mesa;
 }
