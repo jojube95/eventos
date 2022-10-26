@@ -18,7 +18,9 @@
  *
  *
  */
- (function (factory) {
+import {cerrarInvitadosClicked} from "../../js/mesas.js";
+
+(function (factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
         define(['jquery', 'datatables.net'], function ($) {

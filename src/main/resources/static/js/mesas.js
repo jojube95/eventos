@@ -9,7 +9,7 @@ import {
 
 export let rowColorAdded = 'greenyellow';
 export let rowColorNotAdded = 'LightYellow';
-let mesasDt;
+export let mesasDt;
 
 $(document).ready(function() {
     let eventoObject = EventoFactory.crearEvento(evento.id, evento.tipo, evento.titulo, evento.personas, evento.fecha);
@@ -55,6 +55,10 @@ $(document).ready(function() {
                 console.error(err);
             }
         });
+    });
+
+    $('#exportarListadoButton').on('click', function () {
+        exportarListadoClicked();
     });
 });
 
