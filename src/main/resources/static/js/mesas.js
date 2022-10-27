@@ -1,12 +1,14 @@
 import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
-    anyadirMesaToCanvas,
+    createMesaCanvas,
     deleteObject,
     getObjectFromCanvas,
     setMesaActiveObject,
     updateMesaOnCanvas
 } from "./distribucion.js";
+
+window.createMesaCanvas = createMesaCanvas;
 
 export let rowColorAdded = 'greenyellow';
 export let rowColorNotAdded = 'LightYellow';
@@ -24,7 +26,9 @@ $(document).ready(function() {
     mesasTbody.on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
         if(getObjectFromCanvas(mesa) === undefined) {
-            anyadirClicked(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, this);
+            // TODO: Crear mesa usando factory
+            let mesaObject = MesaFactory.crearMesa(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.representante, mesa.pagado);
+            showTipoMesaModalContent(mesaObject);
         }
     } );
 
@@ -32,8 +36,6 @@ $(document).ready(function() {
         let mesa = mesasDt.row( this ).data();
         setMesaActiveObject(mesa);
     } );
-
-
 
     $("#file-upload-form").on("submit", function (e) {
         toggleLoadingSpinner($("#importarDistribucionButton"));
@@ -86,28 +88,42 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    let mesaObject = MesaFactory.crearMesa('', evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, '', rowdata.representante, rowdata.pagado);
+    let mesaObject = MesaFactory.crearMesa('', evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, rowdata.representante, rowdata.pagado);
 
     addMesaAjax(mesaObject, success, error);
 }
 
 function addMesaAjax(mesaObject, success){
     ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(mesaObject), function (mesa) {
+        mesaObject.id = mesa.id;
         success(mesaObject.getDataTableRowData());
-        let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
 
-        ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
-            anyadirMesaToCanvas(mesa.id, mesa.numero, mesa.mayores, mesa.ninyos, 150, 100, data);
-        });
+        anyadirMesaToCanvas(mesaObject, 150, 100);
     });
 }
 
-function anyadirClicked(mesaId, numero, mayores, ninyos){
-    console.log('anyadirClicked');
-    let params = {mesaId: mesaId, numero: numero, mayores: mayores, ninyos: ninyos};
-    ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
-        anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, 150, 100, data);
+function showTipoMesaModalContent(mesa) {
+    let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.personas.mayores, ninyos: mesa.personas.ninyos};
+    ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (htmlModal) {
+        $("#distribucionTipoMesaModalHolder").html(htmlModal);
+        $('#distribucionTipoMesaModal').modal("show");
     });
+}
+
+function anyadirMesaToCanvas(mesa, top, left){
+    if (mesa.personasCabenEnRedonda()) {
+        showTipoMesaModalContent(mesa);
+    }
+    else{
+        // TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
+        addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
+    }
+    $('#distribucionTipoMesaModal').modal("hide");
+    setAddedColorToMesaAdded();
+}
+
+function setAddedColorToMesaAdded() {
+    $('#mesas tbody tr:last').css('background-color', rowColorAdded);
 }
 
 export function changeRowColor(mesaId, color){
