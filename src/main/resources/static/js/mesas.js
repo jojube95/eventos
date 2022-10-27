@@ -86,15 +86,12 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    rowdata.eventoId = evento.id;
-    delete rowdata.id;
+    let mesaObject = MesaFactory.crearMesa('', evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, '', rowdata.representante, rowdata.pagado);
 
-    addMesaAjax(rowdata, success, error);
+    addMesaAjax(mesaObject, success, error);
 }
 
-function addMesaAjax(mesaRowData, success){
-    let mesaObject = MesaFactory.crearMesa(mesaRowData.id, mesaRowData.eventoId, mesaRowData.numero, {mayores: mesaRowData.mayores, ninyos: mesaRowData.ninyos}, mesaRowData.descripcion);
-
+function addMesaAjax(mesaObject, success){
     ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(mesaObject), function (mesa) {
         success(mesaObject.getDataTableRowData());
         let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.mayores, ninyos: mesa.ninyos};
@@ -106,6 +103,7 @@ function addMesaAjax(mesaRowData, success){
 }
 
 function anyadirClicked(mesaId, numero, mayores, ninyos){
+    console.log('anyadirClicked');
     let params = {mesaId: mesaId, numero: numero, mayores: mayores, ninyos: ninyos};
     ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (data) {
         anyadirMesaToCanvas(mesaId, numero, mayores, ninyos, 150, 100, data);
