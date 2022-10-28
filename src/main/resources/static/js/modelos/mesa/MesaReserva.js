@@ -12,8 +12,4 @@ export class MesaReserva extends Mesa {
         return {id: this.id, eventoId: this.eventoId, numero: this.numero, mayores: this.personas.mayores, ninyos: this.personas.ninyos,
             descripcion: this.descripcion, representante: this.representante, pagado: this.pagado}
     }
-
-    addToCanvas(canvas) {
-        // TODO: Implement
-    }
 }

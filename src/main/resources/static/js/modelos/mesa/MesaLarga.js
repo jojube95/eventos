@@ -1,16 +1,11 @@
-import {Mesa} from "./Mesa.js";
-import {changeRowColor, rowColorAdded} from "../../mesas";
+import {MesaCanvas} from "./MesaCanvas.js";
 
-
-export class MesaLarga extends Mesa {
+export class MesaLarga extends MesaCanvas {
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
-        super(id, eventoId, numero, personas, descripcion);
-        this.top = top;
-        this.left = left;
+        super(id, eventoId, numero, personas, descripcion, top, left);
     }
 
-    addToCanvas(canvas) {
-        // TODO: Move to calcularLongitudMesaLarga on Mesa class
+    addToCanvas(canvas, success) {
         let tableLength = this.calcularLongitudMesaLarga();
 
         let rect = new fabric.Rect({
@@ -23,64 +18,7 @@ export class MesaLarga extends Mesa {
             originY: 'center'
         });
 
-        // TODO: Move to insertTextToObject on Mesa class
-        this.insertTextToObject(mesaId, numero, mayores, ninyos, top, left, rect, canvas);
-    }
-
-    // TODO: If duplicated with MesaLarga calss, create MesaCanvas that extends from Mesa and extend from this Redonda y larga. Make abstract method ass necessari
-    insertTextToObject(mesaId, numero, mayores, ninyos, top, left, objectToInsert, canvas) {
-        let text;
-
-        if (ninyos > 0) {
-            text = new fabric.Text("T-" + numero + "\n" + mayores + "p" + "\n" + ninyos + "x", {
-                fontSize: 12,
-                originX: 'center',
-                originY: 'center'
-            });
-        }
-        else{
-            text = new fabric.Text("T-" + numero + "\n" + mayores + "p", {
-                fontSize: 12,
-                originX: 'center',
-                originY: 'center'
-            });
-        }
-
-
-        let group = new fabric.Group([ objectToInsert, text ], {
-            left: left,
-            top: top,
-            hasRotatingPoint: false
-        });
-
-        group.setControlsVisibility({
-            tl: false,
-            tr: false,
-            br: false,
-            bl: false,
-            ml: false,
-            mt: false,
-            mr: false,
-            mb: false,
-            mtr: false
-        });
-
-        group['mesaId'] = mesaId;
-        group['numero'] = numero;
-        group['mayores'] = mayores;
-        group['ninyos'] = ninyos;
-
-        this.addObjectToCanvas(group, canvas);
-    }
-
-    addObjectToCanvas(object, canvas){
-        canvas.add(object);
-        canvas.renderAll();
-
-        // TODO: Move this to success function
-        guardarDistribucion();
-        changeRowColor(object.mesaId, rowColorAdded);
-        // TODO: Move this to success function
+        this.insertTextToObject(this.id, this.numero, this.personas, this.top, this.left, rect, canvas, success);
     }
 
     calcularLongitudMesaLarga(){
@@ -103,5 +41,26 @@ export class MesaLarga extends Mesa {
         else{
             return {'largas' : Math.ceil(this.getTotalPersonas() / 6), 'apoyos': 0}
         }
+    }
+
+    reverse(eventData, transform){
+        // TODO: Use get object from canvas to get object
+        let object = transform.target;
+
+        let height = object.height;
+        let width = object.width;
+
+        let height1 = object._objects[0].height;
+        let width1 = object._objects[0].width;
+
+        object.set('height', width);
+        object.set('width', height);
+
+        object._objects[0].set('height', width1);
+        object._objects[0].set('width', height1);
+
+        canvas.renderAll();
+        guardarDistribucion();
+
     }
 }

@@ -13,11 +13,20 @@ export class MesaFactory {
         }
     }
 
-    static crearMesaCanvas(id, eventoId, numero, personas, descripcion, tipo, top, left) {
+    static crearMesaCanvas(id, eventoId, numero, personas, descripcion, tipo) {
         if (tipo === 'redonda') {
-            return new MesaRedonda(id, eventoId, numero, personas, descripcion, top, left);
+            return new MesaRedonda(id, eventoId, numero, personas, descripcion, 100, 100);
         } else if (tipo === 'larga') {
-            return new MesaLarga(id, eventoId, numero, personas, descripcion, top, left);
+            return new MesaLarga(id, eventoId, numero, personas, descripcion, 100, 100);
+        }
+    }
+
+    static crearMesaCanvasByCanvasObject(object) {
+        console.log(object);
+        if (object._objects[0].type === 'circle') {
+            return new MesaRedonda(object.mesaId, undefined, object.numero, {mayores: object.mayores, ninyos: object.ninyos}, undefined, object.top, object.left);
+        } else if (object._objects[0].type === 'rect') {
+            return new MesaLarga(object.mesaId, undefined, object.numero, {mayores: object.mayores, ninyos: object.ninyos}, undefined, object.top, object.left);
         }
     }
 }

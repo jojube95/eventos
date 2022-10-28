@@ -1,4 +1,11 @@
-import {rowColorNotAdded, rowColorAdded, changeRowColor, mesasDt} from "./mesas.js";
+import {
+    rowColorNotAdded,
+    rowColorAdded,
+    changeRowColor,
+    mesasDt,
+    showTipoMesaModalContent,
+    setAddedColorToMesaAdded
+} from "./mesas.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 
 let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
@@ -56,7 +63,20 @@ $(document).ready(function() {
 
 export function createMesaCanvas(id, eventoId, numero, mayores, ninyos, descripcion, tipo) {
     let mesa = MesaFactory.crearMesaCanvas(id, eventoId, numero, {mayores: mayores, ninyos: ninyos}, descripcion, tipo, 100, 100);
-    mesa.addToCanvas(canvas);
+    mesa.addToCanvas(canvas, successAddMesaToCanvas);
+}
+
+
+export function anyadirMesaToCanvas(mesa){
+    if (mesa.personasCabenEnRedonda()) {
+        showTipoMesaModalContent(mesa);
+    }
+    else{
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, mesa.personas, mesa.descripcion, 'larga');
+        mesaCanvas.addToCanvas(canvas, successAddMesaToCanvas);
+    }
+    $('#distribucionTipoMesaModal').modal("hide");
+    setAddedColorToMesaAdded();
 }
 
 // TODO: Move to changeTableType on Mesa class
@@ -179,23 +199,6 @@ function guardarClicked(){
     });
 }
 
-// TODO: Move to setMesaActiveObject on Mesa class
-export function setMesaActiveObject(mesa) {
-    let object = getObjectFromCanvas(mesa);
-    canvas.setActiveObject(object).requestRenderAll();
-}
-
-// TODO: Move to getObjectFromCanvas on Mesa class
-export function getObjectFromCanvas(mesa) {
-    let res;
-    canvas.getObjects().forEach(function(object) {
-        if (object.mesaId === mesa.id){
-            res = object;
-        }
-    });
-    return res;
-}
-
 function onCanvasObjectClick(){
     fabric.util.addListener(canvas.upperCanvasEl, 'click', function (e) {
         let object = canvas.findTarget(e);
@@ -221,12 +224,15 @@ function onCanvasObjectDoubleClick(){
 
 function clickDeleteIcon(eventData, transform) {
     let object = transform.target;
-    // TODO: Move to deleteObject on Mesa class
-    deleteObject(object);
+    // TODO: Create MesaCanvas object and call delete function
+    deleteObject(canvas);
 }
 
 function clickReverseIcon(eventData, transform){
+    // TODO: Create MesaCanvas object and call reverese function
     let object = transform.target;
+
+    let mesaCanvas = MesaFactory.crearMesaCanvasByCanvasObject(object);
 
     let height = object.height;
     let width = object.width;
@@ -256,4 +262,9 @@ function renderIcon(object, ctx, left, top, styleOverride, fabricObject, image) 
     ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
     ctx.drawImage(image, -size/2, -size/2, size, size);
     ctx.restore();
+}
+
+function successAddMesaToCanvas(object) {
+    guardarDistribucion();
+    changeRowColor(object.mesaId, rowColorAdded);
 }

@@ -1,10 +1,9 @@
 import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
+    anyadirMesaToCanvas,
     createMesaCanvas,
     deleteObject,
-    getObjectFromCanvas,
-    setMesaActiveObject,
     updateMesaOnCanvas
 } from "./distribucion.js";
 
@@ -25,8 +24,8 @@ $(document).ready(function() {
 
     mesasTbody.on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
+        // TODO: Create mesaCanvas object and call getObjectFromCanvas
         if(getObjectFromCanvas(mesa) === undefined) {
-            // TODO: Crear mesa usando factory
             let mesaObject = MesaFactory.crearMesa(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.representante, mesa.pagado);
             showTipoMesaModalContent(mesaObject);
         }
@@ -34,6 +33,7 @@ $(document).ready(function() {
 
     mesasTbody.on('click', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
+        // TODO: Create mesaCanvas object and call setActive
         setMesaActiveObject(mesa);
     } );
 
@@ -98,11 +98,11 @@ function addMesaAjax(mesaObject, success){
         mesaObject.id = mesa.id;
         success(mesaObject.getDataTableRowData());
 
-        anyadirMesaToCanvas(mesaObject, 150, 100);
+        anyadirMesaToCanvas(mesaObject);
     });
 }
 
-function showTipoMesaModalContent(mesa) {
+export function showTipoMesaModalContent(mesa) {
     let params = {mesaId: mesa.id, numero: mesa.numero, mayores: mesa.personas.mayores, ninyos: mesa.personas.ninyos};
     ajaxCall("GET", "/evento/distribucion/tipoMesaModal", params, {}, function (htmlModal) {
         $("#distribucionTipoMesaModalHolder").html(htmlModal);
@@ -110,19 +110,7 @@ function showTipoMesaModalContent(mesa) {
     });
 }
 
-function anyadirMesaToCanvas(mesa, top, left){
-    if (mesa.personasCabenEnRedonda()) {
-        showTipoMesaModalContent(mesa);
-    }
-    else{
-        // TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
-        addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
-    }
-    $('#distribucionTipoMesaModal').modal("hide");
-    setAddedColorToMesaAdded();
-}
-
-function setAddedColorToMesaAdded() {
+export function setAddedColorToMesaAdded() {
     $('#mesas tbody tr:last').css('background-color', rowColorAdded);
 }
 

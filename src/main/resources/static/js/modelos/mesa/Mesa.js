@@ -18,8 +18,4 @@ export class Mesa {
     getTotalPersonas() {
         return Number(this.personas.mayores) + Number(this.personas.ninyos);
     }
-
-    addToCanvas(canvas) {
-        throw new Error('Method "addToCanvas()" must be implemented.');
-    }
 }
