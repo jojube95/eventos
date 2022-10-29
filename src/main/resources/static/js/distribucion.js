@@ -17,7 +17,7 @@ let imgReverse = document.createElement('img');
 imgDelete.src = deleteIcon;
 imgReverse.src = reverseIcon;
 
-let canvas;
+export let canvas;
 
 $(document).ready(function() {
     canvas = new fabric.Canvas('canvas');
@@ -159,14 +159,6 @@ function loadCanvas(){
     $('tbody > tr').not('[style]').css('background-color', rowColorNotAdded);
 }
 
-// TODO: Move to deleteObject on Mesa class
-export function deleteObject(object){
-    canvas.remove(object);
-    canvas.renderAll();
-    guardarDistribucion();
-    changeRowColor(object.mesaId, rowColorNotAdded);
-}
-
 function loadBackgroundImage(){
     canvas.setBackgroundImage(null, function(){
         fabric.Image.fromURL("./../images/" + sala + "Background.png", (img) => {
@@ -224,35 +216,23 @@ function onCanvasObjectDoubleClick(){
 
 function clickDeleteIcon(eventData, transform) {
     let object = transform.target;
-    // TODO: Create MesaCanvas object and call delete function
-    deleteObject(canvas);
+
+    let mesaCanvas = MesaFactory.crearMesaCanvasByCanvasObject(object);
+
+    mesaCanvas.delete(canvas, function() {
+        guardarDistribucion();
+        changeRowColor(object.mesaId, rowColorNotAdded);
+    });
 }
 
 function clickReverseIcon(eventData, transform){
-    // TODO: Create MesaCanvas object and call reverese function
     let object = transform.target;
 
     let mesaCanvas = MesaFactory.crearMesaCanvasByCanvasObject(object);
 
-    let height = object.height;
-    let width = object.width;
-
-    let height1 = object._objects[0].height;
-    let width1 = object._objects[0].width;
-
-    let tipo = object._objects[0].type;
-
-    // TODO: Move to Mesa class
-    if(tipo === 'rect'){
-        object.set('height', width);
-        object.set('width', height);
-
-        object._objects[0].set('height', width1);
-        object._objects[0].set('width', height1);
-
-        canvas.renderAll();
-        guardarDistribucion();
-    }
+    mesaCanvas.reverse(canvas, function() {
+        guardarDistribucion()
+    });
 }
 
 function renderIcon(object, ctx, left, top, styleOverride, fabricObject, image) {

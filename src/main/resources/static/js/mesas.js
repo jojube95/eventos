@@ -1,9 +1,8 @@
 import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
-    anyadirMesaToCanvas,
+    anyadirMesaToCanvas, canvas,
     createMesaCanvas,
-    deleteObject,
     updateMesaOnCanvas
 } from "./distribucion.js";
 
@@ -24,17 +23,19 @@ $(document).ready(function() {
 
     mesasTbody.on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
-        // TODO: Create mesaCanvas object and call getObjectFromCanvas
-        if(getObjectFromCanvas(mesa) === undefined) {
+
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo);
+
+        if(mesaCanvas.getObjectFromCanvas(canvas) === undefined) {
             let mesaObject = MesaFactory.crearMesa(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.representante, mesa.pagado);
-            showTipoMesaModalContent(mesaObject);
+            anyadirMesaToCanvas(mesaObject);
         }
     } );
 
     mesasTbody.on('click', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
-        // TODO: Create mesaCanvas object and call setActive
-        setMesaActiveObject(mesa);
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo);
+        mesaCanvas.setActive(canvas);
     } );
 
     $("#file-upload-form").on("submit", function (e) {
@@ -88,14 +89,19 @@ function onAddClicked(){
 function onAddRow(datatable, rowdata, success, error){
     toggleLoadingSpinner($("#addRowBtn"));
 
-    let mesaObject = MesaFactory.crearMesa('', evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, rowdata.representante, rowdata.pagado);
+    let mesaObject = MesaFactory.crearMesa(undefined, evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, rowdata.representante, rowdata.pagado);
 
     addMesaAjax(mesaObject, success, error);
 }
 
 function addMesaAjax(mesaObject, success){
     ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(mesaObject), function (mesa) {
+        console.log(mesa);
+
         mesaObject.id = mesa.id;
+
+        console.log(mesaObject);
+
         success(mesaObject.getDataTableRowData());
 
         anyadirMesaToCanvas(mesaObject);
@@ -125,6 +131,7 @@ function onDeleteRow(datatable, rowdata, success){
 
     ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(mesaObject), function (mesa) {
         success(mesaObject.getDataTableRowData());
+        // TODO: Create MesaCanvas object and call delete
         deleteObject(getObjectFromCanvas(mesa));
     });
 }

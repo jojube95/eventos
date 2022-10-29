@@ -2,6 +2,7 @@ import {MesaRedonda} from "../../modelos/mesa/MesaRedonda.js";
 import {MesaLarga} from "../../modelos/mesa/MesaLarga.js";
 import {Mesa} from "../../modelos/mesa/Mesa.js";
 import {MesaReserva} from "../../modelos/mesa/MesaReserva.js";
+import {MesaCanvas} from "../../modelos/mesa/MesaCanvas.js";
 
 
 export class MesaFactory {
@@ -19,10 +20,12 @@ export class MesaFactory {
         } else if (tipo === 'larga') {
             return new MesaLarga(id, eventoId, numero, personas, descripcion, 100, 100);
         }
+        else{
+            return new MesaCanvas(id, eventoId, numero, personas, descripcion, 100, 100);
+        }
     }
 
     static crearMesaCanvasByCanvasObject(object) {
-        console.log(object);
         if (object._objects[0].type === 'circle') {
             return new MesaRedonda(object.mesaId, undefined, object.numero, {mayores: object.mayores, ninyos: object.ninyos}, undefined, object.top, object.left);
         } else if (object._objects[0].type === 'rect') {

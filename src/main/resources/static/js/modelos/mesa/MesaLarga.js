@@ -42,25 +42,4 @@ export class MesaLarga extends MesaCanvas {
             return {'largas' : Math.ceil(this.getTotalPersonas() / 6), 'apoyos': 0}
         }
     }
-
-    reverse(eventData, transform){
-        // TODO: Use get object from canvas to get object
-        let object = transform.target;
-
-        let height = object.height;
-        let width = object.width;
-
-        let height1 = object._objects[0].height;
-        let width1 = object._objects[0].width;
-
-        object.set('height', width);
-        object.set('width', height);
-
-        object._objects[0].set('height', width1);
-        object._objects[0].set('width', height1);
-
-        canvas.renderAll();
-        guardarDistribucion();
-
-    }
 }

@@ -64,9 +64,8 @@ export class MesaCanvas extends Mesa{
         success(object);
     }
 
-    reverse(eventData, transform){
-        // TODO: Use get object from canvas to get object
-        let object = transform.target;
+    reverse(canvas, success){
+        let object = this.getObjectFromCanvas(canvas);
 
         let height = object.height;
         let width = object.width;
@@ -74,28 +73,23 @@ export class MesaCanvas extends Mesa{
         let height1 = object._objects[0].height;
         let width1 = object._objects[0].width;
 
-        let tipo = object._objects[0].type;
+        object.set('height', width);
+        object.set('width', height);
 
-        // TODO: Move to Mesa class
-        if(tipo === 'rect'){
-            object.set('height', width);
-            object.set('width', height);
+        object._objects[0].set('height', width1);
+        object._objects[0].set('width', height1);
 
-            object._objects[0].set('height', width1);
-            object._objects[0].set('width', height1);
+        canvas.renderAll();
 
-            canvas.renderAll();
-            guardarDistribucion();
-        }
+        success();
     }
 
-    delete(canvas){
-        // TODO: Use get object from canvas to get object
+    delete(canvas, success){
+        let object = this.getObjectFromCanvas(canvas);
         canvas.remove(object);
         canvas.renderAll();
-        // TODO: Add success function
-        guardarDistribucion();
-        changeRowColor(object.mesaId, rowColorNotAdded);
+
+        success();
     }
 
     setActive(canvas) {
@@ -104,9 +98,10 @@ export class MesaCanvas extends Mesa{
     }
 
     getObjectFromCanvas(canvas) {
+        let self = this;
         let res;
         canvas.getObjects().forEach(function(object) {
-            if (object.mesaId === this.id){
+            if (object.mesaId === self.id){
                 res = object;
             }
         });

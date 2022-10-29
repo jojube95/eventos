@@ -38,14 +38,14 @@ public class MesaRestController {
     public Mesa add(@RequestBody Mesa mesa, @RequestParam(EVENTO_ID) String eventoId){
         Evento evento = eventoService.getById(eventoId);
 
-        mesaService.save(mesa);
+        Mesa mesaSaved = mesaService.save(mesa);
 
         // TODO: Add polyphormism with Mesa -> MesaReserva and MesaService -> MesaReservaService
         if (!evento.getTipo().getValue().equals(EVENTO_TIPO_INDIVIDUAL)) {
             mesaService.generateInvitados(mesa);
         }
 
-        return mesa;
+        return mesaSaved;
     }
 
     @PostMapping("/evento/mesas/delete")
