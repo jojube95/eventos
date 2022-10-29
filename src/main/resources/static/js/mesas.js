@@ -2,7 +2,7 @@ import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
     anyadirMesaToCanvas, canvas,
-    createMesaCanvas,
+    createMesaCanvas, guardarDistribucion,
     updateMesaOnCanvas
 } from "./distribucion.js";
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
     mesasTbody.on('dblclick', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
 
-        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo);
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo, 100, 100);
 
         if(mesaCanvas.getObjectFromCanvas(canvas) === undefined) {
             let mesaObject = MesaFactory.crearMesa(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.representante, mesa.pagado);
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
     mesasTbody.on('click', 'tr', function () {
         let mesa = mesasDt.row( this ).data();
-        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo);
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo, 100, 100);
         mesaCanvas.setActive(canvas);
     } );
 
@@ -96,11 +96,7 @@ function onAddRow(datatable, rowdata, success, error){
 
 function addMesaAjax(mesaObject, success){
     ajaxCall("POST", "/evento/mesas/add", {eventoId: evento.id}, JSON.stringify(mesaObject), function (mesa) {
-        console.log(mesa);
-
         mesaObject.id = mesa.id;
-
-        console.log(mesaObject);
 
         success(mesaObject.getDataTableRowData());
 
@@ -131,8 +127,10 @@ function onDeleteRow(datatable, rowdata, success){
 
     ajaxCall("POST", "/evento/mesas/delete", {}, JSON.stringify(mesaObject), function (mesa) {
         success(mesaObject.getDataTableRowData());
-        // TODO: Create MesaCanvas object and call delete
-        deleteObject(getObjectFromCanvas(mesa));
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.tipo);
+        mesaCanvas.delete(canvas, function() {
+            guardarDistribucion();
+        });
     });
 }
 

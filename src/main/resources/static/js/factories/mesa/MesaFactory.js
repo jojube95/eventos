@@ -14,14 +14,14 @@ export class MesaFactory {
         }
     }
 
-    static crearMesaCanvas(id, eventoId, numero, personas, descripcion, tipo) {
-        if (tipo === 'redonda') {
-            return new MesaRedonda(id, eventoId, numero, personas, descripcion, 100, 100);
-        } else if (tipo === 'larga') {
-            return new MesaLarga(id, eventoId, numero, personas, descripcion, 100, 100);
+    static crearMesaCanvas(id, eventoId, numero, personas, descripcion, tipo, top, left) {
+        if (tipo === 'redonda' || tipo === 'circle') {
+            return new MesaRedonda(id, eventoId, numero, personas, descripcion, top, left);
+        } else if (tipo === 'larga' || tipo === 'rect') {
+            return new MesaLarga(id, eventoId, numero, personas, descripcion, top, left);
         }
         else{
-            return new MesaCanvas(id, eventoId, numero, personas, descripcion, 100, 100);
+            return new MesaCanvas(id, eventoId, numero, personas, descripcion, top, left);
         }
     }
 

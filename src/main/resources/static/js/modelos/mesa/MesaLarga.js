@@ -42,4 +42,9 @@ export class MesaLarga extends MesaCanvas {
             return {'largas' : Math.ceil(this.getTotalPersonas() / 6), 'apoyos': 0}
         }
     }
+
+    update(canvas, success) {
+        this.delete(canvas, function() {});
+        this.addToCanvas(canvas, success);
+    }
 }

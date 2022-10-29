@@ -1,4 +1,5 @@
 import {MesaCanvas} from "./MesaCanvas.js";
+import {MesaFactory} from "../../factories/mesa/MesaFactory.js";
 
 export class MesaRedonda extends MesaCanvas {
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
@@ -16,5 +17,19 @@ export class MesaRedonda extends MesaCanvas {
         });
 
         this.insertTextToObject(this.id, this.numero, this.personas, this.top, this.left, circle, canvas, success);
+    }
+
+    update(canvas, success) {
+        if(this.personasCabenEnRedonda()) {
+            this.delete(canvas, success);
+            let nuevaMesaCanvas = MesaFactory.crearMesaCanvas(this.id, this.eventoId, this.numero, this.personas, this.descripcion, 'redonda', this.top, this.left);
+            nuevaMesaCanvas.addToCanvas(canvas, success);
+        }
+        else{
+            this.delete(canvas, success);
+            let nuevaMesaCanvas = MesaFactory.crearMesaCanvas(this.id, this.eventoId, this.numero, this.personas, this.descripcion, 'larga', this.top, this.left);
+            nuevaMesaCanvas.addToCanvas(canvas, success);
+        }
+
     }
 }

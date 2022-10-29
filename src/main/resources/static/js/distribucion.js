@@ -72,63 +72,35 @@ export function anyadirMesaToCanvas(mesa){
         showTipoMesaModalContent(mesa);
     }
     else{
-        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, mesa.personas, mesa.descripcion, 'larga');
+        let mesaCanvas = MesaFactory.crearMesaCanvas(mesa.id, mesa.eventoId, mesa.numero, mesa.personas, mesa.descripcion, 'larga', 100, 100);
         mesaCanvas.addToCanvas(canvas, successAddMesaToCanvas);
     }
     $('#distribucionTipoMesaModal').modal("hide");
     setAddedColorToMesaAdded();
 }
 
-// TODO: Move to changeTableType on Mesa class
 export function updateMesaOnCanvas(mesa){
     canvas.getObjects().forEach(function(object) {
         if (object.mesaId === mesa.id){
-            let mesaId = object.mesaId;
-            let numero = mesa.numero;
-            let mayores = mesa.mayores;
-            let ninyos = mesa.ninyos;
-            let top = object.top;
-            let left = object.left;
-            let tipo = object._objects[0].type;
+            let mesaCanvas = MesaFactory.crearMesaCanvasByCanvasObject(object);
+            mesaCanvas.personas = mesa.personas;
+            mesaCanvas.numero = mesa.numero;
 
-            // TODO: this if, else to mesaFactory
-            if(tipo === 'rect'){
-                canvas.remove(object);
-                addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
-            }
-            else{
-                if(personasCabenEnRedonda(mayores + ninyos)) {
-                    canvas.remove(object);
-                    // TODO: Move to addTable to canvas on MesaLarga, MesaRedonda classes
-                    addCircleTable(mesaId, numero, mayores, ninyos, top, left);
-                }
-                else{
-                    canvas.remove(object);
-                    addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
-                }
-            }
+            mesaCanvas.update(canvas, function() {
+                guardarDistribucion();
+            });
         }
     });
 }
 
-// TODO: Move to changeTableType on Mesa class
-function changeTableType(table){
-    let tableType = table._objects[0].type;
-    let mesaId = table.mesaId;
-    let numero = table.numero;
-    let mayores = table.mayores;
-    let ninyos = table.ninyos;
-    let top = table.top;
-    let left = table.left;
+function changeTipoMesa(object){
+    object._objects[0].type = object._objects[0].type === 'rect' ? 'circle' : 'rect';
 
-    canvas.remove(table);
+    let mesaCanvas = MesaFactory.crearMesaCanvasByCanvasObject(object);
 
-    if(tableType === 'rect'){
-        addCircleTable(mesaId, numero, mayores, ninyos, top, left);
-    }
-    else{
-        addRectangleTable(mesaId, numero, mayores, ninyos, top, left);
-    }
+    mesaCanvas.update(canvas, function() {
+        guardarDistribucion();
+    });
 }
 
 function loadCanvas(){
@@ -176,7 +148,7 @@ function exportarDistribucionClicked(){
     pdf.save("distribució.pdf");
 }
 
-function guardarDistribucion(success){
+export function guardarDistribucion(success){
     let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
 
     ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: evento.id}, JSON.stringify(json), success);
@@ -201,7 +173,6 @@ function onCanvasObjectClick(){
     });
 }
 
-// TODO: Move to selectRow on Mesa class
 function selectRow(mesaId) {
     let index = $('tr[mesaId="' + mesaId + '"]').index();
     mesasDt.row(':eq(' + index + ')').select();
@@ -209,8 +180,8 @@ function selectRow(mesaId) {
 
 function onCanvasObjectDoubleClick(){
     fabric.util.addListener(canvas.upperCanvasEl, 'dblclick', function (e) {
-        let target = canvas.findTarget(e);
-        changeTableType(target);
+        let mesa = canvas.findTarget(e);
+        changeTipoMesa(mesa);
     });
 }
 

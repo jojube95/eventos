@@ -1,5 +1,4 @@
 import {Mesa} from "./Mesa.js";
-import {changeRowColor, rowColorNotAdded} from "../../mesas.js";
 
 export class MesaCanvas extends Mesa{
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
@@ -90,6 +89,10 @@ export class MesaCanvas extends Mesa{
         canvas.renderAll();
 
         success();
+    }
+
+    update(canvas) {
+        throw new Error('Method "update()" must be implemented.');
     }
 
     setActive(canvas) {
