@@ -1,5 +1,10 @@
 import {MesaCanvas} from "./MesaCanvas.js";
 
+const TABLE_WIDTH = 40;
+const TABLE_LENGTH = 80;
+const TABLE_APOYO_LENGTH = 26;
+const MAX_PERSONAS_TABLE = 6;
+
 export class MesaLarga extends MesaCanvas {
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
         super(id, eventoId, numero, personas, descripcion, top, left);
@@ -9,7 +14,7 @@ export class MesaLarga extends MesaCanvas {
         let tableLength = this.calcularLongitudMesaLarga();
 
         let rect = new fabric.Rect({
-            width : 40,
+            width : TABLE_WIDTH,
             height : tableLength,
             fill : 'white',
             stroke: 'black',
@@ -23,7 +28,7 @@ export class MesaLarga extends MesaCanvas {
 
     calcularLongitudMesaLarga(){
         let mesas = this.calcularLargasApoyos();
-        return (mesas.largas * 80) + (mesas.apoyos * 26)
+        return (mesas.largas * TABLE_LENGTH) + (mesas.apoyos * TABLE_APOYO_LENGTH)
     }
 
     calcularLargasApoyos(){
@@ -32,14 +37,14 @@ export class MesaLarga extends MesaCanvas {
         if (this.getTotalPersonas() <= 2){
             return {'largas' : 0, 'apoyos': 2}
         }
-        else if (this.getTotalPersonas() > 2 && this.getTotalPersonas() <= 6){
+        else if (this.getTotalPersonas() > 2 && this.getTotalPersonas() <= MAX_PERSONAS_TABLE){
             return {'largas' : 1, 'apoyos': 0}
         }
         else if (mayoresUltimaMesa > 0 && mayoresUltimaMesa <= 2){
-            return {'largas' : Math.ceil(this.getTotalPersonas() / 6) - 1, 'apoyos': 1}
+            return {'largas' : Math.ceil(this.getTotalPersonas() / MAX_PERSONAS_TABLE) - 1, 'apoyos': 1}
         }
         else{
-            return {'largas' : Math.ceil(this.getTotalPersonas() / 6), 'apoyos': 0}
+            return {'largas' : Math.ceil(this.getTotalPersonas() / MAX_PERSONAS_TABLE), 'apoyos': 0}
         }
     }
 

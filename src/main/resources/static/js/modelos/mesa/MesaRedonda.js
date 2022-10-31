@@ -1,6 +1,8 @@
 import {MesaCanvas} from "./MesaCanvas.js";
 import {MesaFactory} from "../../factories/mesa/MesaFactory.js";
 
+const TABLE_RADIUS = 36;
+
 export class MesaRedonda extends MesaCanvas {
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
         super(id, eventoId, numero, personas, descripcion, top, left);
@@ -8,7 +10,7 @@ export class MesaRedonda extends MesaCanvas {
 
     addToCanvas(canvas, success) {
         let circle = new fabric.Circle({
-            radius: 36,
+            radius: TABLE_RADIUS,
             fill : 'white',
             stroke: 'black',
             strokeWidth: 1,

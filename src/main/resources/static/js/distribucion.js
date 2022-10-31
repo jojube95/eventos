@@ -67,7 +67,7 @@ export function createMesaCanvas(id, eventoId, numero, mayores, ninyos, descripc
 }
 
 
-export function anyadirMesaToCanvas(mesa){
+export function onAnyadirMesaToCanvas(mesa){
     if (mesa.personasCabenEnRedonda()) {
         showTipoMesaModalContent(mesa);
     }

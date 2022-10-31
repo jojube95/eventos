@@ -1,7 +1,7 @@
 import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
-    anyadirMesaToCanvas, canvas,
+    onAnyadirMesaToCanvas, canvas,
     createMesaCanvas, guardarDistribucion,
     updateMesaOnCanvas
 } from "./distribucion.js";
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         if(mesaCanvas.getObjectFromCanvas(canvas) === undefined) {
             let mesaObject = MesaFactory.crearMesa(mesa.id, mesa.eventoId, mesa.numero, {mayores: mesa.mayores, ninyos: mesa.ninyos}, mesa.descripcion, mesa.representante, mesa.pagado);
-            anyadirMesaToCanvas(mesaObject);
+            onAnyadirMesaToCanvas(mesaObject);
         }
     } );
 
@@ -100,7 +100,7 @@ function addMesaAjax(mesaObject, success){
 
         success(mesaObject.getDataTableRowData());
 
-        anyadirMesaToCanvas(mesaObject);
+        onAnyadirMesaToCanvas(mesaObject);
     });
 }
 

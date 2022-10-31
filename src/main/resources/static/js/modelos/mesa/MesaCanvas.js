@@ -1,5 +1,7 @@
 import {Mesa} from "./Mesa.js";
 
+const FONT_SIZE = 12;
+
 export class MesaCanvas extends Mesa{
     constructor(id, eventoId, numero, personas, descripcion, top, left) {
         super(id, eventoId, numero, personas, descripcion);
@@ -16,14 +18,14 @@ export class MesaCanvas extends Mesa{
 
         if (personas.ninyos > 0) {
             text = new fabric.Text("T-" + numero + "\n" + personas.mayores + "p" + "\n" + personas.ninyos + "x", {
-                fontSize: 12,
+                fontSize: FONT_SIZE,
                 originX: 'center',
                 originY: 'center'
             });
         }
         else{
             text = new fabric.Text("T-" + numero + "\n" + personas.mayores + "p", {
-                fontSize: 12,
+                fontSize: FONT_SIZE,
                 originX: 'center',
                 originY: 'center'
             });
