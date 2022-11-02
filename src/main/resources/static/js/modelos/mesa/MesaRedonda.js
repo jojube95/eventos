@@ -18,7 +18,7 @@ export class MesaRedonda extends MesaCanvas {
             originY: 'center'
         });
 
-        this.insertTextToObject(this.id, this.numero, this.personas, this.top, this.left, circle, canvas, success);
+        this.insertTextToObject(circle, canvas, success);
     }
 
     update(canvas, success) {

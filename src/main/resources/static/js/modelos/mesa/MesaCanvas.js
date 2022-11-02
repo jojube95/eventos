@@ -13,18 +13,18 @@ export class MesaCanvas extends Mesa{
         throw new Error('Method "addToCanvas()" must be implemented.');
     }
 
-    insertTextToObject(mesaId, numero, personas, top, left, object, canvas, success) {
+    insertTextToObject(object, canvas, success) {
         let text;
 
-        if (personas.ninyos > 0) {
-            text = new fabric.Text("T-" + numero + "\n" + personas.mayores + "p" + "\n" + personas.ninyos + "x", {
+        if (this.personas.ninyos > 0) {
+            text = new fabric.Text("T-" + this.numero + "\n" + this.personas.mayores + "p" + "\n" + this.personas.ninyos + "x", {
                 fontSize: FONT_SIZE,
                 originX: 'center',
                 originY: 'center'
             });
         }
         else{
-            text = new fabric.Text("T-" + numero + "\n" + personas.mayores + "p", {
+            text = new fabric.Text("T-" + this.numero + "\n" + this.personas.mayores + "p", {
                 fontSize: FONT_SIZE,
                 originX: 'center',
                 originY: 'center'
@@ -33,8 +33,8 @@ export class MesaCanvas extends Mesa{
 
 
         let group = new fabric.Group([ object, text ], {
-            left: left,
-            top: top,
+            left: this.left,
+            top: this.top,
             hasRotatingPoint: false
         });
 
@@ -50,10 +50,11 @@ export class MesaCanvas extends Mesa{
             mtr: false
         });
 
-        group['mesaId'] = mesaId;
-        group['numero'] = numero;
-        group['mayores'] = personas.mayores;
-        group['ninyos'] = personas.ninyos;
+        group['mesaId'] = this.id;
+        group['eventoId'] = this.eventoId;
+        group['numero'] = this.numero;
+        group['mayores'] = this.personas.mayores;
+        group['ninyos'] = this.personas.ninyos;
 
         this.addObjectToCanvas(group, canvas, success);
     }

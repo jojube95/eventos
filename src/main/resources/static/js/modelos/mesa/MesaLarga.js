@@ -23,7 +23,7 @@ export class MesaLarga extends MesaCanvas {
             originY: 'center'
         });
 
-        this.insertTextToObject(this.id, this.numero, this.personas, this.top, this.left, rect, canvas, success);
+        this.insertTextToObject(rect, canvas, success);
     }
 
     calcularLongitudMesaLarga(){

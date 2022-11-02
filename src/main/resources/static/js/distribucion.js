@@ -149,7 +149,7 @@ function exportarDistribucionClicked(){
 }
 
 export function guardarDistribucion(success){
-    let json = canvas.toJSON(['mesaId', 'numero', 'mayores', 'ninyos']);
+    let json = canvas.toJSON(['mesaId', 'eventoId', 'numero', 'mayores', 'ninyos']);
 
     ajaxCall("POST", "/evento/distribucion/guardar", {eventoId: evento.id}, JSON.stringify(json), success);
 }

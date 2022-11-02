@@ -1,1 +1,1 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"a2dfa231f3dd405aacb0dec167f6be6a","collectionName":"empleado","type":"collection"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"8d79458961ad44c8a18d34c622719aec","collectionName":"empleado","type":"collection"}
