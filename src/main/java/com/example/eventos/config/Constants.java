@@ -48,6 +48,7 @@ public final class Constants {
     public static final String INVITADO_TIPO_NINYO = "Niño";
 
     public static final String PROTAGONISTA = "protagonista";
+    public static final String ATTRIBUTE_TIPO_PROTAGONISTAS = "tipos";
 
     public static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
     public static final String ATTRIBUTE_RATIO_BENEFICIOS = "ratioBeneficios";

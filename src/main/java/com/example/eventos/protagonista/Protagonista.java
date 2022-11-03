@@ -1,11 +1,12 @@
 package com.example.eventos.protagonista;
 
 import com.example.eventos.persona.Persona;
+import com.example.eventos.tipoProtagonista.TipoProtagonista;
 
 import java.util.Objects;
 
 public class Protagonista {
-    private String tipo;
+    private TipoProtagonista tipo;
     private Persona persona;
 
 
@@ -13,7 +14,7 @@ public class Protagonista {
 
     }
 
-    public Protagonista(String tipo, Persona persona) {
+    public Protagonista(TipoProtagonista tipo, Persona persona) {
         this.tipo = tipo;
         this.persona = persona;
     }
@@ -26,11 +27,11 @@ public class Protagonista {
         this.persona = persona;
     }
 
-    public String getTipo() {
+    public TipoProtagonista getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoProtagonista tipo) {
         this.tipo = tipo;
     }
 

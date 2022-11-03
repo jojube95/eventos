@@ -2,6 +2,7 @@ package com.example.eventos.protagonista;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.tipoProtagonista.TipoProtagonistaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,11 @@ import static com.example.eventos.config.Constants.*;
 public class ProtagonistaController {
 
     private final EventoService eventoService;
+    private final TipoProtagonistaService tipoProtagonistaService;
 
-    public ProtagonistaController(EventoService eventoService) {
+    public ProtagonistaController(EventoService eventoService, TipoProtagonistaService tipoProtagonistaService) {
         this.eventoService = eventoService;
+        this.tipoProtagonistaService = tipoProtagonistaService;
     }
 
     @GetMapping("/evento/protagonistas")
@@ -43,6 +46,7 @@ public class ProtagonistaController {
     public String eventoAnyadir(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
+        model.addAttribute(ATTRIBUTE_TIPO_PROTAGONISTAS, tipoProtagonistaService.getTipoProtagonistas());
         model.addAttribute(PROTAGONISTA, new Protagonista());
         return PROTAGONISTA_ANYADIR_PAGE;
     }

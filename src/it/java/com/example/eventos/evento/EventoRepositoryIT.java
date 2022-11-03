@@ -6,6 +6,7 @@ import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.tipoEvento.TipoEvento;
+import com.example.eventos.tipoProtagonista.TipoProtagonista;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +34,8 @@ class EventoRepositoryIT {
         Evento evento1 = new Evento("id1", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Evento evento2 = new Evento("id2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
-        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
+        Protagonista protagonista1 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
         Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -47,8 +48,8 @@ class EventoRepositoryIT {
     @Test
     void findAllTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
-        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
+        Protagonista protagonista1 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
@@ -67,8 +68,8 @@ class EventoRepositoryIT {
     @Test
     void findByIdTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
-        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
+        Protagonista protagonista1 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
@@ -101,8 +102,8 @@ class EventoRepositoryIT {
     @Test
     void saveTest(){
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
-        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
+        Protagonista protagonista1 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
@@ -116,8 +117,8 @@ class EventoRepositoryIT {
         Evento evento1 = new Evento("id1", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Evento evento2 = new Evento("id2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
         List<Protagonista> protagonistas = new ArrayList<>();
-        Protagonista protagonista1 = new Protagonista("Novio/a", new Persona("Pepe", "666777888", "pepe@correo.es"));
-        Protagonista protagonista2 = new Protagonista("Novio/a", new Persona("Antonio", "666777999", "antonio@correo.es"));
+        Protagonista protagonista1 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
+        Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
         Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
