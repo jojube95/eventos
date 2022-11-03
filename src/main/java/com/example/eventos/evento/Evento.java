@@ -211,7 +211,7 @@ public class Evento {
         this.distribucion = distribucion;
     }
 
-    public boolean isEventoIndividual(){
+    public boolean isEventoWithMesasConReserva(){
         return false;
     }
 

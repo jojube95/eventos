@@ -25,7 +25,7 @@ public class MesaController {
         List<Mesa> mesas = mesaService.findByEvento(eventoId);
         Evento evento = eventoService.getById(eventoId);
         model.addAttribute(EVENTO, evento);
-        model.addAttribute(ATTRIBUTE_IS_EVENTO_INDIVIDUAL, evento.isEventoIndividual());
+        model.addAttribute(ATTRIBUTE_IS_EVENTO_WITH_MESAS_CON_RESERVA, evento.isEventoWithMesasConReserva());
         model.addAttribute(MESAS, mesas);
         return MESAS_PAGE;
     }

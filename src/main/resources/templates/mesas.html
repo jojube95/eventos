@@ -44,10 +44,10 @@
                         <th th:text="#{mesa.id}" scope="col"></th>
                         <th th:text="#{mesa.eventoId}" scope="col"></th>
                         <th th:text="#{mesa.numero}" scope="col"></th>
-                        <th th:if= "${isEventoIndividual}" th:text="#{mesa.representante}" scope="col"></th>
+                        <th th:if= "${isEventoWithMesasConReserva}" th:text="#{mesa.representante}" scope="col"></th>
                         <th th:text="#{mesa.personas.mayores}" scope="col"></th>
                         <th th:text="#{mesa.personas.ninyos}" scope="col"></th>
-                        <th th:if= "${isEventoIndividual}" th:text="#{mesa.pagado}" scope="col"></th>
+                        <th th:if= "${isEventoWithMesasConReserva}" th:text="#{mesa.pagado}" scope="col"></th>
                         <th th:text="#{mesa.descripcion}" scope="col"></th>
                     </tr>
                     </thead>
@@ -56,10 +56,10 @@
                         <td th:text="${mesa.id}"></td>
                         <td th:text="${mesa.eventoId}"></td>
                         <td th:text="${mesa.numero}"></td>
-                        <td th:if= "${isEventoIndividual}" th:text="${mesa.representante}"></td>
+                        <td th:if= "${isEventoWithMesasConReserva}" th:text="${mesa.representante}"></td>
                         <td th:text="${mesa.personas.mayores}"></td>
                         <td th:text="${mesa.personas.ninyos}"></td>
-                        <td th:if= "${isEventoIndividual}" th:text="${mesa.pagado}"></td>
+                        <td th:if= "${isEventoWithMesasConReserva}" th:text="${mesa.pagado}"></td>
                         <td th:text="${mesa.descripcion}"></td>
                     </tr>
                     </tbody>
@@ -68,10 +68,10 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td th:if= "${isEventoIndividual}"></td>
+                        <td th:if= "${isEventoWithMesasConReserva}"></td>
                         <td></td>
                         <td></td>
-                        <td th:if= "${isEventoIndividual}"></td>
+                        <td th:if= "${isEventoWithMesasConReserva}"></td>
                         <td></td>
                     </tr>
                     </tfoot>

@@ -17,7 +17,7 @@ public class EventoIndividual extends Evento{
 
     // TODO: Probably should be part of javascript OOP
     @Override
-    public boolean isEventoIndividual() {
+    public boolean isEventoWithMesasConReserva() {
         return true;
     }
 }
