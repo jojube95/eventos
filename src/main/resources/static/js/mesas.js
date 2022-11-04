@@ -145,19 +145,6 @@ function onEditRow(datatable, rowdata, success){
     });
 }
 
-export function cerrarInvitadosClicked(invitadosMayores, invitadosNinyos){
-    let mesaSeleccionada = mesasDt.rows({ selected: true }).data()[0];
-
-    let mesaObject = MesaFactory.crearMesa(mesaSeleccionada.id, mesaSeleccionada.eventoId, mesaSeleccionada.numero, {mayores: invitadosMayores, ninyos: invitadosNinyos}, mesaSeleccionada.descripcion);
-
-    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(mesaObject), function () {
-        mesasDt.row({ selected: true }).data(mesaObject.getDataTableRowData());
-        mesasDt.draw();
-
-        updateMesaOnCanvas(mesaObject);
-    });
-}
-
 function exportarListadoClicked(){
     window.location = "/evento/mesas/generarListado?eventoId=" + evento.id;
 }

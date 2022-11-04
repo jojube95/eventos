@@ -110,7 +110,6 @@ function loadCanvas(){
         let objects = canvas.getObjects();
 
         objects.forEach(function(object) {
-
             changeRowColor(object.mesaId, rowColorAdded);
 
             object.setControlsVisibility({
