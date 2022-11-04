@@ -2,134 +2,131 @@ import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {updateMesaOnCanvas} from "./distribucion.js";
 import {mesasDt} from "./mesas.js";
 
+let invitadosDt;
+
 export function initInvitadosModal(dataTableApi) {
     dataTableApi.button('invitados:name').action(function (e, dt) {
         let mesaSeleccionada = dt.rows({ selected: true }).data()[0];
 
-        $.ajax({
-            url: "/evento/mesas/invitados?eventoId=" + evento.id + "&mesaId=" + mesaSeleccionada.id,
-            success: function (data) {
-                $("#invitadosModalHolder").html(data);
-                let columnDefs = [
-                    {
-                        data: "id",
-                        type: "hidden",
-                        visible: false
-                    },
-                    {
-                        data: "eventoId",
-                        type: "hidden",
-                        visible: false
-                    },
-                    {
-                        data: "mesaId",
-                        type: "hidden",
-                        visible: false
-                    },
-                    {
-                        data: "nombre"
+        ajaxCall("GET", "/evento/mesas/invitados", {eventoId: evento.id, mesaId: mesaSeleccionada.id}, {}, function (invitadosModal) {
+            $("#invitadosModalHolder").html(invitadosModal);
 
-                    },
-                    {
-                        data: "tipo",
-                        type: "select",
-                        options: {"Mayor":"Mayor", "Niño":"Niño"}
+            invitadosDt = initInvitadosTable($('#invitados'), onAddRow, onEditRow, onDeleteRow);
 
-                    },
-                    {
-                        data: "descripcion"
+            onCerrarInvitadosModal();
 
-                    }
-                ];
+            $("#invitadosDetailModal").modal("show");
+        });
+    });
+}
 
-                let invitados = $('#invitados').DataTable({
-                    "sPaginationType": "full_numbers",
-                    columns: columnDefs,
-                    dom: 'Bfrtip',
-                    select: 'single',
-                    responsive: true,
-                    paging: false,
-                    info: false,
-                    altEditor: true,
-                    buttons: [
-                        {
-                            text: 'Add',
-                            name: 'add'        // do not change name
-                        },
-                        {
-                            extend: 'selected', // Bind to Selected row
-                            text: 'Edit',
-                            name: 'edit'        // do not change name
-                        },
-                        {
-                            extend: 'selected', // Bind to Selected row
-                            text: 'Delete',
-                            name: 'delete'      // do not change name
-                        }
-                    ],
-                    onAddRow: function(datatable, rowdata, success, error) {
-                        toggleLoadingSpinner($('#addRowBtn'));
-                        delete rowdata.id;
-                        rowdata.eventoId = $('#eventoId').val();
-                        rowdata.mesaId = $('#mesaId').val();
-                        $.ajax({
-                            type: "POST",
-                            contentType: "application/json",
-                            url: "/evento/mesas/invitados/addUpdate",
-                            data: JSON.stringify(rowdata),
-                            dataType: 'json',
-                            success: success,
-                            error: error
-                        });
-                    },
-                    onDeleteRow: function(datatable, rowdata, success, error) {
-                        toggleLoadingSpinner($('#deleteRowBtn'));
-                        $.ajax({
-                            type: "POST",
-                            contentType: "application/json",
-                            url: "/evento/mesas/invitados/delete",
-                            data: JSON.stringify(rowdata[0]),
-                            dataType: 'json',
-                            success: success,
-                            error: error
-                        });
-                    },
-                    onEditRow: function(datatable, rowdata, success, error) {
-                        toggleLoadingSpinner($('#editRowBtn'));
-                        $.ajax({
-                            type: "POST",
-                            contentType: "application/json",
-                            url: "/evento/mesas/invitados/addUpdate",
-                            data: JSON.stringify(rowdata),
-                            dataType: 'json',
-                            success: success,
-                            error: error
-                        });
-                    },
-                    footerCallback: function () {
-                        let api = this.api();
-                        let rows = api.rows({search:'applied'}).count();
+function initInvitadosTable(table, onAddRow, onEditRow, onDeleteRow) {
+    let columnDefs = [
+        {
+            data: "id",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "eventoId",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "mesaId",
+            type: "hidden",
+            visible: false
+        },
+        {
+            data: "nombre"
 
-                        // Update footer
-                        $(api.column().footer()).html("Personas: " + rows);
-                    }
-                });
-                $("#cerrarInvitados").click(function() {
-                    let invitadosMayores = invitados.column(4).data().filter(function(value){
-                        return value === 'Mayor';
-                    }).count();
+        },
+        {
+            data: "tipo",
+            type: "select",
+            options: {"Mayor":"Mayor", "Niño":"Niño"}
 
-                    let invitadosNinyos = invitados.column(4).data().filter(function(value){
-                        return value === 'Niño';
-                    }).count();
+        },
+        {
+            data: "descripcion"
 
-                    cerrarInvitadosClicked(invitadosMayores, invitadosNinyos);
-                });
+        }
+    ];
 
-                $("#invitadosDetailModal").modal("show");
-
+    return table.DataTable({
+        "sPaginationType": "full_numbers",
+        columns: columnDefs,
+        dom: 'Bfrtip',
+        select: 'single',
+        responsive: true,
+        paging: false,
+        info: false,
+        altEditor: true,
+        buttons: [
+            {
+                text: 'Add',
+                name: 'add'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Edit',
+                name: 'edit'        // do not change name
+            },
+            {
+                extend: 'selected', // Bind to Selected row
+                text: 'Delete',
+                name: 'delete'      // do not change name
             }
-        })
+        ],
+        onAddRow: function(datatable, rowdata, success, error) {
+            onAddRow(datatable, rowdata, success, error);
+        },
+        onDeleteRow: function(datatable, rowdata, success, error) {
+            onDeleteRow(datatable, rowdata, success, error);
+        },
+        onEditRow: function(datatable, rowdata, success, error) {
+            onEditRow(datatable, rowdata, success, error);
+        },
+        footerCallback: function () {
+            let api = this.api();
+            let rows = api.rows({search:'applied'}).count();
+
+            // Update footer
+            $(api.column().footer()).html("Personas: " + rows);
+        }
+    });
+}
+
+function onAddRow(datatable, rowdata, success){
+    toggleLoadingSpinner($('#addRowBtn'));
+    delete rowdata.id;
+    rowdata.eventoId = $('#eventoId').val();
+    rowdata.mesaId = $('#mesaId').val();
+
+    ajaxCall("POST", "/evento/mesas/invitados/addUpdate", {}, JSON.stringify(rowdata), success);
+}
+
+function onEditRow(datatable, rowdata, success){
+    toggleLoadingSpinner($('#editRowBtn'));
+    ajaxCall("POST", "/evento/mesas/invitados/addUpdate", {}, JSON.stringify(rowdata), success);
+}
+
+function onDeleteRow(datatable, rowdata, success){
+    toggleLoadingSpinner($('#deleteRowBtn'));
+    ajaxCall("POST", "/evento/mesas/invitados/delete", {}, JSON.stringify(rowdata[0]), success);
+}
+
+function onCerrarInvitadosModal(){
+    $("#cerrarInvitados").click(function() {
+        let invitadosMayores = invitadosDt.column(4).data().filter(function(value){
+            return value === 'Mayor';
+        }).count();
+
+        let invitadosNinyos = invitadosDt.column(4).data().filter(function(value){
+            return value === 'Niño';
+        }).count();
+
+        cerrarInvitadosClicked(invitadosMayores, invitadosNinyos);
     });
 }
 

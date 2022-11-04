@@ -32,7 +32,7 @@ export class MesaLarga extends MesaCanvas {
     }
 
     calcularLargasApoyos(){
-        let mayoresUltimaMesa = this.personas.mayores % 6;
+        let personasUltimaMesa = (this.personas.mayores +  this.personas.ninyos) % 6;
 
         if (this.getTotalPersonas() <= 2){
             return {'largas' : 0, 'apoyos': 2}
@@ -40,7 +40,7 @@ export class MesaLarga extends MesaCanvas {
         else if (this.getTotalPersonas() > 2 && this.getTotalPersonas() <= MAX_PERSONAS_TABLE){
             return {'largas' : 1, 'apoyos': 0}
         }
-        else if (mayoresUltimaMesa > 0 && mayoresUltimaMesa <= 2){
+        else if (personasUltimaMesa > 0 && personasUltimaMesa <= 2){
             return {'largas' : Math.ceil(this.getTotalPersonas() / MAX_PERSONAS_TABLE) - 1, 'apoyos': 1}
         }
         else{
