@@ -50,11 +50,11 @@ class MesaRestControllerTest {
 
     @MockBean
     private EventoService eventoService;
-    /*
+
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(3, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
                 .with(csrf())
@@ -75,7 +75,7 @@ class MesaRestControllerTest {
     void addTestAdmin() throws Exception {
         Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(3, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
 
         when(eventoService.getById(mesa.getEventoId())).thenReturn(evento);
 
@@ -98,7 +98,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(10, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -115,7 +115,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(10, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/delete")
                 .with(csrf())
@@ -132,7 +132,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void updateTest() throws Exception {
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(10, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(10, 1), 2, "descripcion", "Pepe", true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())
@@ -148,7 +148,7 @@ class MesaRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void updateTestAdmin() throws Exception {
-        Mesa mesa = new Mesa("eventoId", "Pepe", new Personas(10, 1), 2, true, "descripcion");
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/update")
                 .with(csrf())
@@ -168,9 +168,10 @@ class MesaRestControllerTest {
         Mesa mesaExcel1 = new Mesa("eventoId", new Personas(2, 1), 1, "Botellas");
         Mesa mesaExcel2 = new Mesa("eventoId", new Personas(1, 1), 2, "");
         Mesa mesaExcel3 = new Mesa("eventoId", new Personas(1, 1), 3, "Licores");
-        Mesa mesa1 = new Mesa("mesaId1", "eventoId", "", new Personas(2, 1), 1, true, "Botellas");
-        Mesa mesa2 = new Mesa("mesaId2", "eventoId", "", new Personas(1, 1), 2, true, "");
-        Mesa mesa3 = new Mesa("mesaId3", "eventoId", "", new Personas(1, 1), 3, true, "Licores");
+        MesaReserva mesa1 = new MesaReserva("mesaId1", "eventoId", new Personas(2, 1), 1, "Botellas", "", true);
+        MesaReserva mesa2 = new MesaReserva("mesaId2", "eventoId", new Personas(1, 1), 2, "", "", true);
+        MesaReserva mesa3 = new MesaReserva("mesaId3", "eventoId", new Personas(1, 1), 3, "Licores", "", true);
+
         List<Invitado> invitados1 = new ArrayList<>();
         List<Invitado> invitados2 = new ArrayList<>();
         List<Invitado> invitados3 = new ArrayList<>();
@@ -216,6 +217,4 @@ class MesaRestControllerTest {
         verify(invitadoService, times(1)).saveMany(invitados2);
         verify(invitadoService, times(1)).saveMany(invitados3);
     }
-
-     */
 }

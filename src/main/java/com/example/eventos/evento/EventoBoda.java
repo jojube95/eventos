@@ -1,17 +1,21 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.personas.Personas;
+import com.example.eventos.protagonista.Protagonista;
 import com.example.eventos.tipoEvento.TipoEvento;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
+import java.util.List;
 
 @Document("evento")
 @TypeAlias("EventoBoda")
 public class EventoBoda extends Evento{
-    public EventoBoda(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, float precioMenu, float precioMenuNinyos, String localidad, Date fecha, String titulo, String sala) {
-        super(id, tipo, horario, personas, precioMenu, precioMenuNinyos, localidad, fecha, titulo, sala);
+    public EventoBoda(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+                      boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
+        super(id, tipo, horario, personas, localidad, fecha, precioMenu, precioMenuNinyos, confirmado, protagonistas, titulo, sala, distribucion);
     }
 
     @Override

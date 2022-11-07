@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col">
             <span class="font-weight-bold">Personas</span>
-            <span id="personas" class="font-weight-normal">50</span>
+            <span id="personas" class="font-weight-normal">50p, 15x</span>
         </div>
         <div class="col">
             <span class="font-weight-bold">Camareros recomendados</span>
@@ -56,10 +56,10 @@
             </thead>
             <tbody>
             <tr>
-                <td>id1</td>
-                <td>eventoId1</td>
-                <td>empleadoId1</td>
-                <td>tipo1</td>
+                <td></td>
+                <td>idEvento1</td>
+                <td>idEmpleado1</td>
+                <td>camarero</td>
                 <td>nombre1</td>
                 <td>
                     <div class="custom-control custom-checkbox">
@@ -75,17 +75,17 @@
                 </td>
                 <td>0.5</td>
                 <td>
-                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id1" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                    <button type="button" class="btn btn-primary" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id1" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
                 </td>
             </tr>
             <tr>
-                <td>id2</td>
-                <td>eventoId2</td>
-                <td>empleadoId2</td>
-                <td>tipo2</td>
+                <td></td>
+                <td>idEvento2</td>
+                <td>idEmpleado2</td>
+                <td>cocinero</td>
                 <td>nombre2</td>
                 <td>
                     <div class="custom-control custom-checkbox">
@@ -101,10 +101,10 @@
                 </td>
                 <td>1.5</td>
                 <td>
-                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id2" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                    <button type="button" class="btn btn-primary" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id2" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
                 </td>
             </tr>
             </tbody>
@@ -115,6 +115,7 @@
                 <td></td>
                 <td></td>
                 <td>Total:</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

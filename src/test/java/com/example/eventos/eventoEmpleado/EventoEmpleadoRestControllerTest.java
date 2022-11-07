@@ -4,6 +4,7 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
+import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
 import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
@@ -44,6 +45,9 @@ class EventoEmpleadoRestControllerTest {
     @MockBean
     private EventoEmpleadoService eventoEmpleadoService;
 
+    @MockBean
+    private EventoService eventoService;
+
     Date fecha;
 
     @BeforeEach
@@ -75,6 +79,7 @@ class EventoEmpleadoRestControllerTest {
         Evento evento = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/empleados/anyadir")
@@ -113,7 +118,7 @@ class EventoEmpleadoRestControllerTest {
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
-
+        eventoEmpleado.setId("id");
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -158,7 +163,7 @@ class EventoEmpleadoRestControllerTest {
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
-
+        eventoEmpleado.setId("id");
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

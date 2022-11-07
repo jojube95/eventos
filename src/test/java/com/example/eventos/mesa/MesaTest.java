@@ -6,21 +6,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MesaTest {
-    Mesa mesa1;
+    MesaReserva mesa1;
     Mesa mesa2;
     Mesa mesa3;
-    Mesa mesa4;
+    MesaReserva mesa4;
     Mesa mesaExcel1;
     Mesa mesaExcel2;
     Mesa mesaExcel3;
 
-    /*
     @BeforeEach
     public void initEach(){
-        mesa1 = new Mesa("eventoId", "representante",new Personas(8, 1), 2, false, "descripcion");
+        mesa1 = new MesaReserva("id", "eventoId", new Personas(8, 1), 2, "descripcion", "representante", false);
+
         mesa2 = new Mesa("eventoId", new Personas(8, 1), 2, "descripcion");
         mesa3 = new Mesa("mesaId", "eventoId", new Personas(8, 1), 2, "descripcion");
-        mesa4 = new Mesa("mesaId", "eventoId", "representante", new Personas(8, 1), 2, true, "descripcion");
+        mesa4 = new MesaReserva("id", "eventoId", new Personas(8, 1), 2, "descripcion", "representante", true);
+
         mesaExcel1 = new Mesa("Taula 1-Botellas", "eventoId", new Personas(8, 2));
         mesaExcel2 = new Mesa("Mesa 3 - Licores ", "eventoId", new Personas(8, 2));
         mesaExcel3 = new Mesa("Mesa 7  ", "eventoId", new Personas(8, 2));
@@ -89,15 +90,15 @@ class MesaTest {
 
     @Test
     void equalsTestTrue(){
-        Mesa mesa5 = new Mesa("mesaId", "eventoId", "representante", new Personas(8, 1), 2, true, "descripcion");
+        MesaReserva mesa5 = new MesaReserva("id", "eventoId", new Personas(8, 1), 2, "descripcion", "representante", true);
+
         assertEquals(mesa4, mesa5);
     }
 
     @Test
     void equalsTestFalse(){
-        Mesa mesa5 = new Mesa("mesaId", "eventoId", "representante",new Personas(9, 1), 2, true, "descripcion");
+        MesaReserva mesa5 = new MesaReserva("id", "eventoId", new Personas(9, 1), 2, "descripcion", "representante", true);
+
         assertNotEquals(mesa4, mesa5);
     }
-
-     */
 }

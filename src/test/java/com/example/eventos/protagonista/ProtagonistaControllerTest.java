@@ -9,6 +9,7 @@ import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.eventos.tipoProtagonista.TipoProtagonista;
+import com.example.eventos.tipoProtagonista.TipoProtagonistaService;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,9 @@ class ProtagonistaControllerTest {
 
     @MockBean
     private EventoService eventoService;
+
+    @MockBean
+    private TipoProtagonistaService tipoProtagonistaService;
 
     Date fecha;
 
@@ -99,8 +103,14 @@ class ProtagonistaControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/protagonistaAnyadir.html");
 
         Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        List<TipoProtagonista> tipoProtagonistas = new ArrayList<>();
+        TipoProtagonista tipoProtagonista1 = new TipoProtagonista("novio/novia");
+        TipoProtagonista tipoProtagonista2 = new TipoProtagonista("padre/madre");
+        tipoProtagonistas.add(tipoProtagonista1);
+        tipoProtagonistas.add(tipoProtagonista2);
 
         when(eventoService.getById("eventoId")).thenReturn(evento);
+        when(tipoProtagonistaService.getTipoProtagonistas()).thenReturn(tipoProtagonistas);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/protagonistas/anyadir")
                 .locale(new Locale("es", "ES"))

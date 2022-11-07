@@ -52,16 +52,16 @@ class MesaControllerTest {
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
     }
-    /*
+
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
         Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Mesa mesa1 = new Mesa("eventoId", "Pepe", new Personas(10, 1), 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("eventoId", "Antonio", new Personas(6, 1), 2, false, "descripcion");
-        Mesa mesa3 = new Mesa("eventoId", "José", new Personas(7, 1), 3, true, "descripcion");
+        MesaReserva mesa1 = new MesaReserva("id", "eventoId", new Personas(10, 1), 1, "descripcion", "Pepe", true);
+        MesaReserva mesa2 = new MesaReserva("id", "eventoId", new Personas(6, 1), 2, "descripcion", "Antonio", false);
+        MesaReserva mesa3 = new MesaReserva("id", "eventoId", new Personas(7, 1), 3, "descripcion", "José", true);
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
         mesas.add(mesa2);
@@ -83,7 +83,8 @@ class MesaControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void generarListadoTest() throws Exception {
-        Mesa mesa1 = new Mesa("mesaId", "eventoId", "Pepe", new Personas(10, 1), 1, true, "descripcion");
+        MesaReserva mesa1 = new MesaReserva("mesaId", "eventoId", new Personas(10, 1), 1, "descripcion", "Pepe", true);
+
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
 
@@ -106,6 +107,4 @@ class MesaControllerTest {
 
         assertEquals(1226, resultContent.length);
     }
-
-     */
 }

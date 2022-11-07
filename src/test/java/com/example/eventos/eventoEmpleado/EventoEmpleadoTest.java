@@ -54,8 +54,12 @@ class EventoEmpleadoTest {
 
     @Test
     void toStringTest(){
-        assertEquals("EventoEmpleado{id='null', eventoId='eventoId', empleadoId='empleadoId', tipo='tipo', nombre='nombre', fijo=true, confirmado=true, horasExtras=0.0}", eventoEmpleadoNoId.toString());
-        assertEquals("EventoEmpleado{id='id', eventoId='eventoId', empleadoId='empleadoId', tipo='tipo', nombre='nombre', fijo=true, confirmado=true, horasExtras=0.0}", eventoEmpleadoWithId.toString());
+        assertEquals("EventoEmpleado{id='null', evento=Personas: 50\n" +
+                "Localidad: Olleria\n" +
+                "Confirmada: Sí, empleado=Empleado{id='idEmpleado1', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre1', telefono='666777888', correo='correo'}, fijo=true}, confirmado=true, horasExtras=0.0}", eventoEmpleadoNoId.toString());
+        assertEquals("EventoEmpleado{id='id', evento=Personas: 50\n" +
+                "Localidad: Olleria\n" +
+                "Confirmada: Sí, empleado=Empleado{id='idEmpleado1', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre1', telefono='666777888', correo='correo'}, fijo=true}, confirmado=true, horasExtras=0.0}", eventoEmpleadoWithId.toString());
     }
 
     @Test

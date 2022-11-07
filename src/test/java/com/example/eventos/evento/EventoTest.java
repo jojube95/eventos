@@ -38,7 +38,7 @@ class EventoTest {
         assertEquals(new TipoEvento("boda"), eventoSimple.getTipo());
         assertEquals(new HorarioEvento("cena"), eventoSimple.getHorario());
         assertEquals(150, eventoSimple.getPersonas().getMayores());
-        assertEquals(10, eventoProtagonistas.getPersonas().getNinyos());
+        assertEquals(15, eventoProtagonistas.getPersonas().getNinyos());
         assertEquals("Aielo de Malferit", eventoSimple.getLocalidad());
         assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoSimple.getFecha());
         assertEquals("Boda-Cena", eventoSimple.getTitulo());
@@ -51,7 +51,7 @@ class EventoTest {
         assertEquals(new TipoEvento("boda"), eventoNoProtagonistas.getTipo());
         assertEquals(new HorarioEvento("cena"), eventoNoProtagonistas.getHorario());
         assertEquals(150, eventoNoProtagonistas.getPersonas().getMayores());
-        assertEquals(10, eventoProtagonistas.getPersonas().getNinyos());
+        assertEquals(15, eventoProtagonistas.getPersonas().getNinyos());
         assertEquals("Aielo de Malferit", eventoNoProtagonistas.getLocalidad());
         assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoNoProtagonistas.getFecha());
         assertEquals("Boda-Cena", eventoNoProtagonistas.getTitulo());

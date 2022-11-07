@@ -6,6 +6,8 @@ import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.parametros.Parametros;
+import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.persona.Persona;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
@@ -44,6 +46,9 @@ class EventoEmpleadoControllerTest {
 
     @MockBean
     private EventoService eventoService;
+
+    @MockBean
+    private ParametrosService parametrosService;
 
     Date fecha;
 
@@ -96,6 +101,7 @@ class EventoEmpleadoControllerTest {
         when(empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), true)).thenReturn(empleadosFijos);
         when(empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), false)).thenReturn(empleadosNoFijos);
         when(eventoEmpleadoService.getByEventoId(evento.getId())).thenReturn(eventoEmpleados);
+        when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados")
                 .locale(new Locale("es", "ES"))
@@ -130,6 +136,7 @@ class EventoEmpleadoControllerTest {
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
+        eventoEmpleado.setId("id");
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
