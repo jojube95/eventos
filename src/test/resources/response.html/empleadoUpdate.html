@@ -18,9 +18,8 @@
             <div class="col">
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
-                    <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
-                        <option id="optionCamarero" value="Camarero/a">Camarero/a</option>
-                        <option id="optionCocinera" value="Cocinero/a">Cocinero/a</option>
+                    <select class="form-control" id="tipo" name="tipo.value">
+
                     </select>
                 </div>
             </div>
@@ -35,13 +34,13 @@
             <div class="col">
                 <div class="form-group required">
                     <label class="control-label" for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" required name="nombre" value="nombre">
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" required name="persona.nombre" value="nombre">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group required">
                     <label class="control-label" for="telefono">Teléfono</label>
-                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required name="telefono" value="telefono">
+                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" required name="persona.telefono" value="telefono">
                 </div>
             </div>
             <div class="col">

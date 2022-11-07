@@ -1,10 +1,10 @@
 package com.example.eventos.empleado;
 
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
 import com.example.eventos.persona.Persona;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEmpleado.TipoEmpleado;
+import com.example.eventos.tipoEmpleado.TipoEmpleadoService;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,11 @@ class EmpleadoControllerTest {
     private EmpleadoService empleadoService;
 
     @MockBean
-    private EventoEmpleadoService eventoEmpleadoService;
+    private EventoService eventoService;
 
     @MockBean
-    private EventoService eventoService;
+    private TipoEmpleadoService tipoEmpleadoService;
+
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
@@ -82,6 +83,8 @@ class EmpleadoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(tipoEmpleadoService, times(1)).getTipoEmpleados();
     }
 
     @Test
@@ -142,6 +145,8 @@ class EmpleadoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(tipoEmpleadoService, times(1)).getTipoEmpleados();
     }
 
     @Test
@@ -155,5 +160,20 @@ class EmpleadoControllerTest {
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getHistorialEmpleadoTestAdmin() throws Exception {
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+
+        when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoHistorial")
+                .param("empleadoId", empleado.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(200));
+
+        verify(eventoService, times(1)).getByEmpleadoId("id");
     }
 }

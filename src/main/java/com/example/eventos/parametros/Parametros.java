@@ -14,6 +14,13 @@ public class Parametros {
     public Parametros() {
     }
 
+    public Parametros(float precioNinyosBodaComunion, float precioNinyosOtros, float ratioBeneficios, float ratioCamarerosEvento) {
+        this.precioNinyosBodaComunion = precioNinyosBodaComunion;
+        this.precioNinyosOtros = precioNinyosOtros;
+        this.ratioBeneficios = ratioBeneficios;
+        this.ratioCamarerosEvento = ratioCamarerosEvento;
+    }
+
     public float getPrecioNinyosBodaComunion() {
         return precioNinyosBodaComunion;
     }

@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
-        <label>Fecha mínima</label>
+        <label for="fechaMin">Fecha mínima</label>
         <input type="text" placeholder="Fecha mínima" id="fechaMin">
     </div>
     <div class="row">
-        <label>Fecha máxima</label>
+        <label for="fechaMax">Fecha máxima</label>
         <input type="text" placeholder="Fecha máxima" id="fechaMax">
     </div>
 
@@ -19,15 +19,16 @@
                 <th scope="col">Horario</th>
                 <th scope="col">Sala</th>
                 <th scope="col">Localidad</th>
-                <th scope="col">Personas</th>
+                <th scope="col">Mayores</th>
 
                 <th scope="col">Niños</th>
 
                 <th scope="col">Confirmado</th>
+
             </tr>
             </thead>
             <tbody>
-            <tr style="cursor: pointer" eventoId="id" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <tr eventoId="id" onclick="rowClicked(this.getAttribute('eventoId'))">
                 <td>2022-07-25</td>
                 <td>Comunión-Comida</td>
                 <td>Comunión</td>
@@ -44,8 +45,9 @@
                         <label class="custom-control-label">Si</label>
                     </div>
                 </td>
+
             </tr>
-            <tr style="cursor: pointer" eventoId="id" onclick="rowClicked(this.getAttribute('eventoId'))">
+            <tr eventoId="id" onclick="rowClicked(this.getAttribute('eventoId'))">
                 <td>2022-07-25</td>
                 <td>Comunión-Comida</td>
                 <td>Comunión</td>
@@ -62,19 +64,20 @@
                         <label class="custom-control-label">Si</label>
                     </div>
                 </td>
+
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="6" style="text-align:right">Total:</td>
+                <td colspan="6">Total:</td>
                 <td></td>
 
                 <td></td>
 
                 <td></td>
+
             </tr>
             </tfoot>
         </table>
     </div>
-
 </div>

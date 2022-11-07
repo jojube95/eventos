@@ -46,29 +46,25 @@
             <div class="col">
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
-                    <select class="form-control" id="tipo" onchange="generarTitulo()" name="tipo">
-                        <option id="optionBoda" value="Boda">Boda</option>
-                        <option id="optionComunion" value="Comunion">Comunión</option>
-                        <option id="optionEventoComunal" value="Evento comunal">Evento comunal</option>
-                        <option id="optionEventoIndividual" value="Evento individual">Evento individual</option>
-                        <option id="optionBautizo" value="Bautizo">Bautizo</option>
-                        <option id="optionPruebas" value="Pruebas">Pruebas</option>
+                    <select class="form-control" id="tipo" name="tipo.value">
+                        <option value="boda">Boda</option>
+                        <option value="comunion" selected="selected">Comunión</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="horario">Horario</label>
-                    <select class="form-control" id="horario" onchange="generarTitulo()" name="horario">
-                        <option id="optionComida" value="Comida" selected="selected">Comida</option>
-                        <option id="optionCena" value="Cena">Cena</option>
+                    <select class="form-control" id="horario" name="horario.value">
+                        <option value="comida" selected="selected">Comida</option>
+                        <option value="cena">Cena</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="titulo">Título</label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Título" onchange="anyadirHorario()" required name="titulo" value="Comuni&oacute;n-Comida">
+                    <input type="text" class="form-control" id="titulo" placeholder="Título" required name="titulo" value="Comuni&oacute;n-Comida">
                 </div>
             </div>
         </div>
@@ -93,8 +89,8 @@
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <label for="personas">Personas</label>
-                    <input type="number" class="form-control" id="personas" required name="personas" value="50">
+                    <label for="mayores">Mayores</label>
+                    <input type="number" class="form-control" id="mayores" required name="personas.mayores" value="50">
                 </div>
             </div>
             <div class="col">
@@ -111,7 +107,7 @@
             <div class="col">
                 <div class="form-group">
                     <label for="ninyos">Niños</label>
-                    <input type="number" class="form-control" id="ninyos" required name="ninyos" value="15">
+                    <input type="number" class="form-control" id="ninyos" required name="personas.ninyos" value="15">
                 </div>
             </div>
             <div class="col">

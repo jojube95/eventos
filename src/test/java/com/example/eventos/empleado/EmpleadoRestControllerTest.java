@@ -50,7 +50,7 @@ class EmpleadoRestControllerTest {
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        String expectedResponse = "{\"id\":\"id\",\"tipo\":\"tipo\",\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"fijo\":true}";
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"camarero\"},\"persona\":{\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"correo\":\"correo\"},\"fijo\":true}";
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eliminarEmpleado")
                 .with(csrf())

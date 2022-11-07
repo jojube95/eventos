@@ -2,14 +2,17 @@ package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.horarioEvento.HorarioEventoService;
 import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoFactory;
-import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.mesa.Mesa;
-import com.example.eventos.mesa.MesaService;
+import com.example.eventos.mesa.MesaReserva;
+import com.example.eventos.parametros.Parametros;
+import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
+import com.example.eventos.tipoEvento.TipoEventoService;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,10 +44,13 @@ class EventoControllerTest {
     private EventoService eventoService;
 
     @MockBean
-    private MesaService mesaService;
+    private ParametrosService parametrosService;
 
     @MockBean
-    private InvitadoService invitadoService;
+    private TipoEventoService tipoEventoService;
+
+    @MockBean
+    private HorarioEventoService horarioEventoService;
 
     Date fecha;
 
@@ -56,7 +62,7 @@ class EventoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getverEventosTestUsuario() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosUsuario.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventosVerUsuario.html");
 
         Evento evento1 = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Evento evento2 = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -66,6 +72,7 @@ class EventoControllerTest {
         eventos.add(evento2);
 
         when(eventoService.getEventos()).thenReturn(eventos);
+        when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventosVer")
                 .locale(new Locale("es", "ES"));
@@ -74,12 +81,15 @@ class EventoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(eventoService, times(1)).getEventos();
+        verify(parametrosService, times(1)).get();
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getverEventosTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/verEventosAdmin.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventosVerAdmin.html");
 
         Evento evento1 = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Evento evento2 = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -89,6 +99,7 @@ class EventoControllerTest {
         eventos.add(evento2);
 
         when(eventoService.getEventos()).thenReturn(eventos);
+        when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventosVer")
                 .locale(new Locale("es", "ES"));
@@ -97,6 +108,9 @@ class EventoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(eventoService, times(1)).getEventos();
+        verify(parametrosService, times(1)).get();
     }
 
     @Test
@@ -105,12 +119,32 @@ class EventoControllerTest {
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoAnyadir");
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(tipoEventoService, times(0)).getTipoEventos();
+        verify(horarioEventoService, times(0)).getHorarioEventos();
+        verify(parametrosService, times(0)).get();
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getEventoAnyadirTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoAnyadir.html");
+
+        List<TipoEvento> tipoEventos = new ArrayList<>();
+        TipoEvento tipoEvento1 = new TipoEvento("boda");
+        TipoEvento tipoEvento2 = new TipoEvento("comunion");
+        tipoEventos.add(tipoEvento1);
+        tipoEventos.add(tipoEvento2);
+
+        List<HorarioEvento> horarioEventos = new ArrayList<>();
+        HorarioEvento horarioEvento1 = new HorarioEvento("comida");
+        HorarioEvento horarioEvento2 = new HorarioEvento("cena");
+        horarioEventos.add(horarioEvento1);
+        horarioEventos.add(horarioEvento2);
+
+        when(tipoEventoService.getTipoEventos()).thenReturn(tipoEventos);
+        when(horarioEventoService.getHorarioEventos()).thenReturn(horarioEventos);
+        when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoAnyadir")
                 .locale(new Locale("es", "ES"));
@@ -119,11 +153,15 @@ class EventoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(tipoEventoService, times(1)).getTipoEventos();
+        verify(horarioEventoService, times(1)).getHorarioEventos();
+        verify(parametrosService, times(2)).get();
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void geteventoUpdateTest() throws Exception {
+    void getEventoUpdateTest() throws Exception {
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -132,16 +170,35 @@ class EventoControllerTest {
                 .param("eventoId", evento.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+
+        verify(tipoEventoService, times(0)).getTipoEventos();
+        verify(horarioEventoService, times(0)).getHorarioEventos();
+        verify(parametrosService, times(0)).get();
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void geteventoUpdateTestAdmin() throws Exception {
+    void getEventoUpdateTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoUpdate.html");
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
+        List<TipoEvento> tipoEventos = new ArrayList<>();
+        TipoEvento tipoEvento1 = new TipoEvento("boda");
+        TipoEvento tipoEvento2 = new TipoEvento("comunion");
+        tipoEventos.add(tipoEvento1);
+        tipoEventos.add(tipoEvento2);
+
+        List<HorarioEvento> horarioEventos = new ArrayList<>();
+        HorarioEvento horarioEvento1 = new HorarioEvento("comida");
+        HorarioEvento horarioEvento2 = new HorarioEvento("cena");
+        horarioEventos.add(horarioEvento1);
+        horarioEventos.add(horarioEvento2);
+
         when(eventoService.getById(evento.getId())).thenReturn(evento);
+        when(tipoEventoService.getTipoEventos()).thenReturn(tipoEventos);
+        when(horarioEventoService.getHorarioEventos()).thenReturn(horarioEventos);
+        when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/eventoUpdate")
                 .locale(new Locale("es", "ES"))
@@ -151,11 +208,16 @@ class EventoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(eventoService, times(1)).getById(evento.getId());
+        verify(tipoEventoService, times(1)).getTipoEventos();
+        verify(horarioEventoService, times(1)).getHorarioEventos();
+        verify(parametrosService, times(2)).get();
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void posteventoUpdateTestUsuario() throws Exception {
+    void postEventoUpdateTestUsuario() throws Exception {
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eventoUpdate")
@@ -169,8 +231,9 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void posteventoUpdateTestAdmin() throws Exception {
+    void postEventoUpdateTestAdmin() throws Exception {
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
         Evento eventoUpdated = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida2"), new Personas(51, 16), "Olleria2", fecha, 81, 16, true, new ArrayList<>(), "Comunión-Comida2", "Sala2", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
@@ -186,7 +249,7 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
-    void geteventoVerTestUsuario() throws Exception {
+    void getEventoVerTestUsuario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoVerUsuario.html");
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -205,7 +268,7 @@ class EventoControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void geteventoVerTestAdmin() throws Exception {
+    void getEventoVerTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoVerAdmin.html");
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
@@ -296,25 +359,14 @@ class EventoControllerTest {
         verify(eventoService, times(1)).update(evento);
     }
 
-    /*
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getCalcularPersonasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoPersonasConfirmModal.html");
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        List<Mesa> mesas = new ArrayList<>();
-        Mesa mesa1 = new Mesa("id", "Antonio", new Personas(10, 1), 1, true, "descripcion");
-        Mesa mesa2 = new Mesa("id", "Antonio", new Personas(10, 1), 1, true, "descripcion");
-        mesas.add(mesa1);
-        mesas.add(mesa2);
-        List<Invitado> invitados = new ArrayList<>();
-        Invitado invitado1 = InvitadoFactory.crearInvitado("idInvitado", "id", "mesaId", "Pepe", "Mayor", "Descripcion");
-        Invitado invitado2 = InvitadoFactory.crearInvitado("idInvitado", "id", "mesaId", "Pepe", "Mayor", "Descripcion");
-        invitados.add(invitado1);
-        invitados.add(invitado2);
-        when(mesaService.findByEvento(evento.getId())).thenReturn(mesas);
-        when(invitadoService.findByMesa(null)).thenReturn(invitados);
+
+        when(eventoService.calcularPersonas("id")).thenReturn(new Personas(2, 0));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/calcularPersonas")
                 .locale(new Locale("es", "ES"))
@@ -324,6 +376,7 @@ class EventoControllerTest {
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(eventoService, times(1)).calcularPersonas("id");
     }
-    */
 }

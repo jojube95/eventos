@@ -17,8 +17,8 @@ class DistribucionTest {
 
     @Test
     void toStringTest(){
-        assertEquals("Distribucion{distribucion='distribucion1'}",  distribucion1.toString());
-        assertEquals("Distribucion{distribucion='distribucion2'}", distribucion2.toString());
+        assertEquals("Distribucion{mapa='distribucion1'}",  distribucion1.toString());
+        assertEquals("Distribucion{mapa='distribucion2'}", distribucion2.toString());
     }
 
     @Test

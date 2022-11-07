@@ -33,7 +33,7 @@ class DistribucionControllerTest {
                 .locale(new Locale("es", "ES"))
                 .param("mesaId", "123")
                 .param("numero", "1")
-                .param("personas", "12")
+                .param("mayores", "12")
                 .param("ninyos", "3");
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
