@@ -89,10 +89,29 @@ class MesaRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
         verify(mesaService, times(1)).save(mesa);
-        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado1", "Mayor", ""));
-        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado2", "Mayor", ""));
-        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Invitado3", "Mayor", ""));
-        verify(invitadoService, times(1)).save(InvitadoFactory.crearInvitado("id", mesa.getEventoId(), mesa.getId(), "Niño1", "Ninyo", ""));
+        verify(mesaService, times(1)).generateInvitados(mesa);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void addIndividualTestAdmin() throws Exception {
+        Evento evento = new Evento("eventoId", new TipoEvento("eventoIndividual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
+        MesaReserva mesa = new MesaReserva("id", "eventoId", new Personas(3, 1), 2, "descripcion", "Pepe", true);
+
+        when(eventoService.getById(mesa.getEventoId())).thenReturn(evento);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/add")
+                .with(csrf())
+                .param("eventoId", mesa.getEventoId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(mesa));
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
+
+        verify(mesaService, times(1)).save(mesa);
+        verify(mesaService, times(0)).generateInvitados(mesa);
     }
 
     @Test
@@ -175,18 +194,18 @@ class MesaRestControllerTest {
         List<Invitado> invitados1 = new ArrayList<>();
         List<Invitado> invitados2 = new ArrayList<>();
         List<Invitado> invitados3 = new ArrayList<>();
-        Invitado invitado1 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Antonio", "Mayor", "");
-        Invitado invitado2 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Pepe", "Mayor", "Intolerant");
-        Invitado invitado3 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId1", "Amaia", "Niño", "Celiaca");
+        Invitado invitado1 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId1", "Antonio", "Mayor", "");
+        Invitado invitado2 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId1", "Pepe", "Mayor", "Intolerant");
+        Invitado invitado3 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId1", "Amaia", "Niño", "Celiaca");
         invitados1.add(invitado1);
         invitados1.add(invitado2);
         invitados1.add(invitado3);
-        Invitado invitado4 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId2", "Amaia", "Mayor", "");
-        Invitado invitado5 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId2", "Pepe", "Niño", "Celiaco");
+        Invitado invitado4 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId2", "Amaia", "Mayor", "");
+        Invitado invitado5 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId2", "Pepe", "Niño", "Celiaco");
         invitados2.add(invitado4);
         invitados2.add(invitado5);
-        Invitado invitado6 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId3", "Jose", "Mayor", "");
-        Invitado invitado7 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId3", "Pepa", "Niño", "");
+        Invitado invitado6 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId3", "Jose", "Mayor", "");
+        Invitado invitado7 = InvitadoFactory.crearInvitado(null, "eventoId", "mesaId3", "Pepa", "Niño", "");
         invitados3.add(invitado6);
         invitados3.add(invitado7);
 

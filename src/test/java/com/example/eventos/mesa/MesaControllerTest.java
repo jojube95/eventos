@@ -4,9 +4,6 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.horarioEvento.HorarioEvento;
-import com.example.eventos.invitado.Invitado;
-import com.example.eventos.invitado.InvitadoFactory;
-import com.example.eventos.invitado.InvitadoService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
 import com.example.eventos.tipoEvento.TipoEvento;
@@ -25,8 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.*;
 import static com.example.utilities.TestUtilities.processContent;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,9 +38,6 @@ class MesaControllerTest {
 
     @MockBean
     private MesaService mesaService;
-
-    @MockBean
-    private InvitadoService invitadoService;
 
     Date fecha;
 
@@ -88,23 +81,14 @@ class MesaControllerTest {
         List<Mesa> mesas = new ArrayList<>();
         mesas.add(mesa1);
 
-        Invitado invitado1 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Pepe", "Mayor", "");
-        Invitado invitado2 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
-        Invitado invitado3 = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "José", "Mayor", "");
-        List<Invitado> invitados = new ArrayList<>();
-        invitados.add(invitado1);
-        invitados.add(invitado2);
-        invitados.add(invitado3);
-
         when(mesaService.findByEventoOrderByNumero("eventoId")).thenReturn(mesas);
-        when(invitadoService.findByMesa("mesaId")).thenReturn(invitados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/generarListado")
                 .locale(new Locale("es", "ES"))
                 .param("eventoId", "eventoId");
 
-        byte[] resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray();
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsByteArray();
 
-        assertEquals(1226, resultContent.length);
+        verify(mesaService, times(1)).listadoPdfGenerator(mesas);
     }
 }

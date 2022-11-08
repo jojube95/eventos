@@ -53,7 +53,7 @@ class MesaTest {
 
     @Test
     void constructor4Test(){
-        assertEquals("mesaId", mesa4.getId());
+        assertEquals("id", mesa4.getId());
         assertEquals("eventoId", mesa4.getEventoId());
         assertEquals("representante", mesa4.getRepresentante());
         assertEquals(8, mesa4.getPersonas().getMayores());
