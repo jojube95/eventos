@@ -78,10 +78,21 @@ class EventoServiceTest {
 
         Mockito.reset(authentication, securityContext);
     }
+
     @Test
     void getEventoByIdTest() {
         eventoService.getById(evento.getId());
         verify(eventoRepository, times(1)).findEventoById(evento.getId());
+    }
+
+    @Test
+    void getByEmpleadoIdTest() {
+        // TODO
+    }
+
+    @Test
+    void calcularPersonasTest() {
+        // TODO
     }
 
     @Test

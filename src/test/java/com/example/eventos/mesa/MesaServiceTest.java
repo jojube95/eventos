@@ -61,4 +61,14 @@ class MesaServiceTest {
         verify(mesaRepository, times(1)).deleteByEventoId(mesa.getEventoId());
         verify(invitadoRepository, times(1)).deleteByEventoId(mesa.getEventoId());
     }
+
+    @Test
+    void generateInvitadosTest(){
+        // TODO
+    }
+
+    @Test
+    void listadoPdfGeneratorTest(){
+        // TODO
+    }
 }

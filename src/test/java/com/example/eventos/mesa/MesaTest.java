@@ -101,4 +101,13 @@ class MesaTest {
 
         assertNotEquals(mesa4, mesa5);
     }
+
+    @Test
+    void toStringTest(){
+        assertEquals("Mesa 2. 8p, 1x. Descripción: descripcion", mesa2.toString());
+        assertEquals("Mesa 2. 8p, 1x. Descripción: descripcion", mesa3.toString());
+        assertEquals("Mesa 1. 8p, 2x. Descripción: Botellas", mesaExcel1.toString());
+        assertEquals("Mesa 3. 8p, 2x. Descripción: Licores", mesaExcel2.toString());
+        assertEquals("Mesa 7. 8p, 2x", mesaExcel3.toString());
+    }
 }

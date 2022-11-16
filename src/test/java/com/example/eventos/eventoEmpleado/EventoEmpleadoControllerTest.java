@@ -135,8 +135,7 @@ class EventoEmpleadoControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
-        eventoEmpleado.setId("id");
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, false, 0.5F);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
