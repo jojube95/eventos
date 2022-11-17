@@ -37,7 +37,7 @@ public class EmpleadoModificarStepDef {
         String actualTelefono = connector.getDriver().findElement(By.id("telefono")).getAttribute("value");
         String actualFijo = connector.getDriver().findElement(By.id("fijo")).getAttribute("value");
 
-        assertEquals("Camarero/a", actualTipo);
+        assertEquals("camarero", actualTipo);
         assertEquals("Antonio", actualNombre);
         assertEquals("666777888", actualTelefono);
         assertEquals("true", actualFijo);
@@ -46,7 +46,7 @@ public class EmpleadoModificarStepDef {
     @When("^User edit empleado fields$")
     public void user_edit_form_inputs() {
         WebElement tipo = connector.getDriver().findElement(By.id("tipo"));
-        WebElement optionCocinero = connector.getDriver().findElement(By.id("optionCocinera"));
+        WebElement optionCocinero = connector.getDriver().findElement(By.id("cocinero"));
         WebElement nombre = connector.getDriver().findElement(By.id("nombre"));
         WebElement telefono = connector.getDriver().findElement(By.id("telefono"));
         WebElement fijo = connector.getDriver().findElement(By.id("fijo"));

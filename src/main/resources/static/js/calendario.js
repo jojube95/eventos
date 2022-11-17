@@ -1,5 +1,7 @@
 import {EventoFactory} from "./factories/evento/EventoFactory.js";
 
+window.goToDate = goToDate;
+
 let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
