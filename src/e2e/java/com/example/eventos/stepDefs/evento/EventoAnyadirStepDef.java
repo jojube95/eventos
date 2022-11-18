@@ -59,13 +59,13 @@ public class EventoAnyadirStepDef {
 
     @When("^Use click tipo option$")
     public void user_click_tipo_option() {
-        WebElement comunionOption = connector.getDriver().findElement(By.id("optionComunion"));
+        WebElement comunionOption = connector.getDriver().findElement(By.id("comunion"));
         comunionOption.click();
     }
 
     @When("^Use click horario option$")
     public void user_click_horario_option() {
-        WebElement cenaOption = connector.getDriver().findElement(By.id("optionCena"));
+        WebElement cenaOption = connector.getDriver().findElement(By.id("cena"));
         cenaOption.click();
     }
 
@@ -84,7 +84,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to comunion$")
     public void user_select_tipo_comunion() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement comunionOption = connector.getDriver().findElement(By.id("optionComunion"));
+        WebElement comunionOption = connector.getDriver().findElement(By.id("comunion"));
         tipoSelect.click();
         comunionOption.click();
     }
@@ -92,7 +92,7 @@ public class EventoAnyadirStepDef {
     @When("^User select horario to cena$")
     public void user_select_horario_cena() {
         WebElement horarioSelect = connector.getDriver().findElement(By.id("horario"));
-        WebElement cenaOption = connector.getDriver().findElement(By.id("optionCena"));
+        WebElement cenaOption = connector.getDriver().findElement(By.id("cena"));
         horarioSelect.click();
         cenaOption.click();
     }
@@ -100,7 +100,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento individual$")
     public void user_select_tipo_evento_individual() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoIndividualOption = connector.getDriver().findElement(By.id("optionEventoIndividual"));
+        WebElement eventoIndividualOption = connector.getDriver().findElement(By.id("eventoIndividual"));
         tipoSelect.click();
         eventoIndividualOption.click();
 
@@ -109,7 +109,7 @@ public class EventoAnyadirStepDef {
     @When("^User select tipo to Evento comunal")
     public void user_select_tipo_evento_comunal() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement eventoComunalOption = connector.getDriver().findElement(By.id("optionEventoComunal"));
+        WebElement eventoComunalOption = connector.getDriver().findElement(By.id("eventoComunal"));
         tipoSelect.click();
         eventoComunalOption.click();
 
@@ -185,7 +185,7 @@ public class EventoAnyadirStepDef {
     @Then("^Titulo should be Comunion-Comida$")
     public void titulo_should_be_comunion_comida(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Comunion-Comida", tituloInput.getAttribute("value"));
+        assertEquals("Comunión-Comida", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be Boda-Cena$")

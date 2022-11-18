@@ -96,7 +96,7 @@ public class MesaStepDef {
 
     @When("^User fill add mesa form$")
     public void user_fill_add_mesa_form(){
-        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement personasInput = connector.getDriver().findElement(By.id("mayores"));
         WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
         WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
 
@@ -112,7 +112,7 @@ public class MesaStepDef {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("editRowBtn")));
 
         WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
-        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement personasInput = connector.getDriver().findElement(By.id("mayores"));
         WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
         WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
 
@@ -193,19 +193,23 @@ public class MesaStepDef {
     @And("^Edit modal data should be correct$")
     public void edit_modal_data_should_be_correct(){
         WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
-        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement personasInput = connector.getDriver().findElement(By.id("mayores"));
+        WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
 
         assertEquals("1", numeroInput.getAttribute("value"));
         assertEquals("6", personasInput.getAttribute("value"));
+        assertEquals("", ninyosInput.getAttribute("value"));
     }
 
     @And("^Add modal mesa content should have max table number$")
     public void add_modal_data_should_have_max_table_number(){
         WebElement numeroInput = connector.getDriver().findElement(By.id("numero"));
-        WebElement personasInput = connector.getDriver().findElement(By.id("personas"));
+        WebElement mayoresInput = connector.getDriver().findElement(By.id("mayores"));
+        WebElement ninyosInput = connector.getDriver().findElement(By.id("ninyos"));
 
         assertEquals("5", numeroInput.getAttribute("value"));
-        assertEquals("", personasInput.getAttribute("value"));
+        assertEquals("", mayoresInput.getAttribute("value"));
+        assertEquals("", ninyosInput.getAttribute("value"));
     }
 
     @And("^New mesa display on table$")

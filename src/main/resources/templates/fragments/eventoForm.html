@@ -33,7 +33,7 @@
         <div class="form-group">
             <label th:text="#{evento.tipo}" for="tipo"></label>
             <select th:field="*{tipo.value}" class="form-control" id="tipo">
-                <option th:each="tipo: ${tipos}" th:value="${tipo.value}" th:text="#{|tipo.${tipo.value}|}"></option>
+                <option th:each="tipo: ${tipos}" th:id="${tipo.value}" th:value="${tipo.value}" th:text="#{|tipo.${tipo.value}|}"></option>
             </select>
         </div>
     </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label th:text="#{evento.horario}" for="horario"></label>
             <select th:field="*{horario.value}" class="form-control" id="horario">
-                <option th:each="horario: ${horarios}" th:value="${horario.value}" th:text="#{|horario.${horario.value}|}"></option>
+                <option th:each="horario: ${horarios}" th:id="${horario.value}" th:value="${horario.value}" th:text="#{|horario.${horario.value}|}"></option>
             </select>
         </div>
     </div>

@@ -153,7 +153,7 @@ public class EventosVerStepDef {
 
         assertEquals("2022-07-10", evento2.get(0).getText());
         assertEquals("Comunion-Comida", evento2.get(1).getText());
-        assertEquals("Comunion", evento2.get(2).getText());
+        assertEquals("Comunión", evento2.get(2).getText());
         assertEquals("Comida", evento2.get(3).getText());
         assertEquals("Sala2", evento2.get(4).getText());
         assertEquals("Olleria", evento2.get(5).getText());
@@ -192,9 +192,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("322", footer.get(1).getText());
-        assertEquals("51.25", footer.get(2).getText());
+        assertEquals("51", footer.get(2).getText());
         assertEquals("54", footer.get(3).getText());
-        assertEquals("11.25", footer.get(4).getText());
+        assertEquals("11", footer.get(4).getText());
         assertEquals("6432€", footer.get(6).getText());
 
     }
@@ -209,9 +209,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("169", footer.get(1).getText());
-        assertEquals("41.67", footer.get(2).getText());
+        assertEquals("42", footer.get(2).getText());
         assertEquals("41", footer.get(3).getText());
-        assertEquals("10.00", footer.get(4).getText());
+        assertEquals("10", footer.get(4).getText());
         assertEquals("2390€", footer.get(6).getText());
     }
 
@@ -225,9 +225,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("133", footer.get(1).getText());
-        assertEquals("42.50", footer.get(2).getText());
+        assertEquals("43", footer.get(2).getText());
         assertEquals("41", footer.get(3).getText());
-        assertEquals("15.00", footer.get(4).getText());
+        assertEquals("15", footer.get(4).getText());
         assertEquals("1922€", footer.get(6).getText());
     }
 
@@ -263,9 +263,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("153", footer.get(1).getText());
-        assertEquals("80.00", footer.get(2).getText());
+        assertEquals("80", footer.get(2).getText());
         assertEquals("13", footer.get(3).getText());
-        assertEquals("15.00", footer.get(4).getText());
+        assertEquals("15", footer.get(4).getText());
         assertEquals("4041€", footer.get(6).getText());
     }
 
@@ -282,7 +282,7 @@ public class EventosVerStepDef {
 
         assertEquals("2022-07-10", evento1.get(0).getText());
         assertEquals("Comunion-Comida", evento1.get(1).getText());
-        assertEquals("Comunion", evento1.get(2).getText());
+        assertEquals("Comunión", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
         assertEquals("Sala2", evento1.get(4).getText());
         assertEquals("Olleria", evento1.get(5).getText());
@@ -308,9 +308,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("79", footer.get(1).getText());
-        assertEquals("45.00", footer.get(2).getText());
+        assertEquals("45", footer.get(2).getText());
         assertEquals("18", footer.get(3).getText());
-        assertEquals("7.50", footer.get(4).getText());
+        assertEquals("8", footer.get(4).getText());
         assertEquals("1255€", footer.get(6).getText());
     }
 
@@ -353,9 +353,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("189", footer.get(1).getText());
-        assertEquals("60.00", footer.get(2).getText());
+        assertEquals("60", footer.get(2).getText());
         assertEquals("13", footer.get(3).getText());
-        assertEquals("7.50", footer.get(4).getText());
+        assertEquals("8", footer.get(4).getText());
         assertEquals("4509€", footer.get(6).getText());
     }
 
@@ -398,9 +398,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
-        assertEquals("57.50", footer.get(2).getText());
+        assertEquals("58", footer.get(2).getText());
         assertEquals("36", footer.get(3).getText());
-        assertEquals("15.00", footer.get(4).getText());
+        assertEquals("15", footer.get(4).getText());
         assertEquals("5177€", footer.get(6).getText());
     }
 
@@ -443,9 +443,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("243", footer.get(1).getText());
-        assertEquals("57.50", footer.get(2).getText());
+        assertEquals("58", footer.get(2).getText());
         assertEquals("36", footer.get(3).getText());
-        assertEquals("15.00", footer.get(4).getText());
+        assertEquals("15", footer.get(4).getText());
         assertEquals("5177€", footer.get(6).getText());
     }
 
@@ -461,7 +461,7 @@ public class EventosVerStepDef {
 
         assertEquals("2022-07-10", evento1.get(0).getText());
         assertEquals("Comunion-Comida", evento1.get(1).getText());
-        assertEquals("Comunion", evento1.get(2).getText());
+        assertEquals("Comunión", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
         assertEquals("Sala2", evento1.get(4).getText());
         assertEquals("Olleria", evento1.get(5).getText());
@@ -474,9 +474,9 @@ public class EventosVerStepDef {
 
         assertEquals("Total:", footer.get(0).getText());
         assertEquals("43", footer.get(1).getText());
-        assertEquals("50.00", footer.get(2).getText());
+        assertEquals("50", footer.get(2).getText());
         assertEquals("18", footer.get(3).getText());
-        assertEquals("15.00", footer.get(4).getText());
+        assertEquals("15", footer.get(4).getText());
         assertEquals("787€", footer.get(6).getText());
     }
 
@@ -542,7 +542,7 @@ public class EventosVerStepDef {
 
         assertEquals("", options.get(0).getText());
         assertEquals("Boda", options.get(1).getText());
-        assertEquals("Comunion", options.get(2).getText());
+        assertEquals("Comunión", options.get(2).getText());
         assertEquals("Evento comunal", options.get(3).getText());
         assertEquals("Evento individual", options.get(4).getText());
     }
