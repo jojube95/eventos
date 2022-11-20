@@ -24,7 +24,7 @@
                 <th th:text="#{empleado.fijo}" scope="col"></th>
                 <th th:text="#{modificar}" scope="col"></th>
                 <th th:text="#{historial}" scope="col"></th>
-                <th th:text="#{eliminar}" scope="col"></th>
+                <th th:text="#{deshabilitar}" scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -46,14 +46,13 @@
                     <button th:text="#{historial}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="historialClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
                 <td>
-                    <!-- TODO: Disable empleado. If empleado is deleted, it brokes eventoEmpleados view -->
-                    <button th:text="#{eliminar}" disabled type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="eliminarClicked(this.getAttribute('empleadoId'))"></button>
+                    <button th:text="#{deshabilitar}" type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="deshabilitarClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmarDeshabilitarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,8 +63,8 @@
                     </div>
                     <div th:text="#{seguroGuardarCambios}" class="modal-body"></div>
                     <div class="modal-footer">
-                        <button th:text="#{cerrar}" id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
-                        <button th:text="#{eliminar}" id="modalEliminarButton" type="button" class="btn btn-primary"></button>
+                        <button th:text="#{cerrar}" id="modalDeshabilitarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+                        <button th:text="#{deshabilitar}" id="modalDeshabilitarButton" type="button" class="btn btn-primary"></button>
                     </div>
                 </div>
             </div>

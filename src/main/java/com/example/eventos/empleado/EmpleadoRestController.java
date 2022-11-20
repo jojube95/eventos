@@ -14,10 +14,11 @@ public class EmpleadoRestController {
         this.empleadoService = empleadoService;
     }
 
-    @PostMapping("/eliminarEmpleado")
-    public Empleado delete(@RequestParam(EMPLEADO_ID) String empleadoId) {
+    @PostMapping("/deshabilitarEmpleado")
+    public Empleado disable(@RequestParam(EMPLEADO_ID) String empleadoId) {
         Empleado empleado = empleadoService.getById(empleadoId);
-        empleadoService.delete(empleado);
+        empleado.setActivo(false);
+        empleadoService.save(empleado);
         return empleado;
     }
 }

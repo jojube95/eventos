@@ -29,14 +29,14 @@ function historialClicked(empleadoId){
     location.href = "/empleadoHistorial?empleadoId=" + empleadoId;
 }
 
-function eliminarClicked(empleadoId){
-    $('#confirmarEliminarModal').modal('toggle');
+function deshabilitarClicked(empleadoId){
+    $('#confirmarDeshabilitarModal').modal('toggle');
 
-    $('#modalEliminarButton').on('click', function(){
+    $('#modalDeshabilitarButton').on('click', function(){
         toggleLoadingSpinner($(this));
 
-        ajaxCall("POST", "/eliminarEmpleado", {empleadoId: empleadoId}, {}, function () {
-            $('#confirmarEliminarModal').modal('toggle');
+        ajaxCall("POST", "/deshabilitarEmpleado", {empleadoId: empleadoId}, {}, function () {
+            $('#confirmarDeshabilitarModal').modal('toggle');
             deleteEmpleadoRow(empleadoId);
         });
 

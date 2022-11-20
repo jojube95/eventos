@@ -23,7 +23,7 @@ class EmpleadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
     }
 
     @Test
@@ -41,7 +41,7 @@ class EmpleadoServiceTest {
     @Test
     void getByIdTtipoAndFijoTest() {
         empleadoService.getByTipoAndFijo(new TipoEmpleado("camarero"), true);
-        verify(empleadoRepository, times(1)).findEmpleadoByTipoAndFijo(new TipoEmpleado("camarero"), true);
+        verify(empleadoRepository, times(1)).findEmpleadoByTipoAndFijoAndActivo(new TipoEmpleado("camarero"), true, true);
     }
 
     @Test

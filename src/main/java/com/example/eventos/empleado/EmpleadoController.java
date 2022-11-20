@@ -26,7 +26,7 @@ public class EmpleadoController {
 
     @GetMapping("/empleados")
     public String empleados(Model model) {
-        List<Empleado> empleados = empleadoService.getEmpleados();
+        List<Empleado> empleados = empleadoService.getActiveEmpleados();
         model.addAttribute(EMPLEADOS, empleados);
         return EMPLEADOS_PAGE;
     }

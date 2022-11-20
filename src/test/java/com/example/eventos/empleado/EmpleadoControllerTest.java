@@ -90,7 +90,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void postUpdateAnyadirEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
@@ -104,7 +104,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void postUpdateAnyadirEmpleadoTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
@@ -118,7 +118,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -133,7 +133,7 @@ class EmpleadoControllerTest {
     void getUpdateEmpleadoTestAdmin() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/empleadoUpdate.html");
 
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -152,7 +152,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getHistorialEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -165,7 +165,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getHistorialEmpleadoTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 

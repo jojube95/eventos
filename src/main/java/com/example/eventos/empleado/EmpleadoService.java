@@ -16,12 +16,16 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
+    public List<Empleado> getActiveEmpleados() {
+        return empleadoRepository.findEmpleadoByActivo(true);
+    }
+
     public Empleado getById(String id) {
         return empleadoRepository.findEmpleadoById(id);
     }
 
     public List<Empleado> getByTipoAndFijo(TipoEmpleado tipo, boolean fijo) {
-        return empleadoRepository.findEmpleadoByTipoAndFijo(tipo, fijo);
+        return empleadoRepository.findEmpleadoByTipoAndFijoAndActivo(tipo, fijo, true);
     }
 
     public void save(Empleado empleado) {

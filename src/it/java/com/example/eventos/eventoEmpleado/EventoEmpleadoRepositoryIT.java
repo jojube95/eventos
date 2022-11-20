@@ -37,11 +37,11 @@ class EventoEmpleadoRepositoryIT {
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
         Evento evento1 = new Evento("idEvento1", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(40, 13), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
         Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(30, 2), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true);
-        Empleado empleado4 = new Empleado("idEmpleado4", new TipoEmpleado("cocinero"), new Persona("nombre4", "666777919", "correo4"), false);
+        Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true, true);
+        Empleado empleado4 = new Empleado("idEmpleado4", new TipoEmpleado("cocinero"), new Persona("nombre4", "666777919", "correo4"), false, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
@@ -65,8 +65,8 @@ class EventoEmpleadoRepositoryIT {
     @Test
     void findByEventoIdTest(){
         Evento evento1 = new Evento("idEvento1", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(40, 13), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true);
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
 
         EventoEmpleado eventoEmpleadoExpected1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, true, 0);
         EventoEmpleado eventoEmpleadoExpected2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
@@ -80,7 +80,7 @@ class EventoEmpleadoRepositoryIT {
     @Test
     void findByEmpleadoIdTest(){
         Evento evento1 = new Evento("idEvento1", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(40, 13), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
 
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
 
@@ -93,7 +93,7 @@ class EventoEmpleadoRepositoryIT {
     @Test
     void findEventoEmpleadoByIdTest(){
         Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(30, 2), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true);
+        Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true, true);
         EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("idEventoEmpleado3", evento2, empleado3, true, 0);
 
         assertEquals(eventoEmpleadoExpected, eventoEmpleadoRepository.findEventoEmpleadoById("idEventoEmpleado3"));

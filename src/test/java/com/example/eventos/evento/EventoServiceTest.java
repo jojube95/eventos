@@ -103,7 +103,7 @@ class EventoServiceTest {
     void getByEmpleadoIdTest() {
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, true, 0);
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
