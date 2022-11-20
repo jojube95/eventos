@@ -28,52 +28,28 @@ function anyadirClicked (){
     toggleLoadingSpinner(anyadirButton);
 
     let empleadoId = $('#empleado option').filter(':selected').val();
-    $.ajax({
-        type: "POST",
-        url: "/evento/empleados/anyadir?eventoId=" + idEvento + "&empleadoId=" + empleadoId,
-        dataType: 'json',
-        success: function (data) {
-            eventoEmpleadosDt.row.add( [
-                data.id,
-                data.idEvento,
-                data.idEmpleado,
-                data.tipo,
-                data.nombre,
-                '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (data.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (data.fijo ? 'Si' : 'No') + '</label></div>',
-                '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (data.confirmado ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (data.confirmado ? 'Si' : 'No') + '</label></div>',
-                data.horasExtras,
-                '<button type="button" class="btn btn-primary" eventoempleadoid="' + data.id + '" onclick="modificarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Modificar</button>',
-                '<button type="button" class="btn btn-danger" eventoempleadoid="' + data.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
-            ] ).draw();
-            updateProgresbar();
-            toggleLoadingSpinner(anyadirButton);
-        }
-    })
+
+    ajaxCall("POST", "/evento/empleados/anyadir", {eventoId: eventoId, empleadoId: empleadoId}, {}, function (data) {
+        addEventoEmpleadoRow(data);
+        updateProgresbar();
+        toggleLoadingSpinner(anyadirButton);
+    });
 }
 
 function eliminarClicked(eventoEmpleadoId){
     toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
 
-    $.ajax({
-        type: "POST",
-        url: "/evento/empleados/eliminar?eventoEmpleadoId=" + eventoEmpleadoId,
-        dataType: 'json',
-        success: function () {
-            let deletedRow = $('button[eventoempleadoid="' + eventoEmpleadoId + '"]').parent().parent();
-            eventoEmpleadosDt.row(deletedRow).remove().draw();
-            updateProgresbar();
-        }
+    ajaxCall("POST", "/evento/empleados/eliminar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function () {
+        deleteEventoEmpleadoRow(eventoEmpleadoId);
+        updateProgresbar();
     });
 }
 
 function modificarClicked(eventoEmpleadoId){
-    $.ajax({
-        url: "/evento/empleados/modificar?eventoEmpleadoId=" + eventoEmpleadoId,
-        success: function (data) {
-            $("#eventoEmpleadoModificarModalHolder").html(data);
-            $("#eventoEmpleadoModificarModal").modal("show");
-        }
-    })
+    ajaxCall("GET", "/evento/empleados/modificar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function (data) {
+        $("#eventoEmpleadoModificarModalHolder").html(data);
+        $("#eventoEmpleadoModificarModal").modal("show");
+    });
 }
 
 function modificarModalClicked(eventoEmpleadoId){
@@ -82,25 +58,45 @@ function modificarModalClicked(eventoEmpleadoId){
     let confirmado = $('#confirmado option').filter(':selected').val();
     let horasExtras = $('#horasExtras').val();
 
-    $.ajax({
-        type: "POST",
-        url: "/evento/empleados/modificar?eventoEmpleadoId=" + eventoEmpleadoId + "&confirmado=" + confirmado + "&horasExtras=" + horasExtras,
-        success: function (data) {
-            let modifiedRow = $('button[eventoempleadoid="' + eventoEmpleadoId + '"]').parent().parent();
-
-            let checkboxConfirmado= modifiedRow.children('td').eq(2).children('div').children('input');
-            let labelConfirmado = modifiedRow.children('td').eq(2).children('div').children('label');
-            let columnHorasExtra = modifiedRow.children('td').eq(3);
-
-            data.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
-            data.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
-            columnHorasExtra.text(data.horasExtras);
-
-            $("#eventoEmpleadoModificarModal").modal("hide");
-            eventoEmpleadosDt.draw();
-            updateProgresbar();
-        }
+    ajaxCall("POST", "/evento/empleados/modificar", {eventoEmpleadoId: eventoEmpleadoId, confirmado: confirmado, horasExtras: horasExtras}, {}, function (data) {
+        updateEventoEmpleadoRow(data);
+        updateProgresbar();
     });
+}
+
+function addEventoEmpleadoRow(eventoEmpleado) {
+    eventoEmpleadosDt.row.add( [
+        eventoEmpleado.id,
+        eventoEmpleado.evento.id,
+        eventoEmpleado.empleado.id,
+        eventoEmpleado.empleado.tipo.value,
+        eventoEmpleado.empleado.persona.nombre,
+        '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.empleado.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.empleado.fijo ? 'Si' : 'No') + '</label></div>',
+        '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.confirmado ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.confirmado ? 'Si' : 'No') + '</label></div>',
+        eventoEmpleado.horasExtras,
+        '<button type="button" class="btn btn-primary" eventoempleadoid="' + eventoEmpleado.id + '" onclick="modificarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Modificar</button>',
+        '<button type="button" class="btn btn-danger" eventoempleadoid="' + eventoEmpleado.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
+    ] ).draw();
+}
+
+function deleteEventoEmpleadoRow(eventoEmpleadoId) {
+    let deletedRow = $('button[eventoempleadoid="' + eventoEmpleadoId + '"]').parent().parent();
+    eventoEmpleadosDt.row(deletedRow).remove().draw();
+}
+
+function updateEventoEmpleadoRow(eventoEmpleado) {
+    let modifiedRow = $('button[eventoempleadoid="' + eventoEmpleado.id + '"]').parent().parent();
+
+    let checkboxConfirmado= modifiedRow.children('td').eq(2).children('div').children('input');
+    let labelConfirmado = modifiedRow.children('td').eq(2).children('div').children('label');
+    let columnHorasExtra = modifiedRow.children('td').eq(3);
+
+    eventoEmpleado.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
+    eventoEmpleado.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
+    columnHorasExtra.text(eventoEmpleado.horasExtras);
+
+    $("#eventoEmpleadoModificarModal").modal("hide");
+    eventoEmpleadosDt.draw();
 }
 
 function updateProgresbar(){

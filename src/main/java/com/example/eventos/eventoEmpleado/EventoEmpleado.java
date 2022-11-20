@@ -1,43 +1,43 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.empleado.Empleado;
+import com.example.eventos.evento.Evento;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Objects;
 
 @Document("eventoEmpleado")
+@TypeAlias("EventoEmpleado")
 public class EventoEmpleado {
     @Id
     private String id;
-    private String idEvento;
-    private String idEmpleado;
-    private String tipo;
-    private String nombre;
-    private boolean fijo;
+
+    @DBRef
+    private Evento evento;
+
+    @DBRef
+    private Empleado empleado;
+
     private boolean confirmado;
-    private float horasExtras;
+    private double horasExtras;
 
     public EventoEmpleado(){
 
     }
 
-    public EventoEmpleado(String id, String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
+    public EventoEmpleado(String id, Evento evento, Empleado empleado, boolean confirmado, float horasExtras) {
         this.id = id;
-        this.idEvento = idEvento;
-        this.idEmpleado = idEmpleado;
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.fijo = fijo;
+        this.evento = evento;
+        this.empleado = empleado;
         this.confirmado = confirmado;
         this.horasExtras = horasExtras;
     }
 
-    public EventoEmpleado(String idEvento, String idEmpleado, String tipo, String nombre, boolean fijo, boolean confirmado, float horasExtras) {
-        this.idEvento = idEvento;
-        this.idEmpleado = idEmpleado;
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.fijo = fijo;
+    public EventoEmpleado(Evento evento, Empleado empleado, boolean confirmado, float horasExtras) {
+        this.evento = evento;
+        this.empleado = empleado;
         this.confirmado = confirmado;
         this.horasExtras = horasExtras;
     }
@@ -50,44 +50,20 @@ public class EventoEmpleado {
         this.id = id;
     }
 
-    public String getIdEvento() {
-        return idEvento;
+    public Evento getEvento() {
+        return evento;
     }
 
-    public void setIdEvento(String idEvento) {
-        this.idEvento = idEvento;
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
-    public String getIdEmpleado() {
-        return idEmpleado;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public boolean isFijo() {
-        return fijo;
-    }
-
-    public void setFijo(boolean fijo) {
-        this.fijo = fijo;
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     public boolean isConfirmado() {
@@ -98,11 +74,11 @@ public class EventoEmpleado {
         this.confirmado = confirmado;
     }
 
-    public float getHorasExtras() {
+    public double getHorasExtras() {
         return horasExtras;
     }
 
-    public void setHorasExtras(float horasExtras) {
+    public void setHorasExtras(double horasExtras) {
         this.horasExtras = horasExtras;
     }
 
@@ -110,11 +86,8 @@ public class EventoEmpleado {
     public String toString() {
         return "EventoEmpleado{" +
                 "id='" + id + '\'' +
-                ", idEvento='" + idEvento + '\'' +
-                ", idEmpleado='" + idEmpleado + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", fijo=" + fijo +
+                ", evento=" + evento +
+                ", empleado=" + empleado +
                 ", confirmado=" + confirmado +
                 ", horasExtras=" + horasExtras +
                 '}';
@@ -125,11 +98,11 @@ public class EventoEmpleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EventoEmpleado that = (EventoEmpleado) o;
-        return fijo == that.fijo && confirmado == that.confirmado && Float.compare(that.horasExtras, horasExtras) == 0 && Objects.equals(id, that.id) && Objects.equals(idEvento, that.idEvento) && Objects.equals(idEmpleado, that.idEmpleado) && Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre);
+        return confirmado == that.confirmado && Double.compare(that.horasExtras, horasExtras) == 0 && Objects.equals(id, that.id) && Objects.equals(evento, that.evento) && Objects.equals(empleado, that.empleado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, idEmpleado, tipo, nombre, fijo, confirmado, horasExtras);
+        return Objects.hash(id, evento, empleado, confirmado, horasExtras);
     }
 }

@@ -2,7 +2,10 @@ package com.example.eventos.calendario;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfiguration.class)
 class CalendarioControllerTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -54,8 +56,8 @@ class CalendarioControllerTest {
     void getCalendario() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/calendario.html");
 
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
         List<Evento> eventos = new ArrayList<>();
         eventos.add(evento1);

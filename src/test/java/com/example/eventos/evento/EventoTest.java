@@ -1,7 +1,12 @@
 package com.example.eventos.evento;
 
 import com.example.eventos.distribucion.Distribucion;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.protagonista.Protagonista;
+import com.example.eventos.tipoEvento.TipoEvento;
+import com.example.eventos.tipoProtagonista.TipoProtagonista;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,19 +26,19 @@ class EventoTest {
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         protagonistas = new ArrayList<>();
-        protagonista = new Protagonista("Novio/a", "Pepe", "666777888", "pepe@correo.es");
+        protagonista = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Pepe", "666777888", "pepe@correo.es"));
         protagonistas.add(protagonista);
-        eventoSimple = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        eventoNoProtagonistas = new Evento("id2", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        eventoProtagonistas = new Evento("id", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        eventoSimple = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        eventoNoProtagonistas = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        eventoProtagonistas = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
     }
 
     @Test
     void constructorTest(){
-        assertEquals("Boda", eventoSimple.getTipo());
-        assertEquals("Cena", eventoSimple.getHorario());
-        assertEquals(150, eventoSimple.getPersonas());
-        assertEquals(10, eventoSimple.getNinyos());
+        assertEquals(new TipoEvento("boda"), eventoSimple.getTipo());
+        assertEquals(new HorarioEvento("cena"), eventoSimple.getHorario());
+        assertEquals(150, eventoSimple.getPersonas().getMayores());
+        assertEquals(15, eventoProtagonistas.getPersonas().getNinyos());
         assertEquals("Aielo de Malferit", eventoSimple.getLocalidad());
         assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoSimple.getFecha());
         assertEquals("Boda-Cena", eventoSimple.getTitulo());
@@ -43,10 +48,10 @@ class EventoTest {
     @Test
     void constructorNoProtagonistasTest(){
         assertEquals("id2", eventoNoProtagonistas.getId());
-        assertEquals("Boda", eventoNoProtagonistas.getTipo());
-        assertEquals("Cena", eventoNoProtagonistas.getHorario());
-        assertEquals(150, eventoNoProtagonistas.getPersonas());
-        assertEquals(10, eventoNoProtagonistas.getNinyos());
+        assertEquals(new TipoEvento("boda"), eventoNoProtagonistas.getTipo());
+        assertEquals(new HorarioEvento("cena"), eventoNoProtagonistas.getHorario());
+        assertEquals(150, eventoNoProtagonistas.getPersonas().getMayores());
+        assertEquals(15, eventoProtagonistas.getPersonas().getNinyos());
         assertEquals("Aielo de Malferit", eventoNoProtagonistas.getLocalidad());
         assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoNoProtagonistas.getFecha());
         assertEquals("Boda-Cena", eventoNoProtagonistas.getTitulo());
@@ -57,10 +62,10 @@ class EventoTest {
     @Test
     void constructorConProtagonistasTest(){
         assertEquals("id", eventoProtagonistas.getId());
-        assertEquals("Comunión", eventoProtagonistas.getTipo());
-        assertEquals("Comida", eventoProtagonistas.getHorario());
-        assertEquals(50, eventoProtagonistas.getPersonas());
-        assertEquals(15, eventoProtagonistas.getNinyos());
+        assertEquals("comunion", eventoProtagonistas.getTipo().getValue());
+        assertEquals(new HorarioEvento("comida"), eventoProtagonistas.getHorario());
+        assertEquals(50, eventoProtagonistas.getPersonas().getMayores());
+        assertEquals(15, eventoProtagonistas.getPersonas().getNinyos());
         assertEquals("Olleria", eventoProtagonistas.getLocalidad());
         assertEquals(new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), eventoProtagonistas.getFecha());
         assertEquals(80, eventoProtagonistas.getPrecioMenu());
@@ -78,44 +83,44 @@ class EventoTest {
 
     @Test
     void equalsTestFalseTipo(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        evento2.setTipo("Comunión");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.getTipo().setValue("comunion");
 
         assertNotEquals(evento1, evento2);
     }
 
     @Test
     void equalsTestFalseHorario(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        evento2.setHorario("Comida");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setHorario(new HorarioEvento("comida"));
 
         assertNotEquals(evento1, evento2);
     }
 
     @Test
     void equalsTestFalsePersonas(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        evento2.setPersonas(151);
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setPersonas(new Personas(151, 10));
 
         assertNotEquals(evento1, evento2);
     }
 
     @Test
     void equalsTestFalseNinyos(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        evento2.setNinyos(12);
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        evento2.setPersonas(new Personas(150, 12));
 
         assertNotEquals(evento1, evento2);
     }
 
     @Test
     void equalsTestFalsePrecio(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setPrecioMenu(85);
 
         assertNotEquals(evento1, evento2);
@@ -123,8 +128,8 @@ class EventoTest {
 
     @Test
     void equalsTestFalsePrecioNinyos(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setPrecioMenuNinyos(15);
 
         assertNotEquals(evento1, evento2);
@@ -132,8 +137,8 @@ class EventoTest {
 
     @Test
     void equalsTestFalseTitulo(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setTitulo("AOAE");
 
         assertNotEquals(evento1, evento2);
@@ -141,8 +146,8 @@ class EventoTest {
 
     @Test
     void equalsTestFalseLocalidad(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setLocalidad("Olleria");
 
         assertNotEquals(evento1, evento2);
@@ -150,8 +155,8 @@ class EventoTest {
 
     @Test
     void equalsTestFalseFecha(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setFecha(new GregorianCalendar(2022, Calendar.JULY, 26).getTime());
 
         assertNotEquals(evento1, evento2);
@@ -159,8 +164,8 @@ class EventoTest {
 
     @Test
     void equalsTestFalseSala(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         evento2.setSala("Sala2");
 
         assertNotEquals(evento1, evento2);
@@ -168,15 +173,15 @@ class EventoTest {
 
     @Test
     void equalsTestTrue(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Evento evento2 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento2 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
         assertEquals(evento1, evento2);
     }
 
     @Test
     void equalsTestNull(){
-        Evento evento1 = new Evento("Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Evento evento1 = new Evento(new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
 
         assertNotEquals(null, evento1);
     }

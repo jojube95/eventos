@@ -1,16 +1,11 @@
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
+
+window.goToDate = goToDate;
+
 let calendar;
 let language = document.documentElement.lang === 'ca' ? 'ca' : 'es';
 
 document.addEventListener('DOMContentLoaded', function() {
-    const tipoColor = new Map([
-        ['Boda', 'FireBrick'],
-        ['Comunion', 'DeepSkyBlue'],
-        ['Evento comunal', 'DarkSeaGreen'],
-        ['Evento individual', 'DarkGreen'],
-        ['Bautizo', 'DarkKhaki'],
-        ['Pruebas', 'DarkGrey']
-    ]);
-
     let calendarEl = document.getElementById('calendar');
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -23,11 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 events: function(fetchInfo, successCallback) {
                     successCallback(
                         eventos.map(function(eventEl) {
+                            let evento = EventoFactory.crearEvento(eventEl.id, eventEl.tipo, eventEl.titulo, eventEl.personas, eventEl.fecha);
                             return {
-                                id: eventEl['id'],
-                                title: eventEl['titulo'] + " " + eventEl['personas'] + "p",
-                                start: new Date(eventEl['fecha']).toISOString().split('T')[0],
-                                color: tipoColor.get(eventEl.tipo),
+                                id: evento.id,
+                                title: evento.getCalendarioTitulo(),
+                                start: new Date(evento.fecha).toISOString().split('T')[0],
+                                color: evento.getCalendarioColor(),
                                 eventDisplay: 'block'
                             }
                         })
@@ -38,17 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         eventClick: function(info) {
             let eventoId = info.event.id;
-            location.href = "/verEvento?eventoId=" + eventoId;
+            location.href = "/eventoVer?eventoId=" + eventoId;
         },
         eventDrop: function(info) {
             let eventoId = info.event.id;
             let nuevaFecha = info.event.start.toDateString();
 
-            $.ajax({
-                url: "/evento/updateFecha?id=" + eventoId + "&fecha=" + nuevaFecha,
-                success: function () {
-                    $("#confirmModal").modal("show");
-                }
+            ajaxCall("GET", "/evento/updateFecha", {eventoId: eventoId, fecha: nuevaFecha}, {}, function () {
+                $("#confirmModal").modal("show");
             });
         }
     });
@@ -56,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function verClicked(eventoId){
-    location.href = "/verEvento?eventoId=" + eventoId;
+    location.href = "/eventoVer?eventoId=" + eventoId;
 }
 
 function modificarClicked(eventoId){
-    location.href = "/updateEvento?eventoId=" + eventoId;
+    location.href = "/eventoUpdate?eventoId=" + eventoId;
 }
 
 function goToDate(date){

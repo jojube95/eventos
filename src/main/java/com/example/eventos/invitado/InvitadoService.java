@@ -11,8 +11,8 @@ public class InvitadoService {
         this.invitadoRepository = invitadoRepository;
     }
 
-    public List<Invitado> findByMesa(String idMesa){
-        return invitadoRepository.findByIdMesa(idMesa);
+    public List<Invitado> findByMesa(String mesaId){
+        return invitadoRepository.findByMesaId(mesaId);
     }
 
     public void save(Invitado invitado){
@@ -27,7 +27,7 @@ public class InvitadoService {
         invitadoRepository.delete(invitado);
     }
 
-    public void deleteInvitados(String idMesa){
-        invitadoRepository.deleteByIdMesa(idMesa);
+    public void deleteInvitados(String mesaId){
+        invitadoRepository.deleteByMesaId(mesaId);
     }
 }

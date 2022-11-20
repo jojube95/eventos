@@ -1,66 +1,60 @@
 package com.example.eventos.invitado;
 
+import com.example.eventos.personas.Personas;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Objects;
 
+import static com.example.eventos.config.Constants.INVITADO_TIPO_MAYOR;
+import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
+
 @Document("invitado")
-public class Invitado {
+@TypeAlias("Invitado")
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "tipo",
+        visible = true)
+@JsonSubTypes({
+        @Type(value = InvitadoMayor.class, name = INVITADO_TIPO_MAYOR),
+        @Type(value = InvitadoNinyo.class, name =INVITADO_TIPO_NINYO)
+})
+public abstract class Invitado {
     @Id
     private String id;
 
-    private String idEvento;
-    private String idMesa;
+    private String eventoId;
+    private String mesaId;
 
-    private String nombre;
-    private String tipo;
-    private String descripcion;
+    protected String nombre;
+    protected String tipo;
+    protected String descripcion;
 
     public Invitado(){
 
     }
 
-    public Invitado(String id, String idEvento, String idMesa, String nombre, String tipo, String descripcion) {
+    public Invitado(String id, String eventoId, String mesaId, String nombre, String tipo, String descripcion) {
         this.id = id;
-        this.idEvento = idEvento;
-        this.idMesa = idMesa;
+        this.eventoId = eventoId;
+        this.mesaId = mesaId;
         this.nombre = nombre;
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
 
-    public Invitado(String idEvento, String idMesa, String nombre, String tipo, String descripcion) {
-        this.idEvento = idEvento;
-        this.idMesa = idMesa;
+    public Invitado(String eventoId, String mesaId, String nombre, String tipo, String descripcion) {
+        this.eventoId = eventoId;
+        this.mesaId = mesaId;
         this.nombre = nombre;
         this.tipo = tipo;
         this.descripcion = descripcion;
-    }
-
-    public Invitado(String textoExcel, String idEvento) {
-        this.idEvento = idEvento;
-        String[] myData = textoExcel.split("-");
-        this.nombre = "";
-        this.tipo = "";
-        this.descripcion = "";
-
-        for (int i = 0; i < myData.length; i++) {
-            if (i == 0) {
-                this.nombre = myData[0].trim();
-            }
-            else{
-                if (myData[i].trim().equals("x")) {
-                    this.tipo = "Niño";
-                }
-                else{
-                    this.descripcion = myData[i].trim();
-                }
-            }
-        }
-        if(this.tipo.isEmpty()){
-            this.tipo = "Mayor";
-        }
     }
 
     public String getNombre() {
@@ -95,27 +89,41 @@ public class Invitado {
         this.id = id;
     }
 
-    public String getIdMesa() {
-        return idMesa;
+    public String getMesaId() {
+        return mesaId;
     }
 
-    public void setIdMesa(String idMesa) {
-        this.idMesa = idMesa;
+    public void setMesaId(String mesaId) {
+        this.mesaId = mesaId;
     }
 
-    public String getIdEvento() {
-        return idEvento;
+    public String getEventoId() {
+        return eventoId;
     }
 
-    public void setIdEvento(String idEvento) {
-        this.idEvento = idEvento;
+    public void setEventoId(String eventoId) {
+        this.eventoId = eventoId;
     }
+
+    public Phrase generatePhrase() {
+        if(this.descripcion.isEmpty()){
+            return new Phrase(generateTextoListado(), new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL));
+        }
+        else{
+            return new Phrase(generateTextoListado() + "(" + this.descripcion + ")", new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED));
+        }
+    }
+
+    public abstract String generateTextoListado();
+
+    public abstract Personas incrementPersonas(Personas personas);
 
     @Override
     public String toString() {
         return "Invitado{" +
-                "idEvento='" + idEvento + '\'' +
-                ", idMesa='" + idMesa + '\'' +
+                "id='" + id + '\'' +
+                ", eventoId='" + eventoId + '\'' +
+                ", mesaId='" + mesaId + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
@@ -127,11 +135,13 @@ public class Invitado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invitado invitado = (Invitado) o;
-        return Objects.equals(id, invitado.id) && Objects.equals(idEvento, invitado.idEvento) && Objects.equals(idMesa, invitado.idMesa) && Objects.equals(nombre, invitado.nombre) && Objects.equals(tipo, invitado.tipo) && Objects.equals(descripcion, invitado.descripcion);
+        return Objects.equals(id, invitado.id) && Objects.equals(eventoId, invitado.eventoId) && Objects.equals(mesaId, invitado.mesaId)
+                && Objects.equals(nombre, invitado.nombre) && Objects.equals(tipo, invitado.tipo)
+                && Objects.equals(descripcion, invitado.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idEvento, idMesa, nombre, tipo, descripcion);
+        return Objects.hash(id, eventoId, mesaId, nombre, tipo, descripcion);
     }
 }

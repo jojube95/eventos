@@ -1,0 +1,143 @@
+<div class="container">
+    <form action="/eventoUpdate" method="post">
+        <div class="form-row" hidden>
+            <div class="col">
+                <div class="form-group">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" id="id" placeholder="id" required name="id" value="id">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="fecha">Fecha</label>
+                    <input type="text" class="form-control" id="fecha" placeholder="Fecha" required name="fecha" value="2022-07-25">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group required">
+                    <label class="control-label" for="localidad">Localidad</label>
+                    <input type="text" class="form-control" id="localidad" placeholder="Localidad" required name="localidad" value="Olleria">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" id="tipo" name="tipo.value">
+                        <option id="boda" value="boda">Boda</option>
+                        <option id="comunion" value="comunion" selected="selected">Comunión</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="horario">Horario</label>
+                    <select class="form-control" id="horario" name="horario.value">
+                        <option id="comida" value="comida" selected="selected">Comida</option>
+                        <option id="cena" value="cena">Cena</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Título" required name="titulo" value="Comuni&oacute;n-Comida">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="sala">Sala</label>
+                    <select class="form-control" id="sala" name="sala">
+                        <option id="sala1" value="Sala1" selected="selected">Sala1</option>
+                        <option id="sala2" value="Sala2">Sala2</option>
+                        <option id="patio" value="Patio">Patio</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="mayores">Mayores</label>
+                    <input type="number" class="form-control" id="mayores" required name="personas.mayores" value="50">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenu">Precio Menú</label>
+                    <input type="number" step="0.01" class="form-control" id="precioMenu" required name="precioMenu" value="80.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="ninyos">Niños</label>
+                    <input type="number" class="form-control" id="ninyos" required name="personas.ninyos" value="15">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="precioMenuNinyos">Precio Menú Niños</label>
+                    <input type="number" step="0.01" class="form-control" id="precioMenuNinyos" required name="precioMenuNinyos" value="15.0">
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="confirmado">Confirmado</label>
+                    <select class="form-control" id="confirmado" name="confirmado">
+                        <option id="optionSi" value="true" selected="selected">Sí</option>
+                        <option id="optionNo" value="false">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <button id="buttonModificar" class="btn btn-primary" type="submit">Modificar</button>
+    </form>
+</div>

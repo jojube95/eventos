@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col">
             <span class="font-weight-bold">Personas</span>
-            <span id="personas" class="font-weight-normal">50</span>
+            <span id="personas" class="font-weight-normal">50p, 15x</span>
         </div>
         <div class="col">
             <span class="font-weight-bold">Camareros recomendados</span>
@@ -14,14 +14,14 @@
     <div class="row">
         <div class="col">
             <div class="progress">
-                <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: green;"></div>
-                <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: yellow;"></div>
+                <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <select class="form-control" style="width: auto" id="empleado">
+        <select class="form-control" id="empleado">
             <option disabled>Fijos</option>
 
             <option value="id1">nombre1</option>
@@ -56,10 +56,10 @@
             </thead>
             <tbody>
             <tr>
-                <td>id1</td>
+                <td></td>
                 <td>idEvento1</td>
                 <td>idEmpleado1</td>
-                <td>tipo1</td>
+                <td>camarero</td>
                 <td>nombre1</td>
                 <td>
                     <div class="custom-control custom-checkbox">
@@ -75,17 +75,17 @@
                 </td>
                 <td>0.5</td>
                 <td>
-                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id1" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                    <button type="button" class="btn btn-primary" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id1" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
                 </td>
             </tr>
             <tr>
-                <td>id2</td>
+                <td></td>
                 <td>idEvento2</td>
                 <td>idEmpleado2</td>
-                <td>tipo2</td>
+                <td>cocinero</td>
                 <td>nombre2</td>
                 <td>
                     <div class="custom-control custom-checkbox">
@@ -101,10 +101,10 @@
                 </td>
                 <td>1.5</td>
                 <td>
-                    <button type="button" class="btn btn-primary" eventoEmpleadoId="id2" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
+                    <button type="button" class="btn btn-primary" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))">Modificar</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" eventoEmpleadoId="id2" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))">Eliminar</button>
                 </td>
             </tr>
             </tbody>
@@ -115,6 +115,7 @@
                 <td></td>
                 <td></td>
                 <td>Total:</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

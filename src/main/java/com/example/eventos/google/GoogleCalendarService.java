@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 
+import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
+
 @Service
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "eventos";
@@ -34,14 +36,15 @@ public class GoogleCalendarService {
 
     private Calendar service;
 
-    Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
+    final Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
 
     @Autowired
     public GoogleCalendarService(@Value("${google.calenarId}") String calendarId) {
         this.calendarId = calendarId;
 
         try {
-            GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH)).createScoped(Collections.singleton(CalendarScopes.CALENDAR));
+            GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
+                    .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
             // Build a new authorized API client service.
             final NetHttpTransport netHttpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -94,7 +97,7 @@ public class GoogleCalendarService {
         Date startDate = evento.getFecha();
         Date endDate = new Date(startDate.getTime() + 86400000); // An all-day event is 1 day (or 86400000 ms) long
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat(EVENTO_FECHA_FORMAT);
         String startDateStr = dateFormat.format(startDate);
         String endDateStr = dateFormat.format(endDate);
 

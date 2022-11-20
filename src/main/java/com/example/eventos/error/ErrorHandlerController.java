@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import static com.example.eventos.config.Constants.ATTRIBUTE_ERROR_DETAIL;
+import static com.example.eventos.config.Constants.ATTRIBUTE_STATUS_CODE;
 
 @Controller
 public class ErrorHandlerController implements ErrorController {
@@ -16,26 +18,27 @@ public class ErrorHandlerController implements ErrorController {
     @Autowired
     private MessageSource messageSource;
 
-    private static final String ATTRIBUTE_ERROR_DETAIL = "errorDetail";
-
     @GetMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Exception e = (Exception) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
 
         String statusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE).toString();
 
-        model.addAttribute("statusCode", statusCode);
+        model.addAttribute(ATTRIBUTE_STATUS_CODE, statusCode);
 
         if (e == null) {
             switch (statusCode){
                 case "404":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("paginaNoExiste", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("paginaNoExiste", null,
+                            LocaleContextHolder.getLocale()));
                     break;
                 case "403":
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("noTienePermisos", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("noTienePermisos", null,
+                            LocaleContextHolder.getLocale()));
                     break;
                 default:
-                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("haHabidoError", null, LocaleContextHolder.getLocale()));
+                    model.addAttribute(ATTRIBUTE_ERROR_DETAIL, messageSource.getMessage("haHabidoError", null,
+                            LocaleContextHolder.getLocale()));
                     break;
             }
         }

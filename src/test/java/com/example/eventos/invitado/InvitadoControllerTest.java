@@ -2,7 +2,10 @@ package com.example.eventos.invitado;
 
 import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfiguration.class)
 class InvitadoControllerTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -45,21 +47,21 @@ class InvitadoControllerTest {
     void getInvitadosTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/invitadosModal.html");
 
-        Evento evento = new Evento("idEvento", "Comunión", "Comida", 50, 15, "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Invitado invitado1 = new Invitado(evento.getId(), "idMesa", "Pepe", "Mayor",  "");
-        Invitado invitado2 = new Invitado(evento.getId(), "idMesa", "Antonio", "Mayor", "Vegano");
-        Invitado invitado3 = new Invitado(evento.getId(), "idMesa", "José", "Mayor", "");
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Invitado invitado1 = InvitadoFactory.crearInvitado("id", evento.getId(), "mesaId", "Pepe", "Mayor",  "");
+        Invitado invitado2 = InvitadoFactory.crearInvitado("id1", evento.getId(), "mesaId", "Antonio", "Mayor", "Vegano");
+        Invitado invitado3 = InvitadoFactory.crearInvitado("id3", evento.getId(), "mesaId", "José", "Mayor", "");
         List<Invitado> invitados = new ArrayList<>();
         invitados.add(invitado1);
         invitados.add(invitado2);
         invitados.add(invitado3);
 
-        when(invitadoService.findByMesa("idMesa")).thenReturn(invitados);
+        when(invitadoService.findByMesa("mesaId")).thenReturn(invitados);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/mesas/invitados")
                 .locale(new Locale("es", "ES"))
-                .param("idEvento", evento.getId())
-                .param("idMesa", "idMesa");
+                .param("eventoId", evento.getId())
+                .param("mesaId", "mesaId");
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);

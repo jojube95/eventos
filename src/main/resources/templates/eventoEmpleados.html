@@ -12,7 +12,7 @@
     <link th:href="@{/css/eventoEmpleados.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
-        let idEvento = [[${idEvento}]];
+        let eventoId = [[${eventoId}]];
         let camarerosRecomendados = Number([[${camarerosRecomendados}]]);
     </script>
 
@@ -38,21 +38,21 @@
         <div class="row">
             <div class="col">
                 <div class="progress">
-                    <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: green;"></div>
-                    <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" style="width: 15%; background-color: yellow;"></div>
+                    <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <select class="form-control" style="width: auto" id="empleado">
+            <select class="form-control" id="empleado">
                 <option disabled th:text="#{fijos}"></option>
 
-                <option th:each="empleadoFijo: ${empleadosFijos}" th:text="${empleadoFijo.nombre}" th:value="${empleadoFijo.id}"></option>
+                <option th:each="empleadoFijo: ${empleadosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
 
                 <option disabled th:text="#{noFijos}"></option>
 
-                <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.nombre}" th:value="${empleadoNoFijo.id}"></option>
+                <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
             </select>
             <button th:text="#{anyadir}" id="buttonAnyadir" type="button" class="btn btn-primary" onclick="anyadirClicked()"></button>
         </div>
@@ -63,8 +63,8 @@
                 <thead>
                 <tr>
                     <th th:text="#{eventoEmpleado.id}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.idEvento}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.idEmpleado}" scope="col"></th>
+                    <th th:text="#{eventoEmpleado.eventoId}" scope="col"></th>
+                    <th th:text="#{eventoEmpleado.empleadoId}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.tipo}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
                     <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
@@ -77,14 +77,14 @@
                 <tbody>
                 <tr th:each="eventoEmpleado: ${eventoEmpleados}">
                     <td th:text="${eventoEmpleado.id}"></td>
-                    <td th:text="${eventoEmpleado.idEvento}"></td>
-                    <td th:text="${eventoEmpleado.idEmpleado}"></td>
-                    <td th:text="${eventoEmpleado.tipo}"></td>
-                    <td th:text="${eventoEmpleado.nombre}"></td>
+                    <td th:text="${eventoEmpleado.evento.id}"></td>
+                    <td th:text="${eventoEmpleado.empleado.id}"></td>
+                    <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
+                    <td th:text="${eventoEmpleado.empleado.persona.nombre}"></td>
                     <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.fijo}">
-                            <label class="custom-control-label" th:text="${eventoEmpleado.fijo} ? 'Si' : 'No'"></label>
+                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">
+                            <label class="custom-control-label" th:text="${eventoEmpleado.empleado.fijo} ? 'Si' : 'No'"></label>
                         </div>
                     </td>
                     <td>
@@ -109,6 +109,7 @@
                         <td></td>
                         <td></td>
                         <td th:text="#{total}"></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

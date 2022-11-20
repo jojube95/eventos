@@ -20,10 +20,10 @@ public class EmpleadoAnyadirStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit anyadirEmpleado page$")
+    @Given("^Visit empleadoAnyadir page$")
     public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/anyadirEmpleado");
+        connector.getDriver().get("http://localhost:8081/empleadoAnyadir");
     }
 
     @When("^User fill all empleado fields$")
@@ -56,7 +56,7 @@ public class EmpleadoAnyadirStepDef {
 
     @When("^User click empleado tipo option$")
     public void user_click_empleado_tipo_option() {
-        WebElement optionCocinera = connector.getDriver().findElement(By.id("optionCocinera"));
+        WebElement optionCocinera = connector.getDriver().findElement(By.id("cocinero"));
         optionCocinera.click();
     }
 
@@ -98,7 +98,7 @@ public class EmpleadoAnyadirStepDef {
         assertEquals("666888999", empleado3.get(2).getText());
         assertEquals("Si", empleado3.get(3).getText());
 
-        assertEquals("Camarero/a", empleado4.get(0).getText());
+        assertEquals("Cocinero/a", empleado4.get(0).getText());
         assertEquals("Jesus", empleado4.get(1).getText());
         assertEquals("678678678", empleado4.get(2).getText());
         assertEquals("No", empleado4.get(3).getText());

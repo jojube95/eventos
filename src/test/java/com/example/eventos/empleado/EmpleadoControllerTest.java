@@ -1,8 +1,10 @@
 package com.example.eventos.empleado;
 
 import com.example.eventos.evento.EventoService;
-import com.example.eventos.eventoEmpleado.EventoEmpleadoService;
+import com.example.eventos.persona.Persona;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
+import com.example.eventos.tipoEmpleado.TipoEmpleadoService;
 import com.example.utilities.TestUtilities;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(EmpleadoController.class)
 @Import(SecurityConfiguration.class)
 class EmpleadoControllerTest {
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,10 +35,11 @@ class EmpleadoControllerTest {
     private EmpleadoService empleadoService;
 
     @MockBean
-    private EventoEmpleadoService eventoEmpleadoService;
+    private EventoService eventoService;
 
     @MockBean
-    private EventoService eventoService;
+    private TipoEmpleadoService tipoEmpleadoService;
+
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
@@ -64,7 +66,7 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getAnyadirEmpleadoTestUsuario() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEmpleado");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoAnyadir");
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
     }
@@ -72,23 +74,25 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getAnyadirEmpleadoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/anyadirEmpleado.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/empleadoAnyadir.html");
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/anyadirEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoAnyadir")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(tipoEmpleadoService, times(1)).getTipoEmpleados();
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void postUpdateAnyadirEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 
@@ -100,9 +104,9 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void postUpdateAnyadirEmpleadoTestAdmin() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/anyadirUpdateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/empleadoAnyadirUpdate")
                 .with(csrf())
                 .flashAttr("empleado", empleado);
 
@@ -114,11 +118,11 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getUpdateEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoUpdate")
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
@@ -127,32 +131,49 @@ class EmpleadoControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void getUpdateEmpleadoTestAdmin() throws Exception {
-        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/updateEmpleado.html");
+        String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/empleadoUpdate.html");
 
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/updateEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoUpdate")
                 .locale(new Locale("es", "ES"))
-                .param("empleadoId", empleado.getId());;
+                .param("empleadoId", empleado.getId());
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         resultContent = processContent(resultContent);
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
+
+        verify(tipoEmpleadoService, times(1)).getTipoEmpleados();
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getHistorialEmpleadoTestUsuario() throws Exception {
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/historialEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoHistorial")
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getHistorialEmpleadoTestAdmin() throws Exception {
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
+
+        when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/empleadoHistorial")
+                .param("empleadoId", empleado.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(200));
+
+        verify(eventoService, times(1)).getByEmpleadoId("id");
     }
 }

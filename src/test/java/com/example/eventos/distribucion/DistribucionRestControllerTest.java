@@ -2,7 +2,10 @@ package com.example.eventos.distribucion;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfiguration.class)
 class DistribucionRestControllerTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -36,15 +38,15 @@ class DistribucionRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void saveTest() throws Exception {
-        Evento evento = new Evento("id", "Comunion", "Comida", 50, 15, "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         when(eventoService.getById(evento.getId())).thenReturn(evento);
 
-        String expectedResponse = "{\"id\":\"id\",\"tipo\":\"Comunion\",\"horario\":\"Comida\",\"personas\":50,\"ninyos\":15,\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"sala\":\"Sala1\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"distribucion\":{\"distribucion\":\"distribucionJson\"},\"eventoIndividual\":false}";
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"comunion\"},\"horario\":{\"value\":\"comida\"},\"personas\":{\"mayores\":50,\"ninyos\":15},\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"sala\":\"Sala1\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"distribucion\":{\"mapa\":\"distribucionJson\"},\"eventoWithMesasConReserva\":false}";
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/distribucion/guardar")
                 .with(csrf())
-                .param("idEvento", evento.getId())
+                .param("eventoId", evento.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content("distribucionJson");

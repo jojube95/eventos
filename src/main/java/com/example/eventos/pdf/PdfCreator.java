@@ -9,11 +9,6 @@ import java.util.List;
 
 public class PdfCreator {
     private static final Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-    private static final Font subtitleFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-    private static final Font subtitleRedFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.RED);
-    private static final Font paragraphFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
-    private static final Font paragraphRedFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED);
-
 
     public static void addMetaData(Document document) {
         document.addTitle("Listado");
@@ -38,15 +33,7 @@ public class PdfCreator {
         PdfPTable table = new PdfPTable(1);
         table.setKeepTogether(true);
 
-        PdfPCell c1;
-
-        if(mesa.getDescripcion().isEmpty()){
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas() + "p", subtitleFont));
-        }
-        else{
-            c1 = new PdfPCell(new Phrase("Mesa " + mesa.getNumero() + ". " + mesa.getPersonas() + "p. Descripción: " + mesa.getDescripcion(), subtitleRedFont));
-        }
-
+        PdfPCell c1 = new PdfPCell(mesa.generatePhrase());
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setBorder(Rectangle.NO_BORDER);
 
@@ -55,12 +42,7 @@ public class PdfCreator {
         table.setHeaderRows(1);
 
         for (Invitado invitado : invitados) {
-            if (invitado.getDescripcion().isEmpty()){
-                table.addCell(new PdfPCell(new Phrase(invitado.getNombre(), paragraphFont))).setBorder(Rectangle.NO_BORDER);
-            }
-            else{
-                table.addCell(new PdfPCell(new Phrase(invitado.getNombre() + "(" + invitado.getDescripcion() + ")", paragraphRedFont))).setBorder(Rectangle.NO_BORDER);
-            }
+            table.addCell(new PdfPCell(invitado.generatePhrase())).setBorder(Rectangle.NO_BORDER);
         }
 
         preface.add(table);

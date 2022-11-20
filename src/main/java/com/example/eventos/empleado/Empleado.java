@@ -1,35 +1,36 @@
 package com.example.eventos.empleado;
 
+import com.example.eventos.persona.Persona;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document("empleado")
+@TypeAlias("Empleado")
 public class Empleado {
     @Id
     private String id;
 
-    private String tipo;
-    private String nombre;
-    private String telefono;
+    private TipoEmpleado tipo;
+    private Persona persona;
     private boolean fijo;
 
     public Empleado() {
 
     }
 
-    public Empleado(String id, String tipo, String nombre, String telefono, boolean fijo) {
+    public Empleado(String id, TipoEmpleado tipo, Persona persona, boolean fijo) {
         this.id = id;
         this.tipo = tipo;
-        this.nombre = nombre;
-        this.telefono = telefono;
+        this.persona = persona;
         this.fijo = fijo;
     }
 
-    public Empleado(String tipo, String nombre, String telefono, boolean fijo) {
+    public Empleado(TipoEmpleado tipo, Persona persona, boolean fijo) {
         this.tipo = tipo;
-        this.nombre = nombre;
-        this.telefono = telefono;
+        this.persona = persona;
         this.fijo = fijo;
     }
 
@@ -41,28 +42,20 @@ public class Empleado {
         this.id = id;
     }
 
-    public String getTipo() {
+    public TipoEmpleado getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEmpleado tipo) {
         this.tipo = tipo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public boolean isFijo() {
@@ -77,9 +70,8 @@ public class Empleado {
     public String toString() {
         return "Empleado{" +
                 "id='" + id + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", telefono='" + telefono + '\'' +
+                ", tipo=" + tipo +
+                ", persona=" + persona +
                 ", fijo=" + fijo +
                 '}';
     }
@@ -89,11 +81,12 @@ public class Empleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
-        return fijo == empleado.fijo && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo) && Objects.equals(nombre, empleado.nombre) && Objects.equals(telefono, empleado.telefono);
+        return fijo == empleado.fijo && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo)
+                && Objects.equals(persona, empleado.persona);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipo, nombre, telefono, fijo);
+        return Objects.hash(id, tipo, persona, fijo);
     }
 }

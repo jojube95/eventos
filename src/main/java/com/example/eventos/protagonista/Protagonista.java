@@ -1,54 +1,46 @@
 package com.example.eventos.protagonista;
 
+import com.example.eventos.persona.Persona;
+import com.example.eventos.tipoProtagonista.TipoProtagonista;
+
 import java.util.Objects;
 
 public class Protagonista {
-    private String tipo;
-    private String nombre;
-    private String telefono;
-    private String correo;
+    private TipoProtagonista tipo;
+    private Persona persona;
+
 
     public Protagonista() {
 
     }
 
-    public Protagonista(String tipo, String nombre, String telefono, String correo) {
+    public Protagonista(TipoProtagonista tipo, Persona persona) {
         this.tipo = tipo;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.correo = correo;
+        this.persona = persona;
     }
 
-    public String getTipo() {
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public TipoProtagonista getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoProtagonista tipo) {
         this.tipo = tipo;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    @Override
+    public String toString() {
+        return "Protagonista{" +
+                "tipo='" + tipo + '\'' +
+                ", persona=" + persona +
+                '}';
     }
 
     @Override
@@ -56,11 +48,11 @@ public class Protagonista {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Protagonista that = (Protagonista) o;
-        return Objects.equals(tipo, that.tipo) && Objects.equals(nombre, that.nombre) && Objects.equals(telefono, that.telefono) && Objects.equals(correo, that.correo);
+        return Objects.equals(tipo, that.tipo) && Objects.equals(persona, that.persona);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tipo, nombre, telefono, correo);
+        return Objects.hash(persona, tipo);
     }
 }

@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
 class UsuarioRepositoryIT {
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MongoTemplate mongoTemplate;
 

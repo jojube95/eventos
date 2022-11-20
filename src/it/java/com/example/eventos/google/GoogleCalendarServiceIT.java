@@ -1,6 +1,9 @@
 package com.example.eventos.google;
 
 import com.example.eventos.evento.Evento;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.personas.Personas;
+import com.example.eventos.tipoEvento.TipoEvento;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
@@ -20,9 +23,9 @@ class GoogleCalendarServiceIT {
     @BeforeEach
     public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        evento = new Evento("Boda", "Comida", 150, 10, "Benetuser", fecha, "Boda-Comida", "Sala1");
-        String idEvento = this.googleCalendarService.add(evento);
-        evento.setId(idEvento);
+        evento = new Evento(new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(150, 10), "Benetuser", fecha, "Boda-Comida", "Sala1");
+        String eventoId = this.googleCalendarService.add(evento);
+        evento.setId(eventoId);
     }
 
     @Test
@@ -38,7 +41,7 @@ class GoogleCalendarServiceIT {
     @Test
     void eventoIsUpdatedInGoogleCalendar() throws IOException {
         evento.setTitulo("Comunión-Cena");
-        evento.setPersonas(99);
+        evento.setPersonas(new Personas(99, 0));
         evento.setLocalidad("Olleria");
         evento.setConfirmado(true);
         evento.setFecha(new GregorianCalendar(2022, Calendar.JULY, 28).getTime());

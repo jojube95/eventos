@@ -4,7 +4,9 @@ import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
 import com.example.eventos.invitado.Invitado;
+import com.example.eventos.invitado.InvitadoFactory;
 import com.example.eventos.invitado.InvitadoService;
+import com.example.eventos.personas.Personas;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.eventos.config.Constants.*;
 
 @RestController
 public class MesaRestController {
@@ -31,20 +35,17 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/add")
-    public Mesa add(@RequestBody Mesa mesa, @RequestParam("idEvento") String idEvento){
-        Evento evento = eventoService.getById(idEvento);
+    public Mesa add(@RequestBody Mesa mesa, @RequestParam(EVENTO_ID) String eventoId){
+        Evento evento = eventoService.getById(eventoId);
 
-        mesaService.save(mesa);
+        Mesa mesaSaved = mesaService.save(mesa);
 
-        if (!evento.getTipo().equals("Evento individual")) {
-            for (int i = 1; i <= mesa.getPersonas(); i++) {
-                invitadoService.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Invitado" + i, "Mayor", ""));
-            }
-            for (int i = 1; i <= mesa.getNinyos(); i++) {
-                invitadoService.save(new Invitado(mesa.getIdEvento(), mesa.getId(), "Niño" + i, "Ninyo", ""));
-            }
+        // TODO: Add polyphormism with Mesa -> MesaReserva and MesaService -> MesaReservaService
+        if (!evento.getTipo().getValue().equals(EVENTO_TIPO_INDIVIDUAL)) {
+            mesaService.generateInvitados(mesa);
         }
-        return mesa;
+
+        return mesaSaved;
     }
 
     @PostMapping("/evento/mesas/delete")
@@ -61,11 +62,12 @@ public class MesaRestController {
     }
 
     @PostMapping("/evento/mesas/uploadExcel")
-    public ResponseEntity<String> importarMesaInvitadosFromExcel(@RequestParam("file") MultipartFile file, @RequestParam("idEvento") String idEvento ) throws IOException {
-        Evento evento =  eventoService.getById(idEvento);
+    public ResponseEntity<String> importarMesaInvitadosFromExcel(@RequestParam("file") MultipartFile file,
+                                                                 @RequestParam(EVENTO_ID) String eventoId ) throws IOException {
+        Evento evento =  eventoService.getById(eventoId);
         evento.setDistribucion(new Distribucion(""));
         eventoService.update(evento);
-        mesaService.deleteMesas(idEvento);
+        mesaService.deleteMesas(eventoId);
 
         InputStream inputStream = file.getInputStream();
 
@@ -77,21 +79,15 @@ public class MesaRestController {
         //Iterate over columns
         for (int i = 0 ; i < columns ; i++){
             List<Invitado> invitados = new ArrayList<>();
-            int personas = 0;
-            int ninyos = 0;
+            Personas personas = new Personas(0, 0);
 
             //Iterate over column rows
             for (int j = 1; sheet.getRow(j) != null; j++){
                 if(sheet.getRow(j).getCell(i) != null) {
                     //Create Invitado
-                    Invitado invitado = new Invitado(sheet.getRow(j).getCell(i).getStringCellValue(), idEvento);
+                    Invitado invitado = InvitadoFactory.crearInvitadoFromTextExcel(sheet.getRow(j).getCell(i).getStringCellValue(), eventoId);
                     invitados.add(invitado);
-                    if("Niño".equals(invitado.getTipo())){
-                        ninyos++;
-                    }
-                    else{
-                        personas++;
-                    }
+                    personas = invitado.incrementPersonas(personas);
                 }
                 else{
                     break;
@@ -100,10 +96,10 @@ public class MesaRestController {
 
             String textoMesa = sheet.getRow(0).getCell(i).getStringCellValue();
 
-            Mesa mesa = mesaService.save(new Mesa(textoMesa, idEvento, personas, ninyos));
+            Mesa mesa = mesaService.save(new Mesa(textoMesa, eventoId, personas));
 
             for (Invitado invitado: invitados) {
-                invitado.setIdMesa(mesa.getId());
+                invitado.setMesaId(mesa.getId());
             }
 
             invitadoService.saveMany(invitados);

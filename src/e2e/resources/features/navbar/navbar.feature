@@ -2,7 +2,7 @@ Feature: Navbar should navigate to other pages
 
   Scenario: Click on calendario. Click on anyadir evento. Click on ver evento. Click on anyadir empleado. Click on ver empleados.
     Given Open Chrome and logIn as admin
-    And Visit verEventos page
+    And Visit eventosVer page
     When User click on calendario navbar
     Then Calendar page is shown
     Given Visit calendar page

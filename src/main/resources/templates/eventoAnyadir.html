@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html th:with="lang=${#locale.language}" th:lang="${lang}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Eventos</title>
+
+    <th:block th:include="fragments/head :: head"/>
+    <th:block th:include="fragments/headDatePicker :: head"/>
+
+    <script th:src="@{/js/eventoAnyadirUpdate.js}" type="module"></script>
+
+    <link th:href="@{/css/eventoAnyadir.css}" rel="stylesheet" type="text/css" />
+    <script th:inline="javascript">
+        let precioNinyosBodaComunion = JSON.parse([[${precioNinyosBodaComunion}]]);
+        let precioNinyosOtros = JSON.parse([[${precioNinyosOtros}]]);
+    </script>
+</head>
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container">
+        <form action="#" th:action="@{/eventoAnyadir}" th:object="${evento}" method="post">
+            <div th:replace="fragments/eventoForm :: fecha"></div>
+            <div th:replace="fragments/eventoForm :: localidad"></div>
+            <div th:replace="fragments/eventoForm :: tipoHorarioTitulo"></div>
+            <div th:replace="fragments/eventoForm :: sala"></div>
+            <div th:replace="fragments/eventoForm :: mayores"></div>
+            <div th:replace="fragments/eventoForm :: ninyos"></div>
+            <div th:replace="fragments/eventoForm :: confirmado"></div>
+            <button id="buttonAnyadir" th:text="#{anyadir}" class="btn btn-primary" type="submit"></button>
+        </form>
+    </div>
+</body>
+</html>

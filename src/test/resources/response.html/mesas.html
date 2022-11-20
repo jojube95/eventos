@@ -1,4 +1,6 @@
-<div class="container" style="margin-left: 30px; margin-right: 30px">
+<div id="distribucionTipoMesaModalHolder"></div>
+
+<div class="container">
     <div class="row">
         <div class="col-5">
             <table class="display compact" id="mesas">
@@ -6,44 +8,44 @@
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">??mesa.idEvento_es_ES??</th>
+                    <th scope="col">??mesa.eventoId_es_ES??</th>
                     <th scope="col">Número</th>
-                    <th scope="col">Representante</th>
-                    <th scope="col">Personas</th>
+
+                    <th scope="col">Mayores</th>
                     <th scope="col">Niños</th>
-                    <th scope="col">Pagado</th>
+
                     <th scope="col">Descripción</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td>idEvento</td>
+                <tr mesaId="id">
+                    <td>id</td>
+                    <td>eventoId</td>
                     <td>1</td>
-                    <td>Pepe</td>
+
                     <td>10</td>
                     <td>1</td>
-                    <td>true</td>
+
                     <td>descripcion</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>idEvento</td>
+                <tr mesaId="id">
+                    <td>id</td>
+                    <td>eventoId</td>
                     <td>2</td>
-                    <td>Antonio</td>
+
                     <td>6</td>
                     <td>1</td>
-                    <td>false</td>
+
                     <td>descripcion</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>idEvento</td>
+                <tr mesaId="id">
+                    <td>id</td>
+                    <td>eventoId</td>
                     <td>3</td>
-                    <td>José</td>
+
                     <td>7</td>
                     <td>1</td>
-                    <td>true</td>
+
                     <td>descripcion</td>
                 </tr>
                 </tbody>
@@ -52,10 +54,10 @@
                     <td></td>
                     <td></td>
                     <td></td>
+
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+
                     <td></td>
                 </tr>
                 </tfoot>
@@ -63,12 +65,12 @@
         </div>
         <div class="col-7">
             <div class="row">
-                <canvas id="canvas" width="1040" height="920" style="border: 1px solid rgb(204, 204, 204);"></canvas>
+                <canvas id="canvas" width="1040" height="920"></canvas>
             </div>
-            <div class="row" style="margin-top: 10px">
-                <button id="guardarButton" class="btn btn-primary" type="submit" onclick="guardarClicked()">Guardar</button>
-                <button id="exportarDistribucionButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarDistribucionClicked()">Exportar Distribución</button>
-                <button id="exportarListadoButton" class="btn btn-primary" style="margin-left: 10px" type="submit" onclick="exportarListadoClicked()">Exportar Listado</button>
+            <div class="row">
+                <button id="guardarButton" class="btn btn-primary" type="submit">Guardar</button>
+                <button id="exportarDistribucionButton" class="btn btn-primary" type="submit">Exportar Distribución</button>
+                <button id="exportarListadoButton" class="btn btn-primary" type="submit">Exportar Listado</button>
 
                 <form id="file-upload-form">
                     <label for="file-upload-input">Select file to upload</label>

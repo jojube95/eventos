@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acción</button>
+                <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a id="modificarButton" class="dropdown-item" eventoId="id" onclick="modificarClicked(this.getAttribute('eventoId'))">Modificar</a>
+                    <a id="mesasButton" class="dropdown-item" eventoId="id" onclick="mesasClicked(this.getAttribute('eventoId'))">Mesas</a>
+                    <a id="calcularPersonasButton" class="dropdown-item" eventoId="id" onclick="calcularPersonasClicked(this.getAttribute('eventoId'))">Calcular personas</a>
+                    <a id="protagonistasButton" class="dropdown-item" eventoId="id" onclick="protagonistasClicked(this.getAttribute('eventoId'))">Protagonistas</a>
+                    <a id="empleadosButton" class="dropdown-item" eventoId="id" onclick="empleadosClicked(this.getAttribute('eventoId'))">Empleados</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a id="eliminarButton" class="dropdown-item" data-toggle="modal" data-target="#confirmarEliminarModal">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Fecha</p>
+            <p id="eventoFecha" class="font-weight-normal">2022-07-25</p>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Localidad</p>
+            <p id="eventoLocalidad" class="font-weight-normal">Olleria</p>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Tipo</p>
+            <p id="eventoTipo" class="font-weight-normal">Comunión</p>
+        </div>
+        <div class="col">
+            <p class="font-weight-bold">Horario</p>
+            <p id="eventoHorario" class="font-weight-normal">Comida</p>
+        </div>
+        <div class="col">
+            <p class="font-weight-bold">Título</p>
+            <p id="eventoTitulo" class="font-weight-normal">Comunión-Comida</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Sala</p>
+            <p id="eventoSala" class="font-weight-normal">Sala1</p>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Mayores</p>
+            <p id="eventoPersonas" class="font-weight-normal">50</p>
+        </div>
+        <div class="col">
+            <p class="font-weight-bold">Precio Menú</p>
+            <p id="eventoPrecioMenu" class="font-weight-normal">80.0</p>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Niños</p>
+            <p id="eventoNinyos" class="font-weight-normal">15</p>
+        </div>
+        <div class="col">
+            <p class="font-weight-bold">Precio Menú Niños</p>
+            <p id="eventoPrecioMenuNinyos" class="font-weight-normal">15.0</p>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="font-weight-bold">Confirmado</p>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" checked="checked">
+                <label id="eventoConfirmado" class="custom-control-label">Si</label>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Está seguro de guardar los cambios?</div>
+                <div class="modal-footer">
+                    <button id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="modalEliminarButton" type="button" class="btn btn-primary" eventoId="id" onclick="confirmarEliminar(this.getAttribute('eventoId'))">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

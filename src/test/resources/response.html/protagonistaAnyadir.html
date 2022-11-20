@@ -1,0 +1,25 @@
+<div class="container">
+    <form action="/evento/protagonistas/anyadir/?eventoId=eventoId" eventoId="eventoId" method="post">
+        <div class="form-group">
+            <label for="tipo">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo.value">
+                <option value="novio/novia">??protagonista.tipo.novio/novia_es_ES??</option>
+                <option value="padre/madre">??protagonista.tipo.padre/madre_es_ES??</option>
+            </select>
+        </div>
+        <div class="form-group required">
+            <label class="control-label" for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre" required name="persona.nombre" value="">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="persona.telefono" value="">
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="text" class="form-control" id="correo" placeholder="Correo" name="persona.correo" value="">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Añadir</button>
+    </form>
+</div>

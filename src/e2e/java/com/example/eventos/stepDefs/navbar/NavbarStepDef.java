@@ -47,25 +47,25 @@ public class NavbarStepDef {
 
     @When("^User click on anyadir navbar$")
     public void user_click_anyadir_navbar() {
-        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadirEvento"));
+        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarEventoAnyadir"));
         anyadirNavbarButton.click();
     }
 
     @When("^User click on ver navbar$")
     public void user_click_ver_navbar() {
-        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVerEventos"));
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarEventosVer"));
         verNavbarButton.click();
     }
 
     @When("^User click on anyadir empleado navbar$")
     public void user_click_anyadir_empleado_navbar() {
-        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarAnyadirEmpleado"));
+        WebElement anyadirNavbarButton = connector.getDriver().findElement(By.id("navBarEmpleadoAnyadir"));
         anyadirNavbarButton.click();
     }
 
     @When("^User click on ver empleado navbar$")
     public void user_click_ver_empleado_navbar() {
-        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarVerEmpleados"));
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarEmpleadosVer"));
         verNavbarButton.click();
     }
 
@@ -90,19 +90,19 @@ public class NavbarStepDef {
     @Then("^Anyadir evento page is shown$")
     public void anyadir_evento_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
-        assertThat(url, CoreMatchers.containsString("/anyadirEvento"));
+        assertThat(url, CoreMatchers.containsString("/eventoAnyadir"));
     }
 
     @Then("^Ver eventos page is shown$")
     public void ver_eventos_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
-        assertThat(url, CoreMatchers.containsString("/verEventos"));
+        assertThat(url, CoreMatchers.containsString("/eventosVer"));
     }
 
     @Then("^Anyadir empleado page is shown$")
     public void redirect_to_anyadir_empleados_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/anyadirEmpleado"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleadoAnyadir"));
     }
 
     @Then("^Ver empleados page is shown$")

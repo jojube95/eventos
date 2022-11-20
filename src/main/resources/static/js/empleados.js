@@ -22,12 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function modificarClicked(empleadoId){
-    console.log(empleadoId);
-    location.href = "/updateEmpleado?empleadoId=" + empleadoId;
+    location.href = "/empleadoUpdate?empleadoId=" + empleadoId;
 }
 
 function historialClicked(empleadoId){
-    location.href = "/historialEmpleado?empleadoId=" + empleadoId;
+    location.href = "/empleadoHistorial?empleadoId=" + empleadoId;
 }
 
 function eliminarClicked(empleadoId){
@@ -35,16 +34,17 @@ function eliminarClicked(empleadoId){
 
     $('#modalEliminarButton').on('click', function(){
         toggleLoadingSpinner($(this));
-        $.ajax({
-            type: "POST",
-            url: "/eliminarEmpleado?empleadoId=" + empleadoId,
-            dataType: 'json',
-            success: function () {
-                $('#confirmarEliminarModal').modal('toggle');
-                let deletedRow = $('button[empleadoid="' + empleadoId + '"]').parent().parent();
-                empleadosDt.row(deletedRow).remove().draw();
-                empleadosDt.draw();
-            }
+
+        ajaxCall("POST", "/eliminarEmpleado", {empleadoId: empleadoId}, {}, function () {
+            $('#confirmarEliminarModal').modal('toggle');
+            deleteEmpleadoRow(empleadoId);
         });
+
     })
+}
+
+function deleteEmpleadoRow(empleadoId) {
+    let deletedRow = $('button[empleadoid="' + empleadoId + '"]').parent().parent();
+    empleadosDt.row(deletedRow).remove().draw();
+    empleadosDt.draw();
 }

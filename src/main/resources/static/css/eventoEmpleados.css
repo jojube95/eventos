@@ -13,3 +13,15 @@ div.progress{
     border-style: groove;
     border-color: black;
 }
+
+.progress div:nth-child(1) {
+    background-color: green;
+}
+
+.progress div:nth-child(2) {
+    background-color: yellow;
+}
+
+.form-control {
+    width: auto;
+}

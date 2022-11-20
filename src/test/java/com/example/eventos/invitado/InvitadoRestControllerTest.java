@@ -22,11 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfiguration.class)
 class InvitadoRestControllerTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     ObjectMapper mapper;
 
@@ -36,7 +34,7 @@ class InvitadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addUpdateTestUsuario() throws Exception {
-        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Mayor", "Vegano");
+        Invitado invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/addUpdate")
                 .with(csrf())
@@ -52,7 +50,7 @@ class InvitadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addUpdateTestAdmin() throws Exception {
-        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Mayor", "Vegano");
+        Invitado invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/addUpdate")
                 .with(csrf())
@@ -68,7 +66,7 @@ class InvitadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Mayor", "Vegano");
+        Invitado invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/delete")
                 .with(csrf())
@@ -84,7 +82,7 @@ class InvitadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        Invitado invitado = new Invitado("idEvento", "idMesa", "Antonio", "Mayor", "Vegano");
+        Invitado invitado = InvitadoFactory.crearInvitado("id", "eventoId", "mesaId", "Antonio", "Mayor", "Vegano");
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/mesas/invitados/delete")
                 .with(csrf())

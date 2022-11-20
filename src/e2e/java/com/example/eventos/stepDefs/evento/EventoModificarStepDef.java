@@ -22,10 +22,10 @@ public class EventoModificarStepDef {
         this.connector = connector;
     }
 
-    @Given("^Visit updateEvento page$")
+    @Given("^Visit eventoUpdate page$")
     public void visit_update_evento_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/updateEvento?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get("http://localhost:8081/eventoUpdate?eventoId=62dc2a63ec628818203950b9");
     }
 
     @When("^User click modificar evento$")
@@ -49,7 +49,7 @@ public class EventoModificarStepDef {
     @When("^User select horario to comida")
     public void user_select_horario_comida() {
         WebElement horarioSelect = connector.getDriver().findElement(By.id("horario"));
-        WebElement comidaOption = connector.getDriver().findElement(By.id("optionComida"));
+        WebElement comidaOption = connector.getDriver().findElement(By.id("comida"));
         horarioSelect.click();
         comidaOption.click();
     }
@@ -59,12 +59,12 @@ public class EventoModificarStepDef {
         WebElement fecha = connector.getDriver().findElement(By.id("fecha"));
         WebElement localidad = connector.getDriver().findElement(By.id("localidad"));
         WebElement tipo = connector.getDriver().findElement(By.id("tipo"));
-        WebElement optionComunion = connector.getDriver().findElement(By.id("optionComunion"));
+        WebElement optionComunion = connector.getDriver().findElement(By.id("comunion"));
         WebElement horario = connector.getDriver().findElement(By.id("horario"));
-        WebElement optionComida = connector.getDriver().findElement(By.id("optionComida"));
+        WebElement optionComida = connector.getDriver().findElement(By.id("comida"));
         WebElement sala = connector.getDriver().findElement(By.id("sala"));
         WebElement optionPatio = connector.getDriver().findElement(By.id("patio"));
-        WebElement personas = connector.getDriver().findElement(By.id("personas"));
+        WebElement mayores = connector.getDriver().findElement(By.id("mayores"));
         WebElement precioMenu = connector.getDriver().findElement(By.id("precioMenu"));
         WebElement ninyos = connector.getDriver().findElement(By.id("ninyos"));
         WebElement precioMenuNinyos = connector.getDriver().findElement(By.id("precioMenuNinyos"));
@@ -90,8 +90,8 @@ public class EventoModificarStepDef {
         sala.click();
         optionPatio.click();
 
-        personas.clear();
-        personas.sendKeys("155");
+        mayores.clear();
+        mayores.sendKeys("155");
 
         precioMenu.clear();
         precioMenu.sendKeys("85.0");
@@ -113,7 +113,7 @@ public class EventoModificarStepDef {
         String actualTipo = connector.getDriver().findElement(By.id("tipo")).getAttribute("value");
         String actualHorario = connector.getDriver().findElement(By.id("horario")).getAttribute("value");
         String actualTitulo = connector.getDriver().findElement(By.id("titulo")).getAttribute("value");
-        String actualPersonas = connector.getDriver().findElement(By.id("personas")).getAttribute("value");
+        String actualmayores = connector.getDriver().findElement(By.id("mayores")).getAttribute("value");
         String actualPrecioMenu = connector.getDriver().findElement(By.id("precioMenu")).getAttribute("value");
         String actualNinyos = connector.getDriver().findElement(By.id("ninyos")).getAttribute("value");
         String actualPrecioMenuNinyos = connector.getDriver().findElement(By.id("precioMenuNinyos")).getAttribute("value");
@@ -121,10 +121,10 @@ public class EventoModificarStepDef {
 
         String expectedFecha = "2022-07-02";
         String expectedLocalidad = "Aielo de Malferit";
-        String expectedTipo = "Boda";
-        String expectedHorario = "Cena";
+        String expectedTipo = "boda";
+        String expectedHorario = "cena";
         String expectedTitulo = "Boda-Cena";
-        String expectedPersonas = "153";
+        String expectedmayores = "153";
         String expectedPrecioMenu = "80.0";
         String expectedNinyos = "13";
         String expectedPrecioMenuNinyos = "15.0";
@@ -135,7 +135,7 @@ public class EventoModificarStepDef {
         assertEquals(expectedTipo, actualTipo);
         assertEquals(expectedHorario, actualHorario);
         assertEquals(expectedTitulo, actualTitulo);
-        assertEquals(expectedPersonas, actualPersonas);
+        assertEquals(expectedmayores, actualmayores);
         assertEquals(expectedPrecioMenu, actualPrecioMenu);
         assertEquals(expectedNinyos, actualNinyos);
         assertEquals(expectedPrecioMenuNinyos, actualPrecioMenuNinyos);
@@ -145,7 +145,7 @@ public class EventoModificarStepDef {
     @Then("^Titulo should be Comunion-Cena$")
     public void titulo_should_be_comunion_cena(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Comunion-Cena", tituloInput.getAttribute("value"));
+        assertEquals("Comunión-Cena", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be Boda-Comida$")
@@ -154,11 +154,11 @@ public class EventoModificarStepDef {
         assertEquals("Boda-Comida", tituloInput.getAttribute("value"));
     }
 
-    @And("^Keep on updateEvento page$")
+    @And("^Keep on eventoUpdate page$")
     public void keep_on_updateEvento_page() {
         connector.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         String url = connector.getDriver().getCurrentUrl();
-        assertThat(url, CoreMatchers.containsString("/updateEvento?eventoId=62dc2a63ec628818203950b9"));
+        assertThat(url, CoreMatchers.containsString("/eventoUpdate?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Titulo fill with selected horario Sopar nadal-Cena$")

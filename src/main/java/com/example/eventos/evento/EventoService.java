@@ -1,13 +1,19 @@
 package com.example.eventos.evento;
 
+import com.example.eventos.eventoEmpleado.EventoEmpleado;
+import com.example.eventos.eventoEmpleado.EventoEmpleadoRepository;
+import com.example.eventos.invitado.Invitado;
 import com.example.eventos.invitado.InvitadoRepository;
+import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
+import com.example.eventos.personas.Personas;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,13 +26,17 @@ public class EventoService {
 
     private final InvitadoRepository invitadoRepository;
 
+    private final EventoEmpleadoRepository eventoEmpleadoRepository;
+
     private final GoogleCalendarService googleCalendarService;
 
-    public EventoService(EventoRepository eventoRepository, MesaRepository mesaRepository, InvitadoRepository invitadoRepository, GoogleCalendarService googleCalendarService) {
+    public EventoService(EventoRepository eventoRepository, MesaRepository mesaRepository, InvitadoRepository invitadoRepository,
+                         GoogleCalendarService googleCalendarService, EventoEmpleadoRepository eventoEmpleadoRepository) {
         this.eventoRepository = eventoRepository;
         this.mesaRepository = mesaRepository;
         this.invitadoRepository = invitadoRepository;
         this.googleCalendarService = googleCalendarService;
+        this.eventoEmpleadoRepository = eventoEmpleadoRepository;
     }
 
     public List<Evento> getEventos(){
@@ -46,6 +56,29 @@ public class EventoService {
         return eventoRepository.findEventoById(id);
     }
 
+    public List<Evento> getByEmpleadoId(String empleadoId) {
+        List<EventoEmpleado> eventosEmpleado = eventoEmpleadoRepository.findByEmpleadoId(empleadoId);
+
+        List<Evento> eventos = new ArrayList<>();
+        for (EventoEmpleado eventoEmpleado: eventosEmpleado) {
+            eventos.add(eventoRepository.findEventoById(eventoEmpleado.getEvento().getId()));
+        }
+
+        return eventos;
+    }
+
+    public Personas calcularPersonas(String eventoId) {
+        List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(eventoId);
+        Personas personas = new Personas(0, 0);
+        for (Mesa mesa : mesas) {
+            List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
+            for (Invitado invitado: invitados) {
+                personas = invitado.incrementPersonas(personas);
+            }
+        }
+        return personas;
+    }
+
     public void save(Evento evento) {
         eventoRepository.save(evento);
         googleCalendarService.add(evento);
@@ -58,8 +91,8 @@ public class EventoService {
 
     public void delete(Evento evento) {
         eventoRepository.delete(evento);
-        mesaRepository.deleteByIdEvento(evento.getId());
-        invitadoRepository.deleteByIdEvento(evento.getId());
+        mesaRepository.deleteByEventoId(evento.getId());
+        invitadoRepository.deleteByEventoId(evento.getId());
         googleCalendarService.delete(evento);
     }
 }

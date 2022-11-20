@@ -3,28 +3,28 @@ package com.example.eventos.distribucion;
 import java.util.Objects;
 
 public class Distribucion {
-    private String distribucion;
+    private String mapa;
 
     public Distribucion() {
 
     }
 
-    public Distribucion(String distribucion) {
-        this.distribucion = distribucion;
+    public Distribucion(String mapa) {
+        this.mapa = mapa;
     }
 
-    public String getDistribucion() {
-        return distribucion;
+    public String getMapa() {
+        return mapa;
     }
 
-    public void setDistribucion(String distribucion) {
-        this.distribucion = distribucion;
+    public void setMapa(String mapa) {
+        this.mapa = mapa;
     }
 
     @Override
     public String toString() {
         return "Distribucion{" +
-                "distribucion='" + distribucion + '\'' +
+                "mapa='" + mapa + '\'' +
                 '}';
     }
 
@@ -33,11 +33,11 @@ public class Distribucion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Distribucion that = (Distribucion) o;
-        return Objects.equals(distribucion, that.distribucion);
+        return Objects.equals(mapa, that.mapa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(distribucion);
+        return Objects.hash(mapa);
     }
 }

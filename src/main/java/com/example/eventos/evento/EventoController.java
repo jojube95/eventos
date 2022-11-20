@@ -1,59 +1,61 @@
 package com.example.eventos.evento;
 
-import com.example.eventos.invitado.Invitado;
-import com.example.eventos.invitado.InvitadoService;
-import com.example.eventos.mesa.Mesa;
-import com.example.eventos.mesa.MesaService;
+import com.example.eventos.horarioEvento.HorarioEventoService;
+import com.example.eventos.parametros.ParametrosService;
+import com.example.eventos.personas.Personas;
+import com.example.eventos.tipoEvento.TipoEventoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import static com.example.eventos.config.Constants.*;
 
 @Controller
 public class EventoController {
     private final EventoService eventoService;
+    private final ParametrosService parametrosService;
+    private final TipoEventoService tipoEventoService;
+    private final HorarioEventoService horarioEventoService;
 
-    private final MesaService mesaService;
-
-    private final InvitadoService invitadoService;
-
-    private static final String EVENTO_ATTRIBUTE = "evento";
-    private static final String EVENTOS_ATTRIBUTE = "eventos";
-    private static final String EVENTO_ID_ATTRIBUTE = "eventoId";
-    private static final String PERSONAS_ATTRIBUTE = "personas";
-    private static final String NINYOS_ATTRIBUTE = "ninyos";
-    private static final String REDIRECT_CALENDARIO = "redirect:/calendario";
-
-    public EventoController(EventoService eventoService, MesaService mesaService, InvitadoService invitadoService) {
+    public EventoController(EventoService eventoService, ParametrosService parametrosService, TipoEventoService tipoEventoService, HorarioEventoService horarioEventoService) {
         this.eventoService = eventoService;
-        this.mesaService = mesaService;
-        this.invitadoService = invitadoService;
+        this.parametrosService = parametrosService;
+        this.tipoEventoService = tipoEventoService;
+        this.horarioEventoService = horarioEventoService;
     }
 
-    @GetMapping("/verEventos")
-    public String verEventos(Model model) {
+    @GetMapping("/eventosVer")
+    public String eventosVer(Model model) {
         List<Evento> eventos = eventoService.getEventos();
-        model.addAttribute(EVENTOS_ATTRIBUTE, eventos);
-        return "verEventos";
+        model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(ATTRIBUTE_RATIO_BENEFICIOS, parametrosService.get().getRatioBeneficios());
+        return EVENTOS_VER_PAGE;
     }
 
-    @GetMapping("/anyadirEvento")
-    public String anyadirEvento(Model model) {
-        model.addAttribute(EVENTO_ATTRIBUTE, new Evento());
-        return "anyadirEvento";
+    @GetMapping("/eventoAnyadir")
+    public String eventoAnyadir(Model model) {
+        model.addAttribute(EVENTO, new Evento());
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTO, tipoEventoService.getTipoEventos());
+        model.addAttribute(ATTRIBUTE_HORARIOS_EVENTO, horarioEventoService.getHorarioEventos());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
+        return EVENTO_ANYADIR_PAGE;
     }
 
-    @GetMapping("/updateEvento")
-    public String updateEvento(@RequestParam("eventoId") String eventoId, Model model) {
+    @GetMapping("/eventoUpdate")
+    public String eventoUpdate(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(EVENTO_ATTRIBUTE, evento);
-        return "updateEvento";
+        model.addAttribute(EVENTO, evento);
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTO, tipoEventoService.getTipoEventos());
+        model.addAttribute(ATTRIBUTE_HORARIOS_EVENTO, horarioEventoService.getHorarioEventos());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_BODA_COMUNION, parametrosService.get().getPrecioNinyosBodaComunion());
+        model.addAttribute(ATTRIBUTE_PRECIO_NINYOS_OTROS, parametrosService.get().getPrecioNinyosOtros());
+        return EVENTO_UPDATE_PAGE;
     }
 
-    @PostMapping("/updateEvento")
-    public String updateEvento(@ModelAttribute Evento evento) throws IOException {
+    @PostMapping("/eventoUpdate")
+    public String eventoUpdate(@ModelAttribute Evento evento) {
         Evento eventoToUpdate = eventoService.getById(evento.getId());
         eventoToUpdate.setFecha(evento.getFecha());
         eventoToUpdate.setLocalidad(evento.getLocalidad());
@@ -63,60 +65,48 @@ public class EventoController {
         eventoToUpdate.setSala(evento.getSala());
         eventoToUpdate.setPersonas(evento.getPersonas());
         eventoToUpdate.setPrecioMenu(evento.getPrecioMenu());
-        eventoToUpdate.setNinyos(evento.getNinyos());
         eventoToUpdate.setPrecioMenuNinyos(evento.getPrecioMenuNinyos());
         eventoToUpdate.setConfirmado(evento.isConfirmado());
-        eventoService.update(eventoToUpdate);
-        return REDIRECT_CALENDARIO;
+        Evento eventoUpdated = EventoFactory.crearEvento(eventoToUpdate);
+        eventoService.update(eventoUpdated);
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
-    @GetMapping("/verEvento")
-    public String verEvento(@RequestParam("eventoId") String eventoId, Model model) {
+    @GetMapping("/eventoVer")
+    public String eventoVer(@RequestParam(EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        model.addAttribute(EVENTO_ATTRIBUTE, evento);
-        return "verEvento";
+        model.addAttribute(EVENTO, evento);
+        return EVENTO_VER_PAGE;
     }
 
-    @PostMapping("/anyadirEvento")
-    public String save(@ModelAttribute Evento evento) throws IOException {
-        eventoService.save(evento);
-        return REDIRECT_CALENDARIO;
+    @PostMapping("/eventoAnyadir")
+    public String save(@ModelAttribute Evento evento) {
+        Evento eventoCreated = EventoFactory.crearEvento(evento);
+        eventoService.save(eventoCreated);
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/eliminarEvento")
-    public String eliminarEvento(@RequestParam("eventoId") String eventoId) {
+    public String eliminarEvento(@RequestParam(EVENTO_ID) String eventoId) {
         Evento evento = eventoService.getById(eventoId);
         eventoService.delete(evento);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/evento/updateFecha")
-    public String updateFecha(@RequestParam("id") String id, @RequestParam("fecha") Date fecha) {
-        Evento evento = eventoService.getById(id);
+    public String updateFecha(@RequestParam(EVENTO_ID) String eventoId, @RequestParam(EVENTO_FECHA) Date fecha) {
+        Evento evento = eventoService.getById(eventoId);
         evento.setFecha(fecha);
         eventoService.update(evento);
-        return REDIRECT_CALENDARIO;
+        return "redirect:/" + CALENDARIO_PAGE;
     }
 
     @GetMapping("/evento/calcularPersonas")
-    public String calcularPersonas(@RequestParam("eventoId") String eventoId, Model model){
-        List<Mesa> mesas = mesaService.findByEvento(eventoId);
-        int personas = 0;
-        int ninyos = 0;
-        for (Mesa mesa : mesas) {
-            List<Invitado> invitados = invitadoService.findByMesa(mesa.getId());
-            for (Invitado invitado: invitados) {
-                if("Niño".equals(invitado.getTipo())){
-                    ninyos++;
-                }
-                else{
-                    personas++;
-                }
-            }
-        }
-        model.addAttribute(EVENTO_ID_ATTRIBUTE, eventoId);
-        model.addAttribute(PERSONAS_ATTRIBUTE, personas);
-        model.addAttribute(NINYOS_ATTRIBUTE, ninyos);
+    public String calcularPersonas(@RequestParam(EVENTO_ID) String eventoId, Model model) {
+        Personas personas = eventoService.calcularPersonas(eventoId);
+
+        model.addAttribute(EVENTO_ID, eventoId);
+        model.addAttribute(PERSONAS, personas);
         return "fragments/eventoPersonasConfirmModal :: modalContents";
     }
 }

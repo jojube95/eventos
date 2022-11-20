@@ -1,9 +1,16 @@
 package com.example.eventos.eventoEmpleado;
 
+import com.example.eventos.distribucion.Distribucion;
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.empleado.EmpleadoService;
 import com.example.eventos.evento.Evento;
+import com.example.eventos.evento.EventoService;
+import com.example.eventos.horarioEvento.HorarioEvento;
+import com.example.eventos.persona.Persona;
+import com.example.eventos.personas.Personas;
 import com.example.eventos.security.SecurityConfiguration;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -28,7 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfiguration.class)
 class EventoEmpleadoRestControllerTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
@@ -37,6 +44,9 @@ class EventoEmpleadoRestControllerTest {
 
     @MockBean
     private EventoEmpleadoService eventoEmpleadoService;
+
+    @MockBean
+    private EventoService eventoService;
 
     Date fecha;
 
@@ -48,8 +58,8 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void addTestUsuario() throws Exception {
-        Evento evento = new Evento("id2", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Evento evento = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
@@ -60,15 +70,16 @@ class EventoEmpleadoRestControllerTest {
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
 
-        verify(eventoEmpleadoService, times(0)).save(new EventoEmpleado(evento.getId(), empleado.getId(), empleado.getTipo(), empleado.getNombre(), empleado.isFijo(), false, 0.0F));
+        verify(eventoEmpleadoService, times(0)).save(new EventoEmpleado(evento, empleado, false, 0.0F));
     }
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void addTestAdmin() throws Exception {
-        Evento evento = new Evento("id2", "Boda", "Cena", 150, 10, "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
-        Empleado empleado = new Empleado("id", "tipo", "nombre", "telefono", true);
+        Evento evento = new Evento("id2", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true);
 
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/evento/empleados/anyadir")
@@ -78,13 +89,16 @@ class EventoEmpleadoRestControllerTest {
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
-        verify(eventoEmpleadoService, times(1)).save(new EventoEmpleado(evento.getId(), empleado.getId(), empleado.getTipo(), empleado.getNombre(), empleado.isFijo(), false, 0.0F));
+        verify(eventoEmpleadoService, times(1)).save(new EventoEmpleado(evento, empleado, false, 0.0F));
     }
 
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void deleteTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -100,7 +114,10 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void deleteTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -116,7 +133,11 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void modificarEventoEmpleadoTestUsuario() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
+
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -137,7 +158,10 @@ class EventoEmpleadoRestControllerTest {
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
     void modificarEventoEmpleadoTestAdmin() throws Exception {
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", "idEvento", "idEmpleado", "tipo", "nombre", true, true, 0);
+        Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

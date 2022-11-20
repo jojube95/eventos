@@ -7,9 +7,9 @@ import java.util.List;
 
 @Repository
 public interface MesaRepository  extends MongoRepository<Mesa, String> {
-    List<Mesa> findByIdEvento(String idEvento);
+    List<Mesa> findByEventoId(String eventoId);
 
-    void deleteByIdEvento(String idEvento);
+    void deleteByEventoId(String eventoId);
 
-    List<Mesa> findByIdEventoOrderByNumeroAsc(String idEvento);
+    List<Mesa> findByEventoIdOrderByNumeroAsc(String eventoId);
 }

@@ -7,9 +7,9 @@ import java.util.List;
 
 @Repository
 public interface InvitadoRepository  extends MongoRepository<Invitado, String> {
-    List<Invitado> findByIdMesa(String idMesa);
+    List<Invitado> findByMesaId(String mesaId);
 
-    void deleteByIdMesa(String idMesa);
+    void deleteByMesaId(String mesaId);
 
-    void deleteByIdEvento(String idEvento);
+    void deleteByEventoId(String eventoId);
 }
