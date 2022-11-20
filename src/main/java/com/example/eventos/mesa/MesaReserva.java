@@ -1,15 +1,9 @@
 package com.example.eventos.mesa;
 
 import com.example.eventos.personas.Personas;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Objects;
-
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.DEDUCTION;
 
 @Document("mesa")
 @TypeAlias("MesaReserva")

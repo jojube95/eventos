@@ -1,6 +1,6 @@
 package com.example.eventos.config;
 
-public final class Constants {
+public class Constants {
     public static final String ROLE_ADMIN = "ADMIN";
 
     public static final String CALENDARIO_PAGE = "calendario";

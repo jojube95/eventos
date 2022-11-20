@@ -9,7 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class TipoEmpleadoServiceTest {
+class TipoEmpleadoServiceTest {
 
     @Mock
     TipoEmpleadoRepository tipoEmpleadoRepository;

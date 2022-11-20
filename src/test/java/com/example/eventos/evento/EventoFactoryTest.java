@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EventoFactoryTest {
+class EventoFactoryTest {
     Evento eventoBoda = new Evento();
     Evento eventoComunion = new Evento();
     Evento eventoIndividual = new Evento();

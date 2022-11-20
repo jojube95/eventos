@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class EventoIndividualTest {
+class EventoIndividualTest {
     EventoIndividual eventoIndividual;
     Date fecha;
 
@@ -47,5 +47,10 @@ public class EventoIndividualTest {
         assertEquals(4, eventoIndividual.getCamarerosRecomendados(13));
         assertEquals(3, eventoIndividual.getCamarerosRecomendados(15));
         assertEquals(3, eventoIndividual.getCamarerosRecomendados(17));
+    }
+
+    @Test
+    void isEventoWithMesasConReservaTest(){
+        assertTrue(eventoIndividual.isEventoWithMesasConReserva());
     }
 }

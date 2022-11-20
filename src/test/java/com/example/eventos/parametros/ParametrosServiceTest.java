@@ -10,7 +10,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ParametrosServiceTest {
+class ParametrosServiceTest {
     @Mock
     ParametrosRepository parametrosRepository;
 

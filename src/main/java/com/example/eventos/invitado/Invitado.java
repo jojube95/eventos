@@ -25,7 +25,7 @@ import static com.example.eventos.config.Constants.INVITADO_TIPO_NINYO;
         @Type(value = InvitadoMayor.class, name = INVITADO_TIPO_MAYOR),
         @Type(value = InvitadoNinyo.class, name =INVITADO_TIPO_NINYO)
 })
-abstract public class Invitado {
+public abstract class Invitado {
     @Id
     private String id;
 
@@ -114,9 +114,9 @@ abstract public class Invitado {
         }
     }
 
-    abstract public String generateTextoListado();
+    public abstract String generateTextoListado();
 
-    abstract public Personas incrementPersonas(Personas personas);
+    public abstract Personas incrementPersonas(Personas personas);
 
     @Override
     public String toString() {
