@@ -55,7 +55,9 @@ public class EmpleadoController {
     @GetMapping("/empleadoHistorial")
     public String empleadoHistorial(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         List<Evento> eventos = eventoService.getByEmpleadoId(empleadoId);
+        Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(EMPLEADO, empleado);
         return EMPLEADO_HISTORIAL_PAGE;
     }
 }
