@@ -1,4 +1,6 @@
 import {Evento} from "./Evento.js";
+import {MesaFactory} from "../../factories/mesa/MesaFactory.js";
+import {updateMesaOnCanvas} from "../../distribucion.js";
 
 export class EventoIndividual extends Evento {
     constructor(id, tipo, titulo, personas, fecha) {
@@ -9,7 +11,7 @@ export class EventoIndividual extends Evento {
         return 'DarkGreen';
     }
 
-    initMesasTable(table, onAddRow, onEditRow, onDeleteRow) {
+    initMesasTable(table, onAddRow, onDeleteRow) {
         let pagadoOptions = { "true" : "Sí", "false" : "No" };
 
         let columnDefs = [
@@ -90,9 +92,9 @@ export class EventoIndividual extends Evento {
             onDeleteRow: function(datatable, rowdata, success, error) {
                 onDeleteRow(datatable, rowdata, success, error);
             },
-            onEditRow: function(datatable, rowdata, success, error) {
-                onEditRow(datatable, rowdata, success, error);
-            },
+            onEditRow: (datatable, rowdata, success, error) =>
+                this.onEditMesaRow(datatable, rowdata, success, error)
+            ,
             footerCallback: function () {
                 let api = this.api();
                 let rows = api.rows({search:'applied'}).count();
@@ -125,6 +127,17 @@ export class EventoIndividual extends Evento {
 
                 $(api.column(6).footer()).html(((totalPagados / rows) * 100).toFixed(2) + "%");
             }
+        });
+    }
+
+    onEditMesaRow(datatable, rowdata, success, error){
+        toggleLoadingSpinner($("#editRowBtn"));
+
+        let mesaObject = MesaFactory.crearMesa(rowdata.id, rowdata.eventoId, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, rowdata.representante, rowdata.pagado);
+
+        ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(mesaObject), function (mesa) {
+            success(mesaObject.getDataTableRowData());
+            updateMesaOnCanvas(mesa);
         });
     }
 

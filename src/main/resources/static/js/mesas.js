@@ -2,8 +2,7 @@ import {EventoFactory} from "./factories/evento/EventoFactory.js";
 import {MesaFactory} from "./factories/mesa/MesaFactory.js";
 import {
     onAnyadirMesaToCanvas, canvas,
-    createMesaCanvas, guardarDistribucion,
-    updateMesaOnCanvas
+    createMesaCanvas, guardarDistribucion
 } from "./distribucion.js";
 
 window.createMesaCanvas = createMesaCanvas;
@@ -15,7 +14,7 @@ export let mesasDt;
 $(document).ready(function() {
     let eventoObject = EventoFactory.crearEvento(evento.id, evento.tipo, evento.titulo, evento.personas, evento.fecha);
 
-    mesasDt = eventoObject.initMesasTable($('#mesas'), onAddRow, onEditRow, onDeleteRow);
+    mesasDt = eventoObject.initMesasTable($('#mesas'), onAddRow, onDeleteRow);
 
     onAddClicked();
 
@@ -131,17 +130,6 @@ function onDeleteRow(datatable, rowdata, success){
         mesaCanvas.delete(canvas, function() {
             guardarDistribucion();
         });
-    });
-}
-
-function onEditRow(datatable, rowdata, success){
-    toggleLoadingSpinner($("#editRowBtn"));
-
-    let mesaObject = MesaFactory.crearMesa(rowdata.id, rowdata.eventoId, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion);
-
-    ajaxCall("POST", "/evento/mesas/update", {}, JSON.stringify(mesaObject), function (mesa) {
-        success(mesaObject.getDataTableRowData());
-        updateMesaOnCanvas(mesa);
     });
 }
 
