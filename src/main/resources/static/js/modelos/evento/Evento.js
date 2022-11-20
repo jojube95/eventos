@@ -81,8 +81,8 @@ export class Evento {
                     name: 'invitados'
                 }
             ],
-            onAddRow: function(datatable, rowdata, success, error) {
-                onAddRow(datatable, rowdata, success, error);
+            onAddRow: function(datatable, rowdata, success) {
+                onAddRow(datatable, rowdata, success);
             },
             onDeleteRow: function(datatable, rowdata, success, error) {
                 onDeleteRow(datatable, rowdata, success, error);

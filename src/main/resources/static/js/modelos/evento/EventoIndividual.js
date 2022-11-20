@@ -86,8 +86,8 @@ export class EventoIndividual extends Evento {
                     name: 'delete'      // do not change name
                 }
             ],
-            onAddRow: function(datatable, rowdata, success, error) {
-                onAddRow(datatable, rowdata, success, error);
+            onAddRow: function(datatable, rowdata, success) {
+                onAddRow(datatable, rowdata, success);
             },
             onDeleteRow: function(datatable, rowdata, success, error) {
                 onDeleteRow(datatable, rowdata, success, error);

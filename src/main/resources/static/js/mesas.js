@@ -85,12 +85,12 @@ function onAddClicked(){
     });
 }
 
-function onAddRow(datatable, rowdata, success, error){
+function onAddRow(datatable, rowdata, success){
     toggleLoadingSpinner($("#addRowBtn"));
 
     let mesaObject = MesaFactory.crearMesa(undefined, evento.id, rowdata.numero, {mayores: rowdata.mayores, ninyos: rowdata.ninyos}, rowdata.descripcion, rowdata.representante, rowdata.pagado);
 
-    addMesaAjax(mesaObject, success, error);
+    addMesaAjax(mesaObject, success);
 }
 
 function addMesaAjax(mesaObject, success){
