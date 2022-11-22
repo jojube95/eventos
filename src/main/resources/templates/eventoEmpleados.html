@@ -22,7 +22,7 @@
 
     <div id="eventoEmpleadoModificarModalHolder"></div>
 
-    <div class="container">
+    <div style="margin-left: 10%; margin-right: 10%">
 
         <div class="row">
             <div class="col">
@@ -44,79 +44,159 @@
             </div>
         </div>
 
-        <div class="row">
-            <select class="form-control" id="empleado">
-                <option disabled th:text="#{fijos}"></option>
+       <div class="row">
+            <div class="col">
+                <div class="row">
+                    <select class="form-control listaEmpleados" id="empleadoCamarero">
+                        <option disabled th:text="#{fijos}"></option>
 
-                <option th:each="empleadoFijo: ${empleadosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
+                        <option th:each="empleadoFijo: ${camarerosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
 
-                <option disabled th:text="#{noFijos}"></option>
+                        <option disabled th:text="#{noFijos}"></option>
 
-                <option th:each="empleadoNoFijo: ${empleadosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
-            </select>
-            <button th:text="#{anyadir}" id="buttonAnyadir" type="button" class="btn btn-primary" onclick="anyadirClicked()"></button>
-        </div>
+                        <option th:each="empleadoNoFijo: ${camarerosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
+                    </select>
+                    <button th:text="#{anyadirCamarero}" id="buttonAnyadirCamarero" type="button" class="btn btn-primary" onclick="anyadirCamareroClicked()"></button>
+                </div>
+                <div class="row">
+                    <table class="display compact" id="eventoEmpleadosCamareros">
+                        <caption th:text="#{table.description.eventoEmpleados}"></caption>
+                        <thead>
+                        <tr>
+                            <th th:text="#{eventoEmpleado.id}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.eventoId}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.empleadoId}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.tipo}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.confirmado}" scope="col"></th>
+                            <th th:text="#{eventoEmpleado.horasExtras}" scope="col"></th>
+                            <th th:text="#{modificar}" scope="col"></th>
+                            <th th:text="#{eliminar}" scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="eventoEmpleado: ${eventoEmpleadosCamareros}">
+                            <td th:text="${eventoEmpleado.id}"></td>
+                            <td th:text="${eventoEmpleado.evento.id}"></td>
+                            <td th:text="${eventoEmpleado.empleado.id}"></td>
+                            <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
+                            <td th:text="${eventoEmpleado.empleado.persona.nombre}"></td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">
+                                    <label class="custom-control-label" th:text="${eventoEmpleado.empleado.fijo} ? 'Si' : 'No'"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.confirmado}">
+                                    <label class="custom-control-label" th:text="${eventoEmpleado.confirmado} ? 'Si' : 'No'"></label>
+                                </div>
+                            </td>
+                            <td th:text="${eventoEmpleado.horasExtras}"></td>
+                            <td>
+                                <button th:text="#{modificar}" type="button" class="btn btn-primary" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
+                            </td>
+                            <td>
+                                <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td th:text="#{total}"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
 
-        <div class="row">
-            <table class="display compact" id="eventoEmpleados">
-                <caption th:text="#{table.description.eventoEmpleados}"></caption>
-                <thead>
-                <tr>
-                    <th th:text="#{eventoEmpleado.id}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.eventoId}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.empleadoId}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.tipo}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.confirmado}" scope="col"></th>
-                    <th th:text="#{eventoEmpleado.horasExtras}" scope="col"></th>
-                    <th th:text="#{modificar}" scope="col"></th>
-                    <th th:text="#{eliminar}" scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="eventoEmpleado: ${eventoEmpleados}">
-                    <td th:text="${eventoEmpleado.id}"></td>
-                    <td th:text="${eventoEmpleado.evento.id}"></td>
-                    <td th:text="${eventoEmpleado.empleado.id}"></td>
-                    <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
-                    <td th:text="${eventoEmpleado.empleado.persona.nombre}"></td>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">
-                            <label class="custom-control-label" th:text="${eventoEmpleado.empleado.fijo} ? 'Si' : 'No'"></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.confirmado}">
-                            <label class="custom-control-label" th:text="${eventoEmpleado.confirmado} ? 'Si' : 'No'"></label>
-                        </div>
-                    </td>
-                    <td th:text="${eventoEmpleado.horasExtras}"></td>
-                    <td>
-                        <button th:text="#{modificar}" type="button" class="btn btn-primary" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
-                    </td>
-                    <td>
-                        <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td th:text="#{total}"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+           <div class="col">
+               <div class="row">
+                   <select class="form-control listaEmpleados" id="empleadoCocinero">
+                       <option disabled th:text="#{fijos}"></option>
+
+                       <option th:each="empleadoFijo: ${cocinerosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
+
+                       <option disabled th:text="#{noFijos}"></option>
+
+                       <option th:each="empleadoNoFijo: ${cocinerosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
+                   </select>
+                   <button th:text="#{anyadirCocinero}" id="buttonAnyadirCocinero" type="button" class="btn btn-primary" onclick="anyadirCocineroClicked()"></button>
+               </div>
+               <div class="row">
+                   <table class="display compact" id="eventoEmpleadosCocineros">
+                       <caption th:text="#{table.description.eventoEmpleados}"></caption>
+                       <thead>
+                       <tr>
+                           <th th:text="#{eventoEmpleado.id}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.eventoId}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.empleadoId}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.tipo}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.confirmado}" scope="col"></th>
+                           <th th:text="#{eventoEmpleado.horasExtras}" scope="col"></th>
+                           <th th:text="#{modificar}" scope="col"></th>
+                           <th th:text="#{eliminar}" scope="col"></th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <tr th:each="eventoEmpleado: ${eventoEmpleadosCocineros}">
+                           <td th:text="${eventoEmpleado.id}"></td>
+                           <td th:text="${eventoEmpleado.evento.id}"></td>
+                           <td th:text="${eventoEmpleado.empleado.id}"></td>
+                           <td th:text="${eventoEmpleado.empleado.tipo.value}"></td>
+                           <td th:text="${eventoEmpleado.empleado.persona.nombre}"></td>
+                           <td>
+                               <div class="custom-control custom-checkbox">
+                                   <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.fijo}">
+                                   <label class="custom-control-label" th:text="${eventoEmpleado.empleado.fijo} ? 'Si' : 'No'"></label>
+                               </div>
+                           </td>
+                           <td>
+                               <div class="custom-control custom-checkbox">
+                                   <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.confirmado}">
+                                   <label class="custom-control-label" th:text="${eventoEmpleado.confirmado} ? 'Si' : 'No'"></label>
+                               </div>
+                           </td>
+                           <td th:text="${eventoEmpleado.horasExtras}"></td>
+                           <td>
+                               <button th:text="#{modificar}" type="button" class="btn btn-primary" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
+                           </td>
+                           <td>
+                               <button th:text="#{eliminar}" type="button" class="btn btn-danger" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="eliminarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
+                           </td>
+                       </tr>
+                       </tbody>
+                       <tfoot>
+                       <tr>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td th:text="#{total}"></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                       </tr>
+                       </tfoot>
+                   </table>
+               </div>
+           </div>
+
         </div>
     </div>
 </body>

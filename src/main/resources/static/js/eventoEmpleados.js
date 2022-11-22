@@ -1,25 +1,28 @@
-let eventoEmpleadosDt;
+let eventoEmpleadosCamarerosDt;
+let eventoEmpleadosCocinerosDt;
 
+let eventoEmpleadoDtParams = {
+    "sPaginationType": "full_numbers",
+    columnDefs: [
+        { visible: false, targets: [0, 1, 2, 3] }
+    ],
+    dom: 'Bfrtip',
+    select: 'single',
+    responsive: true,
+    paging: false,
+    info: false,
+    altEditor: true,
+    footerCallback: function () {
+        let api = this.api();
+        let rows = api.rows({search:'applied'}).count();
+        $(api.column(4).footer()).text("Total: " + rows);
+    }
+}
 $(document).ready(function() {
-    eventoEmpleadosDt = $('#eventoEmpleados').DataTable({
-        "sPaginationType": "full_numbers",
-        columnDefs: [
-            { visible: false, targets: [0, 1, 2, 3] }
-        ],
-        dom: 'Bfrtip',
-        select: 'single',
-        responsive: true,
-        paging: false,
-        info: false,
-        altEditor: true,
-        footerCallback: function () {
-            let api = this.api();
+    eventoEmpleadosCamarerosDt = $('#eventoEmpleadosCamareros').DataTable(eventoEmpleadoDtParams);
 
-            let rows = api.rows({search:'applied'}).count();
+    eventoEmpleadosCocinerosDt = $('#eventoEmpleadosCocineros').DataTable(eventoEmpleadoDtParams);
 
-            $(api.column(4).footer()).text("Total: " + rows);
-        }
-    });
     updateProgresbar();
 });
 
@@ -30,6 +33,9 @@ function anyadirClicked (){
     let empleadoId = $('#empleado option').filter(':selected').val();
 
     ajaxCall("POST", "/evento/empleados/anyadir", {eventoId: eventoId, empleadoId: empleadoId}, {}, function (data) {
+        // TODO: Obtener empleado con el data que devuelve el Ajax
+        // TODO: Crear un empleado usando el EmpleadoFactory
+        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
         addEventoEmpleadoRow(data);
         updateProgresbar();
         toggleLoadingSpinner(anyadirButton);
@@ -40,6 +46,9 @@ function eliminarClicked(eventoEmpleadoId){
     toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
 
     ajaxCall("POST", "/evento/empleados/eliminar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function () {
+        // TODO: Obtener empleado con el data que devuelve el Ajax
+        // TODO: Crear un empleado usando el EmpleadoFactory
+        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
         deleteEventoEmpleadoRow(eventoEmpleadoId);
         updateProgresbar();
     });
@@ -59,6 +68,9 @@ function modificarModalClicked(eventoEmpleadoId){
     let horasExtras = $('#horasExtras').val();
 
     ajaxCall("POST", "/evento/empleados/modificar", {eventoEmpleadoId: eventoEmpleadoId, confirmado: confirmado, horasExtras: horasExtras}, {}, function (data) {
+        // TODO: Obtener empleado con el data que devuelve el Ajax
+        // TODO: Crear un empleado usando el EmpleadoFactory
+        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
         updateEventoEmpleadoRow(data);
         updateProgresbar();
     });
@@ -100,6 +112,7 @@ function updateEventoEmpleadoRow(eventoEmpleado) {
 }
 
 function updateProgresbar(){
+    // TODO: Add tipoEmpleado option
     let camarerosConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input[checked="checked"]').length;
     let camarerosNoConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input').length - camarerosConfirmados;
 

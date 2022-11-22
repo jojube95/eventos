@@ -27,7 +27,7 @@ public class EventoEmpleadoRestController {
         Evento evento = eventoService.getById(eventoId);
         Empleado empleado = empleadoService.getById(empleadoId);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento, empleado, false, 0.0F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento, empleado, empleado.getTipo(), false, 0.0F);
 
         return eventoEmpleadoService.save(eventoEmpleado);
     }

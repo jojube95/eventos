@@ -70,7 +70,7 @@ class EventoEmpleadoRestControllerTest {
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().is(403));
 
-        verify(eventoEmpleadoService, times(0)).save(new EventoEmpleado(evento, empleado, false, 0.0F));
+        verify(eventoEmpleadoService, times(0)).save(new EventoEmpleado(evento, empleado, empleado.getTipo(), false, 0.0F));
     }
 
     @Test
@@ -89,7 +89,7 @@ class EventoEmpleadoRestControllerTest {
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk());
 
-        verify(eventoEmpleadoService, times(1)).save(new EventoEmpleado(evento, empleado, false, 0.0F));
+        verify(eventoEmpleadoService, times(1)).save(new EventoEmpleado(evento, empleado, empleado.getTipo(), false, 0.0F));
     }
 
     @Test
@@ -98,7 +98,7 @@ class EventoEmpleadoRestControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -117,7 +117,7 @@ class EventoEmpleadoRestControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, empleado1.getTipo(), true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 
@@ -136,7 +136,7 @@ class EventoEmpleadoRestControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), true, 0);
 
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
@@ -161,7 +161,7 @@ class EventoEmpleadoRestControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, empleado1.getTipo(), true, 0);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

@@ -14,11 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
@@ -43,10 +39,10 @@ class EventoEmpleadoRepositoryIT {
         Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true, true);
         Empleado empleado4 = new Empleado("idEmpleado4", new TipoEmpleado("cocinero"), new Persona("nombre4", "666777919", "correo4"), false, true);
 
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, true, 0);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
-        EventoEmpleado eventoEmpleado3 = new EventoEmpleado("idEventoEmpleado3", evento2, empleado3, true, 0);
-        EventoEmpleado eventoEmpleado4 = new EventoEmpleado("idEventoEmpleado4", evento2, empleado4, false, 1);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, empleado1.getTipo(), true, 0);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, empleado2.getTipo(),false, 1);
+        EventoEmpleado eventoEmpleado3 = new EventoEmpleado("idEventoEmpleado3", evento2, empleado3, empleado3.getTipo(),true, 0);
+        EventoEmpleado eventoEmpleado4 = new EventoEmpleado("idEventoEmpleado4", evento2, empleado4, empleado4.getTipo(),false, 1);
 
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
@@ -68,8 +64,8 @@ class EventoEmpleadoRepositoryIT {
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
         Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
 
-        EventoEmpleado eventoEmpleadoExpected1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, true, 0);
-        EventoEmpleado eventoEmpleadoExpected2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
+        EventoEmpleado eventoEmpleadoExpected1 = new EventoEmpleado("idEventoEmpleado1", evento1, empleado1, empleado1.getTipo(),true, 0);
+        EventoEmpleado eventoEmpleadoExpected2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, empleado2.getTipo(),false, 1);
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
         eventoEmpleadosExpected.add(eventoEmpleadoExpected1);
         eventoEmpleadosExpected.add(eventoEmpleadoExpected2);
@@ -82,7 +78,7 @@ class EventoEmpleadoRepositoryIT {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(40, 13), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
 
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, false, 1);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado("idEventoEmpleado2", evento1, empleado2, empleado2.getTipo(),false, 1);
 
         List<EventoEmpleado> eventoEmpleadosExpected = new ArrayList<>();
         eventoEmpleadosExpected.add(eventoEmpleado2);
@@ -94,7 +90,7 @@ class EventoEmpleadoRepositoryIT {
     void findEventoEmpleadoByIdTest(){
         Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(30, 2), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado3 = new Empleado("idEmpleado3", new TipoEmpleado("camarero"), new Persona("nombre3", "666777828", "correo3"), true, true);
-        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("idEventoEmpleado3", evento2, empleado3, true, 0);
+        EventoEmpleado eventoEmpleadoExpected = new EventoEmpleado("idEventoEmpleado3", evento2, empleado3, empleado3.getTipo(),true, 0);
 
         assertEquals(eventoEmpleadoExpected, eventoEmpleadoRepository.findEventoEmpleadoById("idEventoEmpleado3"));
     }

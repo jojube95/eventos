@@ -92,8 +92,8 @@ class EventoEmpleadoControllerTest {
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
         Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
 
-        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento1, empleado1, false, 0.5F);
-        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento2, empleado2, true, 1.5F);
+        EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), false, 0.5F);
+        EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento2, empleado2, empleado2.getTipo(), true, 1.5F);
         eventoEmpleados.add(eventoEmpleado1);
         eventoEmpleados.add(eventoEmpleado2);
 
@@ -119,7 +119,7 @@ class EventoEmpleadoControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), false, 0.5F);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/empleados/modificar")
                 .param("eventoEmpleadoId", eventoEmpleado.getId());
@@ -135,7 +135,7 @@ class EventoEmpleadoControllerTest {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, false, 0.5F);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, empleado1.getTipo(), false, 0.5F);
 
         when(eventoEmpleadoService.getById(eventoEmpleado.getId())).thenReturn(eventoEmpleado);
 

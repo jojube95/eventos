@@ -105,7 +105,7 @@ class EventoServiceTest {
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, empleado.getTipo(), true, 0);
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
         eventoEmpleados.add(eventoEmpleado);
 
