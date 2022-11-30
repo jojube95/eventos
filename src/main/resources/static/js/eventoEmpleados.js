@@ -1,3 +1,11 @@
+import {EventoEmpleadoFactory} from "./factories/eventoEmpleado/EventoEmpleadoFactory.js";
+
+window.anyadirCamareroClicked = anyadirCamareroClicked;
+window.anyadirCocineroClicked = anyadirCocineroClicked;
+window.eliminarClicked = eliminarClicked;
+window.modificarClicked = modificarClicked;
+window.modificarModalClicked = modificarModalClicked;
+
 let eventoEmpleadosCamarerosDt;
 let eventoEmpleadosCocinerosDt;
 
@@ -23,34 +31,43 @@ $(document).ready(function() {
 
     eventoEmpleadosCocinerosDt = $('#eventoEmpleadosCocineros').DataTable(eventoEmpleadoDtParams);
 
-    updateProgresbar();
+    updateProgresbar('camarero');
+    updateProgresbar('cocinero');
 });
 
-function anyadirClicked (){
-    let anyadirButton = $('#buttonAnyadir');
+function anyadirCamareroClicked (){
+    let anyadirButton = $('#buttonAnyadirCamarero');
     toggleLoadingSpinner(anyadirButton);
 
-    let empleadoId = $('#empleado option').filter(':selected').val();
+    let empleadoId = $('#empleadoCamarero option').filter(':selected').val();
 
+    anyadirEmpleado(empleadoId);
+}
+
+function anyadirCocineroClicked (){
+    let anyadirButton = $('#buttonAnyadirCocinero');
+    toggleLoadingSpinner(anyadirButton);
+
+    let empleadoId = $('#empleadoCocinero option').filter(':selected').val();
+
+    anyadirEmpleado(empleadoId);
+}
+
+function anyadirEmpleado(empleadoId) {
     ajaxCall("POST", "/evento/empleados/anyadir", {eventoId: eventoId, empleadoId: empleadoId}, {}, function (data) {
-        // TODO: Obtener empleado con el data que devuelve el Ajax
-        // TODO: Crear un empleado usando el EmpleadoFactory
-        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
-        addEventoEmpleadoRow(data);
-        updateProgresbar();
-        toggleLoadingSpinner(anyadirButton);
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        eventoEmpleado.anyadirEnDatatable();
+        updateProgresbar(eventoEmpleado.tipoEmpleado.value);
     });
 }
 
 function eliminarClicked(eventoEmpleadoId){
     toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
 
-    ajaxCall("POST", "/evento/empleados/eliminar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function () {
-        // TODO: Obtener empleado con el data que devuelve el Ajax
-        // TODO: Crear un empleado usando el EmpleadoFactory
-        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
-        deleteEventoEmpleadoRow(eventoEmpleadoId);
-        updateProgresbar();
+    ajaxCall("POST", "/evento/empleados/eliminar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function (data) {
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        eventoEmpleado.eliminarEnDatatable();
+        updateProgresbar(eventoEmpleado.tipoEmpleado.value);
     });
 }
 
@@ -68,57 +85,31 @@ function modificarModalClicked(eventoEmpleadoId){
     let horasExtras = $('#horasExtras').val();
 
     ajaxCall("POST", "/evento/empleados/modificar", {eventoEmpleadoId: eventoEmpleadoId, confirmado: confirmado, horasExtras: horasExtras}, {}, function (data) {
-        // TODO: Obtener empleado con el data que devuelve el Ajax
-        // TODO: Crear un empleado usando el EmpleadoFactory
-        // TODO: Implementar las funciones addEventoEmpleadoRow(), toggleLoadingSpinner() en las clases EmpleadoCamarero, EmpleadoCocinero
-        updateEventoEmpleadoRow(data);
-        updateProgresbar();
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        eventoEmpleado.modificarEnDatatable();
+        updateProgresbar(eventoEmpleado.tipoEmpleado.value);
     });
 }
 
-function addEventoEmpleadoRow(eventoEmpleado) {
-    eventoEmpleadosDt.row.add( [
-        eventoEmpleado.id,
-        eventoEmpleado.evento.id,
-        eventoEmpleado.empleado.id,
-        eventoEmpleado.empleado.tipo.value,
-        eventoEmpleado.empleado.persona.nombre,
-        '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.empleado.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.empleado.fijo ? 'Si' : 'No') + '</label></div>',
-        '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (eventoEmpleado.confirmado ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (eventoEmpleado.confirmado ? 'Si' : 'No') + '</label></div>',
-        eventoEmpleado.horasExtras,
-        '<button type="button" class="btn btn-primary" eventoempleadoid="' + eventoEmpleado.id + '" onclick="modificarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Modificar</button>',
-        '<button type="button" class="btn btn-danger" eventoempleadoid="' + eventoEmpleado.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
-    ] ).draw();
-}
+function updateProgresbar(tipoEmpleado){
+    if (tipoEmpleado === 'camarero') {
+        let camarerosConfirmados = $('#eventoEmpleadosCamareros > tbody > tr > td:nth-child(3) > div > input[checked="checked"]').length;
+        let camarerosNoConfirmados = $('#eventoEmpleadosCamareros > tbody > tr > td:nth-child(3) > div > input').length - camarerosConfirmados;
 
-function deleteEventoEmpleadoRow(eventoEmpleadoId) {
-    let deletedRow = $('button[eventoempleadoid="' + eventoEmpleadoId + '"]').parent().parent();
-    eventoEmpleadosDt.row(deletedRow).remove().draw();
-}
+        let porcentageConfirmados = (camarerosConfirmados / camarerosRecomendados) * 100;
+        let porcentageNoConfirmados = (camarerosNoConfirmados / camarerosRecomendados) * 100;
 
-function updateEventoEmpleadoRow(eventoEmpleado) {
-    let modifiedRow = $('button[eventoempleadoid="' + eventoEmpleado.id + '"]').parent().parent();
+        $("#progressbarCamarerosConfirmados").css("width", porcentageConfirmados + '%');
+        $("#progressbarCamarerosNoConfirmados").css("width", porcentageNoConfirmados + '%');
+    }
+    else if(tipoEmpleado === 'cocinero') {
+        let cocinerosConfirmados = $('#eventoEmpleadosCocineros > tbody > tr > td:nth-child(3) > div > input[checked="checked"]').length;
+        let cocinerosNoConfirmados = $('#eventoEmpleadosCocineros > tbody > tr > td:nth-child(3) > div > input').length - cocinerosConfirmados;
 
-    let checkboxConfirmado= modifiedRow.children('td').eq(2).children('div').children('input');
-    let labelConfirmado = modifiedRow.children('td').eq(2).children('div').children('label');
-    let columnHorasExtra = modifiedRow.children('td').eq(3);
+        let porcentageConfirmados = (cocinerosConfirmados / cocinerosRecomendados) * 100;
+        let porcentageNoConfirmados = (cocinerosNoConfirmados / cocinerosRecomendados) * 100;
 
-    eventoEmpleado.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
-    eventoEmpleado.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
-    columnHorasExtra.text(eventoEmpleado.horasExtras);
-
-    $("#eventoEmpleadoModificarModal").modal("hide");
-    eventoEmpleadosDt.draw();
-}
-
-function updateProgresbar(){
-    // TODO: Add tipoEmpleado option
-    let camarerosConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input[checked="checked"]').length;
-    let camarerosNoConfirmados = $('#eventoEmpleados > tbody > tr > td:nth-child(3) > div > input').length - camarerosConfirmados;
-
-    let porcentageConfirmados = (camarerosConfirmados / camarerosRecomendados) * 100;
-    let porcentageNoConfirmados = (camarerosNoConfirmados / camarerosRecomendados) * 100;
-
-    $("#progressbarConfirmados").css("width", porcentageConfirmados + '%');
-    $("#progressbarNoConfirmados").css("width", porcentageNoConfirmados + '%');
+        $("#progressbarCocinerosConfirmados").css("width", porcentageConfirmados + '%');
+        $("#progressbarCocinerosNoConfirmados").css("width", porcentageNoConfirmados + '%');
+    }
 }

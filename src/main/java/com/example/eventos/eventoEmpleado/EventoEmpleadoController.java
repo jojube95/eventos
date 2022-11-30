@@ -47,6 +47,7 @@ public class EventoEmpleadoController {
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, evento.getPersonas());
         model.addAttribute(ATTRIBUTE_CAMAREROS_RECOMENDADOS, evento.getCamarerosRecomendados(parametrosService.get().getRatioCamarerosEvento()));
+        model.addAttribute(ATTRIBUTE_COCINEROS_RECOMENDADOS, evento.getCocinerosRecomendados(75));
         return EVENTO_EMPELADOS_PAGE;
     }
 

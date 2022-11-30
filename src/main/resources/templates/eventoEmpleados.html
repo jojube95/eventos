@@ -7,13 +7,14 @@
     <script th:src="@{/libraries/js/jquery.dataTables.min.js}" type="text/javascript"></script>
     <link th:href="@{/libraries/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css" />
 
-    <script th:src="@{/js/eventoEmpleados.js}" type="text/javascript"></script>
+    <script th:src="@{/js/eventoEmpleados.js}" type="module"></script>
     <script th:src="@{/js/utilidades.js}" type="text/javascript"></script>
     <link th:href="@{/css/eventoEmpleados.css}" rel="stylesheet" type="text/css" />
 
     <script th:inline="javascript">
         let eventoId = [[${eventoId}]];
         let camarerosRecomendados = Number([[${camarerosRecomendados}]]);
+        let cocinerosRecomendados = Number([[${cocinerosRecomendados}]]);
     </script>
 
 </head>
@@ -29,23 +30,26 @@
                 <span th:text="#{evento.personas}" class="font-weight-bold"></span>
                 <span id="personas" th:text="${personas}" class="font-weight-normal"></span>
             </div>
-            <div class="col">
-                <span th:text="#{camarerosRecomendados}" class="font-weight-bold"></span>
-                <span id="camarerosRecomendados" th:text="${camarerosRecomendados}" class="font-weight-normal"></span>
-            </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <div class="progress">
-                    <div id="progressbarConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="progressbarNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="row">
+                    <div class="col">
+                        <span th:text="#{camarerosRecomendados}" class="font-weight-bold"></span>
+                        <span id="camarerosRecomendados" th:text="${camarerosRecomendados}" class="font-weight-normal"></span>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-       <div class="row">
-            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="progress">
+                            <div id="progressbarCamarerosConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="progressbarCamarerosNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <select class="form-control listaEmpleados" id="empleadoCamarero">
                         <option disabled th:text="#{fijos}"></option>
@@ -122,6 +126,22 @@
             </div>
 
            <div class="col">
+               <div class="row">
+                   <div class="col">
+                       <span th:text="#{cocinerosRecomendados}" class="font-weight-bold"></span>
+                       <span id="cocinerosRecomendados" th:text="${cocinerosRecomendados}" class="font-weight-normal"></span>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="col">
+                       <div class="progress">
+                           <div id="progressbarCocinerosConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                           <div id="progressbarCocinerosNoConfirmados" class="progress-bar" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
+                       </div>
+                   </div>
+               </div>
+
                <div class="row">
                    <select class="form-control listaEmpleados" id="empleadoCocinero">
                        <option disabled th:text="#{fijos}"></option>
