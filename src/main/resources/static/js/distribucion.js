@@ -140,8 +140,19 @@ function loadBackgroundImage(){
 }
 
 function exportarDistribucionClicked(){
-    let imgData = canvas.toDataURL("image/jpeg", 1.0);
-    let pdf = new jsPDF('landscape');
+    let imgData = canvas.toDataURL({format: "image/jpeg", multiplier: 1 });
+
+
+    let pdf;
+
+    console.log(sala);
+
+    if (sala === 'Sala1') {
+        pdf = new jsPDF('portrait');
+    }
+    else{
+        pdf = new jsPDF('landscape');
+    }
 
     pdf.addImage(imgData, 'JPEG', 0, 0);
     pdf.save("distribució.pdf");
