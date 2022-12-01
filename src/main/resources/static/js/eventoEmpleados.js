@@ -9,31 +9,46 @@ window.modificarModalClicked = modificarModalClicked;
 let eventoEmpleadosCamarerosDt;
 let eventoEmpleadosCocinerosDt;
 
-let eventoEmpleadoDtParams = {
-    "sPaginationType": "full_numbers",
-    columnDefs: [
-        { visible: false, targets: [0, 1, 2, 3] }
-    ],
-    dom: 'Bfrtip',
-    select: 'single',
-    responsive: true,
-    paging: false,
-    info: false,
-    altEditor: true,
-    footerCallback: function () {
-        let api = this.api();
-        let rows = api.rows({search:'applied'}).count();
-        $(api.column(4).footer()).text("Total: " + rows);
-    }
-}
 $(document).ready(function() {
-    eventoEmpleadosCamarerosDt = $('#eventoEmpleadosCamareros').DataTable(eventoEmpleadoDtParams);
+    eventoEmpleadosCamarerosDt = $('#eventoEmpleadosCamareros').DataTable(generateDataTableParams(footerCallbackCamareros));
 
-    eventoEmpleadosCocinerosDt = $('#eventoEmpleadosCocineros').DataTable(eventoEmpleadoDtParams);
+    eventoEmpleadosCocinerosDt = $('#eventoEmpleadosCocineros').DataTable(generateDataTableParams(footerCallbackCocineros));
 
     updateProgresbar('camarero');
     updateProgresbar('cocinero');
 });
+
+function generateDataTableParams(footerCallback) {
+    return {
+        "sPaginationType": "full_numbers",
+        columnDefs: [
+            { visible: false, targets: [0, 1, 2, 3] }
+        ],
+        dom: 'Bfrtip',
+        select: 'single',
+        responsive: true,
+        paging: false,
+        info: false,
+        altEditor: true,
+        footerCallback: footerCallback
+    }
+}
+
+function footerCallbackCamareros() {
+    let api = this.api();
+    let rows = api.rows({search:'applied'}).count();
+    $(api.column(4).footer()).text("Total: " + rows);
+
+    let totalNoDevantal = $('#eventoEmpleadosCamareros > tbody > tr > td:nth-child(4)').find('input[type=checkbox]:not(:checked)').length;
+
+    $(api.column(7).footer()).text("No tenen: " + totalNoDevantal);
+}
+
+function footerCallbackCocineros() {
+    let api = this.api();
+    let rows = api.rows({search:'applied'}).count();
+    $(api.column(4).footer()).text("Total: " + rows);
+}
 
 function anyadirCamareroClicked (){
     let anyadirButton = $('#buttonAnyadirCamarero');

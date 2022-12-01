@@ -23,7 +23,7 @@ class EmpleadoServiceTest {
 
     @BeforeEach
     public void initEach(){
-        empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true);
+        empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true, true);
     }
 
     @Test

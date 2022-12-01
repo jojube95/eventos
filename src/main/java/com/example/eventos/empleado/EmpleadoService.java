@@ -28,6 +28,10 @@ public class EmpleadoService {
         return empleadoRepository.findEmpleadoByTipoAndFijoAndActivo(tipo, fijo, true);
     }
 
+    public List<Empleado> getByTipo(TipoEmpleado tipo) {
+        return empleadoRepository.findEmpleadoByTipoAndActivo(tipo, true);
+    }
+
     public void save(Empleado empleado) {
         empleadoRepository.save(empleado);
     }

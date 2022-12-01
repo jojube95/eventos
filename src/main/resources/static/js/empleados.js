@@ -1,7 +1,27 @@
-let empleadosDt;
+let empleadosCamarerosDt;
+let empleadosCocinerosDt;
 
 document.addEventListener('DOMContentLoaded', function() {
-    empleadosDt = $('#empleados').DataTable(
+    empleadosCamarerosDt = $('#empleadosCamareros').DataTable(
+        {
+            columnDefs: [
+                {
+                    visible: false,
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    targets: [2, 3, 6, 7, 8]
+                },
+                { className: "dt-right", "targets": [ 6, 7, 8 ] }
+            ],
+            searching: false,
+            paging: false,
+            info: false
+        }
+    );
+
+    empleadosCocinerosDt = $('#empleadosCocineros').DataTable(
         {
             columnDefs: [
                 {
@@ -45,6 +65,6 @@ function deshabilitarClicked(empleadoId){
 
 function deleteEmpleadoRow(empleadoId) {
     let deletedRow = $('button[empleadoid="' + empleadoId + '"]').parent().parent();
-    empleadosDt.row(deletedRow).remove().draw();
-    empleadosDt.draw();
+    empleadosCamarerosDt.row(deletedRow).remove().draw();
+    empleadosCamarerosDt.draw();
 }

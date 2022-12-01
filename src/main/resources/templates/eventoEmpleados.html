@@ -74,6 +74,7 @@
                             <th th:text="#{eventoEmpleado.nombre}" scope="col"></th>
                             <th th:text="#{eventoEmpleado.fijo}" scope="col"></th>
                             <th th:text="#{eventoEmpleado.confirmado}" scope="col"></th>
+                            <th th:text="#{empleado.devantal}" scope="col"></th>
                             <th th:text="#{eventoEmpleado.horasExtras}" scope="col"></th>
                             <th th:text="#{modificar}" scope="col"></th>
                             <th th:text="#{eliminar}" scope="col"></th>
@@ -98,6 +99,12 @@
                                     <label class="custom-control-label" th:text="${eventoEmpleado.confirmado} ? 'Si' : 'No'"></label>
                                 </div>
                             </td>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" th:checked="${eventoEmpleado.empleado.devantal}">
+                                    <label class="custom-control-label" th:text="${eventoEmpleado.empleado.devantal} ? 'Si' : 'No'"></label>
+                                </div>
+                            </td>
                             <td th:text="${eventoEmpleado.horasExtras}"></td>
                             <td>
                                 <button th:text="#{modificar}" type="button" class="btn btn-primary" th:eventoEmpleadoId="${eventoEmpleado.id}" onclick="modificarClicked(this.getAttribute('eventoEmpleadoId'))"></button>
@@ -116,6 +123,7 @@
                             <td th:text="#{total}"></td>
                             <td></td>
                             <td></td>
+                            <td th:text="#{total}"></td>
                             <td></td>
                             <td></td>
                             <td></td>

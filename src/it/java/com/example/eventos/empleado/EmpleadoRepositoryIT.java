@@ -22,9 +22,9 @@ class EmpleadoRepositoryIT {
 
     @BeforeEach
     public void setUp(){
-        Empleado empleado1 = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true);
-        Empleado empleado2 = new Empleado("id2", new TipoEmpleado("cocinero"), new Persona("nombre2", "telefono2", "correo2"), false, true);
-        Empleado empleado3 = new Empleado("id3", new TipoEmpleado("camarero"), new Persona("nombre3", "telefono3", "correo3"), false, false);
+        Empleado empleado1 = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true, true);
+        Empleado empleado2 = new Empleado("id2", new TipoEmpleado("cocinero"), new Persona("nombre2", "telefono2", "correo2"), false, true, true);
+        Empleado empleado3 = new Empleado("id3", new TipoEmpleado("camarero"), new Persona("nombre3", "telefono3", "correo3"), false, false, true);
 
         mongoTemplate.insert(empleado1);
         mongoTemplate.insert(empleado2);
@@ -33,7 +33,7 @@ class EmpleadoRepositoryIT {
 
     @Test
     void findEmpleadoByIdTest(){
-        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true);
+        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true, true);
 
         assertEquals(empleadoExpected, empleadoRepository.findEmpleadoById("id1"));
     }
@@ -41,7 +41,7 @@ class EmpleadoRepositoryIT {
     @Test
     void findEmpleadoByTipoTest(){
         List<Empleado> empleadosExpected = new ArrayList<>();
-        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"),true, true);
+        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"),true, true, true);
 
         empleadosExpected.add(empleadoExpected);
 
@@ -51,7 +51,7 @@ class EmpleadoRepositoryIT {
     @Test
     void findEmpleadoByTipoAndFijoAndActivoTest(){
         List<Empleado> empleadosExpected = new ArrayList<>();
-        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true);
+        Empleado empleadoExpected = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true, true);
 
         empleadosExpected.add(empleadoExpected);
 

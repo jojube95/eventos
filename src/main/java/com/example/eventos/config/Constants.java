@@ -68,6 +68,8 @@ public class Constants {
     public static final String ATTRIBUTE_COCINEROS_NO_FIJOS = "cocinerosNoFijos";
     public static final String ATTRIBUTE_CAMAREROS_RECOMENDADOS = "camarerosRecomendados";
     public static final String ATTRIBUTE_COCINEROS_RECOMENDADOS = "cocinerosRecomendados";
+    public static final String ATTRIBUTE_EMPLEADOS_COCINEROS = "empleadosCocineros";
+    public static final String ATTRIBUTE_EMPLEADOS_CAMAREROS = "empleadosCamareros";
 
 
 }

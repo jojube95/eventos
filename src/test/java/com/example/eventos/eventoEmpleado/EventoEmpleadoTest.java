@@ -29,7 +29,7 @@ class EventoEmpleadoTest {
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
         evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true);
+        empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true, true);
 
         eventoEmpleadoNoId = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         eventoEmpleadoWithId = new EventoEmpleado("id", evento, empleado, empleado.getTipo(), true, 0);
@@ -65,7 +65,7 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestFalseEvento(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
@@ -77,11 +77,11 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestFalseEmpleado(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
-        eventoEmpleado1.setEmpleado(new Empleado("idEmpleado2", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true));
+        eventoEmpleado1.setEmpleado(new Empleado("idEmpleado2", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true));
 
         assertNotEquals(eventoEmpleado1, eventoEmpleado2);
     }
@@ -89,7 +89,7 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestFalseConfirmado(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
@@ -101,7 +101,7 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestFalseHorasExtra(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
@@ -114,7 +114,7 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestTrue(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
@@ -125,7 +125,7 @@ class EventoEmpleadoTest {
     @Test
     void equalsTestNull(){
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
 

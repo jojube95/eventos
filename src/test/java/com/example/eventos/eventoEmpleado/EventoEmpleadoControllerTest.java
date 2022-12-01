@@ -77,10 +77,10 @@ class EventoEmpleadoControllerTest {
 
         List<Empleado> empleadosFijos = new ArrayList<>();
         List<Empleado> empleadosNoFijos = new ArrayList<>();
-        Empleado empleadoFijo1 = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true);
-        Empleado empleadoFijo2 = new Empleado("id2", new TipoEmpleado("cocinero"), new Persona("nombre2", "telefono2", "correo2"), true, true);
-        Empleado empleadoNoFijo1 = new Empleado("id3", new TipoEmpleado("camarero2"), new Persona("nombre3", "telefono3", "correo3"), false, true);
-        Empleado empleadoNoFijo2 = new Empleado("id4", new TipoEmpleado("cocinero2"), new Persona("nombre4", "telefono4", "correo4"), false, true);
+        Empleado empleadoFijo1 = new Empleado("id1", new TipoEmpleado("camarero"), new Persona("nombre1", "telefono1", "correo1"), true, true, true);
+        Empleado empleadoFijo2 = new Empleado("id2", new TipoEmpleado("cocinero"), new Persona("nombre2", "telefono2", "correo2"), true, true, true);
+        Empleado empleadoNoFijo1 = new Empleado("id3", new TipoEmpleado("camarero2"), new Persona("nombre3", "telefono3", "correo3"), false, true, true);
+        Empleado empleadoNoFijo2 = new Empleado("id4", new TipoEmpleado("cocinero2"), new Persona("nombre4", "telefono4", "correo4"), false, true, true);
         empleadosFijos.add(empleadoFijo1);
         empleadosFijos.add(empleadoFijo2);
         empleadosNoFijos.add(empleadoNoFijo1);
@@ -89,8 +89,8 @@ class EventoEmpleadoControllerTest {
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Evento evento2 = new Evento("idEvento2", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
-        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
+        Empleado empleado2 = new Empleado("idEmpleado2", new TipoEmpleado("cocinero"), new Persona("nombre2", "666777999", "correo2"), false, true, true);
 
         EventoEmpleado eventoEmpleado1 = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), false, 0.5F);
         EventoEmpleado eventoEmpleado2 = new EventoEmpleado(evento2, empleado2, empleado2.getTipo(), true, 1.5F);
@@ -117,7 +117,7 @@ class EventoEmpleadoControllerTest {
     @WithMockUser(username="usuario",roles={"USUARIO"})
     void getModificarVerTestUsuario() throws Exception {
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado(evento1, empleado1, empleado1.getTipo(), false, 0.5F);
 
@@ -133,7 +133,7 @@ class EventoEmpleadoControllerTest {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/eventoEmpleadosUpdateModal.html");
 
         Evento evento1 = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true);
+        Empleado empleado1 = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo1"), true, true, true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento1, empleado1, empleado1.getTipo(), false, 0.5F);
 
