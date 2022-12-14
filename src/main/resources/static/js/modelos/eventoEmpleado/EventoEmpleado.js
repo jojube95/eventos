@@ -19,20 +19,16 @@ export class EventoEmpleado {
     eliminarEnDatatable() {
         throw new Error('Method "eliminarEnDatatable()" must be implemented.');
     }
+    eliminarDeDropdown() {
+        throw new Error('Method "eliminarDeDropdown()" must be implemented.');
+    }
+
+    anyadirAlDropdown() {
+        throw new Error('Method "anyadirAlDropdown()" must be implemented.');
+    }
 
     generarEventoEmpleadoRow() {
-        return [
-            this.id,
-            this.evento.id,
-            this.empleado.id,
-            this.empleado.tipo.value,
-            this.empleado.persona.nombre,
-            '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (this.empleado.fijo ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (this.empleado.fijo ? 'Si' : 'No') + '</label></div>',
-            '<div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input"' + (this.confirmado ? 'checked="checked"' : '') + '><label class="custom-control-label">' + (this.confirmado ? 'Si' : 'No') + '</label></div>',
-            this.horasExtras,
-            '<button type="button" class="btn btn-primary" eventoempleadoid="' + this.id + '" onclick="modificarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Modificar</button>',
-            '<button type="button" class="btn btn-danger" eventoempleadoid="' + this.id + '" onclick="eliminarClicked(this.getAttribute(\'eventoEmpleadoId\'))">Eliminar</button>'
-        ]
+        throw new Error('Method "generarEventoEmpleadoRow()" must be implemented.');
     }
 
     modificarEventoEmpleadoRow() {
@@ -62,5 +58,12 @@ export class EventoEmpleado {
             element.prop("disabled", false);
             element.find(".spinner-border").remove();
         }
+    }
+
+    generateEmpleadoOption() {
+        return $('<option>', {
+            value: this.empleado.id,
+            text: this.empleado.persona.nombre
+        })
     }
 }

@@ -52,11 +52,11 @@
 
                 <div class="row">
                     <select class="form-control listaEmpleados" id="empleadoCamarero">
-                        <option disabled th:text="#{fijos}"></option>
+                        <option disabled th:text="#{fijos}" value="fijos"></option>
 
                         <option th:each="empleadoFijo: ${camarerosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
 
-                        <option disabled th:text="#{noFijos}"></option>
+                        <option disabled th:text="#{noFijos}" value="noFijos"></option>
 
                         <option th:each="empleadoNoFijo: ${camarerosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
                     </select>
@@ -152,11 +152,11 @@
 
                <div class="row">
                    <select class="form-control listaEmpleados" id="empleadoCocinero">
-                       <option disabled th:text="#{fijos}"></option>
+                       <option disabled th:text="#{fijos}" value="fijos"></option>
 
                        <option th:each="empleadoFijo: ${cocinerosFijos}" th:text="${empleadoFijo.persona.nombre}" th:value="${empleadoFijo.id}"></option>
 
-                       <option disabled th:text="#{noFijos}"></option>
+                       <option disabled th:text="#{noFijos}" value="noFijos"></option>
 
                        <option th:each="empleadoNoFijo: ${cocinerosNoFijos}" th:text="${empleadoNoFijo.persona.nombre}" th:value="${empleadoNoFijo.id}"></option>
                    </select>

@@ -16,13 +16,15 @@ $(document).ready(function() {
 
     updateProgresbar('camarero');
     updateProgresbar('cocinero');
+
+    refrescarDropdownsEmpleados();
 });
 
 function generateDataTableParams(footerCallback) {
     return {
         "sPaginationType": "full_numbers",
         columnDefs: [
-            { visible: false, targets: [0, 1, 2, 3] }
+            { className: "hide_column", targets: [0, 1, 2, 3] }
         ],
         dom: 'Bfrtip',
         select: 'single',
@@ -127,4 +129,18 @@ function updateProgresbar(tipoEmpleado){
         $("#progressbarCocinerosConfirmados").css("width", porcentageConfirmados + '%');
         $("#progressbarCocinerosNoConfirmados").css("width", porcentageNoConfirmados + '%');
     }
+}
+
+function refrescarDropdownsEmpleados() {
+    $('#eventoEmpleadosCamareros  > tbody  > tr, #eventoEmpleadosCocineros > tbody  > tr').each(function(index, tr) {
+        let id = $(tr).children().eq(0).text();
+        let evento = { id: $(tr).children().eq(1).text() };
+        let empleado = { id: $(tr).children().eq(2).text(), nombre:  $(tr).children().eq(4).text(), fijo: $(tr).children().eq(5).text()};
+        let tipoEmpleado = { value: $(tr).children().eq(3).text() };
+        let confirmado = $(tr).children().eq(6).text();
+        let horasExtras = $(tr).children().eq(8).text();
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+
+        eventoEmpleado.eliminarDeDropdown();
+    });
 }

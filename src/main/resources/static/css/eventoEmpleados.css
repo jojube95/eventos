@@ -25,3 +25,7 @@ div.progress{
 .form-control {
     width: auto;
 }
+
+.hide_column {
+    display : none;
+}
