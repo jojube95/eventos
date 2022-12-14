@@ -111,6 +111,16 @@ public class Mesa {
         }
     }
 
+    public Personas incrementPersonas(Personas personas) {
+        int mayores = personas.getMayores() + this.getPersonas().getMayores();
+        int niynos = personas.getNinyos() + this.getPersonas().getNinyos();
+
+        personas.setMayores(mayores);
+        personas.setNinyos(niynos);
+
+        return personas;
+    }
+
     @Override
     public String toString() {
         String res = "Mesa " + numero + ". " + personas.toString();

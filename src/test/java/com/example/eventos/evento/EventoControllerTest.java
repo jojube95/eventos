@@ -362,7 +362,7 @@ class EventoControllerTest {
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
-        when(eventoService.calcularPersonas("id")).thenReturn(new Personas(2, 0));
+        when(eventoService.calcularPersonas(evento)).thenReturn(new Personas(2, 0));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/calcularPersonas")
                 .locale(new Locale("es", "ES"))
@@ -373,6 +373,6 @@ class EventoControllerTest {
 
         assertThat(resultContent, CoreMatchers.containsString(expectedResponse));
 
-        verify(eventoService, times(1)).calcularPersonas("id");
+        verify(eventoService, times(1)).calcularPersonas(evento);
     }
 }
