@@ -74,6 +74,7 @@ public class EventoService {
         List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(evento.getId());
         Personas personas = new Personas(0, 0);
         for (Mesa mesa : mesas) {
+            // TODO: Check if could be done using polymorphirsm
             if(evento.getTipo().equals(new TipoEvento(EVENTO_TIPO_INDIVIDUAL))) {
                 personas = mesa.incrementPersonas(personas);
             }

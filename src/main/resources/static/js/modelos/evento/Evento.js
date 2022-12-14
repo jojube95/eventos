@@ -53,7 +53,7 @@ export class Evento {
         return table.DataTable({
             "sPaginationType": "full_numbers",
             columns: columnDefs,
-            order: [1, 'asc'],
+            order: [2, 'asc'],
             dom: 'Bfrtip',
             select: 'single',
             responsive: true,
