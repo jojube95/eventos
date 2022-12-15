@@ -34,8 +34,8 @@ class EmpleadoTest {
 
     @Test
     void toStringTest(){
-        assertEquals("Empleado{id='null', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre', telefono='telefono', correo='correo'}, fijo=true}", empleadoNoId.toString());
-        assertEquals("Empleado{id='id', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre', telefono='telefono', correo='correo'}, fijo=true}", empleadoWithId.toString());
+        assertEquals("Empleado{id='null', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre', telefono='telefono', correo='correo'}, fijo=true, activo=true, devantal=true}", empleadoNoId.toString());
+        assertEquals("Empleado{id='id', tipo=TipoEmpleado{value='camarero'}, persona=Persona{nombre='nombre', telefono='telefono', correo='correo'}, fijo=true, activo=true, devantal=true}", empleadoWithId.toString());
     }
 
     @Test

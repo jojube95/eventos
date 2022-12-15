@@ -362,6 +362,7 @@ class EventoControllerTest {
 
         Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
         when(eventoService.calcularPersonas(evento)).thenReturn(new Personas(2, 0));
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/evento/calcularPersonas")

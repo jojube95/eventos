@@ -1,6 +1,26 @@
 <div class="container">
-    <table class="display compact" id="empleados">
-        <caption>Tabla con la información de los empleados</caption>
+    <table class="display compact" id="empleadosCamareros">
+        <caption>Tabla con la información de los camareros</caption>
+        <thead>
+        <tr>
+            <th scope="col">??empleado.id_es_ES??</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Fijo</th>
+            <th scope="col">Devantal</th>
+            <th scope="col">Modificar</th>
+            <th scope="col">Historial</th>
+            <th scope="col">Deshabilitar</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <table class="display compact" id="empleadosCocineros">
+        <caption>Tabla con la información de los cocineros</caption>
         <thead>
         <tr>
             <th scope="col">??empleado.id_es_ES??</th>
@@ -10,7 +30,7 @@
             <th scope="col">Fijo</th>
             <th scope="col">Modificar</th>
             <th scope="col">Historial</th>
-            <th scope="col">Eliminar</th>
+            <th scope="col">Deshabilitar</th>
         </tr>
         </thead>
         <tbody>
@@ -18,7 +38,7 @@
         </tbody>
     </table>
 
-    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmarDeshabilitarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -29,8 +49,8 @@
                 </div>
                 <div class="modal-body">Está seguro de guardar los cambios?</div>
                 <div class="modal-footer">
-                    <button id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="modalEliminarButton" type="button" class="btn btn-primary">Eliminar</button>
+                    <button id="modalDeshabilitarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="modalDeshabilitarButton" type="button" class="btn btn-primary">Deshabilitar</button>
                 </div>
             </div>
         </div>

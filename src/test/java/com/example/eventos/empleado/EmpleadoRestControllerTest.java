@@ -45,19 +45,21 @@ class EmpleadoRestControllerTest {
 
     @Test
     @WithMockUser(username="admin",roles={"ADMIN"})
-    void deleteTestAdmin() throws Exception {
+    void disableTestAdmin() throws Exception {
         Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true, true);
 
         when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
 
-        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"camarero\"},\"persona\":{\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"correo\":\"correo\"},\"fijo\":true}";
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"camarero\"},\"persona\":{\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"correo\":\"correo\"},\"fijo\":true,\"activo\":false,\"devantal\":true}";
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/eliminarEmpleado")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/deshabilitarEmpleado")
                 .with(csrf())
                 .param("empleadoId", empleado.getId());
 
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
 
-        verify(empleadoService, times(1)).delete(empleado);
+        empleado.setActivo(false);
+
+        verify(empleadoService, times(1)).save(empleado);
     }
 }
