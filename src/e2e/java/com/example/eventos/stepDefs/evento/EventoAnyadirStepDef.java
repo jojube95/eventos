@@ -191,7 +191,7 @@ public class EventoAnyadirStepDef {
     @Then("^Titulo should be Boda-Cena$")
     public void titulo_should_be_boda_cena(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Boda-Cena", tituloInput.getAttribute("value"));
+        assertEquals("Comunión-Cena", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be editable$")
@@ -209,7 +209,7 @@ public class EventoAnyadirStepDef {
     @And("^Created event is shown$")
     public void created_event_is_shown(){
         WebElement createdEvento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title-container']//div)[2]"));
-        assertEquals("Boda-Comida 0p", createdEvento.getText());
+        assertEquals("Comunión-Comida 0p", createdEvento.getText());
     }
 
     @And("^Select event show created data$")

@@ -19,6 +19,20 @@ export class EventoEmpleadoCocinero extends EventoEmpleado{
         this.empleadosDataTable.draw();
     }
 
+    modificarEventoEmpleadoRow() {
+        let modifiedRow = this.getEventoEmpleadoRow();
+
+        let checkboxConfirmado= modifiedRow.children('td').eq(6).children('div').children('input');
+        let labelConfirmado = modifiedRow.children('td').eq(6).children('div').children('label');
+        let columnHorasExtra = modifiedRow.children('td').eq(7);
+
+        this.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
+        this.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
+        columnHorasExtra.text(this.horasExtras);
+
+        $("#eventoEmpleadoModificarModal").modal("hide");
+    }
+
     generarEventoEmpleadoRow() {
         return [
             this.id,

@@ -43,6 +43,7 @@ public class EmpleadoController {
 
     @PostMapping("/empleadoAnyadirUpdate")
     public String save(@ModelAttribute Empleado empleado) {
+        empleado.setActivo(true);
         empleadoService.save(empleado);
         return "redirect:/" + EMPLEADOS_PAGE;
     }

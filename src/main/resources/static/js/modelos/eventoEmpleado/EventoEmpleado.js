@@ -32,17 +32,7 @@ export class EventoEmpleado {
     }
 
     modificarEventoEmpleadoRow() {
-        let modifiedRow = this.getEventoEmpleadoRow();
-
-        let checkboxConfirmado= modifiedRow.children('td').eq(2).children('div').children('input');
-        let labelConfirmado = modifiedRow.children('td').eq(2).children('div').children('label');
-        let columnHorasExtra = modifiedRow.children('td').eq(3);
-
-        this.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
-        this.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
-        columnHorasExtra.text(this.horasExtras);
-
-        $("#eventoEmpleadoModificarModal").modal("hide");
+        throw new Error('Method "modificarEventoEmpleadoRow()" must be implemented.');
     }
 
     getEventoEmpleadoRow() {
