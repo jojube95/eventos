@@ -22,7 +22,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Set up MongoDB
-        uses: supercharge/mongodb-github-action@1.3.0
+        uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: '5.0'
       - name: Set up Chromedriver
