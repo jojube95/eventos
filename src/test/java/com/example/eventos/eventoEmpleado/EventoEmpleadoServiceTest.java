@@ -58,6 +58,12 @@ class EventoEmpleadoServiceTest {
     }
 
     @Test
+    void getByEventoIdAndTipoEmpleadoTest() {
+        eventoEmpleadoService.getByEventoIdAndTipoEmpleado(eventoEmpleado.getId(), eventoEmpleado.getTipoEmpleado());
+        verify(eventoEmpleadoRepository, times(1)).findEventoEmpleadosByEventoIdAndTipoEmpleado(eventoEmpleado.getId(), eventoEmpleado.getTipoEmpleado());
+    }
+
+    @Test
     void saveTest() {
         eventoEmpleadoService.save(eventoEmpleado);
         verify(eventoEmpleadoRepository, times(1)).save(eventoEmpleado);
