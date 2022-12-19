@@ -16,22 +16,28 @@ public class Empleado {
     private TipoEmpleado tipo;
     private Persona persona;
     private boolean fijo;
+    private boolean activo;
+    private boolean devantal;
 
     public Empleado() {
 
     }
 
-    public Empleado(String id, TipoEmpleado tipo, Persona persona, boolean fijo) {
+    public Empleado(String id, TipoEmpleado tipo, Persona persona, boolean fijo, boolean activo, boolean devantal) {
         this.id = id;
         this.tipo = tipo;
         this.persona = persona;
         this.fijo = fijo;
+        this.activo = activo;
+        this.devantal = devantal;
     }
 
-    public Empleado(TipoEmpleado tipo, Persona persona, boolean fijo) {
+    public Empleado(TipoEmpleado tipo, Persona persona, boolean fijo, boolean activo, boolean devantal) {
         this.tipo = tipo;
         this.persona = persona;
         this.fijo = fijo;
+        this.activo = activo;
+        this.devantal = devantal;
     }
 
     public String getId() {
@@ -66,6 +72,22 @@ public class Empleado {
         this.fijo = fijo;
     }
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public boolean isDevantal() {
+        return devantal;
+    }
+
+    public void setDevantal(boolean devantal) {
+        this.devantal = devantal;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" +
@@ -73,6 +95,8 @@ public class Empleado {
                 ", tipo=" + tipo +
                 ", persona=" + persona +
                 ", fijo=" + fijo +
+                ", activo=" + activo +
+                ", devantal=" + devantal +
                 '}';
     }
 
@@ -81,12 +105,12 @@ public class Empleado {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empleado empleado = (Empleado) o;
-        return fijo == empleado.fijo && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo)
+        return fijo == empleado.fijo && activo == empleado.activo && devantal == empleado.devantal && Objects.equals(id, empleado.id) && Objects.equals(tipo, empleado.tipo)
                 && Objects.equals(persona, empleado.persona);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tipo, persona, fijo);
+        return Objects.hash(id, tipo, persona, fijo, activo, devantal);
     }
 }

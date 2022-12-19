@@ -2,6 +2,7 @@ package com.example.eventos.empleado;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import com.example.eventos.tipoEmpleado.TipoEmpleadoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,10 @@ public class EmpleadoController {
 
     @GetMapping("/empleados")
     public String empleados(Model model) {
-        List<Empleado> empleados = empleadoService.getEmpleados();
-        model.addAttribute(EMPLEADOS, empleados);
+        List<Empleado> empleadosCamareros = empleadoService.getByTipo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO));
+        List<Empleado> empleadosCocineros = empleadoService.getByTipo(new TipoEmpleado(EMPLEADO_TIPO_COCINERO));
+        model.addAttribute(ATTRIBUTE_EMPLEADOS_CAMAREROS, empleadosCamareros);
+        model.addAttribute(ATTRIBUTE_EMPLEADOS_COCINEROS, empleadosCocineros);
         return EMPLEADOS_PAGE;
     }
 
@@ -40,6 +43,7 @@ public class EmpleadoController {
 
     @PostMapping("/empleadoAnyadirUpdate")
     public String save(@ModelAttribute Empleado empleado) {
+        empleado.setActivo(true);
         empleadoService.save(empleado);
         return "redirect:/" + EMPLEADOS_PAGE;
     }
@@ -55,7 +59,9 @@ public class EmpleadoController {
     @GetMapping("/empleadoHistorial")
     public String empleadoHistorial(@RequestParam(EMPLEADO_ID) String empleadoId, Model model) {
         List<Evento> eventos = eventoService.getByEmpleadoId(empleadoId);
+        Empleado empleado = empleadoService.getById(empleadoId);
         model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(EMPLEADO, empleado);
         return EMPLEADO_HISTORIAL_PAGE;
     }
 }

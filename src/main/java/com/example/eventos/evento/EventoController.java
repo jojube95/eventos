@@ -103,7 +103,8 @@ public class EventoController {
 
     @GetMapping("/evento/calcularPersonas")
     public String calcularPersonas(@RequestParam(EVENTO_ID) String eventoId, Model model) {
-        Personas personas = eventoService.calcularPersonas(eventoId);
+        Evento evento = eventoService.getById(eventoId);
+        Personas personas = eventoService.calcularPersonas(evento);
 
         model.addAttribute(EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, personas);

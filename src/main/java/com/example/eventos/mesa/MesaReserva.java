@@ -1,8 +1,15 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.invitado.Invitado;
 import com.example.eventos.personas.Personas;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 import java.util.Objects;
 
 @Document("mesa")
@@ -34,16 +41,19 @@ public class MesaReserva extends Mesa{
     }
 
     @Override
+    public void addTableCells(PdfPTable table, List<Invitado> invitados) {
+        table.addCell(new PdfPCell(new Phrase(""))).setBorder(Rectangle.NO_BORDER);
+    }
+
+    @Override
     public String toString() {
-        return "MesaReserva{" +
-                "representante='" + representante + '\'' +
-                ", pagado=" + pagado +
-                ", id='" + id + '\'' +
-                ", eventoId='" + eventoId + '\'' +
-                ", personas=" + personas +
-                ", numero=" + numero +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        String res = "Mesa " + numero + ". "  + representante + ". " + personas.toString();
+
+        if (descripcion != null && !descripcion.isEmpty()) {
+            res += ". Descripción: " + descripcion;
+        }
+
+        return res;
     }
 
     @Override

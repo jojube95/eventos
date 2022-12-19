@@ -50,3 +50,39 @@
 
     </div>
 </div>
+
+<div class="form-row" th:fragment="activo"  style="display: none;">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{empleado.activo}" for="fijo"></label>
+            <select th:field="*{activo}" class="form-control" id="activo">
+                <option id="optionSi" th:text="#{si}" value="true"></option>
+                <option id="optionNo" th:text="#{no}" value="false"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<div class="form-row" th:fragment="devantal">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{empleado.devantal}" for="fijo"></label>
+            <select th:field="*{devantal}" class="form-control" id="devantal">
+                <option id="optionSi" th:text="#{si}" value="true"></option>
+                <option id="optionNo" th:text="#{no}" value="false"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>

@@ -41,9 +41,7 @@ public class PdfCreator {
 
         table.setHeaderRows(1);
 
-        for (Invitado invitado : invitados) {
-            table.addCell(new PdfPCell(invitado.generatePhrase())).setBorder(Rectangle.NO_BORDER);
-        }
+        mesa.addTableCells(table, invitados);
 
         preface.add(table);
 

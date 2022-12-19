@@ -103,9 +103,9 @@ class EventoServiceTest {
     void getByEmpleadoIdTest() {
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true, true);
 
-        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, true, 0);
+        EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, empleado.getTipo(), true, 0);
         List<EventoEmpleado> eventoEmpleados = new ArrayList<>();
         eventoEmpleados.add(eventoEmpleado);
 
@@ -120,6 +120,8 @@ class EventoServiceTest {
 
     @Test
     void calcularPersonasTest() {
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
         List<Mesa> mesas = new ArrayList<>();
         Mesa mesa1 = new Mesa("mesaId1", "eventoId", new Personas(2, 1), 1, "descripcion1");
         Mesa mesa2 = new Mesa("mesaId2", "eventoId", new Personas(3, 1), 2, "descripcion2");
@@ -148,7 +150,23 @@ class EventoServiceTest {
         when(invitadoRepository.findByMesaId("mesaId2")).thenReturn(invitados2);
 
         Personas personasExpected = new Personas(3, 2);
-        assertEquals(personasExpected, eventoService.calcularPersonas("eventoId"));
+        assertEquals(personasExpected, eventoService.calcularPersonas(evento));
+    }
+
+    @Test
+    void calcularPersonasEventoIndividualTest() {
+        Evento evento = new Evento("eventoId", new TipoEvento("eventoIndividual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
+        List<Mesa> mesas = new ArrayList<>();
+        Mesa mesa1 = new Mesa("mesaId1", "eventoId", new Personas(2, 1), 1, "descripcion1");
+        Mesa mesa2 = new Mesa("mesaId2", "eventoId", new Personas(3, 1), 2, "descripcion2");
+        mesas.add(mesa1);
+        mesas.add(mesa2);
+
+        when(mesaRepository.findByEventoIdOrderByNumeroAsc("eventoId")).thenReturn(mesas);
+
+        Personas personasExpected = new Personas(5, 2);
+        assertEquals(personasExpected, eventoService.calcularPersonas(evento));
     }
 
     @Test

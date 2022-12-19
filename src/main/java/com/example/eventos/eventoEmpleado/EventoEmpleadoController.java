@@ -31,16 +31,23 @@ public class EventoEmpleadoController {
     @GetMapping("/evento/empleados")
     public String eventoEmpleados(@RequestParam(EVENTO_EMPELADO_EVENTO_ID) String eventoId, Model model) {
         Evento evento = eventoService.getById(eventoId);
-        List<Empleado> empleadosFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), true);
-        List<Empleado> empleadosNoFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), false);
-        List<EventoEmpleado> eventoEmpleados = eventoEmpleadoService.getByEventoId(eventoId);
+        List<Empleado> camarerosFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), true);
+        List<Empleado> camarerosNoFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_CAMARERO), false);
+        List<Empleado> cocinerosFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_COCINERO), true);
+        List<Empleado> cocinerosNoFijos = empleadoService.getByTipoAndFijo(new TipoEmpleado(EMPLEADO_TIPO_COCINERO), false);
+        List<EventoEmpleado> eventoEmpleadosCamareros = eventoEmpleadoService.getByEventoIdAndTipoEmpleado(eventoId, new TipoEmpleado("camarero"));
+        List<EventoEmpleado> eventoEmpleadosCocineros = eventoEmpleadoService.getByEventoIdAndTipoEmpleado(eventoId, new TipoEmpleado("cocinero"));
 
-        model.addAttribute(EVENTO_EMPELADOS, eventoEmpleados);
-        model.addAttribute(ATTRIBUTE_EMPLEADOS_FIJOS, empleadosFijos);
-        model.addAttribute(ATTRIBUTE_EMPLEADOS_NO_FIJOS, empleadosNoFijos);
+        model.addAttribute(EVENTO_EMPELADOS_CAMAREROS, eventoEmpleadosCamareros);
+        model.addAttribute(EVENTO_EMPELADOS_COCIINEROS, eventoEmpleadosCocineros);
+        model.addAttribute(ATTRIBUTE_CAMAREROS_FIJOS, camarerosFijos);
+        model.addAttribute(ATTRIBUTE_CAMAREROS_NO_FIJOS, camarerosNoFijos);
+        model.addAttribute(ATTRIBUTE_COCINEROS_FIJOS, cocinerosFijos);
+        model.addAttribute(ATTRIBUTE_COCINEROS_NO_FIJOS, cocinerosNoFijos);
         model.addAttribute(EVENTO_EMPELADO_EVENTO_ID, eventoId);
         model.addAttribute(PERSONAS, evento.getPersonas());
         model.addAttribute(ATTRIBUTE_CAMAREROS_RECOMENDADOS, evento.getCamarerosRecomendados(parametrosService.get().getRatioCamarerosEvento()));
+        model.addAttribute(ATTRIBUTE_COCINEROS_RECOMENDADOS, evento.getCocinerosRecomendados(75));
         return EVENTO_EMPELADOS_PAGE;
     }
 

@@ -40,9 +40,9 @@ class EventoEmpleadoServiceTest {
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
-        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre", "666777888", "correo"), true);
+        Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre", "666777888", "correo"), true, true, true);
 
-        eventoEmpleado = new EventoEmpleado(evento, empleado, true, 0);
+        eventoEmpleado = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);
     }
 
     @Test
@@ -55,6 +55,12 @@ class EventoEmpleadoServiceTest {
     void getByIdTest() {
         eventoEmpleadoService.getById(eventoEmpleado.getId());
         verify(eventoEmpleadoRepository, times(1)).findEventoEmpleadoById(eventoEmpleado.getId());
+    }
+
+    @Test
+    void getByEventoIdAndTipoEmpleadoTest() {
+        eventoEmpleadoService.getByEventoIdAndTipoEmpleado(eventoEmpleado.getId(), eventoEmpleado.getTipoEmpleado());
+        verify(eventoEmpleadoRepository, times(1)).findEventoEmpleadosByEventoIdAndTipoEmpleado(eventoEmpleado.getId(), eventoEmpleado.getTipoEmpleado());
     }
 
     @Test

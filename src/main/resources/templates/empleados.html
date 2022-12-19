@@ -13,8 +13,54 @@
 <body>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <table class="display compact" id="empleados">
-            <caption th:text="#{table.description.empleados}"></caption>
+        <table class="display compact" id="empleadosCamareros">
+            <caption th:text="#{table.description.empleados.camareros}"></caption>
+            <thead>
+            <tr>
+                <th th:text="#{empleado.id}" scope="col"></th>
+                <th th:text="#{empleado.tipo}" scope="col"></th>
+                <th th:text="#{empleado.nombre}" scope="col"></th>
+                <th th:text="#{empleado.telefono}" scope="col"></th>
+                <th th:text="#{empleado.fijo}" scope="col"></th>
+                <th th:text="#{empleado.devantal}" scope="col"></th>
+                <th th:text="#{modificar}" scope="col"></th>
+                <th th:text="#{historial}" scope="col"></th>
+                <th th:text="#{deshabilitar}" scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="empleado, iter: ${empleadosCamareros}">
+                <td th:text="${empleado.id}"></td>
+                <td th:text="#{|tipoEmpleado.${empleado.tipo.value}|}"></td>
+                <td th:text="${empleado.persona.nombre}"></td>
+                <td th:text="${empleado.persona.telefono}"></td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:checked="${empleado.fijo}">
+                        <label class="custom-control-label" th:text="${empleado.fijo} ? 'Si' : 'No'"></label>
+                    </div>
+                </td>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:checked="${empleado.devantal}">
+                        <label class="custom-control-label" th:text="${empleado.devantal} ? 'Si' : 'No'"></label>
+                    </div>
+                </td>
+                <td>
+                    <button th:text="#{modificar}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="modificarClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+                <td>
+                    <button th:text="#{historial}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="historialClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+                <td>
+                    <button th:text="#{deshabilitar}" type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="deshabilitarClicked(this.getAttribute('empleadoId'))"></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="display compact" id="empleadosCocineros">
+            <caption th:text="#{table.description.empleados.cocineros}"></caption>
             <thead>
             <tr>
                 <th th:text="#{empleado.id}" scope="col"></th>
@@ -24,11 +70,11 @@
                 <th th:text="#{empleado.fijo}" scope="col"></th>
                 <th th:text="#{modificar}" scope="col"></th>
                 <th th:text="#{historial}" scope="col"></th>
-                <th th:text="#{eliminar}" scope="col"></th>
+                <th th:text="#{deshabilitar}" scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="empleado, iter: ${empleados}">
+            <tr th:each="empleado, iter: ${empleadosCocineros}">
                 <td th:text="${empleado.id}"></td>
                 <td th:text="#{|tipoEmpleado.${empleado.tipo.value}|}"></td>
                 <td th:text="${empleado.persona.nombre}"></td>
@@ -46,14 +92,13 @@
                     <button th:text="#{historial}" type="button" class="btn btn-primary" th:empleadoId="${empleado.id}" onclick="historialClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
                 <td>
-                    <!-- TODO: Disable empleado. If empleado is deleted, it brokes eventoEmpleados view -->
-                    <button th:text="#{eliminar}" disabled type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="eliminarClicked(this.getAttribute('empleadoId'))"></button>
+                    <button th:text="#{deshabilitar}" type="button" class="btn btn-danger" th:empleadoId="${empleado.id}" onclick="deshabilitarClicked(this.getAttribute('empleadoId'))"></button>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmarDeshabilitarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,8 +109,8 @@
                     </div>
                     <div th:text="#{seguroGuardarCambios}" class="modal-body"></div>
                     <div class="modal-footer">
-                        <button th:text="#{cerrar}" id="modalEliminarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
-                        <button th:text="#{eliminar}" id="modalEliminarButton" type="button" class="btn btn-primary"></button>
+                        <button th:text="#{cerrar}" id="modalDeshabilitarCerrarButton" type="button" class="btn btn-secondary" data-dismiss="modal"></button>
+                        <button th:text="#{deshabilitar}" id="modalDeshabilitarButton" type="button" class="btn btn-primary"></button>
                     </div>
                 </div>
             </div>

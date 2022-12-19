@@ -2,6 +2,7 @@ package com.example.eventos.eventoEmpleado;
 
 import com.example.eventos.empleado.Empleado;
 import com.example.eventos.evento.Evento;
+import com.example.eventos.tipoEmpleado.TipoEmpleado;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -20,6 +21,7 @@ public class EventoEmpleado {
     @DBRef
     private Empleado empleado;
 
+    private TipoEmpleado tipoEmpleado;
     private boolean confirmado;
     private double horasExtras;
 
@@ -27,17 +29,19 @@ public class EventoEmpleado {
 
     }
 
-    public EventoEmpleado(String id, Evento evento, Empleado empleado, boolean confirmado, float horasExtras) {
+    public EventoEmpleado(String id, Evento evento, Empleado empleado, TipoEmpleado tipoEmpleado, boolean confirmado, float horasExtras) {
         this.id = id;
         this.evento = evento;
         this.empleado = empleado;
+        this.tipoEmpleado = tipoEmpleado;
         this.confirmado = confirmado;
         this.horasExtras = horasExtras;
     }
 
-    public EventoEmpleado(Evento evento, Empleado empleado, boolean confirmado, float horasExtras) {
+    public EventoEmpleado(Evento evento, Empleado empleado, TipoEmpleado tipoEmpleado, boolean confirmado, float horasExtras) {
         this.evento = evento;
         this.empleado = empleado;
+        this.tipoEmpleado = tipoEmpleado;
         this.confirmado = confirmado;
         this.horasExtras = horasExtras;
     }
@@ -64,6 +68,14 @@ public class EventoEmpleado {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    public TipoEmpleado getTipoEmpleado() {
+        return tipoEmpleado;
+    }
+
+    public void setTipoEmpleado(TipoEmpleado tipoEmpleado) {
+        this.tipoEmpleado = tipoEmpleado;
     }
 
     public boolean isConfirmado() {

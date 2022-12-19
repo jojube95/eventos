@@ -20,6 +20,9 @@
 
 <div class="container">
     <div class="row">
+       <h5 id="nombreEmpleado" th:text="${empleado.persona.nombre}" class="font-weight-bold"></h5>
+    </div>
+    <div class="row">
         <label th:text="#{fechaMin}" for="fechaMin"></label>
         <input type="text" th:placeholder="#{fechaMin}" id="fechaMin">
     </div>

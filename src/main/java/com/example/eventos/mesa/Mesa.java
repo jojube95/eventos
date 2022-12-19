@@ -1,14 +1,20 @@
 package com.example.eventos.mesa;
 
+import com.example.eventos.invitado.Invitado;
 import com.example.eventos.personas.Personas;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 import java.util.Objects;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.DEDUCTION;
@@ -103,12 +109,28 @@ public class Mesa {
     }
 
     public Phrase generatePhrase() {
-        if(this.descripcion.isEmpty()){
+        if(this.descripcion == null || this.descripcion.isEmpty()){
             return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
         }
         else{
             return new Phrase(this.toString(), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.RED));
         }
+    }
+
+    public void addTableCells(PdfPTable table, List<Invitado> invitados) {
+        for (Invitado invitado : invitados) {
+            table.addCell(new PdfPCell(invitado.generatePhrase())).setBorder(Rectangle.NO_BORDER);
+        }
+    }
+
+    public Personas incrementPersonas(Personas personas) {
+        int mayores = personas.getMayores() + this.getPersonas().getMayores();
+        int niynos = personas.getNinyos() + this.getPersonas().getNinyos();
+
+        personas.setMayores(mayores);
+        personas.setNinyos(niynos);
+
+        return personas;
     }
 
     @Override

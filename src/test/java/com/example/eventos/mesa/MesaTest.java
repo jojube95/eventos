@@ -1,6 +1,9 @@
 package com.example.eventos.mesa;
 
 import com.example.eventos.personas.Personas;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -100,6 +103,33 @@ class MesaTest {
         MesaReserva mesa5 = new MesaReserva("id", "eventoId", new Personas(9, 1), 2, "descripcion", "representante", true);
 
         assertNotEquals(mesa4, mesa5);
+    }
+
+    @Test
+    void generatePhraseWithoutDescriptionTest(){
+        Phrase generatedPhrase = mesaExcel3.generatePhrase();
+
+        assertEquals("Mesa 7. 8p, 2x", generatedPhrase.getContent());
+        assertNull(generatedPhrase.getFont().getColor());
+        assertEquals(12, generatedPhrase.getFont().getSize());
+        assertEquals(Font.FontFamily.HELVETICA, generatedPhrase.getFont().getFamily());
+    }
+
+    @Test
+    void generatePhraseWithDescriptionTest(){
+        Phrase generatedPhrase = mesa2.generatePhrase();
+
+        assertEquals("Mesa 2. 8p, 1x. Descripción: descripcion", generatedPhrase.getContent());
+        assertEquals(BaseColor.RED, generatedPhrase.getFont().getColor());
+        assertEquals(12, generatedPhrase.getFont().getSize());
+        assertEquals(Font.FontFamily.HELVETICA, generatedPhrase.getFont().getFamily());
+    }
+
+    @Test
+    void incrementPersonasTest(){
+        Personas expectedPersonas = new Personas(8, 1);
+
+        assertEquals(expectedPersonas, mesa1.incrementPersonas(new Personas(0, 0)));
     }
 
     @Test

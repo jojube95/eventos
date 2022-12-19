@@ -24,7 +24,8 @@ public class Constants {
     public static final String EVENTO_UPDATE_PAGE = "eventoUpdate";
     public static final String EVENTOS_VER_PAGE = "eventosVer";
 
-    public static final String EVENTO_EMPELADOS = "eventoEmpleados";
+    public static final String EVENTO_EMPELADOS_CAMAREROS = "eventoEmpleadosCamareros";
+    public static final String EVENTO_EMPELADOS_COCIINEROS = "eventoEmpleadosCocineros";
     public static final String EVENTO_EMPELADO_ID = "eventoEmpleadoId";
     public static final String EVENTO_EMPELADO_EVENTO_ID = "eventoId";
     public static final String EVENTO_EMPELADO_CONFIRMADO = "confirmado";
@@ -32,6 +33,7 @@ public class Constants {
 
     public static final String EMPLEADO = "empleado";
     public static final String EMPLEADO_TIPO_CAMARERO = "camarero";
+    public static final String EMPLEADO_TIPO_COCINERO = "cocinero";
     public static final String EMPLEADOS = "empleados";
     public static final String EMPLEADO_ID = "empleadoId";
 
@@ -60,10 +62,14 @@ public class Constants {
     public static final String ATTRIBUTE_TIPOS_EVENTO = "tipos";
     public static final String ATTRIBUTE_HORARIOS_EVENTO = "horarios";
     public static final String ATTRIBUTE_TIPOS_EMPLEADO = "tipos";
-    public static final String ATTRIBUTE_EMPLEADOS_FIJOS = "empleadosFijos";
-    public static final String ATTRIBUTE_EMPLEADOS_NO_FIJOS = "empleadosNoFijos";
+    public static final String ATTRIBUTE_CAMAREROS_FIJOS = "camarerosFijos";
+    public static final String ATTRIBUTE_CAMAREROS_NO_FIJOS = "camarerosNoFijos";
+    public static final String ATTRIBUTE_COCINEROS_FIJOS = "cocinerosFijos";
+    public static final String ATTRIBUTE_COCINEROS_NO_FIJOS = "cocinerosNoFijos";
     public static final String ATTRIBUTE_CAMAREROS_RECOMENDADOS = "camarerosRecomendados";
-
+    public static final String ATTRIBUTE_COCINEROS_RECOMENDADOS = "cocinerosRecomendados";
+    public static final String ATTRIBUTE_EMPLEADOS_COCINEROS = "empleadosCocineros";
+    public static final String ATTRIBUTE_EMPLEADOS_CAMAREROS = "empleadosCamareros";
 
 
 }

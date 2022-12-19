@@ -43,7 +43,7 @@ public class ProtagonistaStepDef {
     @When("^User fill all protagonista fields$")
     public void user_fill_all_protagonista_fields() {
         WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
-        WebElement tipoPadreMadre = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[3]"));
+        WebElement tipoPadreMadre = connector.getDriver().findElement(By.xpath("(//select[@id='tipo']//option)[4]"));
 
         WebElement nombre = connector.getDriver().findElement(By.id("nombre"));
         WebElement telefono = connector.getDriver().findElement(By.id("telefono"));

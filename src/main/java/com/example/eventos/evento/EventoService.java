@@ -8,6 +8,7 @@ import com.example.eventos.mesa.Mesa;
 import com.example.eventos.mesa.MesaRepository;
 import com.example.eventos.google.GoogleCalendarService;
 import com.example.eventos.personas.Personas;
+import com.example.eventos.tipoEvento.TipoEvento;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.eventos.config.Constants.EVENTO_TIPO_INDIVIDUAL;
 
 @Service
 public class EventoService {
@@ -67,13 +70,19 @@ public class EventoService {
         return eventos;
     }
 
-    public Personas calcularPersonas(String eventoId) {
-        List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(eventoId);
+    public Personas calcularPersonas(Evento evento) {
+        List<Mesa> mesas = mesaRepository.findByEventoIdOrderByNumeroAsc(evento.getId());
         Personas personas = new Personas(0, 0);
         for (Mesa mesa : mesas) {
-            List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
-            for (Invitado invitado: invitados) {
-                personas = invitado.incrementPersonas(personas);
+            // TODO: Check if could be done using polymorphirsm
+            if(evento.getTipo().equals(new TipoEvento(EVENTO_TIPO_INDIVIDUAL))) {
+                personas = mesa.incrementPersonas(personas);
+            }
+            else{
+                List<Invitado> invitados = invitadoRepository.findByMesaId(mesa.getId());
+                for (Invitado invitado: invitados) {
+                    personas = invitado.incrementPersonas(personas);
+                }
             }
         }
         return personas;

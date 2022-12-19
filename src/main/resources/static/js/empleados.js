@@ -1,7 +1,27 @@
-let empleadosDt;
+let empleadosCamarerosDt;
+let empleadosCocinerosDt;
 
 document.addEventListener('DOMContentLoaded', function() {
-    empleadosDt = $('#empleados').DataTable(
+    empleadosCamarerosDt = $('#empleadosCamareros').DataTable(
+        {
+            columnDefs: [
+                {
+                    visible: false,
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    targets: [2, 3, 6, 7, 8]
+                },
+                { className: "dt-right", "targets": [ 6, 7, 8 ] }
+            ],
+            searching: false,
+            paging: false,
+            info: false
+        }
+    );
+
+    empleadosCocinerosDt = $('#empleadosCocineros').DataTable(
         {
             columnDefs: [
                 {
@@ -29,14 +49,14 @@ function historialClicked(empleadoId){
     location.href = "/empleadoHistorial?empleadoId=" + empleadoId;
 }
 
-function eliminarClicked(empleadoId){
-    $('#confirmarEliminarModal').modal('toggle');
+function deshabilitarClicked(empleadoId){
+    $('#confirmarDeshabilitarModal').modal('toggle');
 
-    $('#modalEliminarButton').on('click', function(){
+    $('#modalDeshabilitarButton').on('click', function(){
         toggleLoadingSpinner($(this));
 
-        ajaxCall("POST", "/eliminarEmpleado", {empleadoId: empleadoId}, {}, function () {
-            $('#confirmarEliminarModal').modal('toggle');
+        ajaxCall("POST", "/deshabilitarEmpleado", {empleadoId: empleadoId}, {}, function () {
+            $('#confirmarDeshabilitarModal').modal('toggle');
             deleteEmpleadoRow(empleadoId);
         });
 
@@ -45,6 +65,6 @@ function eliminarClicked(empleadoId){
 
 function deleteEmpleadoRow(empleadoId) {
     let deletedRow = $('button[empleadoid="' + empleadoId + '"]').parent().parent();
-    empleadosDt.row(deletedRow).remove().draw();
-    empleadosDt.draw();
+    empleadosCamarerosDt.row(deletedRow).remove().draw();
+    empleadosCamarerosDt.draw();
 }

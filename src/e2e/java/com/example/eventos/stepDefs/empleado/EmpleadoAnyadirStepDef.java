@@ -74,34 +74,50 @@ public class EmpleadoAnyadirStepDef {
 
     @Then("^Created empleado is shown$")
     public void created_empleado_is_shown() {
-        List<WebElement> empleados = connector.getDriver().findElements(By.xpath("//table[@id='empleados']/tbody/tr"));
+        List<WebElement> empleadosCamareros = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCamareros']/tbody/tr"));
 
-        List<WebElement> empleado1 = connector.getDriver().findElements(By.xpath("//table[@id='empleados']/tbody/tr[1]/td"));
-        List<WebElement> empleado2 = connector.getDriver().findElements(By.xpath("//table[@id='empleados']/tbody/tr[2]/td"));
-        List<WebElement> empleado3 = connector.getDriver().findElements(By.xpath("//table[@id='empleados']/tbody/tr[3]/td"));
-        List<WebElement> empleado4 = connector.getDriver().findElements(By.xpath("//table[@id='empleados']/tbody/tr[4]/td"));
+        List<WebElement> empleadoCamarero1 = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCamareros']/tbody/tr[1]/td"));
+        List<WebElement> empleadoCamarero2 = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCamareros']/tbody/tr[2]/td"));
+        List<WebElement> empleadoCamarero3 = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCamareros']/tbody/tr[3]/td"));
 
-        assertEquals(4, empleados.size());
+        List<WebElement> empleadosCocineros = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCocineros']/tbody/tr"));
 
-        assertEquals("Camarero/a", empleado1.get(0).getText());
-        assertEquals("Antonio", empleado1.get(1).getText());
-        assertEquals("666777888", empleado1.get(2).getText());
-        assertEquals("Si", empleado1.get(3).getText());
+        List<WebElement> empleadoCocinero1 = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCocineros']/tbody/tr[1]/td"));
+        List<WebElement> empleadoCocinero2 = connector.getDriver().findElements(By.xpath("//table[@id='empleadosCocineros']/tbody/tr[2]/td"));
 
-        assertEquals("Camarero/a", empleado2.get(0).getText());
-        assertEquals("Pepe", empleado2.get(1).getText());
-        assertEquals("666777999", empleado2.get(2).getText());
-        assertEquals("No", empleado2.get(3).getText());
+        assertEquals(3, empleadosCamareros.size());
 
-        assertEquals("Cocinero/a", empleado3.get(0).getText());
-        assertEquals("Jose", empleado3.get(1).getText());
-        assertEquals("666888999", empleado3.get(2).getText());
-        assertEquals("Si", empleado3.get(3).getText());
+        assertEquals("Camarero/a", empleadoCamarero1.get(0).getText());
+        assertEquals("Antonio", empleadoCamarero1.get(1).getText());
+        assertEquals("666777888", empleadoCamarero1.get(2).getText());
+        assertEquals("Si", empleadoCamarero1.get(3).getText());
+        assertEquals("No", empleadoCamarero1.get(4).getText());
 
-        assertEquals("Cocinero/a", empleado4.get(0).getText());
-        assertEquals("Jesus", empleado4.get(1).getText());
-        assertEquals("678678678", empleado4.get(2).getText());
-        assertEquals("No", empleado4.get(3).getText());
+        assertEquals("Camarero/a", empleadoCamarero2.get(0).getText());
+        assertEquals("Pepe", empleadoCamarero2.get(1).getText());
+        assertEquals("666777999", empleadoCamarero2.get(2).getText());
+        assertEquals("No", empleadoCamarero2.get(3).getText());
+        assertEquals("Si", empleadoCamarero2.get(4).getText());
+
+        assertEquals("Camarero/a", empleadoCamarero3.get(0).getText());
+        assertEquals("Juan", empleadoCamarero3.get(1).getText());
+        assertEquals("686868686", empleadoCamarero3.get(2).getText());
+        assertEquals("Si", empleadoCamarero3.get(3).getText());
+        assertEquals("No", empleadoCamarero3.get(4).getText());
+
+
+
+        assertEquals(2, empleadosCocineros.size());
+
+        assertEquals("Cocinero/a", empleadoCocinero1.get(0).getText());
+        assertEquals("Jose", empleadoCocinero1.get(1).getText());
+        assertEquals("666888999", empleadoCocinero1.get(2).getText());
+        assertEquals("Si", empleadoCocinero1.get(3).getText());
+
+        assertEquals("Cocinero/a", empleadoCocinero2.get(0).getText());
+        assertEquals("Jesus", empleadoCocinero2.get(1).getText());
+        assertEquals("678678678", empleadoCocinero2.get(2).getText());
+        assertEquals("No", empleadoCocinero2.get(3).getText());
     }
 
     @Then("^Option empelado tipo should be selected$")

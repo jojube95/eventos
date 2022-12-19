@@ -9,7 +9,9 @@ import java.util.List;
 public interface EmpleadoRepository extends MongoRepository<Empleado, String> {
     Empleado findEmpleadoById(String id);
 
-    List<Empleado> findEmpleadoByTipo(TipoEmpleado tipo);
+    List<Empleado> findEmpleadoByActivo(boolean activo);
 
-    List<Empleado> findEmpleadoByTipoAndFijo(TipoEmpleado tipo, boolean fijo);
+    List<Empleado> findEmpleadoByTipoAndActivo(TipoEmpleado tipo, boolean activo);
+
+    List<Empleado> findEmpleadoByTipoAndFijoAndActivo(TipoEmpleado tipo, boolean fijo, boolean activo);
 }

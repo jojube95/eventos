@@ -53,7 +53,7 @@ class MesaReservaTest {
 
     @Test
     void toStringTest(){
-        assertEquals("MesaReserva{representante='representante', pagado=false, id='id', eventoId='eventoId', personas=8p, 1x, numero=2, descripcion='descripcion'}", mesa1.toString());
-        assertEquals("MesaReserva{representante='representante1', pagado=true, id='id', eventoId='eventoId', personas=9p, 2x, numero=1, descripcion='descripcion'}", mesa2.toString());
+        assertEquals("Mesa 2. representante. 8p, 1x. Descripción: descripcion", mesa1.toString());
+        assertEquals("Mesa 1. representante1. 9p, 2x. Descripción: descripcion", mesa2.toString());
     }
 }

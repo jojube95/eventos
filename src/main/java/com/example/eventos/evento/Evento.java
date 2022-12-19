@@ -219,6 +219,10 @@ public class Evento {
         return Math.round(this.personas.getMayores() / ratioCamarerosEvento);
     }
 
+    public int getCocinerosRecomendados(float ratioCamarerosEvento){
+        return 2 + Math.round(this.personas.getMayores() / ratioCamarerosEvento);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
