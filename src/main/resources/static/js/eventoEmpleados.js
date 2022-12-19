@@ -45,7 +45,7 @@ function footerCallbackCamareros() {
     let rows = api.rows({search:'applied'}).count();
     $(api.column(4).footer()).text("Total: " + rows);
 
-    let totalNoDevantal = $('#eventoEmpleadosCamareros > tbody > tr > td:nth-child(7)').find('input[type=checkbox]:not(:checked)').length;
+    let totalNoDevantal = $('#eventoEmpleadosCamareros > tbody > tr > td:nth-child(8)').find('input[type=checkbox]:not(:checked)').length;
 
     $(api.column(7).footer()).text("No tenen: " + totalNoDevantal);
 }
