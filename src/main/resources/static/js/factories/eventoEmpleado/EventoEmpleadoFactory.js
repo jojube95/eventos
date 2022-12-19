@@ -4,11 +4,11 @@ import {EventoEmpleadoCocinero} from "../../modelos/eventoEmpleado/EventoEmplead
 
 
 export class EventoEmpleadoFactory {
-    static crearEventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTableCamareros, dataTablesCocineros) {
+    static crearEventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTableCamareros, dataTablesCocineros, buttonAnyadirCamarero, buttonAnyadirCocinero) {
         if (tipoEmpleado.value === 'camarero') {
-            return new EventoEmpleadoCamarero(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTableCamareros);
+            return new EventoEmpleadoCamarero(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTableCamareros, buttonAnyadirCamarero);
         } else if (tipoEmpleado.value === 'cocinero') {
-            return new EventoEmpleadoCocinero(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTablesCocineros);
+            return new EventoEmpleadoCocinero(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, dataTablesCocineros, buttonAnyadirCocinero);
         } else {
             return new EventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras);
         }

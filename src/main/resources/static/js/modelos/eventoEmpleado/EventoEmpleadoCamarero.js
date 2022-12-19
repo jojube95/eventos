@@ -1,36 +1,8 @@
 import {EventoEmpleado} from "./EventoEmpleado.js";
 
 export class EventoEmpleadoCamarero extends EventoEmpleado{
-    constructor(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, empleadosDataTable) {
-        super(id, evento, empleado, tipoEmpleado, confirmado, horasExtras);
-        this.empleadosDataTable = empleadosDataTable;
-    }
-
-    anyadirEnDatatable() {
-        this.empleadosDataTable.row.add(this.generarEventoEmpleadoRow()).draw();
-
-        toggleLoadingSpinner($('#buttonAnyadirCamarero'));
-
-        this.eliminarDeDropdown();
-    }
-
-    modificarEnDatatable() {
-        this.modificarEventoEmpleadoRow();
-        this.empleadosDataTable.draw();
-    }
-
-    modificarEventoEmpleadoRow() {
-        let modifiedRow = this.getEventoEmpleadoRow();
-
-        let checkboxConfirmado= modifiedRow.children('td').eq(6).children('div').children('input');
-        let labelConfirmado = modifiedRow.children('td').eq(6).children('div').children('label');
-        let columnHorasExtra = modifiedRow.children('td').eq(8);
-
-        this.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
-        this.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
-        columnHorasExtra.text(this.horasExtras);
-
-        $("#eventoEmpleadoModificarModal").modal("hide");
+    constructor(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, empleadosDataTable, buttonAnyadirEmpleado) {
+        super(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, empleadosDataTable, buttonAnyadirEmpleado);
     }
 
     generarEventoEmpleadoRow() {
@@ -49,12 +21,6 @@ export class EventoEmpleadoCamarero extends EventoEmpleado{
         ]
     }
 
-    eliminarEnDatatable() {
-        this.empleadosDataTable.row(this.getEventoEmpleadoRow()).remove().draw();
-
-        this.anyadirAlDropdown();
-    }
-
     eliminarDeDropdown() {
         $('#empleadoCamarero > option[value="' + this.empleado.id + '"]').remove();
     }
@@ -66,5 +32,9 @@ export class EventoEmpleadoCamarero extends EventoEmpleado{
         else{
             $('#empleadoCamarero').append(this.generateEmpleadoOption());
         }
+    }
+
+    getColumnHorasExtra(){
+        return 8;
     }
 }

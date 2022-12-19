@@ -8,11 +8,15 @@ window.modificarModalClicked = modificarModalClicked;
 
 let eventoEmpleadosCamarerosDt;
 let eventoEmpleadosCocinerosDt;
+let buttonAnyadirCamarero;
+let buttonAnyadirCocinero;
 
 $(document).ready(function() {
     eventoEmpleadosCamarerosDt = $('#eventoEmpleadosCamareros').DataTable(generateDataTableParams(footerCallbackCamareros));
-
     eventoEmpleadosCocinerosDt = $('#eventoEmpleadosCocineros').DataTable(generateDataTableParams(footerCallbackCocineros));
+
+    buttonAnyadirCamarero = $('#buttonAnyadirCamarero');
+    buttonAnyadirCocinero = $('#buttonAnyadirCocinero');
 
     updateProgresbar('camarero');
     updateProgresbar('cocinero');
@@ -72,7 +76,7 @@ function anyadirCocineroClicked (){
 
 function anyadirEmpleado(empleadoId) {
     ajaxCall("POST", "/evento/empleados/anyadir", {eventoId: eventoId, empleadoId: empleadoId}, {}, function (data) {
-        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt, buttonAnyadirCamarero, buttonAnyadirCocinero);
         eventoEmpleado.anyadirEnDatatable();
         updateProgresbar(eventoEmpleado.tipoEmpleado.value);
     });
@@ -82,7 +86,7 @@ function eliminarClicked(eventoEmpleadoId){
     toggleLoadingSpinner($('button[eventoempleadoid="' + eventoEmpleadoId + '"]'));
 
     ajaxCall("POST", "/evento/empleados/eliminar", {eventoEmpleadoId: eventoEmpleadoId}, {}, function (data) {
-        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt, buttonAnyadirCamarero, buttonAnyadirCocinero);
         eventoEmpleado.eliminarEnDatatable();
         updateProgresbar(eventoEmpleado.tipoEmpleado.value);
     });
@@ -102,7 +106,7 @@ function modificarModalClicked(eventoEmpleadoId){
     let horasExtras = $('#horasExtras').val();
 
     ajaxCall("POST", "/evento/empleados/modificar", {eventoEmpleadoId: eventoEmpleadoId, confirmado: confirmado, horasExtras: horasExtras}, {}, function (data) {
-        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(data.id, data.evento, data.empleado, data.tipoEmpleado, data.confirmado, data.horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt, buttonAnyadirCamarero, buttonAnyadirCocinero);
 
         eventoEmpleado.modificarEnDatatable();
         updateProgresbar(eventoEmpleado.tipoEmpleado.value);
@@ -140,7 +144,7 @@ function refrescarDropdownsEmpleados() {
         let tipoEmpleado = { value: $(tr).children().eq(3).text() };
         let confirmado = $(tr).children().eq(6).text();
         let horasExtras = $(tr).children().eq(8).text();
-        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt);
+        let eventoEmpleado = EventoEmpleadoFactory.crearEventoEmpleado(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, eventoEmpleadosCamarerosDt, eventoEmpleadosCocinerosDt, buttonAnyadirCamarero, buttonAnyadirCocinero);
 
         eventoEmpleado.eliminarDeDropdown();
     });

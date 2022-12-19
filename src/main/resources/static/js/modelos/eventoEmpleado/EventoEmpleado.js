@@ -1,23 +1,32 @@
 export class EventoEmpleado {
-    constructor(id, evento, empleado, tipoEmpleado, confirmado, horasExtras) {
+    constructor(id, evento, empleado, tipoEmpleado, confirmado, horasExtras, empleadosDataTable, buttonAnyadirEmpleado) {
         this.id = id;
         this.evento = evento;
         this.empleado = empleado;
         this.tipoEmpleado = tipoEmpleado;
         this.confirmado = confirmado;
         this.horasExtras = horasExtras;
+        this.empleadosDataTable = empleadosDataTable;
+        this.buttonAnyadirEmpleado = buttonAnyadirEmpleado;
     }
 
     anyadirEnDatatable() {
-        throw new Error('Method "anyadirEnDatatable()" must be implemented.');
+        this.empleadosDataTable.row.add(this.generarEventoEmpleadoRow()).draw();
+
+        toggleLoadingSpinner(this.buttonAnyadirEmpleado);
+
+        this.eliminarDeDropdown();
     }
 
     modificarEnDatatable() {
-        throw new Error('Method "modificarEnDatatable()" must be implemented.');
+        this.modificarEventoEmpleadoRow();
+        this.empleadosDataTable.draw();
     }
 
     eliminarEnDatatable() {
-        throw new Error('Method "eliminarEnDatatable()" must be implemented.');
+        this.empleadosDataTable.row(this.getEventoEmpleadoRow()).remove().draw();
+
+        this.anyadirAlDropdown();
     }
     eliminarDeDropdown() {
         throw new Error('Method "eliminarDeDropdown()" must be implemented.');
@@ -32,22 +41,21 @@ export class EventoEmpleado {
     }
 
     modificarEventoEmpleadoRow() {
-        throw new Error('Method "modificarEventoEmpleadoRow()" must be implemented.');
+        let modifiedRow = this.getEventoEmpleadoRow();
+
+        let checkboxConfirmado= modifiedRow.children('td').eq(this.getColumnConfirmado()).children('div').children('input');
+        let labelConfirmado = modifiedRow.children('td').eq(this.getColumnConfirmado()).children('div').children('label');
+        let columnHorasExtra = modifiedRow.children('td').eq(this.getColumnHorasExtra());
+
+        this.confirmado ? checkboxConfirmado.attr('checked', 'checked') : checkboxConfirmado.removeAttr('checked');
+        this.confirmado ? labelConfirmado.text('Si') : labelConfirmado.text('No');
+        columnHorasExtra.text(this.horasExtras);
+
+        $("#eventoEmpleadoModificarModal").modal("hide");
     }
 
     getEventoEmpleadoRow() {
         return $('button[eventoempleadoid="' + this.id + '"]').parent().parent();
-    }
-
-    toggleLoadingSpinner(element) {
-        if (element.find(".spinner-border").length === 0){
-            element.prop("disabled", true);
-            element.append(" <span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span>");
-        }
-        else{
-            element.prop("disabled", false);
-            element.find(".spinner-border").remove();
-        }
     }
 
     generateEmpleadoOption() {
@@ -55,5 +63,13 @@ export class EventoEmpleado {
             value: this.empleado.id,
             text: this.empleado.persona.nombre
         })
+    }
+
+    getColumnConfirmado(){
+        return 6;
+    }
+
+    getColumnHorasExtra(){
+        throw new Error('Method "getColumnHorasExtra()" must be implemented.');
     }
 }
