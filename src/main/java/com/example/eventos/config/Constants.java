@@ -71,5 +71,7 @@ public class Constants {
     public static final String ATTRIBUTE_EMPLEADOS_COCINEROS = "empleadosCocineros";
     public static final String ATTRIBUTE_EMPLEADOS_CAMAREROS = "empleadosCamareros";
 
+    public static final String GRAFICOS_BARRAS_PAGE = "graficoBarras";
+
 
 }

@@ -11,4 +11,6 @@ public interface EventoRepository extends MongoRepository<Evento, String> {
     Evento findEventoById(String id);
 
     List<Evento> findByFechaBefore(Date date);
+
+    List<Evento> findAllByOrderByFechaAsc();
 }
