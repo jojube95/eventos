@@ -1,58 +1,77 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
-});
-
-// Callback that creates and populates a data table,
-// instantiates the pie chart, passes in the data and
-// draws it.
-function drawChart() {
     $("#datepicker").datepicker({
         format: "yyyy",
         viewMode: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true
+    }).change(function () {
+        drawChart($(this).val());
     });
 
-    console.log(eventos);
-    // Create the data table.
-    var data = prepareData();
+    google.charts.load('current', {'packages':['corechart']});
 
-    var options = {
+    google.charts.setOnLoadCallback(function () {
+        drawChart(2023)
+    });
+});
+
+function drawChart(year) {
+    let data = prepareData(year);
+
+    let options = {
         width: 600,
         height: 400,
         legend: { position: 'top', maxLines: 3 },
         bar: { groupWidth: '75%' },
-        //isStacked: true,
+        isStacked: true,
     };
 
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    let chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
 
-function prepareData() {
-    let dataTable = new google.visualization.DataTable();
-    dataTable.addColumn('string', 'Mes');
-    dataTable.addColumn('number', 'Comensales');
-
-    let groupKey = 0;
-    let groups = eventos.reduce(function (r, o) {
-        let date = new Date(o.fecha);
-        if(date.getFullYear() === 2023) {
+function prepareData(year) {
+    let groups = eventos.reduce(function (res, act) {
+        let date = new Date(act.fecha);
+        if(new Date(act.fecha).getFullYear() === Number(year)) {
             let m = date.getMonth() + 1;
-            (r[m]) ? r[m].sum += o.personas.mayores : r[m] = {group: String(groupKey++), sum: o.personas.mayores};
+            let tipo = act.tipo.value;
+            if(res[m]) {
+                if(res[m].hasOwnProperty(tipo)) {
+                    res[m][tipo] += act.personas.mayores;
+                }
+                else {
+                    res[m][tipo] = act.personas.mayores;
+                }
+            }
+            else{
+                res[m] = {group: String(m), [tipo]: act.personas.mayores};
+            }
         }
-        return r;
+        return res;
     }, {});
 
-    console.log(groups);
-    Object.keys(groups).forEach(key => {
-        dataTable.addRow([key, groups[key].sum]);
+    let headerRow = tiposEventos.map(function (value) {
+        return value.value
     });
 
-    return dataTable;
+    let filas = [];
+    Object.keys(groups).forEach(key => {
+        let comensalesTipo = [];
 
+        headerRow.forEach(function (value, index) {
+            if (groups[key][value]) {
+                comensalesTipo[index] = groups[key][value];
+            }
+            else{
+                comensalesTipo[index] = 0;
+            }
+
+        });
+        filas.push([key].concat(comensalesTipo));
+    });
+
+    filas.unshift(['meses'].concat(headerRow));
+
+    return google.visualization.arrayToDataTable(filas);
 }
