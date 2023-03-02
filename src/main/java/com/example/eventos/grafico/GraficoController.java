@@ -31,4 +31,14 @@ public class GraficoController {
         model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
         return GRAFICOS_BARRAS_PAGE;
     }
+
+    @GetMapping("/graficoPastel")
+    public String graficoPastel(Model model) {
+        List<Evento> eventos = eventoService.getEventosOrderByDate();
+        List<TipoEvento> tiposEventos = tipoEventoService.getTipoEventos();
+
+        model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
+        return GRAFICOS_PASTEL_PAGE;
+    }
 }

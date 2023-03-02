@@ -73,6 +73,7 @@ public class Constants {
     public static final String ATTRIBUTE_TIPOS_EVENTOS = "tiposEventos";
 
     public static final String GRAFICOS_BARRAS_PAGE = "graficoBarras";
+    public static final String GRAFICOS_PASTEL_PAGE = "graficoPastel";
 
 
 }
