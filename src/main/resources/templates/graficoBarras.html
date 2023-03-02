@@ -19,7 +19,18 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-  <input type="text" id="datepicker" />
+  <div class="form-group">
+    <label th:text="#{graficos.dato}" for="dato"></label>
+    <select class="form-control" id="dato">
+      <option id="comensales" value="comensales" th:text="#{graficos.dato.comensales}"></option>
+      <option id="beneficio" value="beneficio" th:text="#{graficos.dato.beneficio}"></option>
+    </select>
+  </div>
+
+  <div class="form-group required">
+    <label th:text="#{graficos.anyo}" class="control-label" for="datepicker"></label>
+    <input type="text" class="form-control" id="datepicker">
+  </div>
 
   <div id="chart_div"></div>
 </div>

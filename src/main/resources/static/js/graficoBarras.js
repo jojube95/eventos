@@ -3,24 +3,32 @@ document.addEventListener('DOMContentLoaded', function() {
         format: "yyyy",
         viewMode: "years",
         minViewMode: "years",
+        language: "es",
+        orientation: "bottom auto",
         autoclose: true
     }).change(function () {
-        drawChart($(this).val());
+        drawChart($(this).val(), $("#dato").val());
+    });
+
+    $("#datepicker").val(new Date().getFullYear());
+
+    $("#dato").change(function() {
+        drawChart($("#datepicker").val(), $(this).val());
     });
 
     google.charts.load('current', {'packages':['corechart']});
 
     google.charts.setOnLoadCallback(function () {
-        drawChart(2023)
+        drawChart(2023, 'comensales')
     });
 });
 
-function drawChart(year) {
-    let data = prepareData(year);
+function drawChart(year, dato) {
+    let data = prepareData(year, dato);
 
     let options = {
-        width: 600,
-        height: 400,
+        width: 800,
+        height: 600,
         legend: { position: 'top', maxLines: 3 },
         bar: { groupWidth: '75%' },
         isStacked: true,
@@ -30,22 +38,29 @@ function drawChart(year) {
     chart.draw(data, options);
 }
 
-function prepareData(year) {
+function prepareData(year, dato) {
     let groups = eventos.reduce(function (res, act) {
         let date = new Date(act.fecha);
         if(new Date(act.fecha).getFullYear() === Number(year)) {
             let m = date.getMonth() + 1;
             let tipo = act.tipo.value;
+            let valor;
+            if(dato === 'comensales'){
+                valor = act.personas.mayores;
+            }
+            else{
+                valor = Number(act.personas.mayores) * Number(act.precioMenu) * 0.325;
+            }
             if(res[m]) {
                 if(res[m].hasOwnProperty(tipo)) {
-                    res[m][tipo] += act.personas.mayores;
+                    res[m][tipo] += valor;
                 }
                 else {
-                    res[m][tipo] = act.personas.mayores;
+                    res[m][tipo] = valor;
                 }
             }
             else{
-                res[m] = {group: String(m), [tipo]: act.personas.mayores};
+                res[m] = {group: String(m), [tipo]: valor};
             }
         }
         return res;
