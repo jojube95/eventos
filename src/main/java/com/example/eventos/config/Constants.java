@@ -74,6 +74,7 @@ public class Constants {
 
     public static final String GRAFICOS_BARRAS_PAGE = "graficoBarras";
     public static final String GRAFICOS_PASTEL_PAGE = "graficoPastel";
+    public static final String GRAFICOS_DISPERSION_PAGE = "graficoDispersion";
 
 
 }

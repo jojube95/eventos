@@ -41,4 +41,14 @@ public class GraficoController {
         model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
         return GRAFICOS_PASTEL_PAGE;
     }
+
+    @GetMapping("/graficoDispersion")
+    public String graficoDispersion(Model model) {
+        List<Evento> eventos = eventoService.getEventosOrderByDate();
+        List<TipoEvento> tiposEventos = tipoEventoService.getTipoEventos();
+
+        model.addAttribute(EVENTOS, eventos);
+        model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
+        return GRAFICOS_DISPERSION_PAGE;
+    }
 }
