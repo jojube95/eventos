@@ -57,16 +57,15 @@ function prepareData(year, dato) {
         return res;
     }, {});
 
-
-
     let headerRow = ["Tipo", "Valor"];
 
     let filas = [];
+
+    filas.push(headerRow);
+
     Object.keys(groups).forEach(key => {
         filas.push([key].concat(groups[key]));
     });
-
-    filas.unshift(headerRow);
 
     return google.visualization.arrayToDataTable(filas);
 }
