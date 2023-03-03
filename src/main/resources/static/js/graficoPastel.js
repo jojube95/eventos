@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         autoclose: true
     }).change(function () {
         drawChart($(this).val(), $("#dato").val());
-    });
-
-    $("#datepicker").val(new Date().getFullYear());
+    }).val(new Date().getFullYear());
 
     $("#dato").change(function() {
         drawChart($("#datepicker").val(), $(this).val());
@@ -44,7 +42,7 @@ function prepareData(year, dato) {
                 valor = act.personas.mayores;
             }
             else{
-                valor = Number(act.personas.mayores) * Number(act.precioMenu) * 0.325;
+                valor = Number(act.personas.mayores) * Number(act.precioMenu) * ratioBeneficios;
             }
 
             if(res[tipo]) {

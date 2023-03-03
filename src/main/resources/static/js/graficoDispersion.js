@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         autoclose: true
     }).change(function () {
         drawChart($(this).val());
-    });
-
-    $("#datepicker").val(new Date().getFullYear());
+    }).val(new Date().getFullYear());
 
     google.charts.load('current', {'packages':['corechart']});
 
@@ -43,7 +41,7 @@ function prepareData(year) {
 
     eventos.forEach(evento => {
         if(new Date(evento.fecha).getFullYear() === Number(year)) {
-            filas.push(['', evento.personas.mayores, evento.precioMenu, evento.tipo.value, (evento.personas.mayores * evento.precioMenu) * 0.325]);
+            filas.push(['', evento.personas.mayores, evento.precioMenu, evento.tipo.value, (evento.personas.mayores * evento.precioMenu) * ratioBeneficios]);
         }
     });
 

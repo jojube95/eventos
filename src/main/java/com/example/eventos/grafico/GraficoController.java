@@ -2,6 +2,7 @@ package com.example.eventos.grafico;
 
 import com.example.eventos.evento.Evento;
 import com.example.eventos.evento.EventoService;
+import com.example.eventos.parametros.ParametrosService;
 import com.example.eventos.tipoEvento.TipoEvento;
 import com.example.eventos.tipoEvento.TipoEventoService;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,12 @@ import static com.example.eventos.config.Constants.*;
 public class GraficoController {
     private final EventoService eventoService;
     private final TipoEventoService tipoEventoService;
+    private final ParametrosService parametrosService;
 
-    public GraficoController(EventoService eventoService, TipoEventoService tipoEventoService) {
+    public GraficoController(EventoService eventoService, TipoEventoService tipoEventoService, ParametrosService parametrosService) {
         this.eventoService = eventoService;
         this.tipoEventoService = tipoEventoService;
+        this.parametrosService = parametrosService;
     }
 
     @GetMapping("/graficoBarras")
@@ -29,6 +32,7 @@ public class GraficoController {
 
         model.addAttribute(EVENTOS, eventos);
         model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
+        model.addAttribute(ATTRIBUTE_RATIO_BENEFICIOS, parametrosService.get().getRatioBeneficios());
         return GRAFICOS_BARRAS_PAGE;
     }
 
@@ -39,6 +43,7 @@ public class GraficoController {
 
         model.addAttribute(EVENTOS, eventos);
         model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
+        model.addAttribute(ATTRIBUTE_RATIO_BENEFICIOS, parametrosService.get().getRatioBeneficios());
         return GRAFICOS_PASTEL_PAGE;
     }
 
@@ -49,6 +54,7 @@ public class GraficoController {
 
         model.addAttribute(EVENTOS, eventos);
         model.addAttribute(ATTRIBUTE_TIPOS_EVENTOS, tiposEventos);
+        model.addAttribute(ATTRIBUTE_RATIO_BENEFICIOS, parametrosService.get().getRatioBeneficios());
         return GRAFICOS_DISPERSION_PAGE;
     }
 }
