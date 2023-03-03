@@ -1,3 +1,5 @@
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
+
 document.addEventListener('DOMContentLoaded', function() {
     $("#datepicker").datepicker({
         format: "yyyy",
@@ -25,7 +27,8 @@ function drawChart(year) {
         height: 600,
         title: 'Comenslaes vs precio menú.',
         hAxis: {title: 'Precio Menú'},
-        vAxis: {title: 'Comensales'}
+        vAxis: {title: 'Comensales'},
+        colors: getColorsEventTipe(data)
     };
 
     let chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
@@ -46,4 +49,25 @@ function prepareData(year) {
     });
 
     return google.visualization.arrayToDataTable(filas);
+}
+
+function getColorsEventTipe(data) {
+    let colorMap = {};
+
+    tiposEventos.forEach(function (tipoEvento) {
+        let evento = EventoFactory.crearEvento(null, tipoEvento, null, null, null);
+
+        colorMap[tipoEvento.value] = evento.getCalendarioColor();
+    });
+
+    let colors = [];
+
+    for (let i = 0; i < data.getNumberOfRows(); i++) {
+        let tipo = data.getValue(i, 3);
+        if (colors.indexOf(colorMap[tipo]) === -1) {
+            colors.push(colorMap[tipo]);
+        }
+    }
+
+    return colors;
 }

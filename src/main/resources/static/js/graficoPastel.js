@@ -1,3 +1,5 @@
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
+
 document.addEventListener('DOMContentLoaded', function() {
     $("#datepicker").datepicker({
         format: "yyyy",
@@ -26,7 +28,8 @@ function drawChart(year, dato) {
 
     let options = {
         width: 800,
-        height: 600
+        height: 600,
+        colors: getColorsEventTipe(data)
     };
 
     let chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -66,4 +69,17 @@ function prepareData(year, dato) {
     });
 
     return google.visualization.arrayToDataTable(filas);
+}
+
+function getColorsEventTipe(data) {
+
+    let colors = [];
+
+    for (let i = 0; i < data.getNumberOfRows(); i++) {
+        let evento = EventoFactory.crearEvento(null, {value: data.getValue(i, 0)}, null, null, null);
+
+        colors.push(evento.getCalendarioColor());
+    }
+
+    return colors;
 }

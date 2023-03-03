@@ -1,3 +1,5 @@
+import {EventoFactory} from "./factories/evento/EventoFactory.js";
+
 document.addEventListener('DOMContentLoaded', function() {
     $("#datepicker").datepicker({
         format: "yyyy",
@@ -30,6 +32,7 @@ function drawChart(year, dato) {
         legend: { position: 'top', maxLines: 3 },
         bar: { groupWidth: '75%' },
         isStacked: true,
+        series: getColorsEventTipe(data)
     };
 
     let chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -87,4 +90,20 @@ function prepareData(year, dato) {
     filas.unshift(['meses'].concat(headerRow));
 
     return google.visualization.arrayToDataTable(filas);
+}
+
+function getColorsEventTipe(data) {
+
+    let headers = [];
+    for (let i = 1; i < data.getNumberOfColumns(); i++) {
+        headers.push(data.getColumnLabel(i));
+    }
+
+    return headers.reduce(function (res, act, index) {
+        let evento = EventoFactory.crearEvento(null, {value: act}, null, null, null);
+
+        res[index] = {color: evento.getCalendarioColor()};
+
+        return res;
+    }, {});
 }
