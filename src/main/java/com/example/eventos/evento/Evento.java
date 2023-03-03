@@ -30,6 +30,7 @@ public class Evento {
     private boolean confirmado;
     private String titulo;
     private String sala;
+    private String descripcion;
 
     @DateTimeFormat(pattern = EVENTO_FECHA_FORMAT)
     private Date fecha;
@@ -79,7 +80,7 @@ public class Evento {
         this.confirmado = false;
     }
 
-    public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+    public Evento(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String descripcion, float precioMenu, float precioMenuNinyos,
                   boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
         this.id = id;
         this.tipo = tipo;
@@ -87,6 +88,7 @@ public class Evento {
         this.personas = personas;
         this.localidad = localidad;
         this.fecha = fecha;
+        this.descripcion = descripcion;
         this.precioMenu = precioMenu;
         this.precioMenuNinyos = precioMenuNinyos;
         this.confirmado = confirmado;
@@ -176,6 +178,14 @@ public class Evento {
         this.sala = sala;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public List<Protagonista> getProtagonistas() {
         if (protagonistas == null){
             return new ArrayList<>();
@@ -233,7 +243,7 @@ public class Evento {
                 && Float.compare(evento.precioMenuNinyos, precioMenuNinyos) == 0 && confirmado == evento.confirmado
                 && Objects.equals(tipo, evento.tipo) && Objects.equals(horario, evento.horario) && Objects.equals(localidad, evento.localidad)
                 && Objects.equals(titulo, evento.titulo) && Objects.equals(fecha.getTime(), evento.fecha.getTime())
-                && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala);
+                && Objects.equals(protagonistas, evento.protagonistas) && Objects.equals(sala, evento.sala) && Objects.equals(descripcion, evento.descripcion);
     }
 
     @Override

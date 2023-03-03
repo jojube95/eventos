@@ -3,8 +3,8 @@ import {MesaFactory} from "../../factories/mesa/MesaFactory.js";
 import {updateMesaOnCanvas} from "../../distribucion.js";
 
 export class EventoIndividual extends Evento {
-    constructor(id, tipo, titulo, personas, fecha) {
-        super(id, tipo, titulo, personas, fecha);
+    constructor(id, tipo, titulo, personas, fecha, descripcion) {
+        super(id, tipo, titulo, personas, fecha, descripcion);
     }
 
     getCalendarioColor() {

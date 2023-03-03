@@ -102,7 +102,7 @@ class EventoServiceTest {
     @Test
     void getByEmpleadoIdTest() {
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre1", "666777888", "correo"), true, true, true);
 
         EventoEmpleado eventoEmpleado = new EventoEmpleado("id", evento, empleado, empleado.getTipo(), true, 0);
@@ -120,7 +120,7 @@ class EventoServiceTest {
 
     @Test
     void calcularPersonasTest() {
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Mesa> mesas = new ArrayList<>();
         Mesa mesa1 = new Mesa("mesaId1", "eventoId", new Personas(2, 1), 1, "descripcion1");
@@ -155,7 +155,7 @@ class EventoServiceTest {
 
     @Test
     void calcularPersonasEventoIndividualTest() {
-        Evento evento = new Evento("eventoId", new TipoEvento("eventoIndividual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("eventoIndividual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2022, Calendar.JULY, 25).getTime(), "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Mesa> mesas = new ArrayList<>();
         Mesa mesa1 = new Mesa("mesaId1", "eventoId", new Personas(2, 1), 1, "descripcion1");

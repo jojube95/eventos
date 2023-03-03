@@ -39,7 +39,7 @@ class EventoEmpleadoServiceTest {
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
 
-        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Empleado empleado = new Empleado("idEmpleado1", new TipoEmpleado("camarero"), new Persona("nombre", "666777888", "correo"), true, true, true);
 
         eventoEmpleado = new EventoEmpleado(evento, empleado, empleado.getTipo(), true, 0);

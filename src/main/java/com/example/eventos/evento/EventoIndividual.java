@@ -14,9 +14,9 @@ import java.util.List;
 @Document("evento")
 @TypeAlias("EventoIndividual")
 public class EventoIndividual extends Evento{
-    public EventoIndividual(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+    public EventoIndividual(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String descripcion, float precioMenu, float precioMenuNinyos,
                             boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
-        super(id, tipo, horario, personas, localidad, fecha, precioMenu, precioMenuNinyos, confirmado, protagonistas, titulo, sala, distribucion);
+        super(id, tipo, horario, personas, localidad, fecha, descripcion, precioMenu, precioMenuNinyos, confirmado, protagonistas, titulo, sala, distribucion);
     }
 
     // TODO: Probably should be part of javascript OOP

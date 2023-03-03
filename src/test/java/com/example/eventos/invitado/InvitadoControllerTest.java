@@ -47,7 +47,7 @@ class InvitadoControllerTest {
     void getInvitadosTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/invitadosModal.html");
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         Invitado invitado1 = InvitadoFactory.crearInvitado("id", evento.getId(), "mesaId", "Pepe", "Mayor",  "");
         Invitado invitado2 = InvitadoFactory.crearInvitado("id1", evento.getId(), "mesaId", "Antonio", "Mayor", "Vegano");
         Invitado invitado3 = InvitadoFactory.crearInvitado("id3", evento.getId(), "mesaId", "José", "Mayor", "");

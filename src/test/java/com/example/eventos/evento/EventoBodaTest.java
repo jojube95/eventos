@@ -17,7 +17,7 @@ class EventoBodaTest {
     @BeforeEach
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        eventoBoda = new EventoBoda("id", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Boda-Comida", "Sala1", new Distribucion("Distribucion"));
+        eventoBoda = new EventoBoda("id", new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Boda-Comida", "Sala1", new Distribucion("Distribucion"));
     }
 
     @Test

@@ -20,6 +20,7 @@
     <div class="container">
         <form action="#" th:action="@{/eventoAnyadir}" th:object="${evento}" method="post">
             <div th:replace="fragments/eventoForm :: fecha"></div>
+            <div th:replace="fragments/eventoForm :: descripcion"></div>
             <div th:replace="fragments/eventoForm :: localidad"></div>
             <div th:replace="fragments/eventoForm :: tipoHorarioTitulo"></div>
             <div th:replace="fragments/eventoForm :: sala"></div>
