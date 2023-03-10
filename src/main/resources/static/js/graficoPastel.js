@@ -9,11 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
         orientation: "bottom auto",
         autoclose: true
     }).change(function () {
-        drawChart($(this).val(), $("#dato").val());
+        drawChart($(this).val(), $("#clasificacion").val(), $("#dato").val());
     }).val(new Date().getFullYear());
 
     $("#dato").change(function() {
-        drawChart($("#datepicker").val(), $(this).val());
+        drawChart($("#datepicker").val(), $("#clasificacion").val(), $(this).val());
+    });
+
+    $("#clasificacion").change(function() {
+        drawChart($("#datepicker").val(), $(this).val(), $("#dato").val());
     });
 
     google.charts.load('current', {'packages':['corechart']});
@@ -23,23 +27,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function drawChart(year, dato) {
-    let data = prepareData(year, dato);
+function drawChart(year, clasificacion, dato) {
+    let data = prepareData(year, clasificacion, dato);
 
     let options = {
         width: 800,
-        height: 600,
-        colors: getColorsEventTipe(data)
+        height: 600
     };
+
+    if(clasificacion === 'tipo') {
+        options.colors = getColorsEventTipe(data);
+    }
 
     let chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
 
-function prepareData(year, dato) {
+function prepareData(year, clasificacion, dato) {
     let groups = eventos.reduce(function (res, act) {
         if(new Date(act.fecha).getFullYear() === Number(year)) {
-            let tipo = act.tipo.value;
+            let agruparPor;
+            if(clasificacion === 'tipo'){
+                agruparPor = act.tipo.value;
+            }
+            else if(clasificacion === 'localidad'){
+                agruparPor = act.localidad;
+            }
             let valor;
             if(dato === 'comensales'){
                 valor = act.personas.mayores;
@@ -48,17 +61,17 @@ function prepareData(year, dato) {
                 valor = Number(act.personas.mayores) * Number(act.precioMenu) * ratioBeneficios;
             }
 
-            if(res[tipo]) {
-                res[tipo] += valor;
+            if(res[agruparPor]) {
+                res[agruparPor] += valor;
             }
             else{
-                res[tipo] = valor;
+                res[agruparPor] = valor;
             }
         }
         return res;
     }, {});
 
-    let headerRow = ["Tipo", "Valor"];
+    let headerRow = [clasificacion, "Valor"];
 
     let filas = [];
 
