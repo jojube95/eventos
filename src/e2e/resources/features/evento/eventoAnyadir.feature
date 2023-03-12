@@ -5,6 +5,7 @@ Feature: Anyadir evento page should add evento and show required fields
     Given Open Chrome and logIn as admin
     And Visit eventoAnyadir page
     When User fill all fields
+    And User select tipo to comunion
     And User click add evento
     Then Redirect to calendar page
     And Created event is shown
@@ -43,7 +44,8 @@ Feature: Anyadir evento page should add evento and show required fields
   Scenario: When user select tipo to comunion or boda, titulo should be Comunion-Comida or Boda-Cena, readonly
     Given Open Chrome and logIn as admin
     And Visit eventoAnyadir page
-    When User select horario to cena
+    When User select tipo to boda
+    And User select horario to cena
     Then Titulo should be Boda-Cena
     And Titulo should be readonly
     When User select tipo to comunion

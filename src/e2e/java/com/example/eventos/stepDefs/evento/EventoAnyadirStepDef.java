@@ -34,9 +34,13 @@ public class EventoAnyadirStepDef {
     public void user_fill_all_fields() {
         WebElement localidadInput = connector.getDriver().findElement(By.id("localidad"));
 
+        WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
+
         ((JavascriptExecutor) connector.getDriver()).executeScript("$('#fecha').datepicker('update', new Date(2022, 06, 06));");
 
         localidadInput.sendKeys("Benetuser");
+
+        descripcionInput.sendKeys("Sopar de estiu");
     }
 
     @When("^User click tipo field$")
@@ -87,6 +91,14 @@ public class EventoAnyadirStepDef {
         WebElement comunionOption = connector.getDriver().findElement(By.id("comunion"));
         tipoSelect.click();
         comunionOption.click();
+    }
+
+    @When("^User select tipo to boda")
+    public void user_select_tipo_boda() {
+        WebElement tipoSelect = connector.getDriver().findElement(By.id("tipo"));
+        WebElement bodaOption = connector.getDriver().findElement(By.id("boda"));
+        tipoSelect.click();
+        bodaOption.click();
     }
 
     @When("^User select horario to cena$")
@@ -144,7 +156,7 @@ public class EventoAnyadirStepDef {
 
     @And("^User click off titulo input$")
     public void user_click_off_titulo_input(){
-        WebElement offTitulo = connector.getDriver().findElement(By.xpath("html[1]/body[1]/div[2]/form[1]/div[4]/div[3]"));
+        WebElement offTitulo = connector.getDriver().findElement(By.xpath("html[1]/body[1]/div[2]/form[1]/div[5]/div[3]"));
         offTitulo.click();
     }
 
@@ -191,7 +203,7 @@ public class EventoAnyadirStepDef {
     @Then("^Titulo should be Boda-Cena$")
     public void titulo_should_be_boda_cena(){
         WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
-        assertEquals("Comunión-Cena", tituloInput.getAttribute("value"));
+        assertEquals("Boda-Cena", tituloInput.getAttribute("value"));
     }
 
     @Then("^Titulo should be editable$")

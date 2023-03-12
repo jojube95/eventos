@@ -134,7 +134,7 @@ public class CalendarioStepDef {
   public void second_event_title() {
     WebElement evento = connector.getDriver().findElement(By.xpath("(//div[@class='fc-event-title fc-sticky'])[2]"));
     String eventoText = evento.getText();
-    assertEquals("Comunion-Comida 43p", eventoText);
+    assertEquals("Comunión-Comida 43p", eventoText);
   }
 
   @And("^Third event title should be Sopar festes-Cena$")
