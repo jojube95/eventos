@@ -25,6 +25,21 @@ Feature: Navbar should navigate to other pages
     Then Dropdown buttons empleado navbar is shown
     When User click on ver empleado navbar
     Then Ver empleados page is shown
+    Given Visit calendar page
+    When User click on graficos navbar
+    Then Dropdown buttons grafico navbar is shown
+    When User click on barras navbar
+    Then Ver barras page is shown
+    Given Visit calendar page
+    When User click on graficos navbar
+    Then Dropdown buttons grafico navbar is shown
+    When User click on tarta navbar
+    Then Ver tarta page is shown
+    Given Visit calendar page
+    When User click on graficos navbar
+    Then Dropdown buttons grafico navbar is shown
+    When User click on dispersion navbar
+    Then Ver dispersion page is shown
 
   Scenario: Click on logout should close sesion and redirect to login page
     Given Open Chrome and logIn as admin

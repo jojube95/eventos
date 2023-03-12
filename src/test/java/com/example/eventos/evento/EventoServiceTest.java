@@ -100,6 +100,12 @@ class EventoServiceTest {
     }
 
     @Test
+    void getEventosOrderByDateTest(){
+        eventoService.getEventosOrderByDate();
+        verify(eventoRepository, times(1)).findAllByOrderByFechaAsc();
+    }
+
+    @Test
     void getByEmpleadoIdTest() {
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         Evento evento = new Evento("idEvento1", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
