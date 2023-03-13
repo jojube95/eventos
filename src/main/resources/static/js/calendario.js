@@ -18,10 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 events: function(fetchInfo, successCallback) {
                     successCallback(
                         eventos.map(function(eventEl) {
-                            let evento = EventoFactory.crearEvento(eventEl.id, eventEl.tipo, eventEl.titulo, eventEl.personas, eventEl.fecha);
+                            let evento = EventoFactory.crearEvento(eventEl.id, eventEl.tipo, eventEl.titulo, eventEl.personas, eventEl.fecha, eventEl.descripcion);
                             return {
                                 id: evento.id,
                                 title: evento.getCalendarioTitulo(),
+                                descripcion: evento.descripcion,
                                 start: new Date(evento.fecha).toISOString().split('T')[0],
                                 color: evento.getCalendarioColor(),
                                 eventDisplay: 'block'
@@ -46,6 +47,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     calendar.render();
+
+
+    const calendarControlBtns = Array.from(
+        document.querySelectorAll('.fc-header-toolbar button')
+    );
+
+    const handleNewInterval = (e) => {
+        const allEvents = Array.from(document.querySelectorAll('.fc-event-main'));
+
+        allEvents.forEach((singleEvent, index) => {
+            singleEvent.dataset.toggle = 'tooltip';
+
+            singleEvent.dataset.title = getEventDescription(singleEvent, index);
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    calendarControlBtns.forEach((singleControlBtn) => {
+        singleControlBtn.addEventListener('click', handleNewInterval);
+    });
 });
 
 function verClicked(eventoId){
@@ -58,4 +78,21 @@ function modificarClicked(eventoId){
 
 function goToDate(date){
     calendar.gotoDate(date);
+}
+
+function getEventDescription(calendarEvent, index){
+    let evento = getFullCalendarEvent(index);
+
+    return evento.extendedProps.descripcion;
+}
+
+function getFullCalendarEvent(index){
+    return getViewEvents().at(index);
+}
+
+function getViewEvents(){
+    let firstCalendarDay = calendar.view.activeStart;
+    let lastCalendarDay = calendar.view.activeEnd;
+
+    return calendar.getEvents().filter(event => (new Date(event.start) >= firstCalendarDay && new Date(event.start) < lastCalendarDay));
 }

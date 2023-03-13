@@ -58,6 +58,7 @@ public class EventoController {
     public String eventoUpdate(@ModelAttribute Evento evento) {
         Evento eventoToUpdate = eventoService.getById(evento.getId());
         eventoToUpdate.setFecha(evento.getFecha());
+        eventoToUpdate.setDescripcion(evento.getDescripcion());
         eventoToUpdate.setLocalidad(evento.getLocalidad());
         eventoToUpdate.setTipo(evento.getTipo());
         eventoToUpdate.setHorario(evento.getHorario());

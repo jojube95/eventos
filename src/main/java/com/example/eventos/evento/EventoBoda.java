@@ -13,9 +13,9 @@ import java.util.List;
 @Document("evento")
 @TypeAlias("EventoBoda")
 public class EventoBoda extends Evento{
-    public EventoBoda(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, float precioMenu, float precioMenuNinyos,
+    public EventoBoda(String id, TipoEvento tipo, HorarioEvento horario, Personas personas, String localidad, Date fecha, String descripcion, float precioMenu, float precioMenuNinyos,
                       boolean confirmado, List<Protagonista> protagonistas, String titulo, String sala, Distribucion distribucion) {
-        super(id, tipo, horario, personas, localidad, fecha, precioMenu, precioMenuNinyos, confirmado, protagonistas, titulo, sala, distribucion);
+        super(id, tipo, horario, personas, localidad, fecha, descripcion, precioMenu, precioMenuNinyos, confirmado, protagonistas, titulo, sala, distribucion);
     }
 
     @Override

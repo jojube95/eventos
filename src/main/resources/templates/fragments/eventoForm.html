@@ -13,6 +13,21 @@
     </div>
 </div>
 
+<div class="form-row" th:fragment="descripcion">
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{evento.descripcion}" class="control-label" for="descripcion"></label>
+            <input type="text" th:field="*{descripcion}" class="form-control" id="descripcion" th:placeholder="#{evento.descripcion}" required>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
 <div class="form-row" th:fragment="localidad">
     <div class="col">
         <div class="form-group required">

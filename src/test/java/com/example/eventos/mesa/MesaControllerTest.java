@@ -51,7 +51,7 @@ class MesaControllerTest {
     void getMesasTest() throws Exception {
         String expectedResponse = TestUtilities.getContent("src/test/resources/response.html/mesas.html");
 
-        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento evento = new Evento("eventoId", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
         MesaReserva mesa1 = new MesaReserva("id", "eventoId", new Personas(10, 1), 1, "descripcion", "Pepe", true);
         MesaReserva mesa2 = new MesaReserva("id", "eventoId", new Personas(6, 1), 2, "descripcion", "Antonio", false);
         MesaReserva mesa3 = new MesaReserva("id", "eventoId", new Personas(7, 1), 3, "descripcion", "José", true);

@@ -70,6 +70,11 @@ public class Constants {
     public static final String ATTRIBUTE_COCINEROS_RECOMENDADOS = "cocinerosRecomendados";
     public static final String ATTRIBUTE_EMPLEADOS_COCINEROS = "empleadosCocineros";
     public static final String ATTRIBUTE_EMPLEADOS_CAMAREROS = "empleadosCamareros";
+    public static final String ATTRIBUTE_TIPOS_EVENTOS = "tiposEventos";
+
+    public static final String GRAFICOS_BARRAS_PAGE = "graficoBarras";
+    public static final String GRAFICOS_PASTEL_PAGE = "graficoPastel";
+    public static final String GRAFICOS_DISPERSION_PAGE = "graficoDispersion";
 
 
 }

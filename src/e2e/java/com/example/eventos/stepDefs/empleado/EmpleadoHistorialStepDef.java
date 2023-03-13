@@ -58,7 +58,7 @@ public class EmpleadoHistorialStepDef {
         assertEquals("13", evento1.get(7).getText());
 
         assertEquals("2022-07-10", evento2.get(0).getText());
-        assertEquals("Comunion-Comida", evento2.get(1).getText());
+        assertEquals("Comunión-Comida", evento2.get(1).getText());
         assertEquals("Comunión", evento2.get(2).getText());
         assertEquals("Comida", evento2.get(3).getText());
         assertEquals("Sala2", evento2.get(4).getText());

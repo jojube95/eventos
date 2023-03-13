@@ -169,7 +169,7 @@ public class EventoModificarStepDef {
 
     @And("^User click outside titulo input$")
     public void user_click_off_titulo_input(){
-        WebElement offTitulo = connector.getDriver().findElement(By.xpath("html[1]/body[1]/div[2]/form[1]/div[5]/div[3]"));
+        WebElement offTitulo = connector.getDriver().findElement(By.xpath("html[1]/body[1]/div[2]/form[1]/div[6]/div[3]"));
         offTitulo.click();
     }
 

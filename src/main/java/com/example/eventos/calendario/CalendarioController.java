@@ -28,7 +28,7 @@ public class CalendarioController {
 
     @GetMapping("/calendario")
     public String calendario(Model model) throws JsonProcessingException {
-        List<Evento> eventos = eventoService.getEventos();
+        List<Evento> eventos = eventoService.getEventosOrderByDate();
 
         model.addAttribute(ATTRIBUTE_EVENTOS_JSON, toJson(eventos));
 

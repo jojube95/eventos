@@ -38,7 +38,7 @@ class EventoRepositoryIT {
         Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
-        Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         mongoTemplate.insert(evento1);
         mongoTemplate.insert(evento2);
@@ -55,7 +55,7 @@ class EventoRepositoryIT {
 
         Evento eventoExpected1 = new Evento("id1", new TipoEvento("boda"), new HorarioEvento("cena"), new Personas(150, 10), "Aielo de Malferit", fecha, "Boda-Cena", "Sala1");
         Evento eventoExpected2 = new Evento("id2", new TipoEvento("comunion"), new HorarioEvento("cena"), new Personas(100, 10), "Aielo de Malferit", fecha, "Comunión-Cena", "Sala1");
-        Evento eventoExpected3 = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected3 = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         List<Evento> eventosExpected = new ArrayList<>();
         eventosExpected.add(eventoExpected1);
@@ -73,7 +73,7 @@ class EventoRepositoryIT {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento eventoExpected = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         assertEquals(eventoExpected, eventoRepository.findEventoById("id123"));
     }
@@ -107,7 +107,7 @@ class EventoRepositoryIT {
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
 
-        Evento eventoExpected = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoExpected = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         assertEquals(eventoExpected, eventoRepository.save(eventoExpected));
     }
@@ -121,7 +121,7 @@ class EventoRepositoryIT {
         Protagonista protagonista2 = new Protagonista(new TipoProtagonista("novioNovia"), new Persona("Antonio", "666777999", "antonio@correo.es"));
         protagonistas.add(protagonista1);
         protagonistas.add(protagonista2);
-        Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+        Evento eventoProtagonistas = new Evento("id123", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, protagonistas, "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
 
         eventoRepository.delete(eventoProtagonistas);
 

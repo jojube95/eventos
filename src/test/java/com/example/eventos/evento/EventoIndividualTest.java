@@ -22,7 +22,7 @@ class EventoIndividualTest {
     @BeforeEach
     public void initEach(){
         fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
-        eventoIndividual = new EventoIndividual("id", new TipoEvento("individual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, 80, 15, true, new ArrayList<>(), "Individual-Comida", "Sala1", new Distribucion("Distribucion"));
+        eventoIndividual = new EventoIndividual("id", new TipoEvento("individual"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", fecha, "descripcion", 80, 15, true, new ArrayList<>(), "Individual-Comida", "Sala1", new Distribucion("Distribucion"));
     }
 
     @Test

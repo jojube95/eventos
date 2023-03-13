@@ -152,7 +152,7 @@ public class EventosVerStepDef {
         assertEquals("4041€", evento1.get(11).getText());
 
         assertEquals("2022-07-10", evento2.get(0).getText());
-        assertEquals("Comunion-Comida", evento2.get(1).getText());
+        assertEquals("Comunión-Comida", evento2.get(1).getText());
         assertEquals("Comunión", evento2.get(2).getText());
         assertEquals("Comida", evento2.get(3).getText());
         assertEquals("Sala2", evento2.get(4).getText());
@@ -281,7 +281,7 @@ public class EventosVerStepDef {
         assertEquals(2, eventos.size());
 
         assertEquals("2022-07-10", evento1.get(0).getText());
-        assertEquals("Comunion-Comida", evento1.get(1).getText());
+        assertEquals("Comunión-Comida", evento1.get(1).getText());
         assertEquals("Comunión", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
         assertEquals("Sala2", evento1.get(4).getText());
@@ -460,7 +460,7 @@ public class EventosVerStepDef {
         assertEquals(1, eventos.size());
 
         assertEquals("2022-07-10", evento1.get(0).getText());
-        assertEquals("Comunion-Comida", evento1.get(1).getText());
+        assertEquals("Comunión-Comida", evento1.get(1).getText());
         assertEquals("Comunión", evento1.get(2).getText());
         assertEquals("Comida", evento1.get(3).getText());
         assertEquals("Sala2", evento1.get(4).getText());

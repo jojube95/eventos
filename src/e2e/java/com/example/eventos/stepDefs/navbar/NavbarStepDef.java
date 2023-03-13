@@ -39,6 +39,12 @@ public class NavbarStepDef {
         eventosNavbarButton.click();
     }
 
+    @When("^User click on graficos navbar$")
+    public void user_click_graficos_navbar() {
+        WebElement graficosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdownGraficos"));
+        graficosNavbarButton.click();
+    }
+
     @When("^User click on empleado navbar$")
     public void user_click_empleado_navbar() {
         WebElement empleadosNavbarButton = connector.getDriver().findElement(By.id("navbarDropdownEmpleados"));
@@ -69,6 +75,24 @@ public class NavbarStepDef {
         verNavbarButton.click();
     }
 
+    @When("^User click on barras navbar$")
+    public void user_click_ver_barras_navbar() {
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarGraficoBarras"));
+        verNavbarButton.click();
+    }
+
+    @When("^User click on tarta navbar$")
+    public void user_click_ver_tarta_navbar() {
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarGraficoPastel"));
+        verNavbarButton.click();
+    }
+
+    @When("^User click on dispersion navbar$")
+    public void user_click_ver_dispersion_navbar() {
+        WebElement verNavbarButton = connector.getDriver().findElement(By.id("navBarGraficoDispersion"));
+        verNavbarButton.click();
+    }
+
     @Then("^Calendar page is shown$")
     public void calendar_page_is_shown() {
         String url = connector.getDriver().getCurrentUrl();
@@ -84,6 +108,12 @@ public class NavbarStepDef {
     @Then("^Dropdown buttons empleado navbar is shown$")
     public void dropdown_navbar_empleado_buttons_is_shown() {
         WebElement navbarDropdownButtons = connector.getDriver().findElement(By.xpath("(//li[contains(@class,'nav-item dropdown')]//div)[2]"));
+        assertTrue(navbarDropdownButtons.isDisplayed());
+    }
+
+    @Then("^Dropdown buttons grafico navbar is shown$")
+    public void dropdown_navbar_grafico_buttons_is_shown() {
+        WebElement navbarDropdownButtons = connector.getDriver().findElement(By.xpath("(//li[contains(@class,'nav-item dropdown')]//div)[3]"));
         assertTrue(navbarDropdownButtons.isDisplayed());
     }
 
@@ -109,6 +139,24 @@ public class NavbarStepDef {
     public void redirect_to_empleados_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
         wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleados"));
+    }
+
+    @Then("^Ver barras page is shown$")
+    public void redirect_to_barras_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoBarras"));
+    }
+
+    @Then("^Ver tarta page is shown$")
+    public void redirect_to_tarta_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoPastel"));
+    }
+
+    @Then("^Ver dispersion page is shown$")
+    public void redirect_to_dispersion_page(){
+        WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoDispersion"));
     }
 
     @Then("^Redirect to login page$")

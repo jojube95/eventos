@@ -2,12 +2,13 @@ import {MesaFactory} from "../../factories/mesa/MesaFactory.js";
 import {updateMesaOnCanvas} from "../../distribucion.js";
 
 export class Evento {
-    constructor(id, tipo, titulo, personas, fecha) {
+    constructor(id, tipo, titulo, personas, fecha, descripcion) {
         this.id = id;
         this.tipo = tipo;
         this.titulo = titulo;
         this.personas = personas;
         this.fecha = fecha;
+        this.descripcion = descripcion;
     }
 
     getCalendarioTitulo() {

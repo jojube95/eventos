@@ -55,6 +55,10 @@ public class EventoService {
 
     }
 
+    public List<Evento> getEventosOrderByDate(){
+        return eventoRepository.findAllByOrderByFechaAsc();
+    }
+
     public Evento getById(String id) {
         return eventoRepository.findEventoById(id);
     }
