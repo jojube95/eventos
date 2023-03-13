@@ -128,7 +128,7 @@ class GraficoControllerTest {
         when(tipoEventoService.getTipoEventos()).thenReturn(tipoEventos);
         when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/graficoBarras")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/graficoPastel")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -172,7 +172,7 @@ class GraficoControllerTest {
         when(tipoEventoService.getTipoEventos()).thenReturn(tipoEventos);
         when(parametrosService.get()).thenReturn(new Parametros(20, 15, 0.3F, 15));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/graficoBarras")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/graficoDispersion")
                 .locale(new Locale("es", "ES"));
 
         String resultContent = this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
