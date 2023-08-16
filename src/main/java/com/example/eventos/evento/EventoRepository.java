@@ -13,4 +13,6 @@ public interface EventoRepository extends MongoRepository<Evento, String> {
     List<Evento> findByFechaBefore(Date date);
 
     List<Evento> findAllByOrderByFechaAsc();
+
+    List<Evento> findAllByFechaBetween(Date from, Date to);
 }

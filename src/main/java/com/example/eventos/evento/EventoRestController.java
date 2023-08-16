@@ -2,6 +2,9 @@ package com.example.eventos.evento;
 
 import com.example.eventos.personas.Personas;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 import static com.example.eventos.config.Constants.*;
 
 @RestController
@@ -19,5 +22,10 @@ public class EventoRestController {
         evento.setPersonas(personas);
         eventoService.update(evento);
         return evento;
+    }
+
+    @GetMapping("/api/eventos")
+    public List<Evento> getEventos(@RequestParam("year") int year){
+        return eventoService.getEventosByYear(year);
     }
 }
