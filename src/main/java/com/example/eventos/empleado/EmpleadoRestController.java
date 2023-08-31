@@ -28,4 +28,9 @@ public class EmpleadoRestController {
     public List<Empleado> getEmpleados(){
         return empleadoService.getEmpleados();
     }
+
+    @GetMapping("/api/empleado")
+    public Empleado getEmpleado(@RequestParam("id") String empleadoId){
+        return empleadoService.getById(empleadoId);
+    }
 }
