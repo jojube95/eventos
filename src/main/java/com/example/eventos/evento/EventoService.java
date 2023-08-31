@@ -10,13 +10,12 @@ import com.example.eventos.google.GoogleCalendarService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEvento.TipoEvento;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-
 import static com.example.eventos.config.Constants.EVENTO_TIPO_INDIVIDUAL;
 
 @Service
@@ -113,5 +112,9 @@ public class EventoService {
         Date to = new GregorianCalendar(year, Calendar.DECEMBER, 31).getTime();
 
         return eventoRepository.findAllByFechaBetween(from, to);
+    }
+
+    public AggregationResults<org.bson.Document> getEventoYears(){
+        return eventoRepository.findAllYears();
     }
 }
