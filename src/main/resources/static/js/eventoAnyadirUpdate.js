@@ -14,37 +14,15 @@ $( document ).ready(function() {
 
     evento = EventoFactory.crearEvento('', {value: tipoSelect.val()}, '', '', '');
 
-    generarTitulo(evento);
-
     $("#tipo, #horario").change(function() {
         evento = EventoFactory.crearEvento('', {value: tipoSelect.val()}, '', '', '');
-        generarTitulo(evento);
         rellenarPrecioNinyos(tipoSelect.val());
-    });
-
-    $("#titulo").change(function() {
-        anyadirHorario();
     });
 
     if(window.location.href.includes("eventoAnyadir")){
         rellenarPrecioNinyos(tipoSelect.val());
     }
 });
-
-function generarTitulo(evento){
-    let tituloInput = $('#titulo');
-    let selectedTipo = $("#tipo option:selected").text();
-    let selectedHorario = $("#horario option:selected").text();
-
-    evento.generarTitulo(tituloInput, selectedTipo, selectedHorario);
-}
-
-function anyadirHorario(){
-    let tituloInput = $('#titulo');
-    let selectedHorario = $("#horario option:selected").text();
-
-    tituloInput.val(tituloInput.val() + '-' + selectedHorario);
-}
 
 function rellenarPrecioNinyos(selectedTipo){
     let precioMenuNinyosInput = $('#precioMenuNinyos');

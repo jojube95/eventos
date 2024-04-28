@@ -8,9 +8,4 @@ export class EventoComunal extends Evento {
     getCalendarioColor() {
         return 'DarkSeaGreen';
     }
-
-    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
-        tituloInput.val('');
-        tituloInput.prop('readonly', false);
-    }
 }

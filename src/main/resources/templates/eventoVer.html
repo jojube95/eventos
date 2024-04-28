@@ -51,11 +51,12 @@
   </div>
   <div class="row">
     <div class="col">
-      <p th:text="#{evento.descripcion}" class="font-weight-bold"></p>
-      <p id="eventoDescripcion" th:text="${evento.descripcion}" class="font-weight-normal"></p>
+      <p th:text="#{evento.titulo}" class="font-weight-bold"></p>
+      <p id="eventoTitulo" th:text="${evento.titulo}" class="font-weight-normal"></p>
     </div>
     <div class="col">
-
+      <p th:text="#{evento.descripcion}" class="font-weight-bold"></p>
+      <p id="eventoDescripcion" th:text="${evento.descripcion}" class="font-weight-normal"></p>
     </div>
     <div class="col">
 
@@ -83,8 +84,7 @@
       <p id="eventoHorario" th:text="#{|horario.${evento.horario.value}|}" class="font-weight-normal"></p>
     </div>
     <div class="col">
-      <p th:text="#{evento.titulo}" class="font-weight-bold"></p>
-      <p id="eventoTitulo" th:text="${evento.titulo}" class="font-weight-normal"></p>
+
     </div>
   </div>
   <div class="row">
