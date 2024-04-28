@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let evento = info.event;
             let elemento = info.el;
 
-            $(elemento).tooltip({title: evento.extendedProps.descripcion});
+            $(elemento).tooltip({title: evento.extendedProps.descripcion ? evento.extendedProps.descripcion : ''});
         }
     });
     calendar.render();
