@@ -17,12 +17,15 @@
         <div class="form-row">
             <div class="col">
                 <div class="form-group required">
-                    <label class="control-label" for="descripcion">Descripción</label>
-                    <input type="text" class="form-control" id="descripcion" placeholder="Descripción" required name="descripcion" value="">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Título" required name="titulo" value="">
                 </div>
             </div>
             <div class="col">
-
+                <div class="form-group required">
+                    <label class="control-label" for="descripcion">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" placeholder="Descripción" required name="descripcion" value="">
+                </div>
             </div>
             <div class="col">
 
@@ -62,10 +65,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Título" required name="titulo" value="">
-                </div>
+
             </div>
         </div>
         <div class="form-row">
@@ -88,13 +88,13 @@
         </div>
         <div class="form-row">
             <div class="col">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="mayores">Mayores</label>
                     <input type="number" class="form-control" id="mayores" required name="personas.mayores" value="0">
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="precioMenu">Precio Menú</label>
                     <input type="number" step="0.01" class="form-control" id="precioMenu" required name="precioMenu" value="0.0">
                 </div>
@@ -105,13 +105,13 @@
         </div>
         <div class="form-row">
             <div class="col">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="ninyos">Niños</label>
                     <input type="number" class="form-control" id="ninyos" required name="personas.ninyos" value="0">
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="precioMenuNinyos">Precio Menú Niños</label>
                     <input type="number" step="0.01" class="form-control" id="precioMenuNinyos" required name="precioMenuNinyos" value="0.0">
                 </div>

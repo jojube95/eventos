@@ -39,31 +39,3 @@ Feature: Modificar evento page should update evento and show required fields wit
     When User remove fecha input
     And User click modificar evento
     Then Keep on eventoUpdate page
-
-  Scenario: When user select tipo to comunion or boda, titulo should be Comunion-Comida, readonly
-    Given Open Chrome and logIn as admin
-    And Visit eventoUpdate page
-    When User select tipo to comunion
-    Then Titulo should be Comunion-Cena
-    And Titulo should be readonly
-    When Visit eventoUpdate page
-    And User select horario to comida
-    Then Titulo should be Boda-Comida
-    And Titulo should be readonly
-
-  Scenario: When user select tipo to Evento individual or Evento comunal, titulo should be editable
-    Given Open Chrome and logIn as admin
-    And Visit eventoUpdate page
-    When User select tipo to Evento individual
-    Then Titulo should be editable
-    And Visit eventoUpdate page
-    When User select tipo to Evento comunal
-    Then Titulo should be editable
-
-  Scenario: When titulo is editable, and user edit titulo, when click off titulo, titulo fill with selected horario
-    Given Open Chrome and logIn as admin
-    And Visit eventoUpdate page
-    When User select tipo to Evento comunal
-    And User fill titulo input
-    And User click outside titulo input
-    Then Titulo fill with selected horario Sopar nadal-Cena

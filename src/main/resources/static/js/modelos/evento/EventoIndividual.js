@@ -140,9 +140,4 @@ export class EventoIndividual extends Evento {
             updateMesaOnCanvas(mesa);
         });
     }
-
-    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
-        tituloInput.val('');
-        tituloInput.prop('readonly', false);
-    }
 }
