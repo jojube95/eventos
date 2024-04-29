@@ -77,8 +77,8 @@ class EventoTest {
 
     @Test
     void toStringTest(){
-        assertEquals("Personas: 150\nLocalidad: Aielo de Malferit\nConfirmada: No", eventoNoProtagonistas.toString());
-        assertEquals("Personas: 50\nLocalidad: Olleria\nConfirmada: Sí", eventoProtagonistas.toString());
+        assertEquals("Descripción: null\nPersonas: 150\nLocalidad: Aielo de Malferit\nConfirmada: No", eventoNoProtagonistas.toString());
+        assertEquals("Descripción: descripcion\nPersonas: 50\nLocalidad: Olleria\nConfirmada: Sí", eventoProtagonistas.toString());
     }
 
     @Test
