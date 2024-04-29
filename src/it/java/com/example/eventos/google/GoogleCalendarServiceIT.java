@@ -24,6 +24,7 @@ class GoogleCalendarServiceIT {
     public void initEach(){
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         evento = new Evento(new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(150, 10), "Benetuser", fecha, "Boda-Comida", "Sala1");
+        evento.setDescripcion("Descripción");
         String eventoId = this.googleCalendarService.add(evento);
         evento.setId(eventoId);
     }
@@ -33,7 +34,7 @@ class GoogleCalendarServiceIT {
         Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
         assertEquals("Boda-Comida", eventoCalendar.getSummary());
-        assertEquals("Personas: 150\nLocalidad: Benetuser\nConfirmada: No", eventoCalendar.getDescription());
+        assertEquals("Descripción: Descripción\nPersonas: 150\nLocalidad: Benetuser\nConfirmada: No", eventoCalendar.getDescription());
         assertEquals(new EventDateTime().setDate(new DateTime("2022-07-25")), eventoCalendar.getStart());
         assertEquals(new EventDateTime().setDate(new DateTime("2022-07-26")), eventoCalendar.getEnd());
     }
@@ -41,6 +42,7 @@ class GoogleCalendarServiceIT {
     @Test
     void eventoIsUpdatedInGoogleCalendar() throws IOException {
         evento.setTitulo("Comunión-Cena");
+        evento.setDescripcion("Descripción2");
         evento.setPersonas(new Personas(99, 0));
         evento.setLocalidad("Olleria");
         evento.setConfirmado(true);
@@ -51,7 +53,7 @@ class GoogleCalendarServiceIT {
         Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
         assertEquals("Comunión-Cena", eventoCalendar.getSummary());
-        assertEquals("Personas: 99\nLocalidad: Olleria\nConfirmada: Sí", eventoCalendar.getDescription());
+        assertEquals("Descripción: Descripción2\nPersonas: 99\nLocalidad: Olleria\nConfirmada: Sí", eventoCalendar.getDescription());
         assertEquals(new EventDateTime().setDate(new DateTime("2022-07-28")), eventoCalendar.getStart());
         assertEquals(new EventDateTime().setDate(new DateTime("2022-07-29")), eventoCalendar.getEnd());
     }
