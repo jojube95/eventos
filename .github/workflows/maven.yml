@@ -37,6 +37,11 @@ jobs:
       - name: Maven Build and test
         env:
           PORT: ${{ secrets.PORT }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
+          CALENDAR_PRIVATE_KEY: ${{ secrets.CALENDAR_PRIVATE_KEY }}
+          CALENDAR_PRIVATE_KEY_ID: ${{ secrets.CALENDAR_PRIVATE_KEY_ID }}
         run: mvn --batch-mode clean verify
       - name: Sonar scan
         run: mvn --batch-mode sonar:sonar "-Dsonar.login=${{ secrets.SONAR_LOGIN }}"
