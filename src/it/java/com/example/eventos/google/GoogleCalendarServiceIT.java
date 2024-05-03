@@ -10,18 +10,29 @@ import com.google.api.services.calendar.model.EventDateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { GoogleCalendarService.class })
+@EnableConfigurationProperties
 class GoogleCalendarServiceIT {
-    private final GoogleCalendarService googleCalendarService = new GoogleCalendarService("5vtcks38679juuk2s0v86c37t4@group.calendar.google.com");
+
+    @Autowired
+    private GoogleCalendarService googleCalendarService;
     Evento evento;
 
     @BeforeEach
     public void initEach(){
+        googleCalendarService.init();
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         evento = new Evento(new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(150, 10), "Benetuser", fecha, "Boda-Comida", "Sala1");
         String eventoId = this.googleCalendarService.add(evento);
