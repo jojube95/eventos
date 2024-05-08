@@ -346,8 +346,16 @@
             </goals>
             <configuration>
               <parallel>methods</parallel>
-              <threadCount>4</threadCount>
+              <threadCount>1</threadCount>
               <failIfNoTests>true</failIfNoTests>
+              <systemPropertyVariables>
+                <propertyName>CALENDAR_ID</propertyName>
+                <propertyName>CALENDAR_PRIVATE_KEY</propertyName>
+                <propertyName>CALENDAR_PRIVATE_KEY_ID</propertyName>
+                <propertyName>MONGODB_DATABASE</propertyName>
+                <propertyName>MONGODB_URI</propertyName>
+                <propertyName>PORT</propertyName>
+              </systemPropertyVariables>
             </configuration>
           </execution>
         </executions>
@@ -375,16 +383,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>3.0.3</version>
-        <configuration>
-          <appName>eventos-prod</appName>
-        </configuration>
-
       </plugin>
 
       <plugin>
