@@ -248,7 +248,8 @@ public class Evento {
 
     @Override
     public String toString() {
-        return "Personas: " + personas.getMayores() + "\n" +
+        return "Descripción: " + descripcion + "\n" +
+                "Personas: " + personas.getMayores() + "\n" +
                 "Localidad: " + localidad + "\n" +
                 "Confirmada: " + (confirmado ? "Sí" : "No");
     }

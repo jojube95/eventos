@@ -31,6 +31,7 @@ public class WebConnector {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
+
         options.addArguments("--lang=es");
         options.addArguments("--remote-allow-origins=*");
 

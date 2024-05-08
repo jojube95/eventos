@@ -36,11 +36,15 @@ public class EventoAnyadirStepDef {
 
         WebElement descripcionInput = connector.getDriver().findElement(By.id("descripcion"));
 
+        WebElement tituloInput = connector.getDriver().findElement(By.id("titulo"));
+
         ((JavascriptExecutor) connector.getDriver()).executeScript("$('#fecha').datepicker('update', new Date(2022, 06, 06));");
 
         localidadInput.sendKeys("Benetuser");
 
         descripcionInput.sendKeys("Sopar de estiu");
+
+        tituloInput.sendKeys("Comunión-Comida");
     }
 
     @When("^User click tipo field$")

@@ -44,28 +44,15 @@ document.addEventListener('DOMContentLoaded', function() {
             ajaxCall("GET", "/evento/updateFecha", {eventoId: eventoId, fecha: nuevaFecha}, {}, function () {
                 $("#confirmModal").modal("show");
             });
+        },
+        eventDidMount: function (info) {
+            let evento = info.event;
+            let elemento = info.el;
+
+            $(elemento).tooltip({title: evento.extendedProps.descripcion ? evento.extendedProps.descripcion : ''});
         }
     });
     calendar.render();
-
-
-    const calendarControlBtns = Array.from(
-        document.querySelectorAll('.fc-header-toolbar button')
-    );
-
-    const handleNewInterval = (e) => {
-        const allEvents = Array.from(document.querySelectorAll('.fc-event-main'));
-
-        allEvents.forEach((singleEvent, index) => {
-            singleEvent.dataset.toggle = 'tooltip';
-
-            singleEvent.dataset.title = getEventDescription(singleEvent, index);
-        });
-        $('[data-toggle="tooltip"]').tooltip();
-    }
-    calendarControlBtns.forEach((singleControlBtn) => {
-        singleControlBtn.addEventListener('click', handleNewInterval);
-    });
 });
 
 function verClicked(eventoId){
