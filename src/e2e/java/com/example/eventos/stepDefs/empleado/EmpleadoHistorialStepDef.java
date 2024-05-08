@@ -20,7 +20,7 @@ public class EmpleadoHistorialStepDef {
     @Given("^Visit empleado historial page$")
     public void visit_empleado_historial_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/empleadoHistorial?empleadoId=6310ca5942c98257fb6f349d");
+        connector.getDriver().get("http://localhost:8080/empleadoHistorial?empleadoId=6310ca5942c98257fb6f349d");
     }
 
     @Given("^Set empleado historial dates to avoid future test fails$")

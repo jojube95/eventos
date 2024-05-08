@@ -29,7 +29,7 @@ public class EventosVerStepDef {
     @Given("^Visit eventosVer page$")
     public void visit_ver_eventos_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/eventosVer");
+        connector.getDriver().get("http://localhost:8080/eventosVer");
     }
 
     @Given("^Set dates to avoid future test fails$")
@@ -483,7 +483,7 @@ public class EventosVerStepDef {
     @Then("^Redirect to eventoVer page with currect evento$")
     public void redirect_to_ver_evento(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/eventoVer?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/eventoVer?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @And("^Fecha max is void$")

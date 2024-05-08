@@ -142,7 +142,6 @@ public class GoogleCalendarService {
                 "  \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/eventos%40eventos-356615.iam.gserviceaccount.com\"\n" +
                 "}";
 
-        System.out.println(jsonString);
         return jsonString;
     }
 }

@@ -23,7 +23,7 @@ public class EventoVerStepDef {
     @Given("^Visit eventoVer page$")
     public void visit_ver_evento_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/eventoVer?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get("http://localhost:8080/eventoVer?eventoId=62dc2a63ec628818203950b9");
     }
 
     @Then("^Event should display correct data$")
@@ -100,25 +100,25 @@ public class EventoVerStepDef {
     @Then("^Page should redirect to modificar page with currect evento$")
     public void redirect_to_calendar_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/eventoUpdate?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/eventoUpdate?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Page should redirect to mesas page with currect evento$")
     public void redirect_to_mesas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/mesas?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/evento/mesas?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Page should redirect to protagonistas page with currect evento$")
     public void redirect_to_protagonistas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/protagonistas?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/evento/protagonistas?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Page should redirect to empelados page with currect evento$")
     public void redirect_to_empleados_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/empleados?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/evento/empleados?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Calcular personas modal should display$")

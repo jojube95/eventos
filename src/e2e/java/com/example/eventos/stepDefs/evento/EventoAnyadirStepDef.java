@@ -27,7 +27,7 @@ public class EventoAnyadirStepDef {
     @Given("^Visit eventoAnyadir page$")
     public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/eventoAnyadir");
+        connector.getDriver().get("http://localhost:8080/eventoAnyadir");
     }
 
     @When("^User fill all fields$")
@@ -163,7 +163,7 @@ public class EventoAnyadirStepDef {
     @Then("^Redirect to calendar page$")
     public void redirect_to_calendar_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/calendario"));
         ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
     }
 
