@@ -361,13 +361,13 @@
             <profile>integration</profile>
           </profiles>
           <arguments>
-            <argument>--server.port=${PORT}</argument>
-            <argument>--spring.data.mongodb.uri=${MONGODB_URI}</argument>
-            <argument>--spring.data.mongodb.database=${MONGODB_DATABASE}</argument>
-            <argument>--spring.mongodb.embedded.version=3.5.5</argument>
-            <argument>--google.calenarId=${CALENDAR_ID}</argument>
-            <argument>--google.privateKey=${CALENDAR_PRIVATE_KEY}</argument>
-            <argument>--google.privateKeyId=${CALENDAR_PRIVATE_KEY_ID}</argument>
+            <argument>server.port=${PORT}</argument>
+            <argument>spring.data.mongodb.uri=${MONGODB_URI}</argument>
+            <argument>spring.data.mongodb.database=${MONGODB_DATABASE}</argument>
+            <argument>spring.mongodb.embedded.version=3.5.5</argument>
+            <argument>google.calenarId=${CALENDAR_ID}</argument>
+            <argument>google.privateKey=${CALENDAR_PRIVATE_KEY}</argument>
+            <argument>google.privateKeyId=${CALENDAR_PRIVATE_KEY_ID}</argument>
           </arguments>
         </configuration>
         <executions>
