@@ -25,7 +25,7 @@ public class EventoModificarStepDef {
     @Given("^Visit eventoUpdate page$")
     public void visit_update_evento_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8080/eventoUpdate?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get(connector.getBaseUrl() + "/eventoUpdate?eventoId=62dc2a63ec628818203950b9");
     }
 
     @When("^User click modificar evento$")

@@ -28,7 +28,7 @@ public class EventoEmpleadoStepDef {
     @Given("^Visit evento empleado page$")
     public void visit_evento_empleado_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8080/evento/empleados?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get(connector.getBaseUrl() + "/evento/empleados?eventoId=62dc2a63ec628818203950b9");
     }
 
     @Then("^Evento empleado data should be correct$")

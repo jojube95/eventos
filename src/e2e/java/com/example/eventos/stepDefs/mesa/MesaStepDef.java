@@ -24,7 +24,7 @@ public class MesaStepDef {
     @Given("^Visit mesas page$")
     public void visit_mesas_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8080/evento/mesas?eventoId=62dc2a96ec628818203950ba");
+        connector.getDriver().get(connector.getBaseUrl() + "/evento/mesas?eventoId=62dc2a96ec628818203950ba");
     }
 
     @Then("^Table display all mesas$")

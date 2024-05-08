@@ -16,15 +16,6 @@ public class WebConnector {
 
     @Before
     public void initSelenium() {
-        /*
-        if(System.getProperty("os.name").toLowerCase().contains("win")){
-            System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/windows/chromedriver.exe");
-        }
-        else {
-            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        }
-        */
-
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
@@ -66,5 +57,12 @@ public class WebConnector {
         System.out.println(inStream.readLine());
 
         System.out.println("Restored test database");
+    }
+
+    public String getBaseUrl(){
+        String baseUrl = "http://localhost";
+        String port = System.getenv("PORT");
+
+        return baseUrl + ":" + port;
     }
 }

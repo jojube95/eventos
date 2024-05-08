@@ -23,7 +23,7 @@ public class EmpleadoAnyadirStepDef {
     @Given("^Visit empleadoAnyadir page$")
     public void visit_calendar_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8080/empleadoAnyadir");
+        connector.getDriver().get(connector.getBaseUrl() + "/empleadoAnyadir");
     }
 
     @When("^User fill all empleado fields$")
@@ -69,7 +69,7 @@ public class EmpleadoAnyadirStepDef {
     @Then("^Redirect to empleados page$")
     public void redirect_to_calendar_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/empleados"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/empleados"));
     }
 
     @Then("^Created empleado is shown$")
