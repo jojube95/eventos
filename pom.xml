@@ -348,14 +348,6 @@
               <parallel>methods</parallel>
               <threadCount>1</threadCount>
               <failIfNoTests>true</failIfNoTests>
-              <systemPropertyVariables>
-                <propertyName>CALENDAR_ID</propertyName>
-                <propertyName>CALENDAR_PRIVATE_KEY</propertyName>
-                <propertyName>CALENDAR_PRIVATE_KEY_ID</propertyName>
-                <propertyName>MONGODB_DATABASE</propertyName>
-                <propertyName>MONGODB_URI</propertyName>
-                <propertyName>PORT</propertyName>
-              </systemPropertyVariables>
             </configuration>
           </execution>
         </executions>
@@ -368,6 +360,14 @@
           <profiles>
             <profile>integration</profile>
           </profiles>
+          <environmentVariables>
+            <CALENDAR_ID>${CALENDAR_ID}</CALENDAR_ID>
+            <CALENDAR_PRIVATE_KEY>${CALENDAR_PRIVATE_KEY}</CALENDAR_PRIVATE_KEY>
+            <CALENDAR_PRIVATE_KEY_ID>${CALENDAR_PRIVATE_KEY_ID}</CALENDAR_PRIVATE_KEY_ID>
+            <MONGODB_DATABASE>${MONGODB_DATABASE}</MONGODB_DATABASE>
+            <MONGODB_URI>${MONGODB_URI}</MONGODB_URI>
+            <PORT>${PORT}</PORT>
+          </environmentVariables>
         </configuration>
         <executions>
           <execution>
