@@ -132,8 +132,8 @@ public class GoogleCalendarService {
         String jsonString = "{\n" +
                 "  \"type\": \"service_account\",\n" +
                 "  \"project_id\": \"eventos-356615\",\n" +
-                "  \"private_key_id\":" + privateKeyId + ",\n" +
-                "  \"private_key\":" + privateKey + ",\n" +
+                "  \"private_key_id\":\"" + privateKeyId + "\",\n" +
+                "  \"private_key\":\"" + privateKey + "\",\n" +
                 "  \"client_email\": \"eventos@eventos-356615.iam.gserviceaccount.com\",\n" +
                 "  \"client_id\": \"103358250117767286325\",\n" +
                 "  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n" +
