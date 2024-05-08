@@ -40,31 +40,3 @@ Feature: Anyadir evento page should add evento and show required fields
     And User fill fecha input
     When User click add evento
     Then Keep on eventoAnyadir page
-
-  Scenario: When user select tipo to comunion or boda, titulo should be Comunion-Comida or Boda-Cena, readonly
-    Given Open Chrome and logIn as admin
-    And Visit eventoAnyadir page
-    When User select tipo to boda
-    And User select horario to cena
-    Then Titulo should be Boda-Cena
-    And Titulo should be readonly
-    When User select tipo to comunion
-    And User select horario to comida
-    Then Titulo should be Comunion-Comida
-    And Titulo should be readonly
-
-  Scenario: When user select tipo to Evento individual or Evento comunal, titulo should be editable
-    Given Open Chrome and logIn as admin
-    And Visit eventoAnyadir page
-    When User select tipo to Evento individual
-    Then Titulo should be editable
-    When User select tipo to Evento comunal
-    Then Titulo should be editable
-
-  Scenario: When titulo is editable, and user edit titulo, when click off titulo, titulo fill with selected horario
-    Given Open Chrome and logIn as admin
-    And Visit eventoAnyadir page
-    When User select tipo to Evento comunal
-    And User fill titulo input
-    And User click off titulo input
-    Then Titulo fill with selected horario

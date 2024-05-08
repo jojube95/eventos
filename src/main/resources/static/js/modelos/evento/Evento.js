@@ -125,9 +125,4 @@ export class Evento {
             updateMesaOnCanvas(mesa);
         });
     }
-
-    generarTitulo(tituloInput, selectedTipo, selectedHorario) {
-        tituloInput.val(selectedTipo + '-' + selectedHorario);
-        tituloInput.prop('readonly', true);
-    }
 }

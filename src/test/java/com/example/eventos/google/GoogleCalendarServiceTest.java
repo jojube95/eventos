@@ -28,7 +28,7 @@ class GoogleCalendarServiceTest {
 
         assertEquals("id", createdEvent.getId());
         assertEquals("Comunión-Comida", createdEvent.getSummary());
-        assertEquals("Personas: 50\n" + "Localidad: Olleria\n" + "Confirmada: Sí", createdEvent.getDescription());
+        assertEquals("Descripción: descripcion\n" + "Personas: 50\n" + "Localidad: Olleria\n" + "Confirmada: Sí", createdEvent.getDescription());
         assertEquals("2014-01-11", createdEvent.getStart().getDate().toString());
         assertEquals("2014-01-12", createdEvent.getEnd().getDate().toString());
     }
