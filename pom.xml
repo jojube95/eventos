@@ -360,14 +360,15 @@
           <profiles>
             <profile>integration</profile>
           </profiles>
-          <environmentVariables>
-            <CALENDAR_ID>${CALENDAR_ID}</CALENDAR_ID>
-            <CALENDAR_PRIVATE_KEY>${CALENDAR_PRIVATE_KEY}</CALENDAR_PRIVATE_KEY>
-            <CALENDAR_PRIVATE_KEY_ID>${CALENDAR_PRIVATE_KEY_ID}</CALENDAR_PRIVATE_KEY_ID>
-            <MONGODB_DATABASE>${MONGODB_DATABASE}</MONGODB_DATABASE>
-            <MONGODB_URI>${MONGODB_URI}</MONGODB_URI>
-            <PORT>${PORT}</PORT>
-          </environmentVariables>
+          <arguments>
+            <argument>--server.port=${PORT}</argument>
+            <argument>--spring.data.mongodb.uri=${MONGODB_URI}</argument>
+            <argument>--spring.data.mongodb.database=${MONGODB_DATABASE}</argument>
+            <argument>--spring.mongodb.embedded.version=3.5.5</argument>
+            <argument>--google.calenarId=${CALENDAR_ID}</argument>
+            <argument>--google.privateKey=${CALENDAR_PRIVATE_KEY}</argument>
+            <argument>--google.privateKeyId=${CALENDAR_PRIVATE_KEY_ID}</argument>
+          </arguments>
         </configuration>
         <executions>
           <execution>
