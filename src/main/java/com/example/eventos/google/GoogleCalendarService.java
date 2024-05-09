@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
@@ -44,7 +46,8 @@ public class GoogleCalendarService {
 
     final Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
 
-    public void init() {
+    @PostConstruct
+    private void init() {
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(generateJSONCredential(this.privateKeyId, this.privateKey).getBytes());
 

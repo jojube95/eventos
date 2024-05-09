@@ -32,7 +32,6 @@ class GoogleCalendarServiceIT {
 
     @BeforeEach
     public void initEach(){
-        googleCalendarService.init();
         Date fecha = new GregorianCalendar(2022, Calendar.JULY, 25).getTime();
         evento = new Evento(new TipoEvento("boda"), new HorarioEvento("comida"), new Personas(150, 10), "Benetuser", fecha, "Boda-Comida", "Sala1");
         evento.setDescripcion("Descripción");

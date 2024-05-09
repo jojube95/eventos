@@ -361,6 +361,9 @@
             <profile>integration</profile>
           </profiles>
           <addResources>true</addResources>
+          <arguments>
+            <argument>spring.mongodb.embedded.version=7.0.8</argument>
+          </arguments>
         </configuration>
         <executions>
           <execution>
