@@ -319,6 +319,10 @@
                   <name>spring.data.mongodb.database</name>
                   <value>test</value>
                 </property>
+                <property>
+                  <name>spring.mongodb.embedded.version</name>
+                  <value>3.5.5</value>
+                </property>
               </properties>
             </configuration>
           </execution>
