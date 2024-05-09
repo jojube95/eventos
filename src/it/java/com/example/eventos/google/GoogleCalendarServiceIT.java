@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { GoogleCalendarService.class })
-@EnableConfigurationProperties
 class GoogleCalendarServiceIT {
 
     @Autowired
