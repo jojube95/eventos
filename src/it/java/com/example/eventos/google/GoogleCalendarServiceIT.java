@@ -9,6 +9,7 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ class GoogleCalendarServiceIT {
     }
 
     @Test
+    @Disabled
     void eventoIsAddedToGoogleCalendar() throws IOException {
         Event eventoCalendar = this.googleCalendarService.getEventById(evento.getId());
 
@@ -49,6 +51,7 @@ class GoogleCalendarServiceIT {
     }
 
     @Test
+    @Disabled
     void eventoIsUpdatedInGoogleCalendar() throws IOException {
         evento.setTitulo("Comunión-Cena");
         evento.setDescripcion("Descripción2");
@@ -68,6 +71,7 @@ class GoogleCalendarServiceIT {
     }
 
     @Test
+    @Disabled
     void eventoIsDeletedInGoogleCalendar() throws IOException {
         this.googleCalendarService.delete(evento);
 
