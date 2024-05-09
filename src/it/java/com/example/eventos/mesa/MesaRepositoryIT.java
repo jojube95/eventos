@@ -15,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-@TestPropertySource(locations = "classpath:application-integration.properties")
 class MesaRepositoryIT {
 
     @Autowired

@@ -19,7 +19,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-@TestPropertySource(locations = "classpath:application-integration.properties")
 class EventoRepositoryIT {
 
     @Autowired
