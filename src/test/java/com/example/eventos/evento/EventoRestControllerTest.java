@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -79,5 +80,43 @@ class EventoRestControllerTest {
         this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
 
         verify(eventoService, times(1)).update(evento);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getEventosByYearTest() throws Exception {
+        Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
+        when(eventoService.getEventosByYear(2010)).thenReturn(List.of(evento));
+
+        String expectedResponse = "[{\"id\":\"id\",\"tipo\":{\"value\":\"comunion\"},\"horario\":{\"value\":\"comida\"},\"personas\":{\"mayores\":50,\"ninyos\":15},\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"sala\":\"Sala1\",\"descripcion\":\"descripcion\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"distribucion\":{\"mapa\":\"Distribucion\"},\"eventoWithMesasConReserva\":false}]";
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/api/eventos")
+                .with(csrf())
+                .param("year", String.valueOf(2010));
+
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
+
+        verify(eventoService, times(1)).getEventosByYear(2010);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getEventoTest() throws Exception {
+        Evento evento = new Evento("id", new TipoEvento("comunion"), new HorarioEvento("comida"), new Personas(50, 15), "Olleria", new GregorianCalendar(2010, Calendar.FEBRUARY, 3).getTime(), "descripcion", 80, 15, true, new ArrayList<>(), "Comunión-Comida", "Sala1", new Distribucion("Distribucion"));
+
+        when(eventoService.getById(evento.getId())).thenReturn(evento);
+
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"comunion\"},\"horario\":{\"value\":\"comida\"},\"personas\":{\"mayores\":50,\"ninyos\":15},\"localidad\":\"Olleria\",\"precioMenu\":80.0,\"precioMenuNinyos\":15.0,\"confirmado\":true,\"titulo\":\"ComuniÃ³n-Comida\",\"sala\":\"Sala1\",\"descripcion\":\"descripcion\",\"fecha\":\"2010-02-03T00:00:00.000+00:00\",\"protagonistas\":[],\"distribucion\":{\"mapa\":\"Distribucion\"},\"eventoWithMesasConReserva\":false}";
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/api/evento")
+                .with(csrf())
+                .param("id", evento.getId());
+
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
+
+        verify(eventoService, times(1)).getById(evento.getId());
     }
 }

@@ -198,4 +198,23 @@ class EventoServiceTest {
         verify(googleCalendarService, times(1)).delete(evento);
     }
 
+    @Test
+    void getEventosByYearTest(){
+        Usuario usuario = new Usuario("admin", "ADMIN", "ROLE_ADMIN");
+
+        Date from = new GregorianCalendar(2010, Calendar.JANUARY, 1).getTime();
+        Date to = new GregorianCalendar(2010, Calendar.DECEMBER, 31).getTime();
+
+        Authentication authentication = Mockito.mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        doReturn(usuario.getAuthorities()).when(authentication).getAuthorities();
+
+        eventoService.getEventosByYear(2010);
+        verify(eventoRepository, times(1)).findAllByFechaBetween(from, to);
+
+        Mockito.reset(authentication, securityContext);
+    }
+
 }

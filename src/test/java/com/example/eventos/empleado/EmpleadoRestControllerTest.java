@@ -12,6 +12,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -61,5 +64,42 @@ class EmpleadoRestControllerTest {
         empleado.setActivo(false);
 
         verify(empleadoService, times(1)).save(empleado);
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getEmpleadosTest() throws Exception {
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true, true);
+
+        when(empleadoService.getEmpleados()).thenReturn(List.of(empleado));
+
+        String expectedResponse = "[{\"id\":\"id\",\"tipo\":{\"value\":\"camarero\"},\"persona\":{\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"correo\":\"correo\"},\"fijo\":true,\"activo\":true,\"devantal\":true}]";
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/api/empleados")
+                .with(csrf());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
+
+        verify(empleadoService, times(1)).getEmpleados();
+    }
+
+    @Test
+    @WithMockUser(username="admin",roles={"ADMIN"})
+    void getEmpleadoTest() throws Exception {
+        Empleado empleado = new Empleado("id", new TipoEmpleado("camarero"), new Persona("nombre", "telefono", "correo"), true, true, true);
+
+        when(empleadoService.getById(empleado.getId())).thenReturn(empleado);
+
+        String expectedResponse = "{\"id\":\"id\",\"tipo\":{\"value\":\"camarero\"},\"persona\":{\"nombre\":\"nombre\",\"telefono\":\"telefono\",\"correo\":\"correo\"},\"fijo\":true,\"activo\":true,\"devantal\":true}";
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.get("/api/empleado")
+                .with(csrf())
+                .param("id", empleado.getId());
+
+        this.mockMvc.perform(mockRequest).andDo(print()).andExpect(status().isOk()).andExpect((content().string(expectedResponse)));
+
+        empleado.setActivo(false);
+
+        verify(empleadoService, times(1)).getById(empleado.getId());
     }
 }
