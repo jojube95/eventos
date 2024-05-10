@@ -46,7 +46,7 @@ public class WebConnector {
     public static void restoreTestDatabase() throws IOException {
         System.out.println("Restoring test database");
 
-        String command = "mongorestore --uri mongodb+srv://jojube95:holahola@cluster0.mlq4w.mongodb.net/test";
+        String command = "mongorestore --uri " + System.getenv("MONGODB_URI");
         String path = new File("src/e2e/resources/database/test").getAbsolutePath();
 
         String finalCommand = command + " " + path + " --drop --numInsertionWorkersPerCollection=10 --quiet";
