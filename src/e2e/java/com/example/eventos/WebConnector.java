@@ -2,6 +2,7 @@ package com.example.eventos;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,18 +16,14 @@ public class WebConnector {
 
     @Before
     public void initSelenium() {
-        if(System.getProperty("os.name").toLowerCase().contains("win")){
-            System.setProperty("webdriver.chrome.driver", "src/e2e/resources/drivers/windows/chromedriver.exe");
-        }
-        else {
-            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        }
+        WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--lang=es");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1400,800");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--lang=es");
         options.addArguments("--remote-allow-origins=*");
 
         driver = new ChromeDriver(options);
@@ -49,7 +46,7 @@ public class WebConnector {
     public static void restoreTestDatabase() throws IOException {
         System.out.println("Restoring test database");
 
-        String command = "mongorestore --uri mongodb+srv://jojube95:holahola@cluster0.mlq4w.mongodb.net/test";
+        String command = "mongorestore --uri " + System.getenv("MONGODB_URI");
         String path = new File("src/e2e/resources/database/test").getAbsolutePath();
 
         String finalCommand = command + " " + path + " --drop --numInsertionWorkersPerCollection=10 --quiet";
@@ -61,5 +58,12 @@ public class WebConnector {
         System.out.println(inStream.readLine());
 
         System.out.println("Restored test database");
+    }
+
+    public String getBaseUrl(){
+        String baseUrl = "http://localhost";
+        String port = System.getenv("PORT");
+
+        return baseUrl + ":" + port;
     }
 }

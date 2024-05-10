@@ -10,14 +10,12 @@ import com.example.eventos.google.GoogleCalendarService;
 import com.example.eventos.personas.Personas;
 import com.example.eventos.tipoEvento.TipoEvento;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 import static com.example.eventos.config.Constants.EVENTO_TIPO_INDIVIDUAL;
 
 @Service
@@ -107,5 +105,16 @@ public class EventoService {
         mesaRepository.deleteByEventoId(evento.getId());
         invitadoRepository.deleteByEventoId(evento.getId());
         googleCalendarService.delete(evento);
+    }
+
+    public List<Evento> getEventosByYear(int year){
+        Date from = new GregorianCalendar(year, Calendar.JANUARY, 1).getTime();
+        Date to = new GregorianCalendar(year, Calendar.DECEMBER, 31).getTime();
+
+        return eventoRepository.findAllByFechaBetween(from, to);
+    }
+
+    public AggregationResults<org.bson.Document> getEventoYears(){
+        return eventoRepository.findAllYears();
     }
 }

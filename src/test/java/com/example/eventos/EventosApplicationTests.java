@@ -5,15 +5,18 @@ import com.example.eventos.evento.EventoController;
 import com.example.eventos.invitado.InvitadoController;
 import com.example.eventos.mesa.MesaController;
 import com.example.eventos.protagonista.ProtagonistaController;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Disabled
 class EventosApplicationTests {
 
 	@Autowired

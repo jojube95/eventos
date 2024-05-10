@@ -13,9 +13,10 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
@@ -28,9 +29,15 @@ import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
 @Service
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "eventos";
-    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials/googleAccountService.json";
 
-    private final String calendarId;
+    @Value("${google.calenarId}")
+    private String calendarId;
+
+    @Value("${google.privateKeyId}")
+    private String privateKeyId;
+
+    @Value("${google.privateKey}")
+    private String privateKey;
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
@@ -38,12 +45,12 @@ public class GoogleCalendarService {
 
     final Logger logger = LoggerFactory.getLogger(GoogleCalendarService.class);
 
-    @Autowired
-    public GoogleCalendarService(@Value("${google.calenarId}") String calendarId) {
-        this.calendarId = calendarId;
-
+    @PostConstruct
+    private void init() {
         try {
-            GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH))
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(generateJSONCredential(this.privateKeyId, this.privateKey).getBytes());
+
+            GoogleCredential credential = GoogleCredential.fromStream(byteArrayInputStream)
                     .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
             // Build a new authorized API client service.
@@ -123,5 +130,18 @@ public class GoogleCalendarService {
         }
     }
 
-
+    private String generateJSONCredential(String privateKeyId, String privateKey) {
+        return "{\n" +
+                "  \"type\": \"service_account\",\n" +
+                "  \"project_id\": \"eventos-356615\",\n" +
+                "  \"private_key_id\":\"" + privateKeyId + "\",\n" +
+                "  \"private_key\":\"" + privateKey + "\",\n" +
+                "  \"client_email\": \"eventos@eventos-356615.iam.gserviceaccount.com\",\n" +
+                "  \"client_id\": \"103358250117767286325\",\n" +
+                "  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n" +
+                "  \"token_uri\": \"https://oauth2.googleapis.com/token\",\n" +
+                "  \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n" +
+                "  \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/eventos%40eventos-356615.iam.gserviceaccount.com\"\n" +
+                "}";
+    }
 }

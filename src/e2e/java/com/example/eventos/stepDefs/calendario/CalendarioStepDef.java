@@ -28,10 +28,10 @@ public class CalendarioStepDef {
   @Given("^Open Chrome and logIn as admin$")
   public void open_the_chrome_and_log_in_as_admin() {
     connector.getDriver().manage().window().maximize();
-    connector.getDriver().get("http://localhost:8081");
+    connector.getDriver().get(connector.getBaseUrl());
 
     WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-    wait.until(ExpectedConditions.urlToBe("http://localhost:8081/login"));
+    wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/login"));
 
     WebElement username = connector.getDriver().findElement(By.id("username"));
     WebElement password = connector.getDriver().findElement(By.id("password"));
@@ -42,20 +42,20 @@ public class CalendarioStepDef {
     loginButton.click();
 
     WebDriverWait wait2 = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-    wait2.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+    wait2.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/calendario"));
   }
 
   @Given("^Visit calendar page$")
   public void visit_calendar_page() {
     connector.getDriver().manage().window().maximize();
-    connector.getDriver().get("http://localhost:8081/calendario");
+    connector.getDriver().get(connector.getBaseUrl() + "/calendario");
     ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
   }
 
   @Given("^Visit root page$")
   public void visit_root_page() {
     connector.getDriver().manage().window().maximize();
-    connector.getDriver().get("http://localhost:8081");
+    connector.getDriver().get(connector.getBaseUrl() + "");
   }
 
   @When("^User click last month$")
@@ -119,7 +119,7 @@ public class CalendarioStepDef {
   @Then("^Page should redirect to calendar page$")
   public void should_redirect_to_calendar_page() {
     WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-    wait.until(ExpectedConditions.urlToBe("http://localhost:8081/calendario"));
+    wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/calendario"));
     ((JavascriptExecutor) connector.getDriver()).executeScript("goToDate(new Date(2022, 06, 01));");
   }
 

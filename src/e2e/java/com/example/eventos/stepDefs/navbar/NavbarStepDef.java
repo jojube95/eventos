@@ -132,37 +132,37 @@ public class NavbarStepDef {
     @Then("^Anyadir empleado page is shown$")
     public void redirect_to_anyadir_empleados_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleadoAnyadir"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/empleadoAnyadir"));
     }
 
     @Then("^Ver empleados page is shown$")
     public void redirect_to_empleados_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleados"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/empleados"));
     }
 
     @Then("^Ver barras page is shown$")
     public void redirect_to_barras_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoBarras"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/graficoBarras"));
     }
 
     @Then("^Ver tarta page is shown$")
     public void redirect_to_tarta_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoPastel"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/graficoPastel"));
     }
 
     @Then("^Ver dispersion page is shown$")
     public void redirect_to_dispersion_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/graficoDispersion"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/graficoDispersion"));
     }
 
     @Then("^Redirect to login page$")
     public void redirect_to_login_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/login?logout"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/login?logout"));
     }
 
     @And("^Logout message shows$")

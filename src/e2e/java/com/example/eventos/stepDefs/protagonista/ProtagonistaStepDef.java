@@ -25,7 +25,7 @@ public class ProtagonistaStepDef {
     @Given("^Visit protagonistas page$")
     public void visit_ver_eventos_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/evento/protagonistas?eventoId=62dc2a63ec628818203950b9");
+        connector.getDriver().get(connector.getBaseUrl() + "/evento/protagonistas?eventoId=62dc2a63ec628818203950b9");
     }
 
     @When("^User click add button$")
@@ -86,13 +86,13 @@ public class ProtagonistaStepDef {
     @Then("^Redirect to protagonista anyadir page$")
     public void redirect_to_add_protagonista_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/protagonistas/anyadir?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/evento/protagonistas/anyadir?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @Then("^Redirect to protagonistas page$")
     public void redirect_to_protagonistas_page(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/evento/protagonistas?eventoId=62dc2a63ec628818203950b9"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/evento/protagonistas?eventoId=62dc2a63ec628818203950b9"));
     }
 
     @And("^Added protagonista should display$")

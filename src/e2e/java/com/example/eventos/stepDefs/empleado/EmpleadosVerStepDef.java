@@ -24,7 +24,7 @@ public class EmpleadosVerStepDef {
     @Given("^Visit empleados page$")
     public void visit_ver_eventos_page() {
         connector.getDriver().manage().window().maximize();
-        connector.getDriver().get("http://localhost:8081/empleados");
+        connector.getDriver().get(connector.getBaseUrl() + "/empleados");
     }
 
     @When("^User click on modificar empleado$")
@@ -91,13 +91,13 @@ public class EmpleadosVerStepDef {
     @Then("^Page should redirect to modificar empleado page$")
     public void redirect_to_ver_modificar_empleado(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleadoUpdate?empleadoId=6310ca5942c98257fb6f349d"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/empleadoUpdate?empleadoId=6310ca5942c98257fb6f349d"));
     }
 
     @Then("^Page should redirect to historial empleado page$")
     public void redirect_to_historial_empleado(){
         WebDriverWait wait = new WebDriverWait(connector.getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8081/empleadoHistorial?empleadoId=6310ca5942c98257fb6f349d"));
+        wait.until(ExpectedConditions.urlToBe(connector.getBaseUrl() + "/empleadoHistorial?empleadoId=6310ca5942c98257fb6f349d"));
     }
 
     @Then("^Eliminar empleado confirm modal should show$")
