@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.8.6-openjdk-8-slim AS build
+FROM maven:3.8.1-openjdk-17-slim AS build
 ARG MONGODB_URI
 ENV MONGODB_URI ${MONGODB_URI}
 COPY src /home/app/src

@@ -29,7 +29,6 @@ import static com.example.eventos.config.Constants.EVENTO_FECHA_FORMAT;
 @Service
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "eventos";
-    private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials/googleAccountService.json";
 
     @Value("${google.calenarId}")
     private String calendarId;
@@ -132,7 +131,7 @@ public class GoogleCalendarService {
     }
 
     private String generateJSONCredential(String privateKeyId, String privateKey) {
-        String jsonString = "{\n" +
+        return "{\n" +
                 "  \"type\": \"service_account\",\n" +
                 "  \"project_id\": \"eventos-356615\",\n" +
                 "  \"private_key_id\":\"" + privateKeyId + "\",\n" +
@@ -144,7 +143,5 @@ public class GoogleCalendarService {
                 "  \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n" +
                 "  \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/eventos%40eventos-356615.iam.gserviceaccount.com\"\n" +
                 "}";
-
-        return jsonString;
     }
 }
