@@ -13,6 +13,10 @@ public class Constants {
     public static final String PROTAGONISTAS_VER_PAGE = "protagonistasVer";
     public static final String PROTAGONISTA_ANYADIR_PAGE = "protagonistaAnyadir";
 
+    public static final String PLATOS_PAGE = "platos";
+    public static final String PLATO_ANYADIR_PAGE = "platoAnyadir";
+    public static final String PLATO_UPDATE_PAGE = "platoUpdate";
+
     public static final String EVENTO = "evento";
     public static final String EVENTOS = "eventos";
     public static final String EVENTO_ID = "eventoId";
@@ -75,6 +79,12 @@ public class Constants {
     public static final String GRAFICOS_BARRAS_PAGE = "graficoBarras";
     public static final String GRAFICOS_PASTEL_PAGE = "graficoPastel";
     public static final String GRAFICOS_DISPERSION_PAGE = "graficoDispersion";
+
+    public static final String PLATO_ID = "platoId";
+
+    public static final String ATTRIBUTE_TIPOS_PLATO = "tipos";
+
+    public static final String PLATO = "plato";
 
 
 }

@@ -1,0 +1,55 @@
+<div class="form-row" th:fragment="tipo">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{plato.tipo}" for="tipo"></label>
+            <select th:field="*{tipo.value}" class="form-control" id="tipo">
+                <option th:each="tipo: ${tipos}" th:id="${tipo.value}" th:value="${tipo.value}" th:text="#{|tipoPlato.${tipo.value}|}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<div class="form-row" th:fragment="nombrePrecio">
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{plato.nombre}" class="control-label" for="nombre"></label>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombre" th:placeholder="#{plato.nombre}" required>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{plato.precio}" class="control-label" for="precio"></label>
+            <input type="number" th:field="*{precio}" class="form-control" id="precio" th:placeholder="#{plato.precio}" required>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<div class="form-row" th:fragment="individualRaciones">
+    <div class="col">
+        <div class="form-group">
+            <label th:text="#{plato.individual}" for="individual"></label>
+            <select th:field="*{individual}" class="form-control" id="individual">
+                <option id="optionSi" th:text="#{si}" value="true"></option>
+                <option id="optionNo" th:text="#{no}" value="false"></option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group required">
+            <label th:text="#{plato.racionesPersona}" class="control-label" for="racionesPersona"></label>
+            <input type="number" th:field="*{racionesPersona}" class="form-control" id="racionesPersona" th:placeholder="#{plato.racionesPersona}" required>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+</div>

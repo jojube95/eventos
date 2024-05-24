@@ -31,6 +31,13 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
+                        <a th:text="#{platos}" class="nav-link dropdown-toggle" href="#" id="navbarDropdownPlatos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a th:text="#{anyadir}" id="navBarPlatosAnyadir" class="dropdown-item" href="/platosAnyadir"></a>
+                            <a th:text="#{ver}" id="navBarPlatosVer" class="dropdown-item" href="/platos"></a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a th:text="#{graficos}" class="nav-link dropdown-toggle" href="#" id="navbarDropdownGraficos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a th:text="#{graficoBarras}" id="navBarGraficoBarras" class="dropdown-item" href="/graficoBarras"></a>
